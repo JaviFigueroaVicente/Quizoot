@@ -11,6 +11,7 @@ import { installI18n, loadMessages } from "./plugins/i18n";
 import { langStore } from "@/store/lang";
 import './plugins/axios.js';
 
+
 /*PRIMEVUE */
 import PrimeVue from "primevue/config";
 import Accordion from 'primevue/accordion';

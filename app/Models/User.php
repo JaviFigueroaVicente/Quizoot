@@ -51,7 +51,7 @@ class User extends Authenticatable implements HasMedia
 
     public function assignaments()
     {
-        return $this->hasMany(UserAssignment::class,'user_id');
+        return $this->hasMany(User::class,'user_id');
     }
 
 

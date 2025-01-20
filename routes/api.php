@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\PostControllerAdvance;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\api\UsuariosController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Http\Request;
@@ -59,3 +60,7 @@ Route::post('note', [NoteController::class, 'store'])->name('note.store');
 Route::get('note/{id}', [NoteController::class, 'show'])->name('note.show');
 Route::put('note/{id}', [NoteController::class, 'update'])->name('note.update');
 Route::delete('note/{id}', [NoteController::class, 'destroy'])->name('note.destroy');
+
+Route::get('usuarios',[UsuariosController::class, 'index'])->name('usuarios.index');
+Route::post('usuarios', [UsuariosController::class, 'store'])->name('usuarios.store');
+Route::delete('usuarios/{usuario}', [UsuariosController::class, 'destroy'])->name('usuarios.destroy');

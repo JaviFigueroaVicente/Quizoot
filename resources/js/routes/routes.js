@@ -253,6 +253,19 @@ export default [
                     }
                 ]
             },
+            {
+                name: 'usuarios',
+                path: 'usuarios',
+                meta: { breadCrumb: 'Usuarios'},
+                children: [
+                    {
+                        name: 'usuarios.index',
+                        path: '',
+                        component: () => import('../views/admin/usuarios/index.vue'),
+                        meta: { breadCrumb: 'Usuarios' }
+                    }
+                ]
+            },
 
             //TODO Organizar rutas
             {
