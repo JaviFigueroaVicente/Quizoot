@@ -61,6 +61,8 @@ Route::get('note/{id}', [NoteController::class, 'show'])->name('note.show');
 Route::put('note/{id}', [NoteController::class, 'update'])->name('note.update');
 Route::delete('note/{id}', [NoteController::class, 'destroy'])->name('note.destroy');
 
-Route::get('usuarios',[UsuariosController::class, 'index'])->name('usuarios.index');
-Route::post('usuarios', [UsuariosController::class, 'store'])->name('usuarios.store');
-Route::delete('usuarios/{usuario}', [UsuariosController::class, 'destroy'])->name('usuarios.destroy');
+Route::get('usuarios',[UsuariosController::class, 'index']);
+Route::post('usuarios', [UsuariosController::class, 'store']);
+Route::delete('usuarios/{usuario}', [UsuariosController::class, 'destroy']);
+Route::get('usuarios/{usuario}', [UsuariosController::class, 'show']);
+Route::put('usuarios/{usuario}', [UsuariosController::class, 'update']);

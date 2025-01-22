@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Usuarios extends Model
 {
-    
     use HasFactory;
+
+    protected $table = 'usuarios';
+    protected $primaryKey = 'id';
+    public $timestamps = false;
+
+    protected $guarded = [
+        
+    ];
 }

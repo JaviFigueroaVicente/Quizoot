@@ -1,36 +1,62 @@
 <template>
-    <h1>Hola</h1>
     {{ usuarios }}
     <h2>{{ test }}</h2>
-    <input v-model="test">
-    <DataTable :value="usuarios" paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]"  tableStyle=" min-width: 50rem">
-        <Column field="id" header="ID"></Column>
-        <Column field="name" header="Nombre"></Column>
-        <Column field="surname" header="Apellido"></Column>
-        <Column field="email" header="Email"></Column>
-    </DataTable>
-
-    <li v-for="usuario in usuarios" :key="usuario.id">
-        {{ usuario.name }}
-    </li>
+    <input v-model="test" />
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="usuario in usuarios" :key="usuario.id">
+                <td>{{ usuario.id }}</td>
+                <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.surname }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>
+                    <router-link :to="{ name: 'usuarios.edit', params: { id: usuario.id } }" class="me-2">
+                        <i class="pi pi-pencil"></i>
+                    </router-link>
+                    <a @click.prevent="deleteUsuario(usuario.id)"><i class="pi pi-trash"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </template>
 
 <script setup>
-    import {ref, onMounted} from "vue";
+import { ref, onMounted } from "vue";
+import axios from "axios";
 
-    const usuarios = ref([]);
+const usuarios = ref([]);
+const test = ref('hola');
 
-    onMounted( () => {
-        axios.get('/api/usuarios')
-            .then (response => {
-                usuarios.value = response.data.data;
-                console.log(response.data.data);
+onMounted(() => {
+    axios.get('/api/usuarios')
+        .then(response => {
+            usuarios.value = response.data.data;
+            console.log(response.data.data);
+        });
+});
+
+const deleteUsuario = (id) => {
+    if (confirm("¿Seguro que quieres eliminar este usuario?")) {
+        axios.delete(`/api/usuarios/${id}`)
+            .then(() => {
+                usuarios.value = usuarios.value.filter((usuario) => usuario.id !== id);
             })
-    });
-    const test = ref('hola');
-
+            .catch((error) => {
+                console.error("Error al eliminar usuario:", error);
+            });
+    }
+};
 </script>
 
 <style scoped>
-    
-</style>s
+/* Styles (if needed) */
+</style>
