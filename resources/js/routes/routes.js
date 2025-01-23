@@ -261,14 +261,20 @@ export default [
                     {
                         name: 'usuarios.index',
                         path: '',
-                        component: () => import('../views/admin/usuarios/Index.vue'),
+                        component: () => import('../views/admin/usuarios/index.vue'),
                         meta: { breadCrumb: 'Usuarios' }
                     },
                     {
                         name: 'usuarios.edit',
                         path: 'edit/:id',
                         component: () => import('../views/admin/usuarios/Edit.vue'),
-                        meta: { breadCrumb: '' }
+                        meta: { breadCrumb: 'Editar' }
+                    },
+                    {
+                        name: 'usuarios.create',
+                        path: 'create',
+                        component: () => import('../views/admin/usuarios/Create.vue'),
+                        meta: { breadCrumb: 'Crear' }
                     }
                 ]
             },

@@ -7,6 +7,7 @@ use App\Models\Usuarios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+
 class UsuariosController extends Controller
 {
     public function index()
@@ -76,9 +77,9 @@ class UsuariosController extends Controller
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nombre' => ['required','max:255'],
+            'nombre' => ['required','max:50'],
             'email' => ['required'],
-            'surname' => 'required|min:8'
+            'surname' => 'required'
         ]);
 
         $data = $validator->validated();
