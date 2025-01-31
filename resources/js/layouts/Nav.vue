@@ -12,24 +12,24 @@
                 </ul>
                 <ul class="navbar-nav mt-2 mt-lg-0 ms-auto">
                         <li class="nav-item">
-                            <router-link to="/" class="nav-link" aria-current="page">{{ $t('home') }}</router-link>
+                            <router-link to="/" class="nav-link" aria-current="page"><Button severity="help" variant="text">{{ $t('home') }}</Button></router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link :to="{ name : 'public-posts.index'}" class="nav-link">Blog</router-link>
+                            <router-link :to="{ name : 'public-posts.index'}" severity="help" class="nav-link"><Button severity="help" variant="text">Blog</Button></router-link>
                         </li>
                     <template v-if="!authStore().user?.name">
                         <li class="nav-item">
                             <router-link class="nav-link" to="/login"
-                            >{{ $t('login') }}</router-link
+                            ><Button severity="help" variant="text">{{ $t('login') }}</Button></router-link
                             >
                         </li>
                         <li class="nav-item">
-                            <router-link class="nav-link" to="/register">{{ $t('register') }}</router-link>
+                            <router-link class="nav-link" to="/register"><Button severity="help" variant="text">{{ $t('register') }}</Button></router-link>
                         </li>
                     </template>
                     <li v-if="authStore().user?.name" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ authStore().user?.name }}
+                            <Button severity="help" variant="text">{{ authStore().user?.name }}</Button>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><router-link class="dropdown-item" to="/admin">Admin</router-link></li>
@@ -52,3 +52,15 @@ import { authStore } from "../store/auth";
 
 const { processing, logout } = useAuth();
 </script>
+
+<style scoped>
+.p-button-text.p-button-help {
+    color: #000000;
+}
+.navbar-nav .nav-link.active{
+    color: #913595;
+    background-color: #d8bfd8;
+    border-radius: 10px;
+}
+
+</style>
