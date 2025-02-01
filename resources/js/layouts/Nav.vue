@@ -1,43 +1,36 @@
 <template>
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
-            <router-link to="/" class="navbar-brand">DAW 2</router-link>
-            <a class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </a>
-
+            <router-link to="/" class="navbar-brand"><img src="images/Nav/Logo.webp" alt="Logo" class="logo-nav"></router-link>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mt-2 mt-lg-0 me-auto mb-2 mb-lg-0">
-                    <LocaleSwitcher />
+                    <li class="nav-item">
+                        <router-link to="/" class="nav-link" aria-current="page"><Button variant="text" class="button-jugar">Jugar</Button></router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link :to="{ name : 'public-posts.index'}" severity="help" class="nav-link"><Button severity="help" variant="text">Formularios</Button></router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link :to="{ name : 'public-posts.index'}" severity="help" class="nav-link"><Button severity="help" variant="text">Crear Formulario</Button></router-link>
+                    </li>               
+                    <li class="nav-item">
+                        <router-link :to="{ name : 'public-posts.index'}" severity="help" class="nav-link"><Button severity="help" variant="text">Rankings</Button></router-link>
+                    </li>
                 </ul>
-                <ul class="navbar-nav mt-2 mt-lg-0 ms-auto">
-                        <li class="nav-item">
-                            <router-link to="/" class="nav-link" aria-current="page"><Button severity="help" variant="text">{{ $t('home') }}</Button></router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link :to="{ name : 'public-posts.index'}" severity="help" class="nav-link"><Button severity="help" variant="text">Blog</Button></router-link>
-                        </li>
-                    <template v-if="!authStore().user?.name">
-                        <li class="nav-item">
-                            <router-link class="nav-link" to="/login"
-                            ><Button severity="help" variant="text">{{ $t('login') }}</Button></router-link
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <router-link class="nav-link" to="/register"><Button severity="help" variant="text">{{ $t('register') }}</Button></router-link>
-                        </li>
-                    </template>
-                    <li v-if="authStore().user?.name" class="nav-item dropdown">
+                <ul class="navbar-nav mt-2 mt-lg-0 ms-auto nav-right">    
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <Button severity="help" variant="text">{{ authStore().user?.name }}</Button>
+                            <button><img src="images/Nav/PerfilSinFoto.webp" alt="Foto Perfil"></button>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
+                            <li><router-link class="dropdown-item" to="/perfil">Perfil</router-link></li>
                             <li><router-link class="dropdown-item" to="/admin">Admin</router-link></li>
-                            <li><router-link to="/admin/posts" class="dropdown-item">Post</router-link></li>
+                            <li><router-link to="/admin/posts" class="dropdown-item">Mis formularios</router-link></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="javascript:void(0)" @click="logout">Logout</a></li>
                         </ul>
                     </li>
+                    <LocaleSwitcher />
                 </ul>
             </div>
         </div>
@@ -54,6 +47,10 @@ const { processing, logout } = useAuth();
 </script>
 
 <style scoped>
+li, button{
+    font-size: 20px;
+    font-weight: 500;
+}
 .p-button-text.p-button-help {
     color: #000000;
 }
@@ -63,4 +60,36 @@ const { processing, logout } = useAuth();
     border-radius: 10px;
 }
 
+.logo-nav{
+    width: 75x;
+    height: 75px;
+}
+
+.nav-right{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.nav-right img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.nav-right button{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.button-jugar{
+    color: #ffffff;
+    border-radius: 10px;
+    background-color: #874ECA;
+}
+
+.button-jugar:hover{
+    background-color: #402462 !important;
+    color: #ffffff !important;
+}
 </style>
