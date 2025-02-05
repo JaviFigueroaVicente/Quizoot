@@ -1,7 +1,7 @@
 <template>
     <div class="layout-wrapper" :class="containerClass">
-        <app-topbar></app-topbar>
-
+        
+        <Navbar></Navbar>
         <div class="layout-sidebar">
             <Menu :model="items" class="w-full md:w-13rem menu border-0" appendTo="self">
                 <template #start>
@@ -69,7 +69,7 @@ import { authStore } from "../store/auth";
 import { useRoute, useRouter } from "vue-router";
 import Breadcrumb from 'primevue/breadcrumb';
 
-import AppTopbar from './AppTopbar.vue';
+import Navbar from './Nav.vue';
 import AppFooter from './AppFooter.vue';
 import { useLayout } from '../composables/layout';
 

@@ -1,6 +1,6 @@
 <template>
     <div class="layout-wrapper" :class="containerClass">
-        <app-topbar></app-topbar>
+        <Navbar class="navbar"></Navbar>
         <div class="layout-sidebar">
             <app-sidebar></app-sidebar>
         </div>
@@ -46,7 +46,7 @@ import { computed, watch, ref } from 'vue';
 import { useRoute } from "vue-router";
 import Breadcrumb from 'primevue/breadcrumb';
 
-import AppTopbar from './AppTopbar.vue';
+import Navbar from './Nav.vue';
 import AppFooter from './AppFooter.vue';
 import AppSidebar from './AppSidebar.vue';
 import { useLayout } from '../composables/layout';
@@ -136,5 +136,18 @@ const isOutsideClicked = (event) => {
 <style lang="scss">
 .bread{
     padding:.1rem;
+}
+.layout-sidebar{
+    margin-top: 1em;
+}
+
+.layout-main-container {
+    padding: 1rem 1rem 2rem 2rem;
+}
+
+.navbar{
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 </style>

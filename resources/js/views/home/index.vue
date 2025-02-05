@@ -51,10 +51,10 @@
         <section class="section-comenzar">
             <div class="card mb-8">
                 <div class="row g-0">
-                    <div class="col-md-6">
+                    <div class="col-md-6 div-foto">
                         <img src="images/Home/cohete.webp" class="img-fluid rounded-start" alt="...">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 div-body">
                         <div class="card-body">
                             <h5 class="card-title">¿LISTO PARA COMENZAR?</h5>
                             <p class="card-text">Preparado para llegar al top 1 del ranking?</p>
@@ -194,29 +194,59 @@
     /* SECTION COMENZAR */
     
     .section-comenzar{
-        margin-top: 10%;
+        margin-top: 7.5%;
         background-color: #402462;
         display: flex;
         justify-content: center;
-        padding-bottom: 10%;
+        padding-bottom: 5%;
     }
 
     .section-comenzar .card{
-        margin-top: 10%;
-        opacity: 0.75;
+        margin-top: 7.5%;
         border-radius: 15px;   
         padding: 0;    
         width: 70%;
-        height: 60%;
+        height: 500px;
+        max-height: 500px;
+        background-color: rgba(255, 255, 255, 0.7)
     }
-
     .section-comenzar .row{
-        width: 70%;
-    }
-
-    .section-comenzar img{
         height: 100%;
     }
 
+    .section-comenzar .card .div-foto{
+        width: 40%;
+    }
+
+    .section-comenzar img{
+        height: 104%;   
+        width: 103%;
+        margin-left: -3%;
+        margin-top: -0.5%;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+    }
+
+    .section-comenzar .card-body{
+        display: flex;
+        height: 100%;
+        align-items: center;
+        justify-content: space-around;
+        flex-direction: column;
+        margin-left: 10%;
+    }
     
+    .section-comenzar h5{
+        color: #874ECA;
+        font-size: 3rem;
+        font-weight: bolder;
+        margin-top: 10%;
+        margin-bottom: 5%;
+    }
+
+    .section-comenzar button{
+        width: 75%;
+        margin-bottom: 10%;
+    }
+
 </style>
