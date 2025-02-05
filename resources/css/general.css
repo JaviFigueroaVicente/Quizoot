@@ -15,3 +15,13 @@
 h1, h2, h5, button{
     font-family: "Atma";
 }
+
+.button-action{
+    color: #ffffffff;
+    background-color: #874eca;
+    border: none;
+}
+
+.button-action:hover{
+    background-color: #402462;
+}
