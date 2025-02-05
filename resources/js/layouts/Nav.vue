@@ -8,7 +8,7 @@
                         <router-link to="/" class="nav-link" aria-current="page"><Button variant="text" class="button-jugar">Jugar</Button></router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link :to="{ name : 'public-posts.index'}" severity="help" class="nav-link"><Button severity="help" variant="text">Crear Formulario</Button></router-link>
+                        <router-link :to="{ name : 'public-posts.index'}" severity="help" class="nav-link"><Button severity="help" variant="text">Formularios</Button></router-link>
                     </li>               
                     <li class="nav-item">
                         <router-link :to="{ name : 'public-posts.index'}" severity="help" class="nav-link"><Button severity="help" variant="text">Rankings</Button></router-link>

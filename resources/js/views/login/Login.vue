@@ -1,59 +1,60 @@
 <template>
     <div class="fondo">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body">
-                        <form @submit.prevent="submitLogin">
-                            <div class="">
-                                <!-- Email -->
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">{{ $t('email') }}</label>
-                                    <input v-model="loginForm.email" id="email" type="email" class="form-control" required autofocus autocomplete="username">
-                                    <!-- Validation Errors -->
-                                    <div class="text-danger mt-1">
-                                        <div v-for="message in validationErrors?.email">
-                                            {{ message }}
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <form @submit.prevent="submitLogin">
+                                <div class="">
+                                    <span class="title">LOG IN</span>
+                                    <!-- Email -->
+                                    <div class="mb-3 mt-3">
+                                        <label for="email" class="form-label">{{ $t('email') }}</label>
+                                        <input v-model="loginForm.email" id="email" type="email" class="form-control" required autofocus autocomplete="username">
+                                        <!-- Validation Errors -->
+                                        <div class="text-danger mt-1">
+                                            <div v-for="message in validationErrors?.email">
+                                                {{ message }}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Password -->
-                                <div class="mb-4">
-                                    <label for="password" class="form-label">
-                                        {{ $t('password') }}
-                                    </label>
-                                    <input v-model="loginForm.password" id="password" type="password" class="form-control" required autocomplete="current-password">
-                                    <!-- Validation Errors -->
-                                    <div class="text-danger-600 mt-1">
-                                        <div v-for="message in validationErrors?.password">
-                                            {{ message }}
+                                    <!-- Password -->
+                                    <div class="mb-4">
+                                        <label for="password" class="form-label">
+                                            {{ $t('password') }}
+                                        </label>
+                                        <input v-model="loginForm.password" id="password" type="password" class="form-control" required autocomplete="current-password">
+                                        <!-- Validation Errors -->
+                                        <div class="text-danger-600 mt-1">
+                                            <div v-for="message in validationErrors?.password">
+                                                {{ message }}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Remember me -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" v-model="loginForm.remember" id="flexCheckIndeterminate">
-                                    <label class="form-check-label" for="flexCheckIndeterminate">
-                                        {{ $t('remember_me') }}
-                                    </label>
-                                </div>
+                                    <!-- Remember me -->
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="remember" v-model="loginForm.remember" id="flexCheckIndeterminate">
+                                        <label class="form-check-label" for="flexCheckIndeterminate">
+                                            {{ $t('remember_me') }}
+                                        </label>
+                                    </div>
 
-                                <!-- Buttons -->
-                                <div class="flex items-center justify-end mt-4 mb-4">
-                                    <button class="btn btn-primary button-action" :class="{ 'opacity-25': processing }" :disabled="processing">
-                                        {{ $t('login') }}
-                                    </button>
+                                    <!-- Buttons -->
+                                    <div class="flex items-center justify-end mt-4 mb-4">
+                                        <button class="btn btn-primary button-action" :class="{ 'opacity-25': processing }" :disabled="processing">
+                                            {{ $t('login') }}
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                            <router-link :to="{name: 'auth.forgot-password'}">{{ $t('forgot_password')}}</router-link>
-                        </form>
+                                <router-link :to="{name: 'auth.forgot-password'}">{{ $t('forgot_password')}}</router-link>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </template>
 
 <script setup>
@@ -65,6 +66,13 @@ const { loginForm, validationErrors, processing, submitLogin } = useAuth();
 </script>
 
 <style scoped>
+
+.title{
+    color: #874eca;
+    font-family: "Atma";
+    font-size: 40px;
+    font-weight: bold;
+}
 
 .fondo {
     background-image: url("images/Home/Fondo_Home.webp");
@@ -95,10 +103,17 @@ html, body {
 }
 
 .card {
-    margin-top: 150px;
+    margin-top: 130px;
     z-index: 2; /* Asegura que el contenido (como las tarjetas) esté por encima de la capa de fondo */
 }
 
+input {
+    border-color: #874eca;
+}
 
+.form-control:focus{
+    border: none;
+    box-shadow: 0 0 0 0.15rem rgb(64, 36, 98, 0.85);
+}
 
 </style>
