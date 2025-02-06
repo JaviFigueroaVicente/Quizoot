@@ -16,17 +16,17 @@ const logoUrl = computed(() => {
             <!-- Columna 1 -->
             <div class="col-md-2 mb-3">
                 <ul class="list-unstyled">
-                    <li><a href="#" class="footer-link">About</a></li>
-                    <li><a href="#" class="footer-link">Sobre Nosotros</a></li>
-                    <li><a href="#" class="footer-link">Contáctanos</a></li>
+                    <li class="mb-2"><a href="#" class="footer-link">About</a></li>
+                    <li class="mb-2"><a href="#" class="footer-link">Sobre Nosotros</a></li>
+                    <li class="mb-2"><a href="#" class="footer-link">Contáctanos</a></li>
                 </ul>
             </div>
             <!-- Columna 2 (Ahora alineada a la izquierda también) -->
             <div class="col-md-6 mb-3">
                 <ul class="list-unstyled">
-                    <li><a href="#" class="footer-link">Recourses</a></li>
-                    <li><a href="#" class="footer-link">Formularios</a></li>
-                    <li><a href="#" class="footer-link">Rankings</a></li>
+                    <li class="mb-2"><a href="#" class="footer-link">Recourses</a></li>
+                    <li class="mb-2"><a href="#" class="footer-link">Formularios</a></li>
+                    <li class="mb-2"><a href="#" class="footer-link">Rankings</a></li>
                 </ul>
             </div>
         </div>
@@ -89,7 +89,7 @@ footer {
 /* Título "Síguenos" */
 .footer-title {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 18px;
     margin-right: 10px;
 }
 

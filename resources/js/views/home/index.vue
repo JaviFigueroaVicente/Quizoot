@@ -15,7 +15,7 @@
                         <img src="images/Home/play.webp" class="card-img-top play" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Jugar <img src="images/icons/play.svg" class="icon" alt=""></h5>
-                            <p class="card-text">Selecciona un formulario de una infinidad de categorías y mídete con el resto de jugadores.</p>
+                            <p class="card-text">Elige un formulario de muchas categorías y compite con otros jugadores para ganar.</p>
                         </div>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                         <img src="images/Home/pencil.webp" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Crear <img src="images/icons/pencil.svg" class="icon" alt=""></h5>
-                            <p class="card-text">Crea tu propio formulario personalizado y pon a prueba a los conocimientos de la comunidad.</p>
+                            <p class="card-text">Diseña un formulario personalizado y reta a la comunidad a demostrar su conocimiento.</p>
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                         <img src="images/Home/trophy.webp" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Ranking <img src="images/icons/trophy.svg" class="icon" alt=""></h5>
-                            <p class="card-text">Comparate con el resto de jugadores en un ranking global, o escoge un formulario para descubrir tu mejor puntuación.</p>
+                            <p class="card-text">Consulta el ranking global y descubre tu mejor puntuación en cada formulario.</p>
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                         <img src="images/Home/form.webp" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Random <img src="images/icons/dice.svg" class="icon" alt=""></h5>
-                            <p class="card-text">Nosotros escogemos por ti! Prueba cuánto sabes de una categoría aleatoria.</p>
+                            <p class="card-text">Déjanos elegir por ti y demuestra cuánto sabes en una categoría aleatoria.</p>
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                     <div class="col-md-6 div-body">
                         <div class="card-body">
                             <h5 class="card-title">¿LISTO PARA COMENZAR?</h5>
-                            <p class="card-text">Preparado para llegar al top 1 del ranking?</p>
+                            <p class="card-text">Es tu momento de demostrar lo que sabes, superar desafíos y escalar posiciones hasta convertirte en el número uno del ranking.</p>
                             <button class="button-aprende">CONTESTAR FORMULARIO</button>
                         </div>
                     </div>
