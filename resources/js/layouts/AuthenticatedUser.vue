@@ -55,10 +55,11 @@
                     <router-view></router-view>
 <!--                </Suspense>-->
             </div>
-            <app-footer></app-footer>
+            
         </div>
 
         <div class="layout-mask"></div>
+        <app-footer></app-footer>
     </div>
 </template>
 
@@ -80,7 +81,7 @@ const router = useRouter();
 
 const home = ref({
     icon: 'pi pi-home',
-    route: '/app'
+    route: '/'
 });
 
 const crumbs = computed(() => {
@@ -207,10 +208,6 @@ const isOutsideClicked = (event) => {
 </script>
 
 <style lang="scss">
-.bread{
-    padding:.1rem;
-}
-
 .menu {
     padding: 0;
     border: 0;
@@ -221,7 +218,22 @@ const isOutsideClicked = (event) => {
     border: 0;
 }
 
-.layout-sidebar {
-    padding: 0.5rem 0.5rem
+.bread{
+    padding:.1rem;
+}
+.layout-sidebar{
+    margin-top: 1.5em;
+    overflow-x: hidden;
+    height: 50vh;
+}
+
+.layout-main-container {
+    padding: 1rem 1rem 2rem 2rem;
+}
+
+.navbar{
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 </style>

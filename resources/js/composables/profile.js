@@ -1,9 +1,13 @@
 import { ref, inject } from 'vue'
 import { useRouter } from 'vue-router'
 
+
 export default function useProfile() {
     const profile = ref({
+        alias: '',
         name: '',
+        surname1: '',
+        surname2: '',
         email: '',
     })
 
@@ -22,7 +26,7 @@ export default function useProfile() {
         isLoading.value = true
         validationErrors.value = {}
 
-        axios.put('/api/user', profile)
+        axios.put('/api/profile', profile)
             .then(({data}) => {
                 if (data.success) {
                     auth.user.value=data.data

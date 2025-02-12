@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
-            <router-link to="/" class="navbar-brand"><img src="images/Nav/Logo.webp" alt="Logo" class="logo-nav"></router-link>
+            <router-link to="/" class="navbar-brand"><img src="/images/Nav/Logo.webp" alt="Logo" class="logo-nav"></router-link>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mt-2 mt-lg-0 me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
@@ -17,10 +17,10 @@
                 <ul class="navbar-nav mt-2 mt-lg-0 ms-auto nav-right">    
                     <li v-if="authStore().user?.name" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <button><img src="images/Nav/PerfilSinFoto.webp" alt="Foto Perfil"></button>
+                            <button><img src="/images/Nav/PerfilSinFoto.webp" alt="Foto Perfil"></button>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><router-link class="dropdown-item" to="/perfil">Perfil</router-link></li>
+                            <li><router-link class="dropdown-item" to="/app/profile">Perfil</router-link></li>
                             <li><router-link class="dropdown-item" to="/admin">Admin</router-link></li>
                             <li><router-link to="/admin/posts" class="dropdown-item">Mis formularios</router-link></li>
                             <li><hr class="dropdown-divider"></li>
@@ -115,7 +115,8 @@ nav .container{
 }
 
 .button-login:hover{
-    border: 1px solid #402462;
-    background-color: rgba(135, 78, 202, 0.2);
+    border: 1px solid #000000;
+    background-color: var(--p-button-text-help-hover-background);
+    color: var(--p-button-text-help-color);
 }
 </style>
