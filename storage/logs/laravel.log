@@ -1,0 +1,3 @@
+[2025-02-12 18:07:29] production.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-02-12 18:07:32] production.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-02-12 18:07:44] production.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
