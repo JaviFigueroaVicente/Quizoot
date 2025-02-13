@@ -8,39 +8,32 @@
                             <form @submit.prevent="submitLogin">
                                 <div class="">
                                     <span class="title">LOG IN</span>
-                                    <!-- Email -->
                                     <div class="mb-3 mt-3">
                                         <label for="email" class="form-label">{{ $t('email') }}</label>
                                         <input v-model="loginForm.email" id="email" type="email" class="form-control" required autofocus autocomplete="username">
-                                        <!-- Validation Errors -->
                                         <div class="text-danger mt-1">
                                             <div v-for="message in validationErrors?.email">
                                                 {{ message }}
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Password -->
                                     <div class="mb-4">
                                         <label for="password" class="form-label">
                                             {{ $t('password') }}
                                         </label>
                                         <input v-model="loginForm.password" id="password" type="password" class="form-control" required autocomplete="current-password">
-                                        <!-- Validation Errors -->
                                         <div class="text-danger-600 mt-1">
                                             <div v-for="message in validationErrors?.password">
                                                 {{ message }}
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Remember me -->
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="remember" v-model="loginForm.remember" id="flexCheckIndeterminate">
                                         <label class="form-check-label" for="flexCheckIndeterminate">
                                             {{ $t('remember_me') }}
                                         </label>
                                     </div>
-
-                                    <!-- Buttons -->
                                     <div class="flex items-center justify-end mt-4 mb-4">
                                         <button class="btn btn-primary button-action" :class="{ 'opacity-25': processing }" :disabled="processing">
                                             {{ $t('login') }}
@@ -75,7 +68,7 @@ const { loginForm, validationErrors, processing, submitLogin } = useAuth();
 }
 
 .fondo {
-    background-image: url("images/Home/Fondo_Home.webp");
+    background-image: url("/images/Home/Fondo_Home.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -92,8 +85,8 @@ const { loginForm, validationErrors, processing, submitLogin } = useAuth();
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Color negro con 80% de transparencia */
-    z-index: 1; /* Se asegura de que la capa de transparencia esté encima de la imagen */
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
 }
 
 html, body {
@@ -104,7 +97,7 @@ html, body {
 
 .card {
     margin-top: 130px;
-    z-index: 2; /* Asegura que el contenido (como las tarjetas) esté por encima de la capa de fondo */
+    z-index: 2;
 }
 
 input {
@@ -114,6 +107,16 @@ input {
 .form-control:focus{
     border: none;
     box-shadow: 0 0 0 0.15rem rgb(64, 36, 98, 0.85);
+}
+.btn:focus-visible{
+    background-color: #402462;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.btn:first-child:active{
+    background-color: #402462;
+    box-shadow: none;
 }
 
 </style>

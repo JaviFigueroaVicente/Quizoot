@@ -112,14 +112,18 @@ export default [
     {
         path: '/app',
         component: AuthenticatedUserLayout,
-        // redirect: {
-        //     name: 'admin.index'
-        // },
-        name: 'app',
         beforeEnter: requireLogin,
-        meta: { breadCrumb: 'Dashboard' }
-    },
+            children:[
+            {
+                name: 'profile.index',
+                path: 'profile',
+                meta: { breadCrumb: 'Profile' },
+                component: () => import('../views/profile/index.vue'),
 
+                
+            }
+        ]
+    },
 
     {
         path: '/admin',
@@ -136,12 +140,7 @@ export default [
                 component: () => import('../views/admin/index.vue'),
                 meta: { breadCrumb: 'Admin' }
             },
-            {
-                name: 'profile.index',
-                path: 'profile',
-                component: () => import('../views/admin/profile/index.vue'),
-                meta: { breadCrumb: 'Profile' }
-            },
+            
             {
                 name: 'posts.index',
                 path: 'posts',

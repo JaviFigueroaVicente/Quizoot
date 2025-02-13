@@ -26,19 +26,17 @@
 
 
             </div>
-
-
-
             <div class="layout-main">
                 <Suspense>
                     <router-view></router-view>
                 </Suspense>
             </div>
-            <app-footer></app-footer>
+            
         </div>
 
         <div class="layout-mask"></div>
     </div>
+    <app-footer></app-footer>
 </template>
 
 <script setup>
@@ -133,12 +131,14 @@ const isOutsideClicked = (event) => {
 
 </script>
 
-<style lang="scss">
+<style scoped>
 .bread{
     padding:.1rem;
 }
 .layout-sidebar{
-    margin-top: 1em;
+    margin-top: 1.5em;
+    height: 50vh;
+    overflow-x: hidden;
 }
 
 .layout-main-container {

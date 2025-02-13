@@ -47,6 +47,7 @@ class UserController extends Controller
     {
         $role = Role::find($request->role_id);
         $user = new User();
+        $user->alias = $request->alias;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->surname1 = $request->surname1;
@@ -85,6 +86,7 @@ class UserController extends Controller
     {
         $role = Role::find($request->role_id);
 
+        $user->alias = $request->alias;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->surname1 = $request->surname1;

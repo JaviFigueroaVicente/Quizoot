@@ -12,36 +12,36 @@
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 <div class="col">
                     <div class="card">
-                        <img src="images/Home/play.webp" class="card-img-top play" alt="...">
+                        <img src="/images/Home/play.webp" class="card-img-top play" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Jugar <img src="images/icons/play.svg" class="icon" alt=""></h5>
+                            <h5 class="card-title">Jugar <img src="/images/icons/play.svg" class="icon" alt=""></h5>
                             <p class="card-text">Elige un formulario de muchas categorías y compite con otros jugadores para ganar.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card">
-                        <img src="images/Home/pencil.webp" class="card-img-top" alt="...">
+                        <img src="/images/Home/pencil.webp" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Crear <img src="images/icons/pencil.svg" class="icon" alt=""></h5>
+                            <h5 class="card-title">Crear <img src="/images/icons/pencil.svg" class="icon" alt=""></h5>
                             <p class="card-text">Diseña un formulario personalizado y reta a la comunidad a demostrar su conocimiento.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card">
-                        <img src="images/Home/trophy.webp" class="card-img-top" alt="...">
+                        <img src="/images/Home/trophy.webp" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Ranking <img src="images/icons/trophy.svg" class="icon" alt=""></h5>
+                            <h5 class="card-title">Ranking <img src="/images/icons/trophy.svg" class="icon" alt=""></h5>
                             <p class="card-text">Consulta el ranking global y descubre tu mejor puntuación en cada formulario.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card">
-                        <img src="images/Home/form.webp" class="card-img-top" alt="...">
+                        <img src="/images/Home/form.webp" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Random <img src="images/icons/dice.svg" class="icon" alt=""></h5>
+                            <h5 class="card-title">Random <img src="/images/icons/dice.svg" class="icon" alt=""></h5>
                             <p class="card-text">Déjanos elegir por ti y demuestra cuánto sabes en una categoría aleatoria.</p>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
             <div class="card mb-8">
                 <div class="row g-0">
                     <div class="col-md-6 div-foto">
-                        <img src="images/Home/cohete.webp" class="img-fluid rounded-start" alt="...">
+                        <img src="/images/Home/cohete.webp" class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-md-6 div-body">
                         <div class="card-body">

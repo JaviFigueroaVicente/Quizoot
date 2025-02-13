@@ -7,9 +7,16 @@ use App\Http\Requests\UpdateProfileRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
+
+    public function index(User $user){
+        $user = Auth::user();
+        return $this->successResponse($user, 'User found');
+
+    }
     /**
      * @throws ValidationException
      */

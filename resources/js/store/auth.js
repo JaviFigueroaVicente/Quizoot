@@ -27,10 +27,15 @@ export const authStore = defineStore("authStore", () => {
             authenticated.value = false
         })
     }
+
+    function setUser(updatedUser) {
+        user.value = { ...user.value, ...updatedUser };
+    }
+
     function logout() {
         user.value = {}
         authenticated.value = false
     }
 
-    return { user, authenticated, login, getUser, logout};
+    return { user, authenticated, login, getUser, logout, setUser};
 }, {persist: true});
