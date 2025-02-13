@@ -117,10 +117,20 @@ export default [
             {
                 name: 'profile.index',
                 path: 'profile',
-                meta: { breadCrumb: 'Profile' },
-                component: () => import('../views/profile/index.vue'),
-
-                
+                children : [
+                    {
+                        name: 'admin.index',
+                        path: '',
+                        component: () => import('../views/profile/index.vue'),
+                        meta: { breadCrumb: 'Profile' }
+                    },
+                    {
+                        name: 'profile.edit',
+                        path: 'edit',
+                        component: () => import('../views/profile/edit.vue'),
+                        meta: { breadCrumb: 'Edit profile' }
+                    }
+                ]
             }
         ]
     },
