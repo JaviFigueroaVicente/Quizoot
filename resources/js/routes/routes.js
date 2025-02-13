@@ -3,9 +3,9 @@ import { authStore } from "../store/auth";
 const AuthenticatedLayout = () => import('../layouts/Authenticated.vue')
 const AuthenticatedUserLayout = () => import('../layouts/AuthenticatedUser.vue')
 const GuestLayout = ()  => import('../layouts/Guest.vue');
-const PostsIndex  = ()  => import('../views/admin/posts/Index.vue');
-const PostsCreate  = ()  => import('../views/admin/posts/Create.vue');
-const PostsEdit  = ()  => import('../views/admin/posts/Edit.vue');
+const postsIndex  = ()  => import('../views/admin/posts/Index.vue');
+const postsCreate  = ()  => import('../views/admin/posts/Create.vue');
+const postsEdit  = ()  => import('../views/admin/posts/Edit.vue');
 
 async function requireLogin(to, from, next) {
     const auth = authStore();
@@ -61,12 +61,30 @@ export default [
         // redirect: { name: 'login' },
         component: GuestLayout,
         children: [
-
+            {
+                name: 'forms',
+                path: 'forms',
+                children : [
+                    {
+                        name: 'forms.index',
+                        path: '',
+                        component: () => import('../views/forms/index.vue'),
+                        meta: { breadCrumb: 'Forms' }
+                    },
+                    {
+                        name: 'forms.details',
+                        path: 'details',
+                        component: () => import('../views/forms/details.vue'),
+                        meta: { breadCrumb: 'Form Details' }
+                    }
+                ],
+            },
             {
                 path: '/',
                 name: 'home',
                 component: () => import('../views/home/index.vue'),
             },
+            
             {
                 path: 'posts',
                 name: 'public-posts.index',
@@ -117,11 +135,22 @@ export default [
             {
                 name: 'profile.index',
                 path: 'profile',
-                meta: { breadCrumb: 'Profile' },
-                component: () => import('../views/profile/index.vue'),
-
-                
-            }
+                children : [
+                    {
+                        name: 'admin.index',
+                        path: '',
+                        component: () => import('../views/profile/index.vue'),
+                        meta: { breadCrumb: 'Profile' }
+                    },
+                    {
+                        name: 'profile.edit',
+                        path: 'edit',
+                        component: () => import('../views/profile/edit.vue'),
+                        meta: { breadCrumb: 'Edit profile' }
+                    }
+                ],
+            },
+            
         ]
     },
 
@@ -140,23 +169,22 @@ export default [
                 component: () => import('../views/admin/index.vue'),
                 meta: { breadCrumb: 'Admin' }
             },
-            
             {
                 name: 'posts.index',
                 path: 'posts',
-                component: PostsIndex,
-                meta: { breadCrumb: 'Posts' }
+                component: postsIndex,
+                meta: { breadCrumb: 'posts' }
             },
             {
                 name: 'posts.create',
                 path: 'posts/create',
-                component: PostsCreate,
+                component: postsCreate,
                 meta: { breadCrumb: 'Add new post' }
             },
             {
                 name: 'posts.edit',
                 path: 'posts/edit/:id',
-                component: PostsEdit,
+                component: postsEdit,
                 meta: { breadCrumb: 'Edit post' }
             },
             {
