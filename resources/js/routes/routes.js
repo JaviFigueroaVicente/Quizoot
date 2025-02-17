@@ -131,25 +131,25 @@ export default [
         path: '/app',
         component: AuthenticatedUserLayout,
         beforeEnter: requireLogin,
-            children:[
-            {
-                name: 'profile.index',
-                path: 'profile',
-                children : [
-                    {
-                        name: 'admin.index',
-                        path: '',
-                        component: () => import('../views/profile/index.vue'),
-                        meta: { breadCrumb: 'Profile' }
-                    },
-                    {
-                        name: 'profile.edit',
-                        path: 'edit',
-                        component: () => import('../views/profile/edit.vue'),
-                        meta: { breadCrumb: 'Edit profile' }
-                    }
-                ],
-            },
+        children:[
+        {
+            name: 'profile',
+            path: 'profile',
+            children : [
+                {
+                    name: 'profile.index',
+                    path: '',
+                    component: () => import('../views/profile/index.vue'),
+                    meta: { breadCrumb: 'Profile' }
+                },
+                {
+                    name: 'profile.edit',
+                    path: 'edit',
+                    component: () => import('../views/profile/Edit.vue'),
+                    meta: { breadCrumb: 'Edit profile' }
+                }
+            ],
+        },
             
         ]
     },

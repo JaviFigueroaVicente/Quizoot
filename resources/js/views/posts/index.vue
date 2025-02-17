@@ -1,18 +1,14 @@
 <template>
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <title>Formularios - Quizoot</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    </head>
-    <body>
-        <header class="text-center py-3 mt-3 mb-1 title ">
-            <h1 class="fw-bold">Formularios</h1>
-        </header>
     
-        <main class="container my-2">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <div class="text-center">
+            <h1>Formularios</h1>
+        </div>
+    
+        <section class="container">
             <div class="dropdown">
-                <button class="btn btn-light me-2 btn-hover-lila" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-light btn-hover-lila" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     +
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -28,6 +24,7 @@
                 </ul>
                 <span>Categorías</span>
             </div>
+            <FormCards></FormCards>
                 
             <div class="row row-cols-3 g-4 mt-3">
                 <!-- Tarjetas de formularios con imágenes -->
@@ -90,28 +87,19 @@
             <div class="mt-4 mb-4">
                 <Paginator :rows="9" :totalRecords="90" :rowsPerPageOptions="[5, 10, 15, 20]" :pageLinkSize="3"></Paginator>
             </div>            
-        </main>
-    </body>
-    </html>
+        </section>
+
 </template>
 
 <script setup>
 
 import Paginator from 'primevue/paginator';
-
+import FormCards from '@/components/FormCards.vue';
 </script>
 
 <style scoped>
-    /* Estilos generales */
-    body {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        background-color: #f5f5f5;
-        color: #000000;
-    }
-
-    .title{
+    h1{
         color: #874ECA;
-        font-family: "Atma";
     }
 
     /* Cambiar el color del "+" al hacer hover */
