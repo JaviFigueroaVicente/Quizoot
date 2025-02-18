@@ -10,7 +10,7 @@
                 </router-link>
             </div>
             <div class="col">
-                <router-link to="/app/profile/edit">
+                <router-link to="/app/form/create">
                     <div>
                         <img src="/images/icons/crear_form.svg" alt="">
                         <h4>Crear Formulario</h4>                    

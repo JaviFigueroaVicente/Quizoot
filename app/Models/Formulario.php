@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 
-class Formulario extends Model implements
+class Formulario extends Model
 {
     use HasFactory;
 }

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5fc6ac1de102957c6c424a28f5b9ce10
+class ComposerStaticInitce661e0f579fbfd76feb6acea3c999a0
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -412,8 +412,8 @@ class ComposerStaticInit5fc6ac1de102957c6c424a28f5b9ce10
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -663,6 +663,7 @@ class ComposerStaticInit5fc6ac1de102957c6c424a28f5b9ce10
         'App\\Models\\Author' => __DIR__ . '/../..' . '/app/Models/Author.php',
         'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
         'App\\Models\\CommentExercise' => __DIR__ . '/../..' . '/app/Models/CommentExercise.php',
+        'App\\Models\\Formulario' => __DIR__ . '/../..' . '/app/Models/Formulario.php',
         'App\\Models\\Note' => __DIR__ . '/../..' . '/app/Models/Note.php',
         'App\\Models\\Post' => __DIR__ . '/../..' . '/app/Models/Post.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
@@ -7176,10 +7177,10 @@ class ComposerStaticInit5fc6ac1de102957c6c424a28f5b9ce10
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5fc6ac1de102957c6c424a28f5b9ce10::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5fc6ac1de102957c6c424a28f5b9ce10::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit5fc6ac1de102957c6c424a28f5b9ce10::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit5fc6ac1de102957c6c424a28f5b9ce10::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitce661e0f579fbfd76feb6acea3c999a0::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitce661e0f579fbfd76feb6acea3c999a0::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitce661e0f579fbfd76feb6acea3c999a0::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitce661e0f579fbfd76feb6acea3c999a0::$classMap;
 
         }, null, ClassLoader::class);
     }
