@@ -52,6 +52,7 @@ return array(
     'App\\Models\\Author' => $baseDir . '/app/Models/Author.php',
     'App\\Models\\Category' => $baseDir . '/app/Models/Category.php',
     'App\\Models\\CommentExercise' => $baseDir . '/app/Models/CommentExercise.php',
+    'App\\Models\\Formulario' => $baseDir . '/app/Models/Formulario.php',
     'App\\Models\\Note' => $baseDir . '/app/Models/Note.php',
     'App\\Models\\Post' => $baseDir . '/app/Models/Post.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',

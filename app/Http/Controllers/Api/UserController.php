@@ -7,9 +7,11 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Task;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
+
 
 class UserController extends Controller
 {
@@ -82,6 +84,46 @@ class UserController extends Controller
      * @param User $user
      * @return UserResource
      */
+
+    public function updateUser(Request $request, $id)
+    {
+        try{
+            $user = User::find($id);
+            // Validar datos recibidos
+            $validator = Validator::make($request->all(), [
+                'alias' => 'required|string',
+                'name' => 'required|string',
+                'surname1' => 'nullable|string',
+                'surname2' => 'nullable|string',
+                'email' => 'required|email',
+            ]);
+            // Si la validación falla, devolver errores
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => 422,
+                    'success' => false,
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+             // Validar los datos y actualizar el usuario
+             $data = $validator->validated();
+             $user->update($data);
+ 
+             return response()->json([
+                 'status' => 200,
+                 'success' => true,
+                 'data' => $user
+             ]);
+        } catch (\Exception $e) {
+            // Capturar excepciones y devolver un error 500 con detalles
+            return response()->json([
+                'status' => 500,
+                'success' => false,
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     public function update(UpdateUserRequest $request, User $user)
     {
         $role = Role::find($request->role_id);

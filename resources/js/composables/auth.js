@@ -53,7 +53,7 @@ export default function useAuth() {
             .then(async response => {
                 console.log('await auth.getUser()');
                 await auth.getUser()
-                console.log('uth.user.value');
+                console.log('auth.user.value');
                 console.log(auth.user.value);
                 //await store.dispatch('auth/getUser')
                 await loginUser()
@@ -63,7 +63,7 @@ export default function useAuth() {
                     showConfirmButton: false,
                     timer: 1500
                 })
-                await router.push({ name: 'admin.index' })
+                await router.push({ name: 'home' })
             })
             .catch(error => {
                 if (error.response?.data) {
