@@ -1,80 +1,85 @@
 <template>
-    <div class="container">
-        <div class="row g-5 mt-4">
-            <div class="col-md-8">
-            <h3 class="pb-4 mb-4 fst-italic border-bottom">
-                {{ post?.title }}
-            </h3>
-            <p class="blog-post-meta">1 de Enero de 2024 by <a href="#">{{ post?.user?.name}}</a></p>
-
-            <article class="blog-post">
-                <div v-for="image in post?.media">
-                    <img :src="image.original_url" alt="image" class="img-fluid">
+    <div class="mt-7 mb-6">
+        <div class="container my-2">
+            <div class="row">
+                <!-- Left Section -->
+                <div class="col-md-4">
+                    <img src="/images/forms/disney.jpg" alt="User image" class="img-fluid form-image">
+                    <h3 class="fw-bold">Disney Form</h3>
+                    <button class="btn btn-lila">Jugar Solo</button>
                 </div>
-                <div class="mt-4" v-html="post?.content"></div>
-            </article>
-
-            <nav class="blog-pagination" aria-label="Pagination">
-                <a class="btn btn-outline-primary rounded-pill" href="#">Más antigua</a>
-                <a class="btn btn-outline-secondary rounded-pill disabled">Más nueva</a>
-            </nav>
-
-            </div>
-
-            <div class="col-md-4">
-                <div class="position-sticky" style="top: 2rem;">
-                    <div class="p-4 mb-3 bg-light rounded">
-                    <h4 class="fst-italic">Sobre</h4>
-                    <p class="mb-0">Personaliza esta sección para dar más información sobre la publicación, escritores, contenido o algo completamente diferente. Depende totalmente de ti.</p>
-                    </div>
-
-                    <div class="p-4">
-                        <h4 class="fst-italic">Categorias</h4>
-                        <ol v-if="categories?.length > 0" class="list-unstyled">
-                            <li v-for="category in categories" :key="category.id">
-                                <router-link :to="{ name: 'category-posts.index', params: { id: category.id } }">{{ category.name }}</router-link>
-                            </li>
-                        </ol>
-                    </div>
-                    <!-- <div class="p-4">
-                        <h4 class="fst-italic">Archives</h4>
-                        <ol class="list-unstyled mb-0">
-                            <li><a href="#">March 2021</a></li>
-                            <li><a href="#">February 2021</a></li>
-                            <li><a href="#">January 2021</a></li>
-                            <li><a href="#">December 2020</a></li>
-                            <li><a href="#">November 2020</a></li>
-                            <li><a href="#">October 2020</a></li>
-                            <li><a href="#">September 2020</a></li>
-                            <li><a href="#">August 2020</a></li>
-                            <li><a href="#">July 2020</a></li>
-                            <li><a href="#">June 2020</a></li>
-                            <li><a href="#">May 2020</a></li>
-                            <li><a href="#">April 2020</a></li>
-                        </ol>
-                    </div> -->
+                
+                <!-- Right Section -->
+                <div class="col-md-8">
+                    <h4 class="mb-3 text-uppercase fw-bold">Number of Questions: 10</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item">1 - Question 1<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">2 - Question 2<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">3 - Question 3<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">4 - Question 4<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">5 - Question 5<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">6 - Question 6<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">7 - Question 7<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">8 - Question 8<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">9 - Question 9<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">10 - Question 10<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 </template>
 
-<script setup>
-import axios from 'axios';
-import { ref, onMounted } from 'vue';
-import { useRoute } from "vue-router";
+<style scoped>
+    div {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        background-color: #f5f5f5;
+        color: #000000;
+    }
 
+    .btn-lila {
+        background-color: #874ECA;
+        color: white;
+        border: none;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
 
-    const post = ref();
-    const categories = ref();
-    const route = useRoute()
+    .btn-lila:hover {
+        background-color: #402462;
+    }
 
-    onMounted(() => {
-        axios.get('/api/get-post/' + route.params.id).then(({ data }) => {
-            post.value = data
-        })
-        axios.get('/api/category-list').then(({ data }) => {
-            categories.value = data.data
-        })
-    })
-</script>
+    .form-image {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .list-group-item {
+        border: none;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+        background-color: #874ECA;
+        color: white;
+    }
+
+    .list-group-item:hover {
+        background-color: #402462;
+    }
+
+    .question-text {
+        display: block;
+        margin-top: 5px;
+        font-size: 14px;
+    }
+    
+    .col-md-4 h3,
+    .col-md-4 button {
+        text-align: left;
+    }
+</style>
