@@ -8,23 +8,27 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
     public function up()
     {
-        Schema::create('formulario', function (Blueprint $table) {
+        Schema::create('formularios', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('total_preguntas');
-            $table->foreignId('id')->constrained('users');
-            $table->foreignId('id')->constrained('categories');
+            $table->integer('total_preguntas');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('formulario');
+        Schema::dropIfExists('formularios');
     }
 };

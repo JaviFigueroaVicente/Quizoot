@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\api\UsuariosController;
+use App\Http\Controllers\api\FormularioController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::get('/user', [ProfileController::class, 'user']);
     Route::get('/users/{id}', [UserController::class, 'show']);
     Route::put('/user/{id}', [UserController::class, 'updateUser']);
-  
+
 
     Route::get('abilities', function(Request $request) {
         return $request->user()->roles()->with('permissions')
@@ -68,3 +69,6 @@ Route::post('usuarios', [UsuariosController::class, 'store']);
 Route::delete('usuarios/{usuario}', [UsuariosController::class, 'destroy']);
 Route::get('usuarios/{usuario}', [UsuariosController::class, 'show']);
 Route::put('usuarios/{usuario}', [UsuariosController::class, 'update']);
+
+Route::post('formulario', [FormularioController::class, 'store']);
+Route::get('formulario', [FormularioController::class, 'index']);

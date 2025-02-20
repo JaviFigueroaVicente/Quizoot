@@ -9,7 +9,7 @@
         <header class="text-center py-3 mt-3 mb-1 title ">
             <h1 class="fw-bold">Formularios</h1>
         </header>
-    
+
         <main class="container my-2">
             <div class="dropdown">
                 <button class="btn btn-light me-2 btn-hover-lila" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -28,7 +28,8 @@
                 </ul>
                 <span>Categorías</span>
             </div>
-                
+
+            <FormCards></FormCards>
             <div class="row row-cols-3 g-4 mt-3">
                 <!-- Tarjetas de formularios con imágenes -->
                  <router-link to="/forms/details">
@@ -91,7 +92,7 @@
 
             <div class="mt-4 mb-4">
                 <Paginator :rows="9" :totalRecords="90" :rowsPerPageOptions="[5, 10, 15, 20]" :pageLinkSize="3"></Paginator>
-            </div>            
+            </div>
         </main>
     </body>
     </html>
@@ -100,6 +101,7 @@
 <script setup>
 
 import Paginator from 'primevue/paginator';
+import FormCards from '@/components/FormCards.vue';
 
 </script>
 
@@ -125,7 +127,7 @@ import Paginator from 'primevue/paginator';
     .btn-hover-lila:hover {
         color: #874ECA; /* Lila */
     }
-    
+
     /* Cambiar color de texto en hover para los enlaces del dropdown */
     .dropdown-menu .dropdown-item:hover {
         color: #874ECA;
@@ -138,11 +140,11 @@ import Paginator from 'primevue/paginator';
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease-in-out;
     }
-    
+
     .card:hover {
         transform: translateY(-5px);
     }
-    
+
     /* Imágenes de formularios */
     .form-image {
         width: 100%;
@@ -150,12 +152,12 @@ import Paginator from 'primevue/paginator';
         object-fit: cover;
         border-radius: 10px;
     }
-    
+
     /* Paginación */
     .text-center span {
         font-size: 1.2rem;
         cursor: pointer;
-    }   
+    }
 
     /* Estilos para el paginador */
     .pagination .page-link {
@@ -185,4 +187,4 @@ import Paginator from 'primevue/paginator';
     .pagination .page-link:focus {
         box-shadow: none; /* Eliminar sombra de enfoque */
     }
-</style>    
+</style>

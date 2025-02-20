@@ -46,4 +46,4 @@ class Post extends Model implements HasMedia
                 ->height(env('IMAGE_HEIGHT', 300));
         }
     }
-}
+}   

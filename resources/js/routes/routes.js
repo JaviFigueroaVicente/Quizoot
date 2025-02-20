@@ -152,16 +152,14 @@ export default [
             ],
         },
         {
-            name:'forms',
+            name:'form',
             path:'form',
             children : [
                 {
                     name: 'form.create',
                     path: 'create',
                     component: () => import('../views/forms/Create.vue'),
-                    meta: { breadCrumb: 'Create Form' 
-                }
-
+                    meta: { breadCrumb: 'Create Form' }
                 }
             ]
         }
