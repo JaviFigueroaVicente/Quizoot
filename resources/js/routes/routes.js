@@ -81,6 +81,25 @@ export default [
                 ],
             },
             {
+                name: 'rankings',
+                path: 'rankings',
+                children : [
+                    {
+                        name: 'rankings.index',
+                        path: '',
+                        component: () => import('../views/rankings/index.vue'),
+                        meta: { breadCrumb: 'Rankings' }
+                    },
+                    {
+                        name: 'rankings.details',
+                        path: 'details',
+                        component: () => import('../views/rankings/details.vue'),
+                        meta: { breadCrumb: 'Form Details' }
+                    }                   
+
+                ],
+            },
+            {
                 path: '/',
                 name: 'home',
                 component: () => import('../views/home/index.vue'),
@@ -134,7 +153,7 @@ export default [
         beforeEnter: requireLogin,
         children:[
         {
-            name: 'profile',
+            name: 'profile',    
             path: 'profile',
             children : [
                 {
@@ -152,7 +171,7 @@ export default [
             ],
         },
         {
-            name:'forms',
+            name:'form',
             path:'form',
             children : [
                 {

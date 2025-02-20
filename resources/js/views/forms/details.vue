@@ -1,17 +1,32 @@
 <template>
-    <div class="mt-7 mb-6">
+    <div class="mt-5 mb-5">
         <div class="container my-2">
             <div class="row">
                 <!-- Left Section -->
-                <div class="col-md-4">
+                <div class="col-md-4 left-section">
                     <img src="/images/forms/disney.jpg" alt="User image" class="img-fluid form-image">
-                    <h3 class="fw-bold">Disney Form</h3>
-                    <button class="btn btn-lila">Jugar Solo</button>
+                    <h3 class="fw-bold mb-1 mt-2">Disney Form</h3>
+                    <p>Esta es la descripcion del formulario para que los usuarios puedan ver de que va</p>
+                    <button class="btn btn-lila mb-3">Jugar Solo</button>
+                    <!-- Sección Derecha: Ranking -->
+                    <div class="ranking-container mb-2">
+                        <h4 class="ranking-title">🏆 Ranking</h4>
+                        <ul class="ranking-list">
+                            <li class="ranking-item">
+                                <span class="ranking-position">🥇</span> John Doe - 95 pts
+                            </li>
+                            <li class="ranking-item">
+                                <span class="ranking-position">🥈</span> Jane Smith - 90 pts
+                            </li>
+                            <li class="ranking-item">
+                                <span class="ranking-position">🥉</span> Alice Johnson - 85 pts
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 
                 <!-- Right Section -->
-                <div class="col-md-8">
-                    <h4 class="mb-3 text-uppercase fw-bold">Number of Questions: 10</h4>
+                <div class="col-md-8 right-section">
                     <ul class="list-group">
                         <li class="list-group-item">1 - Question 1<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
                         <li class="list-group-item">2 - Question 2<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
@@ -23,6 +38,16 @@
                         <li class="list-group-item">8 - Question 8<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
                         <li class="list-group-item">9 - Question 9<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
                         <li class="list-group-item">10 - Question 10<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">11 - Question 1<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">12 - Question 2<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">13 - Question 3<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">14 - Question 4<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">15 - Question 5<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">16 - Question 6<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">17 - Question 7<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">18 - Question 8<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">19 - Question 9<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">20 - Question 10<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
                     </ul>
                 </div>
             </div>
@@ -31,12 +56,6 @@
 </template>
 
 <style scoped>
-    div {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        background-color: #f5f5f5;
-        color: #000000;
-    }
-
     .btn-lila {
         background-color: #874ECA;
         color: white;
@@ -59,17 +78,17 @@
         border-radius: 10px;
     }
 
-    .list-group-item {
-        border: none;
+    .list-group {
+        border: 2px solid #874ECA;
+        background-color: white;
         margin-bottom: 8px;
         border-radius: 8px;
         transition: background-color 0.3s ease;
-        background-color: #874ECA;
-        color: white;
+        color: #333;
     }
 
     .list-group-item:hover {
-        background-color: #402462;
+        background-color: #f1f1f1;
     }
 
     .question-text {
@@ -81,5 +100,55 @@
     .col-md-4 h3,
     .col-md-4 button {
         text-align: left;
+    }
+
+    /* Ranking */
+    .ranking-container {
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); 
+    }
+
+    .ranking-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .ranking-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .ranking-item {
+        padding: 6px;
+        border-bottom: 1px solid #ddd;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .ranking-item:last-child {
+        border-bottom: none;
+    }
+
+    .ranking-position {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    /* Fixed Left Section */
+    .left-section {
+        position: sticky;
+        top: 20px;
+        height: calc(100vh - 20px);
+    }
+
+    .right-section {
+        max-height: calc(100vh - 110px);
+        overflow-y: auto;
     }
 </style>

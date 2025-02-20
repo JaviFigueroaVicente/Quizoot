@@ -11,7 +11,7 @@
                         <router-link to="/forms" severity="help" class="nav-link"><Button severity="help" variant="text">Formularios</Button></router-link>
                     </li>               
                     <li class="nav-item">
-                        <router-link :to="{ name : 'public-posts.index'}" severity="help" class="nav-link"><Button severity="help" variant="text">Rankings</Button></router-link>
+                        <router-link to="/rankings" severity="help" class="nav-link"><Button severity="help" variant="text">Rankings</Button></router-link>
                     </li>
                 </ul>
                 <ul class="navbar-nav mt-2 mt-lg-0 ms-auto nav-right">    
