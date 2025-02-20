@@ -1,80 +1,154 @@
 <template>
-    <div class="container">
-        <div class="row g-5 mt-4">
-            <div class="col-md-8">
-            <h3 class="pb-4 mb-4 fst-italic border-bottom">
-                {{ post?.title }}
-            </h3>
-            <p class="blog-post-meta">1 de Enero de 2024 by <a href="#">{{ post?.user?.name}}</a></p>
-
-            <article class="blog-post">
-                <div v-for="image in post?.media">
-                    <img :src="image.original_url" alt="image" class="img-fluid">
-                </div>
-                <div class="mt-4" v-html="post?.content"></div>
-            </article>
-
-            <nav class="blog-pagination" aria-label="Pagination">
-                <a class="btn btn-outline-primary rounded-pill" href="#">Más antigua</a>
-                <a class="btn btn-outline-secondary rounded-pill disabled">Más nueva</a>
-            </nav>
-
-            </div>
-
-            <div class="col-md-4">
-                <div class="position-sticky" style="top: 2rem;">
-                    <div class="p-4 mb-3 bg-light rounded">
-                    <h4 class="fst-italic">Sobre</h4>
-                    <p class="mb-0">Personaliza esta sección para dar más información sobre la publicación, escritores, contenido o algo completamente diferente. Depende totalmente de ti.</p>
-                    </div>
-
-                    <div class="p-4">
-                        <h4 class="fst-italic">Categorias</h4>
-                        <ol v-if="categories?.length > 0" class="list-unstyled">
-                            <li v-for="category in categories" :key="category.id">
-                                <router-link :to="{ name: 'category-posts.index', params: { id: category.id } }">{{ category.name }}</router-link>
+    <div class="mt-5 mb-5">
+        <div class="container my-2">
+            <div class="row">
+                <!-- Left Section -->
+                <div class="col-md-4 left-section">
+                    <img src="/images/forms/disney.jpg" alt="User image" class="img-fluid form-image">
+                    <h3 class="fw-bold mb-1 mt-2">Disney Form</h3>
+                    <p>Esta es la descripcion del formulario para que los usuarios puedan ver de que va</p>
+                    <button class="btn btn-lila mb-3">Jugar Solo</button>
+                    <!-- Sección Derecha: Ranking -->
+                    <div class="ranking-container mb-2">
+                        <h4 class="ranking-title">🏆 Ranking</h4>
+                        <ul class="ranking-list">
+                            <li class="ranking-item">
+                                <span class="ranking-position">🥇</span> John Doe - 95 pts
                             </li>
-                        </ol>
+                            <li class="ranking-item">
+                                <span class="ranking-position">🥈</span> Jane Smith - 90 pts
+                            </li>
+                            <li class="ranking-item">
+                                <span class="ranking-position">🥉</span> Alice Johnson - 85 pts
+                            </li>
+                        </ul>
                     </div>
-                    <!-- <div class="p-4">
-                        <h4 class="fst-italic">Archives</h4>
-                        <ol class="list-unstyled mb-0">
-                            <li><a href="#">March 2021</a></li>
-                            <li><a href="#">February 2021</a></li>
-                            <li><a href="#">January 2021</a></li>
-                            <li><a href="#">December 2020</a></li>
-                            <li><a href="#">November 2020</a></li>
-                            <li><a href="#">October 2020</a></li>
-                            <li><a href="#">September 2020</a></li>
-                            <li><a href="#">August 2020</a></li>
-                            <li><a href="#">July 2020</a></li>
-                            <li><a href="#">June 2020</a></li>
-                            <li><a href="#">May 2020</a></li>
-                            <li><a href="#">April 2020</a></li>
-                        </ol>
-                    </div> -->
+                </div>
+                
+                <!-- Right Section -->
+                <div class="col-md-8 right-section">
+                    <ul class="list-group">
+                        <li class="list-group-item">1 - Question 1<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">2 - Question 2<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">3 - Question 3<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">4 - Question 4<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">5 - Question 5<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">6 - Question 6<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">7 - Question 7<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">8 - Question 8<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">9 - Question 9<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">10 - Question 10<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">11 - Question 1<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">12 - Question 2<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">13 - Question 3<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">14 - Question 4<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">15 - Question 5<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">16 - Question 6<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">17 - Question 7<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">18 - Question 8<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">19 - Question 9<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                        <li class="list-group-item">20 - Question 10<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 </template>
 
-<script setup>
-import axios from 'axios';
-import { ref, onMounted } from 'vue';
-import { useRoute } from "vue-router";
+<style scoped>
+    .btn-lila {
+        background-color: #874ECA;
+        color: white;
+        border: none;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
 
+    .btn-lila:hover {
+        background-color: #402462;
+    }
 
-    const post = ref();
-    const categories = ref();
-    const route = useRoute()
+    .form-image {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
 
-    onMounted(() => {
-        axios.get('/api/get-post/' + route.params.id).then(({ data }) => {
-            post.value = data
-        })
-        axios.get('/api/category-list').then(({ data }) => {
-            categories.value = data.data
-        })
-    })
-</script>
+    .list-group {
+        border: 2px solid #874ECA;
+        background-color: white;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+        color: #333;
+    }
+
+    .list-group-item:hover {
+        background-color: #f1f1f1;
+    }
+
+    .question-text {
+        display: block;
+        margin-top: 5px;
+        font-size: 14px;
+    }
+    
+    .col-md-4 h3,
+    .col-md-4 button {
+        text-align: left;
+    }
+
+    /* Ranking */
+    .ranking-container {
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); 
+    }
+
+    .ranking-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .ranking-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .ranking-item {
+        padding: 6px;
+        border-bottom: 1px solid #ddd;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .ranking-item:last-child {
+        border-bottom: none;
+    }
+
+    .ranking-position {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    /* Fixed Left Section */
+    .left-section {
+        position: sticky;
+        top: 20px;
+        height: calc(100vh - 20px);
+    }
+
+    .right-section {
+        max-height: calc(100vh - 110px);
+        overflow-y: auto;
+    }
+</style>
