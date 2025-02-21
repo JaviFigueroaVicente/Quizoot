@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pregunta;
 use Illuminate\Http\Request;
 
 class PreguntaController extends Controller
@@ -27,7 +28,17 @@ class PreguntaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pregunta = new Pregunta();
+        $pregunta->id = $request->id;
+        $pregunta->pregunta = $request->pregunta;
+
+        $usuario->save();
+
+        return response()->json([
+            'status' => 405,
+            'success' => true,
+            'data' => $pregunta
+        ])
     }
 
     /**
