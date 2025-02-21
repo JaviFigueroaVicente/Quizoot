@@ -8,4 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Respuesta extends Model
 {
     use HasFactory;
+
+    protected $table = 'respuesta';
+    protected $primaryKey = 'id';
+
+    protected $fillable = [
+        'respuesta',
+        'correcta',
+        'pregunta_id'
+    ];
+
+    public function pregunta()
+    {
+        return $this->belongsTo(Pregunta::class);
+    }
+
+    protected $guarded = [
+
+    ];
 }

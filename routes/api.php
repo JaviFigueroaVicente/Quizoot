@@ -2,14 +2,16 @@
 
 use App\Http\Controllers\Api\AuthorController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\api\FormularioController;
 use App\Http\Controllers\api\NoteController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\PostControllerAdvance;
+use App\Http\Controllers\Api\PreguntaController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\api\RespuestaController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\api\UsuariosController;
-use App\Http\Controllers\api\FormularioController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Http\Request;
@@ -72,3 +74,7 @@ Route::put('usuarios/{usuario}', [UsuariosController::class, 'update']);
 
 Route::post('formulario', [FormularioController::class, 'store']);
 Route::get('formulario', [FormularioController::class, 'index']);
+
+Route::post('pregunta', [PreguntaController::class, 'store']);
+
+Route::post('respuesta', [RespuestaController::class, 'store']);

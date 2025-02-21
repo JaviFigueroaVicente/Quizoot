@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Pregunta;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Respuesta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
-class PreguntaController extends Controller
+class RespuestaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,18 +23,19 @@ class PreguntaController extends Controller
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'pregunta' => ['required','max:255'],
+            'respuesta' => ['required','max:255'],
+            'correcta' => ['required']
         ]);
 
         $data = $validator->validated();
         return $validator->errors();
 
-        $pregunta = Pregunta::create($data);
+        $usuario = Respuesta::create($data);
 
         return response()->json([
             'status' => 405,
             'success' => true,
-            'data' => $pregunta
+            'data' => $usuario
         ]);
     }
 
@@ -43,7 +44,7 @@ class PreguntaController extends Controller
      */
     public function store(Request $request)
     {
-
+        //
     }
 
     /**

@@ -2,86 +2,51 @@
   <div class="main-container mb-3">
     <!-- Sección Izquierda: Título, Descripción y Subir Imagen -->
     <div class="container left-container">
-      <h2 
-        class="fw-bold editable-title align-left mb-5"
-        contenteditable="true"
-        @input="actualizarTitulo"
-        :data-placeholder="'Introducir Aquí El Nombre  Del Formulario'"
-      >
-        {{ tituloFormulario }}
-      </h2>
-
-      <p 
-        class="editable-description align-left mb-5"
-        contenteditable="true"
-        @input="actualizarDescripcion"
-        :data-placeholder="'Escribe aquí la descripción del formulario...'"
-      >
-        {{ descripcionFormulario }}
-      </p>
-
+      <div>
+        <label for="name"></label>
+        <input class="fw-bold editable-title align-left mb-5" id="name" placeholder='Introducir Aquí El Nombre  Del Formulario' v-model="formulario.name"></input>
+      </div>
+      <div>
+        <label for="description"></label>
+        <input class="editable-description align-left mb-5" id="description" placeholder='Escribe aquí la descripción del formulario...' v-model="formulario.description"></input>
+      </div>
       <div class="align-left">
-        <input type="file" @change="cargarImagen" accept="image/*" />
+        <input type="file" @change="onFileChange" accept="image/*" />
         <img v-if="imagenUrl" :src="imagenUrl" class="preview-image" alt="Imagen subida">
       </div>
     </div>
-
     <!-- Sección Derecha: Preguntas -->
     <div class="container right-container">
       <p class="text-center">
         Introduce las preguntas junto con las respuestas y selecciona cuál es la respuesta correcta
       </p>
-
       <div v-for="(pregunta, preguntaIndex) in preguntas" :key="preguntaIndex">
         <p class="question-title">Q{{ preguntaIndex + 1 }}</p>
-
-        <div 
-          v-for="(respuesta, respuestaIndex) in pregunta.respuestas" 
-          :key="respuestaIndex" 
-          class="answer-container"
-          :class="{
-            'correct-answer': respuesta.estado === true, 
-            'incorrect-answer': respuesta.estado === false
-          }"
-        >
-          <input 
-            v-model="pregunta.respuestas[respuestaIndex].texto" 
-            type="text" 
-            class="form-control" 
-            placeholder="Introduce una respuesta" 
-          />
-          
-          <span 
-            class="icon text-success" 
-            @click="marcarComoCorrecta(preguntaIndex, respuestaIndex)"
-          >✔️</span>
-
-          <span 
-            class="icon text-danger" 
-            @click="marcarComoIncorrecta(preguntaIndex, respuestaIndex)"
-          >❌</span>
+        <div v-for="(respuesta, respuestaIndex) in pregunta.respuestas" :key="respuestaIndex" class="answer-container" :class="{'correct-answer': respuesta.correcta === true, 'incorrect-answer': respuesta.correcta === false}">
+          <input v-model="pregunta.respuestas[respuestaIndex].respuesta" type="text" class="form-control" placeholder="Introduce una respuesta"/>
+          <span class="icon text-success" @click="marcarComoCorrecta(preguntaIndex, respuestaIndex)">✔️</span>
+          <span class="icon text-danger" @click="marcarComoIncorrecta(preguntaIndex, respuestaIndex)">❌</span>
         </div>
       </div>
-
       <button class="btn btn-light" @click="añadirPregunta">Añadir pregunta</button>
     </div>
   </div>
 
-  <button class="btn btn-custom mt-2">Crear Formulario</button>
+  <button class="btn btn-custom mt-2" @click="onFormSubmit">Crear Formulario</button>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import * as yup from "yup";
-import { es, id } from "yup-locales";
+import { es } from "yup-locales";
 import { authStore } from "@/store/auth";
 
 yup.setLocale(es);
-
 const route = useRoute();
 const store = authStore();
 
+// Declarar modelo formulario
 const formulario = ref({
     id: '',
     name: '',
@@ -90,17 +55,31 @@ const formulario = ref({
     user_id: store.user.id,    
     image: '',
 });
+// Cambiar imagen
+const imagenUrl = ref(null);
 
 const onFileChange = (event) => {
-    formulario.value.image = event.target.files[0]; 
+  const file = event.target.files[0];
+  if (file) {
+    imagenUrl.value = URL.createObjectURL(file);
+  }
+};
+
+// Marcar preguntas
+const marcarComoCorrecta = (preguntaIndex, respuestaIndex) => {
+  preguntas.value[preguntaIndex].respuestas[respuestaIndex].correcta = true;
+};
+
+const marcarComoIncorrecta = (preguntaIndex, respuestaIndex) => {
+  preguntas.value[preguntaIndex].respuestas[respuestaIndex].correcta = false;
 };
 
 const schema = yup.object({
     name: yup.string().required(),
-    total_preguntas: yup.number().required(),
-    description: yup.string().required()
+    description: yup.string().required(),
 });
 
+// Peticiones api formulario
 const createFormulario = async () => {
     try {
         const response = axios.post('/api/formulario', formulario.value);
@@ -110,6 +89,57 @@ const createFormulario = async () => {
     }
 };
 
+const getFormulario = async () => {
+    try {
+        const response = axios.get(`/api/formulario/${route.params.id}`);
+        console.log(response);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+// Declarar modelo pregunta
+const pregunta = ref({
+    id: '',
+    pregunta: '',
+    correcta: '',
+    formulario_id: '',
+});
+
+// Declarar modelo respuesta
+const respuesta = ref({
+    id: 1,
+    respuesta: '',
+    correcta: '',
+    pregunta_id: '',
+});
+
+// Añadir preguntas
+const preguntas = ref([
+  { 
+    id: 1, 
+    respuestas: [
+      { respuesta: "", correcta: null },
+      { respuesta: "", correcta: null },
+      { respuesta: "", correcta: null },
+      { respuesta: "", correcta: null }
+    ]
+  }
+]);
+
+const añadirPregunta = () => {
+  preguntas.value.push({ 
+    id: preguntas.value.length + 1, 
+    respuestas: [
+      { respuesta: "", correcta: null },
+      { respuesta: "", correcta: null },
+      { respuesta: "", correcta: null },
+      { respuesta: "", correcta: null }
+    ]
+  });
+};
+
+// Enviara crear el formulario
 const onFormSubmit = async () => {
     try {
         schema.validate(formulario.value, { abortEarly: false });
@@ -117,58 +147,9 @@ const onFormSubmit = async () => {
     } catch (validationError) {
         console.error(validationError);
     }
-};import { ref } from "vue";
-
-const tituloFormulario = ref("");
-const descripcionFormulario = ref("");
-const imagenUrl = ref(null);
-
-const preguntas = ref([
-  { 
-    id: 1, 
-    respuestas: [
-      { texto: "", estado: null },
-      { texto: "", estado: null },
-      { texto: "", estado: null },
-      { texto: "", estado: null }
-    ]
-  }
-]);
-
-const actualizarTitulo = (event) => {
-  tituloFormulario.value = event.target.innerText.trim() || "";
 };
 
-const actualizarDescripcion = (event) => {
-  descripcionFormulario.value = event.target.innerText.trim() || "";
-};
 
-const añadirPregunta = () => {
-  preguntas.value.push({ 
-    id: preguntas.value.length + 1, 
-    respuestas: [
-      { texto: "", estado: null },
-      { texto: "", estado: null },
-      { texto: "", estado: null },
-      { texto: "", estado: null }
-    ]
-  });
-};
-
-const cargarImagen = (event) => {
-  const file = event.target.files[0];
-  if (file) {
-    imagenUrl.value = URL.createObjectURL(file);
-  }
-};
-
-const marcarComoCorrecta = (preguntaIndex, respuestaIndex) => {
-  preguntas.value[preguntaIndex].respuestas[respuestaIndex].estado = true;
-};
-
-const marcarComoIncorrecta = (preguntaIndex, respuestaIndex) => {
-  preguntas.value[preguntaIndex].respuestas[respuestaIndex].estado = false;
-};
 </script>
 
 <style scoped>

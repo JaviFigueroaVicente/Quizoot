@@ -13,6 +13,8 @@ class Formulario extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
+    protected $table = 'formularios';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'name',
         'total_preguntas',
@@ -32,7 +34,7 @@ class Formulario extends Model implements HasMedia
             ->useFallbackUrl('/images/placeholder.jpg') // URL de imagen por defecto
             ->useFallbackPath(public_path('/images/placeholder.jpg')); // Ruta local de la imagen por defecto
     }
-    
+
     public function registerMediaConversions(Media $media = null): void
     {
         if (env('RESIZE_IMAGE') === true) {
@@ -42,4 +44,8 @@ class Formulario extends Model implements HasMedia
                 ->height(env('IMAGE_HEIGHT', 300));
         }
     }
+
+    protected $guarded = [
+
+    ];
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Usuarios;
@@ -14,8 +14,8 @@ class UsuariosController extends Controller
     {
         $usuarios = Usuarios::all();
         return response()->json([
-            'status' => 405, 
-            'success' => true, 
+            'status' => 405,
+            'success' => true,
             'data' => $usuarios
         ]);
     }
@@ -66,7 +66,7 @@ class UsuariosController extends Controller
         $usuario->surname = $request->surname;
 
         $usuario->save();
-        
+
         return response()->json([
             'status' => 405,
             'success' => true,
