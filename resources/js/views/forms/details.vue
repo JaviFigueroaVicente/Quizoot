@@ -140,7 +140,6 @@
         font-weight: bold;
     }
 
-    /* Fixed Left Section */
     .left-section {
         position: sticky;
         top: 20px;
@@ -150,5 +149,18 @@
     .right-section {
         max-height: calc(100vh - 110px);
         overflow-y: auto;
+    }
+
+    .right-section::-webkit-scrollbar {
+    width: 10px;
+    }
+
+    .right-section::-webkit-scrollbar-thumb {
+        background-color: #874eca;
+        border-radius: 5px;
+    }
+
+    .right-section::-webkit-scrollbar-thumb:hover {
+        background-color: #402462;
     }
 </style>

@@ -18,7 +18,7 @@
                         <ul class="ranking-list">
                             <li v-for="(player, index) in players" :key="index" class="ranking-item">
                                 <span class="ranking-position" :class="getPositionClass(player.rank)">
-                                    {{ player.rankEmoji }}
+                                    {{ player.rank }}
                                 </span>
                                 <span class="ranking-name">{{ player.name }}</span>
                                 <span class="ranking-score">{{ player.score }} pts</span>
@@ -46,14 +46,14 @@ export default {
             return "";
         },
         generatePlayers() {
-            const emojis = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"];
+            let points = 100;
             for (let i = 1; i <= 50; i++) {
                 this.players.push({
                     rank: i,
-                    rankEmoji: emojis[i - 1] || `${i}️⃣`,
                     name: `Player ${i}`,
-                    score: Math.floor(Math.random() * 100) + 1
+                    score: points
                 });
+                points--;
             }
         }
     },
@@ -64,7 +64,6 @@ export default {
 </script>
 
 <style scoped>
-/* Sección Izquierda */
 .left-section {
     position: sticky;
     top: 20px;
@@ -79,27 +78,24 @@ export default {
     border-radius: 10px;
 }
 
-/* Contenedor Ranking */
 .ranking-container {
-    background: linear-gradient(135deg, #874ECA, #5D3EBC);
+    background: #874eca;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     color: white;
     text-align: center;
-    height: 600px; /* Ajusta esto según necesites */
+    height: 600px;
     display: flex;
     flex-direction: column;
 }
 
-/* Lista de Ranking con Scroll */
 .ranking-list-container {
     max-height: 500px;
     overflow-y: auto;
-    padding-right: 15px; /* Para que la barra no tape el contenido */
+    padding-right: 15px;
 }
 
-/* Personalización de la barra de desplazamiento */
 .ranking-list-container::-webkit-scrollbar {
     width: 10px;
 }
@@ -113,7 +109,6 @@ export default {
     background-color: rgba(255, 255, 255, 0.7);
 }
 
-/* Lista de Ranking */
 .ranking-title {
     font-weight: bold;
     font-size: 24px;
@@ -144,7 +139,6 @@ export default {
     border-radius: 5px;
 }
 
-/* Posiciones con colores especiales */
 .ranking-position {
     font-size: 22px;
     font-weight: bold;
@@ -165,14 +159,12 @@ export default {
     color: #CD7F32;
 }
 
-/* Nombre del jugador */
 .ranking-name {
     flex-grow: 1;
     text-align: left;
     padding-left: 10px;
 }
 
-/* Puntuaciones */
 .ranking-score {
     font-weight: bold;
     font-size: 18px;
