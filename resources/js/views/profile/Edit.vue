@@ -1,37 +1,45 @@
 <template>
-    <div class="card border-0">
-        <div class="card-header bg-transparent">
-            <h5 class="float-start">Profile</h5>
+    <div class="main-container">
+        <div class="card border-0 left-container">
+            <div class="card-header bg-transparent">
+                <h5 class="float-start">Profile</h5>
+            </div>
+            <div class="image">
+                <DropZone v-model="usuario.thumbnail"/>
+            </div>
         </div>
-        <div class="card-body">
-            <div class="mb-3">
-                <label for="alias" class="form-label">Alias</label>
-                <input type="text" v-model="usuario.alias" class="form-control" id="alias">
+        <div class="card border-0 rigth-container">
+            <div class="card-header bg-transparent">
+                <h5 class="float-start">Profile</h5>
             </div>
-            <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" v-model="usuario.name" class="form-control" id="name">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="alias" class="form-label">Alias</label>
+                    <input type="text" v-model="usuario.alias" class="form-control" id="alias">
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" v-model="usuario.name" class="form-control" id="name">
+                </div>
+                <div class="mb-3">
+                    <label for="surname1" class="form-label">First Surname</label>
+                    <input type="text" v-model="usuario.surname1" class="form-control" id="surname1">
+                </div>
+                <div class="mb-3">
+                    <label for="surname2" class="form-label">Second Surname</label>
+                    <input type="text" v-model="usuario.surname2" class="form-control" id="surname2">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" v-model="usuario.email" class="form-control" id="email" readonly>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="surname1" class="form-label">First Surname</label>
-                <input type="text" v-model="usuario.surname1" class="form-control" id="surname1">
-            </div>
-            <div class="mb-3">
-                <label for="surname2" class="form-label">Second Surname</label>
-                <input type="text" v-model="usuario.surname2" class="form-control" id="surname2">
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" v-model="usuario.email" class="form-control" id="email" readonly>
-            </div>
-            <div class="mb-3">    
-                <button type="submit" @click="onFormSubmit" class="btn btn-primary">
-                    Update
-                </button>        
-            </div>
-            <Toast />
-        </div>
+        </div>        
     </div>
+    <button type="submit" @click="onFormSubmit" class="btn btn-primary w-100 mt-5">
+        Update
+    </button>  
+    <Toast />
 </template>
 <style scoped>
     .card {
@@ -40,7 +48,26 @@
         margin-top: 10px;
         justify-content: center;
     }
-    
+
+    .image{
+        margin: 15px;
+    }
+
+    .main-container {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .left-container {
+        flex: 1;
+    }
+
+    .right-container {
+        flex: 2;
+    }
+            
 </style>
 <script setup>
 import { onMounted, reactive, watchEffect,ref, inject } from "vue";
@@ -51,6 +78,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useToast } from "primevue/usetoast";
 import * as yup from "yup";
 import { es } from "yup-locales";
+import DropZone from "@/components/DropZone.vue";
 
 yup.setLocale(es);
 const route = useRoute()
@@ -69,7 +97,7 @@ const schema = yup.object().shape({
 });
 
 const updateUser = async () =>{
-    axios.put('/api/user/' + store.user.id, usuario.value)
+    axios.post('/api/user/' + store.user.id, usuario.value)
         .then((response) => {
             swal({
                     icon: 'success',
