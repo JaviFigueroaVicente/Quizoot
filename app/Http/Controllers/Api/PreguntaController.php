@@ -22,6 +22,14 @@ class PreguntaController extends Controller
      */
     public function create(Request $request)
     {
+
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'pregunta' => ['required','max:255'],
         ]);
@@ -36,14 +44,6 @@ class PreguntaController extends Controller
             'success' => true,
             'data' => $pregunta
         ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-
     }
 
     /**

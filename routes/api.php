@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Api\AuthorController;
 use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\api\FormularioController;
+use App\Http\Controllers\Api\FormularioController;
 use App\Http\Controllers\api\NoteController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\PostControllerAdvance;
@@ -75,6 +75,3 @@ Route::put('usuarios/{usuario}', [UsuariosController::class, 'update']);
 Route::post('formulario', [FormularioController::class, 'store']);
 Route::get('formulario', [FormularioController::class, 'index']);
 
-Route::post('pregunta', [PreguntaController::class, 'store']);
-
-Route::post('respuesta', [RespuestaController::class, 'store']);

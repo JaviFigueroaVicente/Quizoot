@@ -22,8 +22,4 @@ class Respuesta extends Model
     {
         return $this->belongsTo(Pregunta::class);
     }
-
-    protected $guarded = [
-
-    ];
 }

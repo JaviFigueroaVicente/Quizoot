@@ -10,142 +10,74 @@
         <label for="description"></label>
         <input class="editable-description align-left mb-5" id="description" placeholder='Escribe aquí la descripción del formulario...' v-model="formulario.description"></input>
       </div>
-      <div class="align-left">
-        <input type="file" @change="onFileChange" accept="image/*" />
-        <img v-if="imagenUrl" :src="imagenUrl" class="preview-image" alt="Imagen subida">
-      </div>
+      <DropZone v-model="formulario.thumbnail"/>
     </div>
     <!-- Sección Derecha: Preguntas -->
     <div class="container right-container">
-      <p class="text-center">
-        Introduce las preguntas junto con las respuestas y selecciona cuál es la respuesta correcta
-      </p>
-      <div v-for="(pregunta, preguntaIndex) in preguntas" :key="preguntaIndex">
-        <p class="question-title">Q{{ preguntaIndex + 1 }}</p>
-        <div v-for="(respuesta, respuestaIndex) in pregunta.respuestas" :key="respuestaIndex" class="answer-container" :class="{'correct-answer': respuesta.correcta === true, 'incorrect-answer': respuesta.correcta === false}">
-          <input v-model="pregunta.respuestas[respuestaIndex].respuesta" type="text" class="form-control" placeholder="Introduce una respuesta"/>
-          <span class="icon text-success" @click="marcarComoCorrecta(preguntaIndex, respuestaIndex)">✔️</span>
-          <span class="icon text-danger" @click="marcarComoIncorrecta(preguntaIndex, respuestaIndex)">❌</span>
+      <p class="text-center">Introduce las preguntas junto con las respuestas</p>
+      <div class="mb-4">
+        <input class="question-title" placeholder="Introduce la pregunta"/>
+        <div class="answer-container">
+          <input  type="text" class="form-control" placeholder="Introduce una respuesta"/>
+          <input type="radio" :value="true"/> Correcta
         </div>
       </div>
       <button class="btn btn-light" @click="añadirPregunta">Añadir pregunta</button>
     </div>
   </div>
 
-  <button class="btn btn-custom mt-2" @click="onFormSubmit">Crear Formulario</button>
+  <button type="submit" class="btn btn-custom mt-2" @click.prevent="onFormSubmit">Crear Formulario</button>
 </template>
 
 <script setup>
+import axios from "axios";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import * as yup from "yup";
-import { es } from "yup-locales";
+import { es, id } from "yup-locales";
+import DropZone from "@/components/DropZone.vue";
 import { authStore } from "@/store/auth";
 
 yup.setLocale(es);
 const route = useRoute();
 const store = authStore();
 
-// Declarar modelo formulario
-const formulario = ref({
-    id: '',
-    name: '',
-    total_preguntas: '',
-    description: '',
-    user_id: store.user.id,    
-    image: '',
-});
-// Cambiar imagen
-const imagenUrl = ref(null);
 
-const onFileChange = (event) => {
-  const file = event.target.files[0];
-  if (file) {
-    imagenUrl.value = URL.createObjectURL(file);
-  }
-};
-
-// Marcar preguntas
-const marcarComoCorrecta = (preguntaIndex, respuestaIndex) => {
-  preguntas.value[preguntaIndex].respuestas[respuestaIndex].correcta = true;
-};
-
-const marcarComoIncorrecta = (preguntaIndex, respuestaIndex) => {
-  preguntas.value[preguntaIndex].respuestas[respuestaIndex].correcta = false;
-};
-
-const schema = yup.object({
+const schema = yup.object().shape({
     name: yup.string().required(),
     description: yup.string().required(),
 });
-
 // Peticiones api formulario
+
+// Mostrar imagen
+const formulario = ref({
+    name: '',
+    description: '',
+    user_id: store.user.id,
+    thumbnail: '',
+});
+
 const createFormulario = async () => {
     try {
-        const response = axios.post('/api/formulario', formulario.value);
-        console.log(response);
+        const response = axios.post('/api/formulario', formulario.value,{
+            headers: {
+                "content-type": "multipart/form-data"
+            }
+          });
+          console.log(response);
+          
     } catch (error) {
         console.error(error);
     }
-};
-
-const getFormulario = async () => {
-    try {
-        const response = axios.get(`/api/formulario/${route.params.id}`);
-        console.log(response);
-    } catch (error) {
-        console.error(error);
-    }
-};
-
-// Declarar modelo pregunta
-const pregunta = ref({
-    id: '',
-    pregunta: '',
-    correcta: '',
-    formulario_id: '',
-});
-
-// Declarar modelo respuesta
-const respuesta = ref({
-    id: 1,
-    respuesta: '',
-    correcta: '',
-    pregunta_id: '',
-});
-
-// Añadir preguntas
-const preguntas = ref([
-  { 
-    id: 1, 
-    respuestas: [
-      { respuesta: "", correcta: null },
-      { respuesta: "", correcta: null },
-      { respuesta: "", correcta: null },
-      { respuesta: "", correcta: null }
-    ]
-  }
-]);
-
-const añadirPregunta = () => {
-  preguntas.value.push({ 
-    id: preguntas.value.length + 1, 
-    respuestas: [
-      { respuesta: "", correcta: null },
-      { respuesta: "", correcta: null },
-      { respuesta: "", correcta: null },
-      { respuesta: "", correcta: null }
-    ]
-  });
 };
 
 // Enviara crear el formulario
 const onFormSubmit = async () => {
     try {
-        schema.validate(formulario.value, { abortEarly: false });
-        createFormulario();
+      schema.validate(formulario.value, { abortEarly: false });
+      createFormulario();
     } catch (validationError) {
-        console.error(validationError);
+      console.error(validationError);
     }
 };
 
@@ -195,13 +127,6 @@ const onFormSubmit = async () => {
   border-color: #874eca;
 }
 
-.editable-title:empty:before,
-.editable-description:empty:before {
-  content: attr(data-placeholder);
-  color: #aaa;
-  position: absolute;
-  pointer-events: none;
-}
 
 .align-left {
   text-align: left;

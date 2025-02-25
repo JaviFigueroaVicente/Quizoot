@@ -23,7 +23,8 @@ class Pregunta extends Model
 
     }
 
-    protected $guarded = [
-
-    ];
+    public function respuestas()
+    {
+        return $this->hasMany(Respuesta::class);
+    }
 }
