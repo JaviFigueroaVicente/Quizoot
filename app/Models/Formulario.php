@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -17,7 +18,6 @@ class Formulario extends Model implements HasMedia
     protected $primaryKey = 'id';
     protected $fillable = [
         'name',
-        'total_preguntas',
         'user_id',
         'description'
     ];
@@ -28,11 +28,16 @@ class Formulario extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
+    public function preguntas(){
+        return $this->hasMany(Pregunta::class);
+    }
+
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('images')
-            ->useFallbackUrl('/images/placeholder.jpg') // URL de imagen por defecto
-            ->useFallbackPath(public_path('/images/placeholder.jpg')); // Ruta local de la imagen por defecto
+        $this->addMediaCollection('formularios') // Nombre de la colección
+        ->useDisk('public') // Usar el disco adecuado
+        ->useFallbackUrl('/images/placeholder.jpg')
+            ->useFallbackPath(public_path('/images/placeholder.jpg'));
     }
 
     public function registerMediaConversions(Media $media = null): void
@@ -44,8 +49,4 @@ class Formulario extends Model implements HasMedia
                 ->height(env('IMAGE_HEIGHT', 300));
         }
     }
-
-    protected $guarded = [
-
-    ];
 }

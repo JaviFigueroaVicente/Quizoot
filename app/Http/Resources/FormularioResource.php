@@ -17,16 +17,18 @@ class FormularioResource extends JsonResource
     {
         //if no resize image
         try {
-            $resized_image = $this->getMedia('*');//[0]->getUrl('resized-image');
+            $resized_image = $this->getMedia('*');
         } catch (Exception $e) {
             $resized_image="";
         }
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'content' => $this->content,
-            'original_image' => count($this->getMedia('*')) > 0 ? $this->getMedia('*')[0]->getUrl() : null,
-            'resized_image' => $resized_image,
+            'name' => $this->name,
+            'description' => $this->description,
+            'original_image' => $this->getFirstMedia('formularios')
+                ? asset('storage/' . $this->getFirstMedia('formularios')->id . '/' . $this->getFirstMedia('formularios')->file_name)
+                : null,
+            'resized_image' => $this->getFirstMediaUrl('formularios', 'resized-image') ?: null,
             'created_at' => $this->created_at->toDateString()
         ];
     }

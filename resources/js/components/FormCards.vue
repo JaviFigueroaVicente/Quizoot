@@ -3,7 +3,7 @@
     <div class="col" v-for="formulario in formularios" :key="formulario.id">
         <router-link to="/forms/details" >
             <div class="card text-center p-3">
-                <img src="images/forms/disney.jpg" alt="Formulario 1" class="form-image">
+                <img :src="formulario.original_image || '/images/placeholder.jpg'" alt="Formulario 1" class="form-image">
                 <p class="mt-2">{{ formulario.name }}</p>
             </div>
         </router-link>
@@ -38,7 +38,10 @@ import axios from "axios";
 const formularios = ref([]);
 
 onMounted(() => {
-    axios.get('/api/formulario')
+    axios.get('/api/formulario',{
+        headers: {
+                "content-type": "multipart/form-data"
+        }})
         .then(response => {
             formularios.value = response.data.data;
             console.log(response.data.data);
@@ -46,3 +49,4 @@ onMounted(() => {
 });
 
 </script>
+

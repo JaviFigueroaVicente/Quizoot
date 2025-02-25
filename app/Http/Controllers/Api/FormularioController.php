@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\FormularioResource;
 use App\Models\Formulario;
+use App\Models\Pregunta;
+use App\Models\Respuesta;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Category;
@@ -19,10 +22,11 @@ class FormularioController extends Controller
     public function index()
     {
         $formularios = Formulario::all();
+
         return response()->json([
             'status' => 405,
             'success' => true,
-            'data' => $formularios
+            'data' => FormularioResource::collection($formularios),
         ]);
     }
 
@@ -42,22 +46,23 @@ class FormularioController extends Controller
         $formulario = new Formulario();
         $formulario->id = $request->id;
         $formulario->name = $request->name;
-        $formulario->total_preguntas = $request->total_preguntas;
+        $formulario->description = $request->description;
         $formulario->user_id = $request->user_id;
 
-        if ($request->hasFile('image')) {
-            $formulario->addMediaFromRequest('image')->preservingOriginal()->toMediaCollection('images-formularios');
+
+        if ($request->hasFile('thumbnail')) {
+            $formulario->addMediaFromRequest('thumbnail')->preservingOriginal()->toMediaCollection('formularios');
         }
 
-        $formulario->save();
+        $formulario ->save();
 
+        // Devolver una respuesta exitosa
         return response()->json([
             'status' => 405,
             'success' => true,
-            'data' => $formulario
+            'data' => $formulario,
         ]);
     }
-
     /**
      * Display the specified resource.
      */
