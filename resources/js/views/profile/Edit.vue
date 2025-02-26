@@ -84,7 +84,6 @@ yup.setLocale(es);
 const route = useRoute()
 const router = useRouter()
 const store = authStore();
-const usuario = ref({});
 const errors = ref({})
 const swal = inject('$swal')
 
@@ -96,26 +95,39 @@ const schema = yup.object().shape({
     email: yup.string().required().email(),
 });
 
-const updateUser = async () =>{
-    axios.post('/api/user/' + store.user.id, usuario.value)
-        .then((response) => {
-            swal({
-                    icon: 'success',
-                    title: 'Usuario actualizado',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            usuario.value = response.data.data;
-            router.push('/app/profile');
-        })
-        .catch(() => {
-            Toast.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: 'Error al actualizar el usuario',
-                life: 3000,
-            });
-        })
+const usuario = ref({
+    alias: '',
+    name: '',
+    surname1: '',
+    surname2: '',
+    email: '',
+    thumbnail: ''
+});
+
+const updateUser = async () => {
+    axios.post('/api/user/' + store.user.id, usuario.value, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then((response) => {
+        swal({
+            icon: 'success',
+            title: 'Usuario actualizado',
+            showConfirmButton: false,
+            timer: 1500
+        });
+        usuario.value = response.data.data;
+        router.push('/app/profile');
+    })
+    .catch(() => {
+        Toast.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error al actualizar el usuario',
+            life: 3000,
+        });
+    });
 };
 
 onMounted(() => {

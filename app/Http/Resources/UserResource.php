@@ -23,7 +23,9 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'role_id' => $this->roles,
             'roles' => $this->roles,
-            'avatar' => count($this->getMedia('*')) > 0 ? $this->getMedia('*')[0]->getUrl() : null,
+            'avatar' => $this->getFirstMedia('users')
+                ? asset('storage/' . $this->getFirstMedia('users')->id . '/' . $this->getFirstMedia('users')->file_name)
+                : null,
             'created_at' => $this->created_at->toDateString()
         ];
     }

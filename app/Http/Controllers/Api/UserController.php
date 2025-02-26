@@ -138,6 +138,10 @@ class UserController extends Controller
             $user->password = Hash::make($request->password) ?? $user->password;
         }
 
+        if ($request->hasFile('thumbnail')) {
+            $user->addMediaFromRequest('thumbnail')->preservingOriginal()->toMediaCollection('users');
+        }
+
         if ($user->save()) {
             if ($role) {
                 $user->syncRoles($role);
@@ -152,9 +156,9 @@ class UserController extends Controller
 
         $user = User::find($request->id);
 
-        if($request->hasFile('picture')) {
+        if($request->hasFile('users')) {
             $user->media()->delete();
-            $media = $user->addMediaFromRequest('picture')->preservingOriginal()->toMediaCollection('images-users');
+            $media = $user->addMediaFromRequest('users')->preservingOriginal()->toMediaCollection('users');
 
         }
         $user =  User::with('media')->find($request->id);
