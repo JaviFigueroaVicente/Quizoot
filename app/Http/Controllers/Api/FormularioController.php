@@ -9,7 +9,6 @@ use App\Models\Respuesta;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Category;
-use App\Models\Post;
 
 
 use Illuminate\Http\Request;
@@ -93,5 +92,10 @@ class FormularioController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getFormulario($id)
+    {
+        return Formulario::with('user', 'media')->findOrFail($id);
     }
 }

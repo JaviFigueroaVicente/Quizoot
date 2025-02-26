@@ -20,6 +20,7 @@
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" v-model="usuario.email" readonly>
+            <input type="text">
         </div>
         <router-link :to= "{name: 'usuarios.index'}">
             <button type="submit" class="btn btn-primary" @click="onFormSubmit">Guardar cambios</button>

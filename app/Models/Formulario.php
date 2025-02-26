@@ -31,7 +31,6 @@ class Formulario extends Model implements HasMedia
     public function preguntas(){
         return $this->hasMany(Pregunta::class);
     }
-
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('formularios') // Nombre de la colección
