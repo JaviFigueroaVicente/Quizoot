@@ -53,6 +53,12 @@ const model = ref([
             { label: 'Categorias', icon: 'pi pi-fw pi-id-card', to: '/admin/categories', permision: 'category-list' }
 
         ]
+    },
+    {
+       label: 'Formularios',
+       items: [
+           { label: 'Formularios', icon: 'pi pi-fw pi-id-card', to: '/admin/formularios', permission: 'all' },
+       ]
     }
 ]);
 </script>

@@ -72,6 +72,7 @@ Route::delete('usuarios/{usuario}', [UsuariosController::class, 'destroy']);
 Route::get('usuarios/{usuario}', [UsuariosController::class, 'show']);
 Route::put('usuarios/{usuario}', [UsuariosController::class, 'update']);
 
-Route::post('formulario', [FormularioController::class, 'store']);
-Route::get('formulario', [FormularioController::class, 'index']);
 
+Route::get('formulario', [FormularioController::class, 'index']);
+Route::get('formulario/{id}', [FormularioController::class, 'getFormulario']);
+Route::post('formulario', [FormularioController::class, 'store']);

@@ -73,7 +73,7 @@ export default [
                     },
                     {
                         name: 'forms.details',
-                        path: 'details',
+                        path: 'details/:id',
                         component: () => import('../views/forms/details.vue'),
                         meta: { breadCrumb: 'Form Details' }
                     }                   
@@ -320,7 +320,7 @@ export default [
                     {
                         name: 'usuarios.index',
                         path: '',
-                        component: () => import('../views/admin/usuarios/index.vue'),
+                        component: () => import('../views/admin/usuarios/Index.vue'),
                         meta: { breadCrumb: 'Usuarios' }
                     },
                     {
@@ -334,6 +334,31 @@ export default [
                         path: 'create',
                         component: () => import('../views/admin/usuarios/Create.vue'),
                         meta: { breadCrumb: 'Crear' }
+                    }
+                ]
+            },
+            {
+                name: 'formularios',
+                path: 'formularios',
+                meta: { breadCrumb: 'Formularios'},
+                children: [
+                    {
+                        name: 'formularios.index',
+                        path: '',
+                        component: () => import('../views/admin/formularios/index.vue'),
+                        meta: { breadCrumb: 'Formularios' }
+                    },
+                    {
+                        name: 'formularios.edit',
+                        path: 'edit/:id',
+                        component: () => import('../views/admin/formularios/Edit.vue'),
+                        meta: { breadCrumb: 'Edit Formularios' }
+                    },
+                    {
+                        name: 'formularios.create',
+                        path: 'create',
+                        component: () => import('../views/admin/formularios/Create.vue'),
+                        meta: { breadCrumb: 'Create Formularios' }
                     }
                 ]
             },

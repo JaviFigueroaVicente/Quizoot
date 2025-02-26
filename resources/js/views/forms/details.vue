@@ -4,9 +4,9 @@
             <div class="row">
                 <!-- Left Section -->
                 <div class="col-md-4 left-section">
-                    <img src="/images/forms/disney.jpg" alt="User image" class="img-fluid form-image">
-                    <h3 class="fw-bold mb-1 mt-2">Disney Form</h3>
-                    <p>Esta es la descripcion del formulario para que los usuarios puedan ver de que va</p>
+                    <img :src="form.original_image" alt="User image" class="img-fluid form-image">
+                    <h3 class="fw-bold mb-1 mt-2">{{ form.name }}</h3>
+                    <p>{{ form.description }}</p>
                     <button class="btn btn-lila mb-3">Jugar Solo</button>
                     <!-- Sección Derecha: Ranking -->
                     <div class="ranking-container mb-2">
@@ -54,7 +54,26 @@
         </div>
     </div>
 </template>
+<script setup>
+import {ref, onMounted} from "vue";
+import axios from "axios";
+import {useRoute} from "vue-router";
 
+const route = useRoute();
+const form = ref({});
+
+onMounted(() => {
+    console.log(route.params.id);
+
+    axios.get('/api/formulario/' + route.params.id, {headers: {
+                "content-type": "multipart/form-data"
+        }})
+        .then((response) => {
+            form.value = response.data;
+            console.log(form.value)
+        })
+    })
+</script>
 <style scoped>
     .btn-lila {
         background-color: #874ECA;

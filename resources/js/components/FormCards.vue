@@ -1,12 +1,15 @@
 <template>
 <div class="row row-cols-3 g-4 mt-3 ">   <!-- Tarjetas de formularios con imágenes -->
     <div class="col" v-for="formulario in formularios" :key="formulario.id">
-        <router-link to="/forms/details" >
+        <router-link :to="{ name: 'forms.details', params: { id: formulario.id }}">
             <div class="card text-center p-3">
                 <img :src="formulario.original_image || '/images/placeholder.jpg'" alt="Formulario 1" class="form-image">
                 <p class="mt-2">{{ formulario.name }}</p>
             </div>
         </router-link>
+        <template>
+            
+        </template>
     </div>
 </div>
 </template>
