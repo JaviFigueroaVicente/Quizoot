@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::get('/user', [ProfileController::class, 'user']);
     Route::get('/users/{id}', [UserController::class, 'show']);
     Route::post('/user/{id}', [UserController::class, 'updateUser']);
+    Route::post('/user/updateimg/{id}', [UserController::class, 'updateimg']);
 
 
     Route::get('abilities', function(Request $request) {

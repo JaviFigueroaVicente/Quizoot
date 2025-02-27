@@ -2,15 +2,19 @@
     <div class="main-container">
         <div class="card border-0 left-container">
             <div class="card-header bg-transparent">
-                <h5 class="float-start">Profile</h5>
+                <h5 class="float-start">Profile Image</h5>
             </div>
-            <div class="image">
-                <DropZone v-model="usuario.thumbnail"/>
+            <div class="image-container">
+                <img :src="usuario.avatar || '/images/Nav/PerfilSinFoto.webp'" alt="Profile Image" class="profile-image" />
+                <DropZone v-model="imagenFile" />
             </div>
+            <button type="submit" @click="onFormSubmitIMG" class="btn btn-primary w-100 mt-5">
+                Update Image
+            </button> 
         </div>
         <div class="card border-0 rigth-container">
             <div class="card-header bg-transparent">
-                <h5 class="float-start">Profile</h5>
+                <h5 class="float-start">Profile Details</h5>
             </div>
             <div class="card-body">
                 <div class="mb-3">
@@ -33,14 +37,15 @@
                     <label for="email" class="form-label">Email</label>
                     <input type="email" v-model="usuario.email" class="form-control" id="email" readonly>
                 </div>
+                <button type="submit" @click="onFormSubmit" class="btn btn-primary w-100 mt-5">
+                    Update Profile
+                </button> 
             </div>
         </div>        
-    </div>
-    <button type="submit" @click="onFormSubmit" class="btn btn-primary w-100 mt-5">
-        Update
-    </button>  
+    </div> 
     <Toast />
 </template>
+
 <style scoped>
     .card {
         width: 50%;
@@ -51,6 +56,23 @@
 
     .image{
         margin: 15px;
+    }
+
+    .image-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .profile-image {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 10px;
+        border: 2px solid #ccc; /* Borde opcional */
     }
 
     .main-container {
@@ -101,15 +123,13 @@ const usuario = ref({
     surname1: '',
     surname2: '',
     email: '',
-    thumbnail: ''
 });
 
+// Variable para el archivo de imagen
+const imagenFile = ref(null);
+
 const updateUser = async () => {
-    axios.post('/api/user/' + store.user.id, usuario.value, {
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
+    axios.post('/api/user/' + store.user.id, usuario.value)
     .then((response) => {
         swal({
             icon: 'success',
@@ -130,6 +150,71 @@ const updateUser = async () => {
     });
 };
 
+// Función para actualizar solo la imagen
+const updateImage = async () => {
+    if (!imagenFile.value) {
+        toast.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Debe seleccionar una imagen',
+            life: 3000,
+        });
+        return;
+    }
+
+    // Crear FormData para enviar el archivo
+    const formData = new FormData();
+    formData.append('users', imagenFile.value);
+    
+    axios.post('/api/user/updateimg/' + store.user.id, formData)
+    .then((response) => {
+        swal({
+            icon: 'success',
+            title: 'Imagen actualizada',
+            showConfirmButton: false,
+            timer: 1500
+        });
+        // Actualizar el store con la nueva imagen si es necesario
+        if (store.user && response.data) {
+            // Suponiendo que la respuesta incluye la URL de la media
+            if (response.data.media && response.data.media.length > 0) {
+                store.user.thumbnail = response.data.media[0].original_url;
+            }
+        }
+    })
+    .catch((error) => {
+        console.error('Error al actualizar la imagen:', error);
+        toast.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error al actualizar la imagen',
+            life: 3000,
+        });
+    });
+};
+
+const onFormSubmit = () => {
+    schema.validate(usuario.value, { abortEarly: false })
+        .then(() => {
+            updateUser();
+        })
+};
+
+// Validación y envío del formulario de imagen
+const onFormSubmitIMG = () => {
+    if (imagenFile.value) {
+        updateImage();
+        router.push({ name: 'profile.index' });
+    } else {
+        toast.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Debe seleccionar una imagen',
+            life: 3000,
+        });
+    }
+};
+
 onMounted(() => {
     console.log(route.params.id);
 
@@ -139,12 +224,7 @@ onMounted(() => {
         })
 })
 
-const onFormSubmit = () => {
-    schema.validate(usuario.value, { abortEarly: false })
-        .then(() => {
-            updateUser();
-        })
-};
+
 // defineRule('required', required);
 // defineRule('min', min);
 

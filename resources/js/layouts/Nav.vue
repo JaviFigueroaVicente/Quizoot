@@ -17,7 +17,7 @@
                 <ul class="navbar-nav mt-2 mt-lg-0 ms-auto nav-right">    
                     <li v-if="authStore().user?.name" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <button><img src="/images/Nav/PerfilSinFoto.webp" alt="Foto Perfil"></button>
+                            <button><img :src="authStore().user?.avatar || '/images/Nav/PerfilSinFoto.webp'" alt="Foto Perfil"></button>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><router-link class="dropdown-item" to="/app/profile">Perfil</router-link></li>
