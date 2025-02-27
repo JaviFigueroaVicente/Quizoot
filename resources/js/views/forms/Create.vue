@@ -71,11 +71,7 @@ const formulario = ref({
 
 const createFormulario = async () => {
     try {
-        const response = axios.post('/api/formulario', formulario.value,{
-            headers: {
-                "content-type": "multipart/form-data"
-            }
-          });
+        const response = axios.post('/api/formulario', formulario.value);
           console.log(response);
           
     } catch (error) {
