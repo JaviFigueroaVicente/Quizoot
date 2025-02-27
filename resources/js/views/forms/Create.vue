@@ -16,12 +16,12 @@
     <div class="container right-container">
       <p class="text-center">Introduce las preguntas junto con las respuestas</p>
       <div class="mb-4">
-        <input class="question-title" id="pregunta" v-model="formulario.pregunta" placeholder="Introduce la pregunta"/>
+        <input class="question-title" id="pregunta" placeholder="Introduce la pregunta"/>
         <div class="answer-container">
           <label for="respuesta"></label>
-          <input  type="text" class="form-control" id="respuesta" v-model="formulario.respuesta" placeholder="Introduce una respuesta"/>
+          <input  type="text" class="form-control" id="respuesta" placeholder="Introduce una respuesta"/>
           <label for="correcta"></label>
-          <input type="radio" id="correcta" name="correcta" v_model="formulario.correcta" value="true"/> Correcta
+          <input type="radio" id="correcta" name="correcta" value="true"/> Correcta
         </div>
       </div>
       <button class="btn btn-light" @click="añadirPregunta">Añadir pregunta</button>
@@ -48,13 +48,7 @@ const store = authStore();
 const schema = yup.object().shape({
     name: yup.string().required(),
     description: yup.string().required(),
-    preguntas: yup.array().yup.object().shape({
-        pregunta: yup.string().required(),
-        respuestas: yup.array().yup.object().shape({
-            respuesta: yup.string().required(),
-            correcta: yup.boolean().required(),
-        }),
-    }),
+    
 });
 // Peticiones api formulario
 
@@ -64,9 +58,6 @@ const formulario = ref({
     description: '',
     user_id: store.user.id,
     thumbnail: '',
-    pregunta: '',
-    respuesta: '',
-    correcta: false,
 });
 
 const createFormulario = async () => {

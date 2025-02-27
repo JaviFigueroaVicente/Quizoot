@@ -55,8 +55,6 @@ class FormularioController extends Controller
 
         $formulario ->save();
 
-        $formulario->
-
         // Devolver una respuesta exitosa
         return response()->json([
             'status' => 405,
