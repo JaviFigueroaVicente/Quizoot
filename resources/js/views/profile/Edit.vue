@@ -204,7 +204,8 @@ const onFormSubmit = () => {
 const onFormSubmitIMG = () => {
     if (imagenFile.value) {
         updateImage();
-        router.push({ name: 'profile.index' });
+        window.location.reload();
+        // router.push({ name: 'profile.index' });
     } else {
         toast.add({
             severity: 'error',
