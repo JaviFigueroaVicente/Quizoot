@@ -13,8 +13,7 @@ class Pregunta extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'pregunta',
-        'formulario_id'
+        'pregunta'
     ];
 
     public function formulario()
@@ -23,7 +22,12 @@ class Pregunta extends Model
 
     }
 
-    public function respuestas()
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function respuesta()
     {
         return $this->hasMany(Respuesta::class);
     }

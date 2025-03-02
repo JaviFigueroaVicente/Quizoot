@@ -28,7 +28,7 @@ class Formulario extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
-    public function preguntas(){
+    public function pregunta(){
         return $this->hasMany(Pregunta::class);
     }
     public function registerMediaCollections(): void

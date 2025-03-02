@@ -43,17 +43,21 @@ class FormularioController extends Controller
     public function store(Request $request)
     {
         $formulario = new Formulario();
+
         $formulario->id = $request->id;
         $formulario->name = $request->name;
         $formulario->description = $request->description;
-        $formulario->user_id = $request->user_id;
+        $formulario->user_id = auth()->id();
 
 
         if ($request->hasFile('thumbnail')) {
-            $formulario->addMediaFromRequest('thumbnail')->preservingOriginal()->toMediaCollection('formularios');
+            $formulario->addMedia($request->file('thumbnail'))
+                ->preservingOriginal()
+                ->toMediaCollection('formularios');
         }
 
-        $formulario ->save();
+        $formulario->save();
+
 
         // Devolver una respuesta exitosa
         return response()->json([
@@ -61,6 +65,8 @@ class FormularioController extends Controller
             'success' => true,
             'data' => $formulario,
         ]);
+
+//        hay que usar una tabla intemedia y usar un sync
     }
     /**
      * Display the specified resource.

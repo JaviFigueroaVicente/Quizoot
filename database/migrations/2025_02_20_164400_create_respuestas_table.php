@@ -10,8 +10,8 @@ return new class extends Migration
         Schema::create('respuesta', function (Blueprint $table) {
             $table->id();
             $table->string('respuesta');
-            $table->tinyInteger('correcta');
-            $table->foreignId('pregunta_id')->constrained('preguntas')->onDelete('cascade');
+            $table->boolean('correcta')->default(false);
+            $table->foreignId('pregunta_id')->constrained()->onDelete('cascade');
         });
     }
 
