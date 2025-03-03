@@ -195,6 +195,12 @@ export default [
                             path: 'create',
                             component: () => import('../views/preguntas/Create.vue'),
                             meta: { breadCrumb: 'Crear Preguntas' }
+                        },
+                        {
+                            name: 'preguntas.edit',
+                            path: 'edit/:id',
+                            component: () => import('../views/preguntas/Edit.vue'),
+                            meta: { breadCrumb: 'Editar Preguntas' }
                         }
                     ],
                 }

@@ -9,9 +9,10 @@ return new class extends Migration
     {
         Schema::create('respuestas', function (Blueprint $table) {
             $table->id();
-            $table->string('pregunta');
+            $table->string('respuesta');
             $table->boolean('correcta')->default(false);
-            $table->foreignId('pregunta_id')->constrained()->onDelete('cascade');
+            $table->foreignId('preguntas_id')->constrained('preguntas')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

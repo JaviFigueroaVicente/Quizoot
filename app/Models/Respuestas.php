@@ -9,7 +9,7 @@ class Respuestas extends Model
 {
     use HasFactory;
 
-    protected $table = 'respuesta';
+    protected $table = 'respuestas';
     protected $primaryKey = 'id';
 
     protected $fillable = [
@@ -20,6 +20,6 @@ class Respuestas extends Model
 
     public function pregunta()
     {
-        return $this->belongsTo(Preguntas::class);
+        return $this->belongsTo(Preguntas::class, 'pregunta_id');
     }
 }

@@ -1,209 +1,77 @@
 <template>
-    <h2>BUSCAR PREGUNTAS</h2>
-    <div class="card">
-        <DataTable v-model:filters="filters" v-model:selection="selectedCustomers" :value="customers" paginator :rows="10" dataKey="id" filterDisplay="menu"
-            :globalFilterFields="['name', 'country.name', 'representative.name', 'balance', 'status']">
-            <template #header>
-                <div class="flex justify-between">
-                    <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="clearFilter()" />
-                    <IconField class="flex align-items-center">
-                        <InputIcon>
-                            <i class="pi pi-search" />
-                        </InputIcon>
-                        <InputText v-model="filters['global'].value" placeholder="Keyword Search" />
-                    </IconField>
-                    <MultiSelect v-model="selectedCountries" :options="countries" optionLabel="name" filter placeholder="Select Countries" display="chip" class="w-full md:w-80">
-                        <template #option="slotProps">
-                            <div class="flex items-center">
-                                <img :alt="slotProps.option.name" src="https://primefaces.org/cdn/primevue/images/flag/flag_placeholder.png" :class="`flag flag-${slotProps.option.code.toLowerCase()} mr-2`" style="width: 18px" />
-                                <div>{{ slotProps.option.name }}</div>
-                            </div>
-                        </template>
-                        <template #dropdownicon>
-                            <i class="pi pi-map" />
-                        </template>
-                        <template #filtericon>
-                            <i class="pi pi-map-marker" />
-                        </template>
-                        <template #header>
-                            <div class="font-medium px-3 py-2">Available Countries</div>
-                        </template>
-                        <template #footer>
-                            <div class="p-3 flex justify-between">
-                                <Button label="Add New" severity="secondary" text size="small" icon="pi pi-plus" />
-                                <Button label="Remove All" severity="danger" text size="small" icon="pi pi-times" />
-                            </div>
-                        </template>
-                    </MultiSelect>
-                    <router-link :to="{name: 'preguntas.create'}" class="flex align-items-center"><button type="button" class="btn btn-primary button button-action">Crear pregunta</button></router-link>
+    <div class="grid">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-transparent ps-0 pe-0">
+                    <h5 class="float-start mb-0">Buscar Preguntas</h5>
                 </div>
-            </template>
-            <template #empty> No customers found. </template>
-            <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-            <Column field="name" header="Name" sortable style="min-width: 14rem">
-                <template #body="{ data }">
-                    {{ data.name }}
-                </template>
-                <template #filter="{ filterModel }">
-                    <InputText v-model="filterModel.value" type="text" placeholder="Search by name" />
-                </template>
-            </Column>
-            <Column header="Country" sortable sortField="country.name" filterField="country.name" style="min-width: 14rem">
-                <template #body="{ data }">
-                    <div class="flex items-center gap-2">
-                        <img alt="flag" src="https://primefaces.org/cdn/primevue/images/flag/flag_placeholder.png" :class="`flag flag-${data.country.code}`" style="width: 24px" />
-                        <span>{{ data.country.name }}</span>
-                    </div>
-                </template>
-                <template #filter="{ filterModel }">
-                    <InputText v-model="filterModel.value" type="text" placeholder="Search by country" />
-                </template>
-            </Column>
-            <Column header="Agent" sortable sortField="representative.name" filterField="representative" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }" style="min-width: 14rem">
-                <template #body="{ data }">
-                    <div class="flex items-center gap-2">
-                        <img :alt="data.representative.name" :src="`https://primefaces.org/cdn/primevue/images/avatar/${data.representative.image}`" style="width: 32px" />
-                        <span>{{ data.representative.name }}</span>
-                    </div>
-                </template>
-                <template #filter="{ filterModel }">
-                    <MultiSelect v-model="filterModel.value" :options="representatives" optionLabel="name" placeholder="Any">
-                        <template #option="slotProps">
-                            <div class="flex items-center gap-2">
-                                <img :alt="slotProps.option.name" :src="`https://primefaces.org/cdn/primevue/images/avatar/${slotProps.option.image}`" style="width: 32px" />
-                                <span>{{ slotProps.option.name }}</span>
-                            </div>
+                    <DataTable v-model:filters="filters" :value="preguntas.data" paginator :rows="5"
+                               :globalFilterFields="['id','pregunta', 'user_id','created_at']" stripedRows dataKey="id" size="small">
+                        <template #header>
+                            <Toolbar pt:root:class="toolbar-table">
+                                <template #start>
+                                    <IconField >
+                                        <InputIcon class="pi pi-search"> </InputIcon>
+                                        <InputText v-model="filters['global'].value" placeholder="Buscar" />
+                                    </IconField>
+
+                                    <Button type="button" icon="pi pi-filter-slash" label="Clear" class="ml-1" outlined @click="initFilters()" />
+                                    <Button type="button" icon="pi pi-refresh" class="h-100 ml-1" outlined @click="getUsers()" />
+                                </template>
+                            </Toolbar>
                         </template>
-                    </MultiSelect>
-                </template>
-            </Column>
-            <Column field="date" header="Date" sortable filterField="date" dataType="date" style="min-width: 10rem">
-                <template #body="{ data }">
-                    {{ formatDate(data.date) }}
-                </template>
-                <template #filter="{ filterModel }">
-                    <DatePicker v-model="filterModel.value" dateFormat="mm/dd/yy" placeholder="mm/dd/yyyy" />
-                </template>
-            </Column>
-            <Column field="balance" header="Balance" sortable filterField="balance" dataType="numeric" style="min-width: 10rem">
-                <template #body="{ data }">
-                    {{ formatCurrency(data.balance) }}
-                </template>
-                <template #filter="{ filterModel }">
-                    <InputNumber v-model="filterModel.value" mode="currency" currency="USD" locale="en-US" />
-                </template>
-            </Column>
-            <Column header="Status" field="status" sortable :filterMenuStyle="{ width: '14rem' }" style="min-width: 12rem">
-                <template #body="{ data }">
-                    <Tag :value="data.status" :severity="getSeverity(data.status)" />
-                </template>
-                <template #filter="{ filterModel }">
-                    <Select v-model="filterModel.value" :options="statuses" placeholder="Select One" showClear>
-                        <template #option="slotProps">
-                            <Tag :value="slotProps.option" :severity="getSeverity(slotProps.option)" />
-                        </template>
-                    </Select>
-                </template>
-            </Column>
-            <Column field="activity" header="Activity" sortable :showFilterMatchModes="false" style="min-width: 12rem">
-                <template #body="{ data }">
-                    <ProgressBar :value="data.activity" :showValue="false" style="height: 6px"></ProgressBar>
-                </template>
-                <template #filter="{ filterModel }">
-                    <Slider v-model="filterModel.value" range class="m-4"></Slider>
-                    <div class="flex items-center justify-between px-2">
-                        <span>{{ filterModel.value ? filterModel.value[0] : 0 }}</span>
-                        <span>{{ filterModel.value ? filterModel.value[1] : 100 }}</span>
-                    </div>
-                </template>
-            </Column>
-            <Column headerStyle="width: 5rem; text-align: center" bodyStyle="text-align: center; overflow: visible">
-                <template #body>
-                    <Button type="button" icon="pi pi-cog" rounded />
-                </template>
-            </Column>
-        </DataTable>
+
+                        <template #empty> No customers found. </template>
+
+                        <Column field="id" header="ID" sortable></Column>
+                        <Column field="pregunta" header="Pregunta" sortable></Column>
+                        <Column field="user_id" header="Id Usuario" sortable></Column>
+                        <Column field="created_at" header="Creado el" sortable></Column>
+                        <Column class="pe-0 me-0 icon-column-2">
+                            <template #body="slotProps">
+                                <router-link v-if="can('user-edit')" :to="{ name: 'preguntas.edit', params: { id: slotProps.data.id } }">
+                                    <Button icon="pi pi-pencil" severity="info" size="small" class="mr-1"/>
+                                </router-link>
+
+                                <Button icon="pi pi-trash" severity="danger" v-if="can('user-delete')" @click.prevent="deleteUser(slotProps.data.id, slotProps.index)" size="small"/>
+
+                            </template>
+                        </Column>
+
+                    </DataTable>
+            </div>
+        </div>
     </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import usePreguntas from '@/composables/preguntas';
+import {useAbility} from '@casl/vue'
 import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
 
 const router = useRouter();
-
-const customers = ref();
-const selectedCustomers = ref();
+const {preguntas, getPreguntas, deletePregunta} = usePreguntas();
+const {can} = useAbility()
 const filters = ref();
-const representatives = ref([
-    { name: 'Amy Elsner', image: 'amyelsner.png' },
-    { name: 'Anna Fali', image: 'annafali.png' },
-    { name: 'Asiya Javayant', image: 'asiyajavayant.png' },
-    { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
-    { name: 'Elwin Sharvill', image: 'elwinsharvill.png' },
-    { name: 'Ioni Bowcher', image: 'ionibowcher.png' },
-    { name: 'Ivan Magalhaes', image: 'ivanmagalhaes.png' },
-    { name: 'Onyama Limba', image: 'onyamalimba.png' },
-    { name: 'Stephen Shaw', image: 'stephenshaw.png' },
-    { name: 'XuXue Feng', image: 'xuxuefeng.png' }
-]);
-const statuses = ref(['unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal']);
 
 onMounted(() => {
-    
+    getPreguntas();
 });
 
 
 const initFilters = () => {
     filters.value = {
-        global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        name: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-        'country.name': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-        representative: { value: null, matchMode: FilterMatchMode.IN },
-        date: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
-        balance: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
-        status: { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
-        activity: { value: [0, 100], matchMode: FilterMatchMode.BETWEEN },
-        verified: { value: null, matchMode: FilterMatchMode.EQUALS }
+        global: { value: null, matchMode: FilterMatchMode.CONTAINS }
     };
 };
 
 initFilters();
 
-const formatDate = (value) => {
-    return value.toLocaleDateString('en-US', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-    });
+const deleteUser = (id, index) => {
+    preguntas.value.splice(index, 1);
 };
-const formatCurrency = (value) => {
-    return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-};
-const clearFilter = () => {
-    initFilters();
-};
-const getCustomers = (data) => {
-    
-};
-const getSeverity = (status) => {
-    switch (status) {
-        case 'unqualified':
-            return 'danger';
 
-        case 'qualified':
-            return 'success';
-
-        case 'new':
-            return 'info';
-
-        case 'negotiation':
-            return 'warn';
-
-        case 'renewal':
-            return null;
-    }
-};
 </script>
 

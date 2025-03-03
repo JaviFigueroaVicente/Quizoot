@@ -9,25 +9,20 @@ class Preguntas extends Model
 {
     use HasFactory;
 
-    protected $table = 'pregunta';
+    protected $table = 'preguntas';
     protected $primaryKey = 'id';
 
     protected $fillable = [
+        'user_id',
         'pregunta'
     ];
-
-    public function formulario()
-    {
-        return $this->belongsTo(Formularios::class);
-
-    }
 
     public function user()
     {
         return $this->belongsToMany(User::class);
     }
 
-    public function respuesta()
+    public function respuestas()
     {
         return $this->hasMany(Respuestas::class);
     }

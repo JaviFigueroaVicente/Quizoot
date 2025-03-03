@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Preguntas;
 use App\Models\Respuestas;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
@@ -36,45 +37,41 @@ class PreguntasController extends Controller
      */
     public function store(Request $request)
     {
-        // Validar los datos de la pregunta
-        $validator = Validator::make($request->all(), [
-            'pregunta' => ['required', 'max:255'],
-            'respuestas' => ['required', 'array', 'min:1'], // Al menos una respuesta
-            'respuestas.*.respuesta' => ['required', 'string'], // Cada respuesta debe tener texto
-            'respuestas.*.correcta' => ['required', 'boolean'], // Cada respuesta debe indicar si es correcta
-        ]);
+        try {
+            Log::info('Datos recibidos:', $request->all());
 
-        if ($validator->fails()) {
+
+            $request->validate([
+                'pregunta' => 'required|string|max:255',
+                'respuestas' => 'required|array|min:2|max:4',
+                'respuestas.*.respuesta' => 'required|string|max:255',
+                'respuestas.*.correcta' => 'boolean',
+            ]);
+
+
+            // Crear la pregunta
+            $pregunta = Preguntas::create([
+                'pregunta' => $request->pregunta,
+                'user_id' => auth()->id(),
+            ]);
+
+            // Crear respuestas asociadas
+            $pregunta->respuestas()->createMany($request->respuestas);
+
             return response()->json([
-                'status' => 422,
+                'status' => 200,
+                'success' => true,
+                'data' => $pregunta->load('respuestas'),
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Error en store(): ' . $e->getMessage());
+            return response()->json([
+                'status' => 500,
                 'success' => false,
-                'errors' => $validator->errors(),
-            ], 422);
+                'message' => 'Error interno en el servidor',
+                'error' => $e->getMessage(),
+            ], 500);
         }
-
-        // Crear la pregunta
-        $data = $validator->validated();
-        $pregunta = Preguntas::create(['pregunta' => $data['pregunta']]);
-
-        // Preparar los datos de las respuestas
-        $respuestasData = [];
-        foreach ($data['respuestas'] as $respuesta) {
-            $respuestasData[] = [
-                'pregunta_id' => $pregunta->id,
-                'respuesta' => $respuesta['respuesta'],
-                'correcta' => $respuesta['correcta'],
-            ];
-        }
-
-        // Crear las respuestas asociadas usando createMany
-        Respuestas::insert($respuestasData); // Insertar todas las respuestas a la vez
-
-        // Retornar la respuesta exitosa
-        return response()->json([
-            'status' => 201,
-            'success' => true,
-            'data' => $pregunta->load('respuestas'), // Incluir las respuestas asociadas
-        ], 201);
     }
 
     /**
