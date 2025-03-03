@@ -4,9 +4,9 @@
             <div class="row">
                 <!-- Left Section -->
                 <div class="col-md-4 left-section">
-                    <img :src="form.original_image" alt="User image" class="img-fluid form-image">
-                    <h3 class="fw-bold mb-1 mt-2">{{ form.name }}</h3>
-                    <p>{{ form.description }}</p>
+                    <img :src="formulario.media[0].original_url ||'images/placeholder.png'" alt="User image" class="form-image">
+                    <h3 class="fw-bold mb-1 mt-2">{{ formulario.name }}</h3>
+                    <p>{{ formulario.description }}</p>
                     <button class="btn btn-lila mb-3">Jugar Solo</button>
                     <!-- Sección Derecha: Ranking -->
                     <div class="ranking-container mb-2">
@@ -60,7 +60,7 @@ import axios from "axios";
 import {useRoute} from "vue-router";
 
 const route = useRoute();
-const form = ref({});
+const formulario = ref({});
 
 onMounted(() => {
     console.log(route.params.id);
@@ -69,8 +69,8 @@ onMounted(() => {
                 "content-type": "multipart/form-data"
         }})
         .then((response) => {
-            form.value = response.data;
-            console.log(form.value)
+            formulario.value = response.data;
+            console.log(formulario.value);
         })
     })
 </script>

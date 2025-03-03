@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\FormularioResource;
-use App\Models\Formulario;
-use App\Models\Pregunta;
-use App\Models\Respuesta;
+use App\Http\Resources\FormulariosResource;
+use App\Models\Formularios;
+use App\Models\Preguntas;
+use App\Models\Respuestas;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Category;
@@ -13,19 +13,19 @@ use App\Models\Category;
 
 use Illuminate\Http\Request;
 
-class FormularioController extends Controller
+class FormulariosController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $formularios = Formulario::all();
+        $formularios = Formularios::all();
 
         return response()->json([
             'status' => 405,
             'success' => true,
-            'data' => FormularioResource::collection($formularios),
+            'data' => FormulariosResource::collection($formularios),
         ]);
     }
 
@@ -42,7 +42,7 @@ class FormularioController extends Controller
      */
     public function store(Request $request)
     {
-        $formulario = new Formulario();
+        $formulario = new Formularios();
 
         $formulario->id = $request->id;
         $formulario->name = $request->name;
@@ -100,8 +100,8 @@ class FormularioController extends Controller
         //
     }
 
-    public function getFormulario($id)
+    public function getFormularios(string $id)
     {
-        return Formulario::with('user', 'media')->findOrFail($id);
+        return Formularios::with('user', 'media')->findOrFail($id);
     }
 }

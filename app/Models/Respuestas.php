@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Respuesta extends Model
+class Respuestas extends Model
 {
     use HasFactory;
 
@@ -20,6 +20,6 @@ class Respuesta extends Model
 
     public function pregunta()
     {
-        return $this->belongsTo(Pregunta::class);
+        return $this->belongsTo(Preguntas::class);
     }
 }

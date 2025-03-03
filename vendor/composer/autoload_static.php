@@ -412,8 +412,8 @@ class ComposerStaticInitce661e0f579fbfd76feb6acea3c999a0
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -620,11 +620,15 @@ class ComposerStaticInitce661e0f579fbfd76feb6acea3c999a0
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Api\\CategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/CategoryController.php',
+        'App\\Http\\Controllers\\Api\\FormularioController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/FormularioController.php',
         'App\\Http\\Controllers\\Api\\PermissionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/PermissionController.php',
         'App\\Http\\Controllers\\Api\\PostControllerAdvance' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/PostControllerAdvance.php',
+        'App\\Http\\Controllers\\Api\\PreguntaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/PreguntaController.php',
         'App\\Http\\Controllers\\Api\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/ProfileController.php',
+        'App\\Http\\Controllers\\Api\\RespuestaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/RespuestaController.php',
         'App\\Http\\Controllers\\Api\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/RoleController.php',
         'App\\Http\\Controllers\\Api\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/UserController.php',
+        'App\\Http\\Controllers\\Api\\UsuariosController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/UsuariosController.php',
         'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/AuthenticatedSessionController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -655,6 +659,7 @@ class ComposerStaticInitce661e0f579fbfd76feb6acea3c999a0
         'App\\Http\\Requests\\UpdateProfileRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateProfileRequest.php',
         'App\\Http\\Requests\\UpdateUserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateUserRequest.php',
         'App\\Http\\Resources\\CategoryResource' => __DIR__ . '/../..' . '/app/Http/Resources/CategoryResource.php',
+        'App\\Http\\Resources\\FormularioResource' => __DIR__ . '/../..' . '/app/Http/Resources/FormularioResource.php',
         'App\\Http\\Resources\\PermissionResource' => __DIR__ . '/../..' . '/app/Http/Resources/PermissionResource.php',
         'App\\Http\\Resources\\PostResource' => __DIR__ . '/../..' . '/app/Http/Resources/PostResource.php',
         'App\\Http\\Resources\\RoleResource' => __DIR__ . '/../..' . '/app/Http/Resources/RoleResource.php',
@@ -666,6 +671,8 @@ class ComposerStaticInitce661e0f579fbfd76feb6acea3c999a0
         'App\\Models\\Formulario' => __DIR__ . '/../..' . '/app/Models/Formulario.php',
         'App\\Models\\Note' => __DIR__ . '/../..' . '/app/Models/Note.php',
         'App\\Models\\Post' => __DIR__ . '/../..' . '/app/Models/Post.php',
+        'App\\Models\\Pregunta' => __DIR__ . '/../..' . '/app/Models/Pregunta.php',
+        'App\\Models\\Respuesta' => __DIR__ . '/../..' . '/app/Models/Respuesta.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\Usuarios' => __DIR__ . '/../..' . '/app/Models/Usuarios.php',
         'App\\Notifications\\UserResetPasswordNotification' => __DIR__ . '/../..' . '/app/Notifications/UserResetPasswordNotification.php',

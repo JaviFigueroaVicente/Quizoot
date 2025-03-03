@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Pregunta;
-use App\Models\Respuesta;
+use App\Models\Preguntas;
+use App\Models\Respuestas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class RespuestaController extends Controller
+class RespuestasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,7 +39,7 @@ class RespuestaController extends Controller
         $data = $validator->validated();
         return $validator->errors();
 
-        $usuario = Respuesta::create($data);
+        $usuario = Respuestas::create($data);
 
         return response()->json([
             'status' => 405,

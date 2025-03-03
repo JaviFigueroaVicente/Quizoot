@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Pregunta;
-use App\Models\Respuesta;
+use App\Models\Preguntas;
+use App\Models\Respuestas;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
-class PreguntaController extends Controller
+class PreguntasController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $preguntas = Pregunta::all();
+        $preguntas = Preguntas::all();
         return response()->json([
             'status' => 405,
             'success' => true,
@@ -54,7 +54,7 @@ class PreguntaController extends Controller
 
         // Crear la pregunta
         $data = $validator->validated();
-        $pregunta = Pregunta::create(['pregunta' => $data['pregunta']]);
+        $pregunta = Preguntas::create(['pregunta' => $data['pregunta']]);
 
         // Preparar los datos de las respuestas
         $respuestasData = [];
@@ -67,7 +67,7 @@ class PreguntaController extends Controller
         }
 
         // Crear las respuestas asociadas usando createMany
-        Respuesta::insert($respuestasData); // Insertar todas las respuestas a la vez
+        Respuestas::insert($respuestasData); // Insertar todas las respuestas a la vez
 
         // Retornar la respuesta exitosa
         return response()->json([

@@ -10,7 +10,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Formulario extends Model implements HasMedia
+class Formularios extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
@@ -29,7 +29,7 @@ class Formulario extends Model implements HasMedia
     }
 
     public function pregunta(){
-        return $this->hasMany(Pregunta::class);
+        return $this->hasMany(Preguntas::class);
     }
     public function registerMediaCollections(): void
     {

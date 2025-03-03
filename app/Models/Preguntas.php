@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pregunta extends Model
+class Preguntas extends Model
 {
     use HasFactory;
 
@@ -18,17 +18,17 @@ class Pregunta extends Model
 
     public function formulario()
     {
-        return $this->belongsTo(Formulario::class);
+        return $this->belongsTo(Formularios::class);
 
     }
 
-    public function users()
+    public function user()
     {
         return $this->belongsToMany(User::class);
     }
 
     public function respuesta()
     {
-        return $this->hasMany(Respuesta::class);
+        return $this->hasMany(Respuestas::class);
     }
 }

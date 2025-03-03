@@ -24,10 +24,10 @@
                 <label for="email" class="form-label">Email</label>
                 <input type="email" v-model="usuario.email" class="form-control" id="email" readonly>
             </div>
-            <div class="mb-3">    
+            <div class="mb-3">
                 <button type="submit" @click="onFormSubmit" class="btn btn-primary">
                     Update
-                </button>        
+                </button>
             </div>
             <Toast />
         </div>
@@ -40,14 +40,14 @@
         margin-top: 10px;
         justify-content: center;
     }
-    
+
 </style>
 <script setup>
 import { onMounted, reactive, watchEffect,ref, inject } from "vue";
 // import { useField, defineRule } from "vee-validate";
 import { required, min } from "@/validation/rules";
 import { authStore } from '@/store/auth';
-import { useRoute, useRouter } from "vue-router"; 
+import { useRoute, useRouter } from "vue-router";
 import { useToast } from "primevue/usetoast";
 import * as yup from "yup";
 import { es } from "yup-locales";
@@ -136,7 +136,7 @@ const onFormSubmit = () => {
 // const updateUser = async () => {
 //     const response = await axios.put(`/api/users/${store.user.id}`, profile);
 
-//     console.log("Respuesta del servidor:", response.data); 
+//     console.log("Respuestas del servidor:", response.data);
 
 //     const updatedUser = response.data;
 //     store.setUser(updatedUser);

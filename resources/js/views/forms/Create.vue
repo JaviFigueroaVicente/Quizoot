@@ -12,22 +12,8 @@
       </div>
       <DropZone v-model="formulario.thumbnail"/>
     </div>
-    <!-- Sección Derecha: Preguntas -->
-    <div class="container right-container">
-      <p class="text-center">Introduce las preguntas junto con las respuestas</p>
-      <div class="mb-4">
-        <input class="question-title" id="pregunta" placeholder="Introduce la pregunta"/>
-        <div class="answer-container">
-          <label for="respuesta"></label>
-          <input  type="text" class="form-control" id="respuesta" placeholder="Introduce una respuesta"/>
-          <label for="correcta"></label>
-          <input type="radio" id="correcta" name="correcta" value="true"/> Correcta
-        </div>
-      </div>
-      <button class="btn btn-light" @click="añadirPregunta">Añadir pregunta</button>
-    </div>
   </div>
-
+  <router-link :to="{name: 'preguntas.create'}" class="flex align-items-center"><button type="button" class="btn btn-primary button button-action">Crear pregunta</button></router-link>
   <button type="submit" class="btn btn-custom mt-2" @click.prevent="onFormSubmit">Crear Formulario</button>
 </template>
 
@@ -48,23 +34,21 @@ const store = authStore();
 const schema = yup.object().shape({
     name: yup.string().required(),
     description: yup.string().required(),
-    
 });
-// Peticiones api formulario
 
 // Mostrar imagen
 const formulario = ref({
     name: '',
     description: '',
-    user_id: store.user.id,
     thumbnail: '',
 });
 
 const createFormulario = async () => {
     try {
-        const response = axios.post('/api/formulario', formulario.value);
-          console.log(response);
-          
+        const response = axios.post('/api/formulario', formulario.value, {headers: {
+            "content-type": "multipart/form-data"
+        }});
+        console.log(response); 
     } catch (error) {
         console.error(error);
     }

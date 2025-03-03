@@ -76,7 +76,7 @@ export default [
                         path: 'details/:id',
                         component: () => import('../views/forms/details.vue'),
                         meta: { breadCrumb: 'Form Details' }
-                    }                   
+                    }
 
                 ],
             },
@@ -95,7 +95,7 @@ export default [
                         path: 'details',
                         component: () => import('../views/rankings/details.vue'),
                         meta: { breadCrumb: 'Form Details' }
-                    }                   
+                    }
 
                 ],
             },
@@ -104,7 +104,7 @@ export default [
                 name: 'home',
                 component: () => import('../views/home/index.vue'),
             },
-            
+
             {
                 path: 'posts',
                 name: 'public-posts.index',
@@ -153,7 +153,7 @@ export default [
         beforeEnter: requireLogin,
         children:[
         {
-            name: 'profile',    
+            name: 'profile',
             path: 'profile',
             children : [
                 {
@@ -179,10 +179,29 @@ export default [
                     path: 'create',
                     component: () => import('../views/forms/Create.vue'),
                     meta: { breadCrumb: 'Create Form' }
+                },
+                {
+                    name:'preguntas',
+                    path:'preguntas',
+                    children : [
+                        {
+                            name: 'preguntas.index',
+                            path: '',
+                            component: () => import('../views/preguntas/index.vue'),
+                            meta: { breadCrumb: 'Preguntas' }
+                        },
+                        {
+                            name: 'preguntas.create',
+                            path: 'create',
+                            component: () => import('../views/preguntas/Create.vue'),
+                            meta: { breadCrumb: 'Crear Preguntas' }
+                        }
+                    ],
                 }
             ]
-        }
-            
+        },
+
+
         ]
     },
 
