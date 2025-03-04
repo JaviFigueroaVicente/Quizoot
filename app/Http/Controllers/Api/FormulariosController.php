@@ -42,13 +42,17 @@ class FormulariosController extends Controller
      */
     public function store(Request $request)
     {
-        $formulario = new Formularios();
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'thumbnail' => 'nullable|image|max:2048',
+        ]);
 
-        $formulario->id = $request->id;
-        $formulario->name = $request->name;
-        $formulario->description = $request->description;
-        $formulario->user_id = auth()->id();
-
+        $formulario = Formularios::create([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'user_id' => auth()->id(),
+        ]);
 
         if ($request->hasFile('thumbnail')) {
             $formulario->addMedia($request->file('thumbnail'))
@@ -58,12 +62,11 @@ class FormulariosController extends Controller
 
         $formulario->save();
 
-
         // Devolver una respuesta exitosa
         return response()->json([
             'status' => 405,
             'success' => true,
-            'data' => $formulario,
+            'data' => $formulario->load('media'),
         ]);
 
 //        hay que usar una tabla intemedia y usar un sync

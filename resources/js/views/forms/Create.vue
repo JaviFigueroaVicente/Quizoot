@@ -18,13 +18,16 @@
 </template>
 
 <script setup>
-import axios from "axios";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import * as yup from "yup";
 import { es, id } from "yup-locales";
 import DropZone from "@/components/DropZone.vue";
 import { authStore } from "@/store/auth";
+import useForms from "@/composables/forms";
+
+
+const { storeForm, formulario } = useForms();
 
 yup.setLocale(es);
 const route = useRoute();
@@ -37,28 +40,13 @@ const schema = yup.object().shape({
 });
 
 // Mostrar imagen
-const formulario = ref({
-    name: '',
-    description: '',
-    thumbnail: '',
-});
 
-const createFormulario = async () => {
-    try {
-        const response = axios.post('/api/formulario', formulario.value, {headers: {
-            "content-type": "multipart/form-data"
-        }});
-        console.log(response); 
-    } catch (error) {
-        console.error(error);
-    }
-};
 
 // Enviara crear el formulario
 const onFormSubmit = async () => {
     try {
       schema.validate(formulario.value, { abortEarly: false });
-      createFormulario();
+      storeForm();
     } catch (validationError) {
       console.error(validationError);
     }

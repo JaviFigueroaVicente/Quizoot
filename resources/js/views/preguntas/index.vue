@@ -52,7 +52,7 @@ import {useAbility} from '@casl/vue'
 import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
 
 const router = useRouter();
-const {preguntas, getPreguntas, deletePregunta} = usePreguntas();
+const {preguntas, getPreguntas} = usePreguntas();
 const {can} = useAbility()
 const filters = ref();
 
@@ -69,9 +69,6 @@ const initFilters = () => {
 
 initFilters();
 
-const deleteUser = (id, index) => {
-    preguntas.value.splice(index, 1);
-};
 
 </script>
 
