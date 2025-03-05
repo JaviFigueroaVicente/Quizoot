@@ -152,14 +152,15 @@ class UserController extends Controller
 
         $user = User::find($request->id);
 
-        if($request->hasFile('picture')) {
+        if($request->hasFile('users')) {
             $user->media()->delete();
-            $media = $user->addMediaFromRequest('picture')->preservingOriginal()->toMediaCollection('images-users');
+            $media = $user->addMediaFromRequest('users')->preservingOriginal()->toMediaCollection('users');
 
         }
         $user =  User::with('media')->find($request->id);
         return  $user;
     }
+    
 
     public function destroy(User $user)
     {

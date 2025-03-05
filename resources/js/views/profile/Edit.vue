@@ -1,38 +1,51 @@
 <template>
-    <div class="card border-0">
-        <div class="card-header bg-transparent">
-            <h5 class="float-start">Profile</h5>
+    <div class="main-container">
+        <div class="card border-0 left-container">
+            <div class="card-header bg-transparent">
+                <h5 class="float-start">Profile Image</h5>
+            </div>
+            <div class="image-container">
+                <img :src="usuario.avatar || '/images/Nav/PerfilSinFoto.webp'" alt="Profile Image" class="profile-image" />
+                <DropZone v-model="imagenFile" />
+            </div>
+            <button type="submit" @click="onFormSubmitIMG" class="btn btn-primary w-100 mt-5">
+                Update Image
+            </button> 
         </div>
-        <div class="card-body">
-            <div class="mb-3">
-                <label for="alias" class="form-label">Alias</label>
-                <input type="text" v-model="usuario.alias" class="form-control" id="alias">
+        <div class="card border-0 rigth-container">
+            <div class="card-header bg-transparent">
+                <h5 class="float-start">Profile Details</h5>
             </div>
-            <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" v-model="usuario.name" class="form-control" id="name">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="alias" class="form-label">Alias</label>
+                    <input type="text" v-model="usuario.alias" class="form-control" id="alias">
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" v-model="usuario.name" class="form-control" id="name">
+                </div>
+                <div class="mb-3">
+                    <label for="surname1" class="form-label">First Surname</label>
+                    <input type="text" v-model="usuario.surname1" class="form-control" id="surname1">
+                </div>
+                <div class="mb-3">
+                    <label for="surname2" class="form-label">Second Surname</label>
+                    <input type="text" v-model="usuario.surname2" class="form-control" id="surname2">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" v-model="usuario.email" class="form-control" id="email" readonly>
+                </div>
+                <button type="submit" @click="onFormSubmit" class="btn btn-primary w-100 mt-5">
+                    Update Profile
+                </button> 
             </div>
-            <div class="mb-3">
-                <label for="surname1" class="form-label">First Surname</label>
-                <input type="text" v-model="usuario.surname1" class="form-control" id="surname1">
-            </div>
-            <div class="mb-3">
-                <label for="surname2" class="form-label">Second Surname</label>
-                <input type="text" v-model="usuario.surname2" class="form-control" id="surname2">
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" v-model="usuario.email" class="form-control" id="email" readonly>
-            </div>
-            <div class="mb-3">
-                <button type="submit" @click="onFormSubmit" class="btn btn-primary">
-                    Update
-                </button>
-            </div>
-            <Toast />
-        </div>
-    </div>
+        </div>        
+    </div> 
+    <Toast />
 </template>
+
 <style scoped>
     .card {
         width: 50%;
@@ -41,6 +54,42 @@
         justify-content: center;
     }
 
+    .image{
+        margin: 15px;
+    }
+
+    .image-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .profile-image {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 10px;
+        border: 2px solid #ccc; /* Borde opcional */
+    }
+
+    .main-container {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .left-container {
+        flex: 1;
+    }
+
+    .right-container {
+        flex: 2;
+    }
+            
 </style>
 <script setup>
 import { onMounted, reactive, watchEffect,ref, inject } from "vue";
@@ -51,12 +100,12 @@ import { useRoute, useRouter } from "vue-router";
 import { useToast } from "primevue/usetoast";
 import * as yup from "yup";
 import { es } from "yup-locales";
+import DropZone from "@/components/DropZone.vue";
 
 yup.setLocale(es);
 const route = useRoute()
 const router = useRouter()
 const store = authStore();
-const usuario = ref({});
 const errors = ref({})
 const swal = inject('$swal')
 
@@ -68,26 +117,103 @@ const schema = yup.object().shape({
     email: yup.string().required().email(),
 });
 
-const updateUser = async () =>{
-    axios.put('/api/user/' + store.user.id, usuario.value)
-        .then((response) => {
-            swal({
-                    icon: 'success',
-                    title: 'Usuario actualizado',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            usuario.value = response.data.data;
-            router.push('/app/profile');
+const usuario = ref({
+    alias: '',
+    name: '',
+    surname1: '',
+    surname2: '',
+    email: '',
+});
+
+// Variable para el archivo de imagen
+const imagenFile = ref(null);
+
+const updateUser = async () => {
+    axios.post('/api/user/' + store.user.id, usuario.value)
+    .then((response) => {
+        swal({
+            icon: 'success',
+            title: 'Usuario actualizado',
+            showConfirmButton: false,
+            timer: 1500
+        });
+        usuario.value = response.data.data;
+        router.push('/app/profile');
+    })
+    .catch(() => {
+        Toast.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error al actualizar el usuario',
+            life: 3000,
+        });
+    });
+};
+
+// Función para actualizar solo la imagen
+const updateImage = async () => {
+    if (!imagenFile.value) {
+        toast.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Debe seleccionar una imagen',
+            life: 3000,
+        });
+        return;
+    }
+
+    // Crear FormData para enviar el archivo
+    const formData = new FormData();
+    formData.append('users', imagenFile.value);
+    
+    axios.post('/api/user/updateimg/' + store.user.id, formData)
+    .then((response) => {
+        swal({
+            icon: 'success',
+            title: 'Imagen actualizada',
+            showConfirmButton: false,
+            timer: 1500
+        });
+        // Actualizar el store con la nueva imagen si es necesario
+        if (store.user && response.data) {
+            // Suponiendo que la respuesta incluye la URL de la media
+            if (response.data.media && response.data.media.length > 0) {
+                store.user.thumbnail = response.data.media[0].original_url;
+            }
+        }
+    })
+    .catch((error) => {
+        console.error('Error al actualizar la imagen:', error);
+        toast.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error al actualizar la imagen',
+            life: 3000,
+        });
+    });
+};
+
+const onFormSubmit = () => {
+    schema.validate(usuario.value, { abortEarly: false })
+        .then(() => {
+            updateUser();
         })
-        .catch(() => {
-            Toast.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: 'Error al actualizar el usuario',
-                life: 3000,
-            });
-        })
+};
+
+// Validación y envío del formulario de imagen
+const onFormSubmitIMG = () => {
+    if (imagenFile.value) {
+        updateImage();
+        window.location.reload();
+        // router.push({ name: 'profile.index' });
+    } else {
+        toast.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Debe seleccionar una imagen',
+            life: 3000,
+        });
+    }
 };
 
 onMounted(() => {
@@ -99,12 +225,7 @@ onMounted(() => {
         })
 })
 
-const onFormSubmit = () => {
-    schema.validate(usuario.value, { abortEarly: false })
-        .then(() => {
-            updateUser();
-        })
-};
+
 // defineRule('required', required);
 // defineRule('min', min);
 

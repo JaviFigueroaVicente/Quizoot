@@ -58,9 +58,10 @@ class User extends Authenticatable implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('images/users')
-            ->useFallbackUrl('/images/placeholder.jpg')
-            ->useFallbackPath(public_path('/images/placeholder.jpg'));
+        $this->addMediaCollection('users')
+        ->useDisk('public') // Usar el disco adecuado
+        ->useFallbackUrl('/images/Nav/PerfilSinFoto.webp')
+            ->useFallbackPath(public_path('/images/Nav/PerfilSinFoto.webp'));
     }
 
     public function registerMediaConversions(Media $media = null): void
