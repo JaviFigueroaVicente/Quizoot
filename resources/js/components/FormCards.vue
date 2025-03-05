@@ -1,9 +1,12 @@
 <template>
-<div class="row row-cols-3 g-4 mt-3 ">   <!-- Tarjetas de formularios con imágenes -->
+<div class="row row-cols-3 g-4 mt-3 ">
+    <div v-if="formularios.length === 0" class="col-12 text-center">
+        <p>No hay formularios disponibles.</p>
+    </div>
     <div class="col" v-for="formulario in formularios" :key="formulario.id">
         <router-link :to="{ name: 'forms.details', params: { id: formulario.id }}">
             <div class="card text-center p-3">
-                <img :src="formulario.original_image || '/images/placeholder.jpg'" alt="Formulario 1" class="form-image">
+                <img :src="formulario.original_image ? formulario.original_image : '/images/placeholder.jpg'" alt="Formulario 1" class="form-image">
                 <p class="mt-2">{{ formulario.name }}</p>
             </div>
         </router-link>
@@ -36,19 +39,15 @@
 </style>
 <script setup>
 import { ref, onMounted } from "vue";
-import axios from "axios";
+import { useRouter } from 'vue-router';
+import useForms from '@/composables/forms';
 
-const formularios = ref([]);
+const router = useRouter();
+const {formularios, isLoading, getForms} = useForms();
 
 onMounted(() => {
-    axios.get('/api/formulario',{
-        headers: {
-                "content-type": "multipart/form-data"
-        }})
-        .then(response => {
-            formularios.value = response.data.data;
-            console.log(response.data.data);
-        });
+    getForms();
+    console.log(formularios.value);
 });
 
 </script>

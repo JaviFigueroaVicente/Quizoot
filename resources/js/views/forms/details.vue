@@ -1,12 +1,13 @@
 <template>
     <div class="mt-5 mb-5">
         <div class="container my-2">
-            <div class="row">
+            <div class="row" v-if="formulario">
                 <!-- Left Section -->
-                <div class="col-md-4 left-section">
-                    <img :src="form.original_image" alt="User image" class="img-fluid form-image">
-                    <h3 class="fw-bold mb-1 mt-2">{{ form.name }}</h3>
-                    <p>{{ form.description }}</p>
+                <div class="col-md-4 left-section" >
+                    <img v-if="formulario && formulario.media && formulario.media.length > 0" :src="formulario.media[0].original_url" alt="User image" class="form-image">
+                    <img v-else src="images/placeholder.png" alt="Placeholder" class="form-image">
+                    <h3 class="fw-bold mb-1 mt-2">{{ formulario.name }}</h3>
+                    <p>{{ formulario.description }}</p>
                     <button class="btn btn-lila mb-3">Jugar Solo</button>
                     <!-- Sección Derecha: Ranking -->
                     <div class="ranking-container mb-2">
@@ -51,27 +52,23 @@
                     </ul>
                 </div>
             </div>
+            <div v-else class="col-md-4 left-section">
+                <p>Cargando formulario...</p>
+            </div>
         </div>
     </div>
 </template>
 <script setup>
 import {ref, onMounted} from "vue";
-import axios from "axios";
 import {useRoute} from "vue-router";
+import useForms from "@/composables/forms";
 
 const route = useRoute();
-const form = ref({});
+const {getForm, formulario} = useForms();
 
 onMounted(() => {
     console.log(route.params.id);
-
-    axios.get('/api/formulario/' + route.params.id, {headers: {
-                "content-type": "multipart/form-data"
-        }})
-        .then((response) => {
-            form.value = response.data;
-            console.log(form.value)
-        })
+    getForm(route.params.id);
     })
 </script>
 <style scoped>

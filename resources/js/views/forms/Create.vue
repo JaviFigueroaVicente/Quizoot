@@ -12,33 +12,22 @@
       </div>
       <DropZone v-model="formulario.thumbnail"/>
     </div>
-    <!-- Sección Derecha: Preguntas -->
-    <div class="container right-container">
-      <p class="text-center">Introduce las preguntas junto con las respuestas</p>
-      <div class="mb-4">
-        <input class="question-title" id="pregunta" v-model="formulario.pregunta" placeholder="Introduce la pregunta"/>
-        <div class="answer-container">
-          <label for="respuesta"></label>
-          <input  type="text" class="form-control" id="respuesta" v-model="formulario.respuesta" placeholder="Introduce una respuesta"/>
-          <label for="correcta"></label>
-          <input type="radio" id="correcta" name="correcta" v_model="formulario.correcta" value="true"/> Correcta
-        </div>
-      </div>
-      <button class="btn btn-light" @click="añadirPregunta">Añadir pregunta</button>
-    </div>
   </div>
-
+  <router-link :to="{name: 'preguntas.create'}" class="flex align-items-center"><button type="button" class="btn btn-primary button button-action">Crear pregunta</button></router-link>
   <button type="submit" class="btn btn-custom mt-2" @click.prevent="onFormSubmit">Crear Formulario</button>
 </template>
 
 <script setup>
-import axios from "axios";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import * as yup from "yup";
 import { es, id } from "yup-locales";
 import DropZone from "@/components/DropZone.vue";
 import { authStore } from "@/store/auth";
+import useForms from "@/composables/forms";
+
+
+const { storeForm, formulario } = useForms();
 
 yup.setLocale(es);
 const route = useRoute();
@@ -48,42 +37,16 @@ const store = authStore();
 const schema = yup.object().shape({
     name: yup.string().required(),
     description: yup.string().required(),
-    preguntas: yup.array().yup.object().shape({
-        pregunta: yup.string().required(),
-        respuestas: yup.array().yup.object().shape({
-            respuesta: yup.string().required(),
-            correcta: yup.boolean().required(),
-        }),
-    }),
 });
-// Peticiones api formulario
 
 // Mostrar imagen
-const formulario = ref({
-    name: '',
-    description: '',
-    user_id: store.user.id,
-    thumbnail: '',
-    pregunta: '',
-    respuesta: '',
-    correcta: false,
-});
 
-const createFormulario = async () => {
-    try {
-        const response = axios.post('/api/formulario', formulario.value);
-          console.log(response);
-          
-    } catch (error) {
-        console.error(error);
-    }
-};
 
 // Enviara crear el formulario
 const onFormSubmit = async () => {
     try {
       schema.validate(formulario.value, { abortEarly: false });
-      createFormulario();
+      storeForm();
     } catch (validationError) {
       console.error(validationError);
     }

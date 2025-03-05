@@ -96,7 +96,7 @@ import { onMounted, reactive, watchEffect,ref, inject } from "vue";
 // import { useField, defineRule } from "vee-validate";
 import { required, min } from "@/validation/rules";
 import { authStore } from '@/store/auth';
-import { useRoute, useRouter } from "vue-router"; 
+import { useRoute, useRouter } from "vue-router";
 import { useToast } from "primevue/usetoast";
 import * as yup from "yup";
 import { es } from "yup-locales";
@@ -257,7 +257,7 @@ onMounted(() => {
 // const updateUser = async () => {
 //     const response = await axios.put(`/api/users/${store.user.id}`, profile);
 
-//     console.log("Respuesta del servidor:", response.data); 
+//     console.log("Respuestas del servidor:", response.data);
 
 //     const updatedUser = response.data;
 //     store.setUser(updatedUser);

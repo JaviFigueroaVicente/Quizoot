@@ -17,11 +17,18 @@ h1, h2, h5, button{
 }
 
 .button-action{
-    color: #ffffffff;
+    color: #ffffff;
     background-color: #874eca;
     border: none;
+    transition: all 0.3s ease-in-out;
 }
 
 .button-action:hover{
     background-color: #402462;
+    color: #ffffff;
+}
+.button-action:active{
+    background-color: #402462!important;
+    border: none;
+    color: #ffffff;
 }

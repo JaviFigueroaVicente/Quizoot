@@ -7,16 +7,17 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('respuesta', function (Blueprint $table) {
+        Schema::create('respuestas', function (Blueprint $table) {
             $table->id();
             $table->string('respuesta');
-            $table->tinyInteger('correcta');
-            $table->foreignId('pregunta_id')->constrained('preguntas')->onDelete('cascade');
+            $table->boolean('correcta')->default(false);
+            $table->foreignId('preguntas_id')->constrained('preguntas')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('respuesta');
+        Schema::dropIfExists('respuestas');
     }
 };

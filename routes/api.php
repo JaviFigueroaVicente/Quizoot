@@ -2,13 +2,13 @@
 
 use App\Http\Controllers\Api\AuthorController;
 use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\FormularioController;
+use App\Http\Controllers\Api\FormulariosController;
 use App\Http\Controllers\api\NoteController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\PostControllerAdvance;
-use App\Http\Controllers\Api\PreguntaController;
+use App\Http\Controllers\Api\PreguntasController;
 use App\Http\Controllers\Api\ProfileController;
-use App\Http\Controllers\api\RespuestaController;
+use App\Http\Controllers\api\RespuestasController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\api\UsuariosController;
@@ -74,6 +74,10 @@ Route::get('usuarios/{usuario}', [UsuariosController::class, 'show']);
 Route::put('usuarios/{usuario}', [UsuariosController::class, 'update']);
 
 
-Route::get('formulario', [FormularioController::class, 'index']);
-Route::get('formulario/{id}', [FormularioController::class, 'getFormulario']);
-Route::post('formulario', [FormularioController::class, 'store']);
+Route::get('formulario', [FormulariosController::class, 'index']);
+Route::get('formulario/{id}', [FormulariosController::class, 'getFormularios']);
+Route::post('formulario', [FormulariosController::class, 'store']);
+
+
+Route::post('pregunta', [PreguntasController::class, 'store']);
+Route::get('pregunta', [PreguntasController::class, 'index']);
