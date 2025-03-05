@@ -203,6 +203,12 @@ export default [
                             meta: { breadCrumb: 'Editar Preguntas' }
                         }
                     ],
+                },
+                {
+                    name: 'formIndividual',
+                    path: '',
+                    component: () => import('../views/forms/form_individual/index.vue'),
+                    meta: { breadCrumb: 'Form Individual' }
                 }
             ]
         },

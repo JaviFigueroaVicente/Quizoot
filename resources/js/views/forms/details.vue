@@ -8,7 +8,7 @@
                     <img v-else src="images/placeholder.png" alt="Placeholder" class="form-image">
                     <h3 class="fw-bold mb-1 mt-2">{{ formulario.name }}</h3>
                     <p>{{ formulario.description }}</p>
-                    <button class="btn btn-lila mb-3">Jugar Solo</button>
+                    <router-link :to="{name:'formIndividual'}"><button class="btn btn-lila mb-3">Jugar Solo</button></router-link>
                     <!-- Sección Derecha: Ranking -->
                     <div class="ranking-container mb-2">
                         <h4 class="ranking-title">🏆 Ranking</h4>
