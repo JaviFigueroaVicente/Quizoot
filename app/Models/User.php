@@ -55,7 +55,6 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(User::class,'user_id');
     }
 
-
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('users')

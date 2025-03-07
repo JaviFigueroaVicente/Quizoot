@@ -57,8 +57,9 @@ const model = ref([
     {
        label: 'Formularios',
        items: [
-           { label: 'Formularios', icon: 'pi pi-fw pi-id-card', to: '/admin/formularios', permision: 'all' },
-       ]
+            { label: 'Formularios', icon: 'pi pi-fw pi-id-card', to: '/admin/formularios', permision: 'all' },
+            { label: 'Preguntas', icon: 'pi pi-fw pi-id-card', to: '/admin/questions', permision: 'all' },
+        ]
     }
 ]);
 </script>

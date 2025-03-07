@@ -76,7 +76,7 @@ class FormulariosController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Formularios::with('user', 'media')->findOrFail($id);
     }
 
     /**
@@ -101,10 +101,5 @@ class FormulariosController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function getFormularios(string $id)
-    {
-        return Formularios::with('user', 'media')->findOrFail($id);
     }
 }

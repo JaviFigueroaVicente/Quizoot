@@ -79,7 +79,11 @@ class PreguntasController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return response()->json([
+            'status' => 405,
+            'success' => true,
+            'data' => $id
+        ]);
     }
 
     /**

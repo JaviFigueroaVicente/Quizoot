@@ -201,7 +201,14 @@ export default [
                             path: 'edit/:id',
                             component: () => import('../views/preguntas/Edit.vue'),
                             meta: { breadCrumb: 'Editar Preguntas' }
+                        },
+                        {
+                            name: 'preguntas.details',
+                            path: 'details/:id',
+                            component: () => import('../views/preguntas/Details.vue'),
+                            meta: { breadCrumb: 'Details Preguntas' }
                         }
+                        
                     ],
                 }
             ]
@@ -387,7 +394,31 @@ export default [
                     }
                 ]
             },
-
+            {
+                name: 'questions',
+                path: 'questions',
+                meta: { breadCrumb: 'Preguntas'},
+                children: [
+                    {
+                        name: 'question.index',
+                        path: '',
+                        component: () => import('../views/admin/preguntas/index.vue'),
+                        meta: { breadCrumb: 'Preguntas' }
+                    },
+                    {
+                        name: 'questions.edit',
+                        path: 'edit/:id',
+                        component: () => import('../views/admin/preguntas/Edit.vue'),
+                        meta: { breadCrumb: 'Edit Preguntas' }
+                    },
+                    {
+                        name: 'questions.create',
+                        path: 'create',
+                        component: () => import('../views/admin/preguntas/Create.vue'),
+                        meta: { breadCrumb: 'Create Preguntas' }
+                    }
+                ]
+            },
             //TODO Organizar rutas
             {
                 name: 'roles.index',
