@@ -73,6 +73,8 @@ class PostControllerAdvance extends Controller
         return new PostResource($post);
     }
 
+
+
     public function show(Post $post)
     {
         $this->authorize('post-edit');
