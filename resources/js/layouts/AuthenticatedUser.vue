@@ -1,8 +1,8 @@
 <template>
     <div class="layout-wrapper" :class="containerClass">
         
-        <Navbar></Navbar>
-        <div class="layout-sidebar">
+        <Navbar v-if="!isFormIndividualPage"></Navbar>
+        <div class="layout-sidebar" v-if="!isFormIndividualPage">
             <Menu :model="items" class="w-full md:w-13rem menu border-0" appendTo="self">
                 <template #start>
                     <button class="relative overflow-hidden w-full p-link flex align-items-center p-2 pl-0 text-color hover:surface-200 border-noround">
@@ -35,7 +35,7 @@
         </div>
 
         <div class="layout-main-container ">
-            <div class="card mb-2 bread">
+            <div class="card mb-2 bread" v-if="!isFormIndividualPage">
                 <Breadcrumb :home="home" :model="crumbs" >
                     <template #item="{ item, props }">
                         <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
@@ -59,7 +59,7 @@
         </div>
 
         <div class="layout-mask"></div>
-        <app-footer></app-footer>
+        <app-footer v-if="!isFormIndividualPage"></app-footer>
     </div>
 </template>
 
@@ -78,6 +78,9 @@ const auth = authStore();
 const user = computed(() => auth.user)
 const route = useRoute();
 const router = useRouter();
+
+const isFormIndividualPage = computed(() => route.name === 'formIndividual');
+
 
 const home = ref({
     icon: 'pi pi-home',
@@ -221,6 +224,7 @@ const isOutsideClicked = (event) => {
 .bread{
     padding:.1rem;
 }
+
 .layout-sidebar{
     margin-top: 1.5em;
     overflow-x: hidden;
