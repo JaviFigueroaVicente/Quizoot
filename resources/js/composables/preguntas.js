@@ -28,18 +28,18 @@ export default function usePreguntas() {
             }) 
     }
 
-    const getPregunta = async () => {
-        axios.get('/api/pregunta' + id)
+    const getPregunta = async (id) => {
+        axios.get('/api/pregunta/' + id)
         .then(response => {
-            pregunta.value = response.data.data
-            console.log(pregunta.value)
+            pregunta.value = response.data
+            console.log(response.data)
         }).catch(error => {
             console.log(error)
         }) 
     }
 
     const storePregunta = async () => {
-        axios.post('/api/pregunta', pregunta.value)
+        axios.post('/api/pregunta/', pregunta.value)
         .then(response => {
             swal({
                 icon: 'success',
@@ -51,12 +51,44 @@ export default function usePreguntas() {
         }) 
     }
 
+    const deletePregunta = async (id) => {
+        axios.delete('/api/pregunta/' + id)
+        .then(response => {
+            getPreguntas(),
+            router.push({ name: 'questions.index' })
+            swal({
+                icon: 'success',
+                title: 'Pregunta eliminada correctamente'
+            })
+            console.log(response)
+        }).catch(error => {
+            console.log(error)
+        }) 
+    }
+
+    const updatePregunta = async (pregunta) => {
+        console.log(pregunta);
+        axios.put('/api/posts/' + pregunta.id, post)
+            .then(response => {
+                router.push({name: 'questions.index'})
+                swal({
+                    icon: 'success',
+                    title: 'Post updated successfully'
+                })
+            })
+            .catch(error => {
+                console.log(response)
+            })
+    }
+
     return {
         preguntas,
         pregunta,
         getPreguntas,
         getPregunta,
-        storePregunta
+        storePregunta,
+        updatePregunta,
+        deletePregunta
     }
         
 }

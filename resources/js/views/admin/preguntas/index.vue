@@ -26,11 +26,11 @@
                     <Column field="created_at" header="Creado el" sortable></Column>
                     <Column class="pe-0 me-0 icon-column-2">
                         <template #body="slotProps">
-                            <router-link v-if="can('user-edit')" :to="{ name: 'preguntas.edit', params: { id: slotProps.data.id } }">
+                            <router-link :to="{ name: 'questions.edit', params: { id: slotProps.data.id } }">
                                 <Button icon="pi pi-pencil" severity="info" size="small" class="mr-1"/>
                             </router-link>
 
-                            <Button icon="pi pi-trash" severity="danger" v-if="can('user-delete')" @click.prevent="deleteUser(slotProps.data.id, slotProps.index)" size="small"/>
+                            <Button icon="pi pi-trash" severity="danger" @click.prevent="deletePregunta(slotProps.data.id, slotProps.index)" size="small"/>
                         </template>
                     </Column>
                 </DataTable>
@@ -47,7 +47,7 @@ import {useAbility} from '@casl/vue'
 import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
 
 const router = useRouter();
-const {preguntas, getPreguntas} = usePreguntas();
+const {preguntas, getPreguntas, deletePregunta} = usePreguntas();
 const {can} = useAbility()
 const filters = ref();
 

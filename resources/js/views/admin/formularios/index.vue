@@ -24,7 +24,7 @@
                     <Column field="description" header="Descripcion"></Column>
                     <Column field="user_id" header="Id Usuario" sortable>
                     </Column>
-                    <Column field="original_image" header="Foto" sortable><template #body="slotProps">
+                    <Column field="original_image" header="Foto"><template #body="slotProps">
                             <img v-if="slotProps.data.original_image" :src="slotProps.data.original_image" alt="Imagen" class="thumbnail" />
                             <span v-else>No hay imagen</span>
                         </template>
@@ -36,7 +36,7 @@
                                 <Button icon="pi pi-pencil" severity="info" size="small" class="mr-1"/>
                             </router-link>
 
-                            <Button icon="pi pi-trash" severity="danger" v-if="can('user-delete')" @click.prevent="deleteUser(slotProps.data.id, slotProps.index)" size="small"/>
+                            <Button icon="pi pi-trash" severity="danger" @click.prevent="deleteForm(slotProps.data.id)" size="small"/>
                         </template>
                     </Column>
                 </DataTable>
@@ -53,7 +53,7 @@ import {useAbility} from '@casl/vue'
 import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
 
 const router = useRouter();
-const {formularios, getForms} = useForms();
+const {formularios, getForms, deleteForm} = useForms();
 const {can} = useAbility()
 const filters = ref();
 

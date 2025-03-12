@@ -77,8 +77,13 @@ Route::put('usuarios/{usuario}', [UsuariosController::class, 'update']);
 Route::get('formulario', [FormulariosController::class, 'index']);
 Route::get('formulario/{id}', [FormulariosController::class, 'show']);
 Route::post('formulario', [FormulariosController::class, 'store']);
+Route::delete('formulario/{formulario}', [FormulariosController::class, 'destroy']);
+Route::post ('formulario/{id}', [FormulariosController::class, 'update']);
 
 
 Route::post('pregunta', [PreguntasController::class, 'store']);
 Route::get('pregunta', [PreguntasController::class, 'index']);
 Route::get('pregunta/{id}', [PreguntasController::class, 'show']);
+Route::delete('pregunta/{id}', [PreguntasController::class, 'destroy']);
+Route::post('pregunta/{id}', [PreguntasController::class, 'update']);
+

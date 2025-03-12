@@ -38,8 +38,6 @@ class PreguntasController extends Controller
     public function store(Request $request)
     {
         try {
-            Log::info('Datos recibidos:', $request->all());
-
 
             $request->validate([
                 'pregunta' => 'required|string|max:255',
@@ -79,11 +77,7 @@ class PreguntasController extends Controller
      */
     public function show(string $id)
     {
-        return response()->json([
-            'status' => 405,
-            'success' => true,
-            'data' => $id
-        ]);
+        return Preguntas::with('user', 'respuestas')->findOrFail($id);
     }
 
     /**
@@ -97,16 +91,51 @@ class PreguntasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Preguntas $pregunta)
     {
-        //
+        try {
+            // Validar los datos recibidos
+            $validator = Validator::make($request->all(), [
+                'pregunta' => 'required|string|max:255',
+                'respuestas' => 'required|array|min:2|max:4',
+                'respuestas.*.respuesta' => 'required|string|max:255',
+                'respuestas.*.correcta' => 'boolean',
+            ]);
+
+            // Si la validación falla, devolver errores
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => 422,
+                    'success' => false,
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            // Validar los datos y actualizar el usuario
+            $data = $validator->validated();
+            $pregunta->update($data);
+
+            return response()->json([
+                'status' => 200,
+                'success' => true,
+                'data' => $pregunta
+            ]);
+        } catch (\Exception $e) {
+            // Capturar excepciones y devolver un error 500 con detalles
+            return response()->json([
+                'status' => 500,
+                'success' => false,
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Preguntas $preguntas)
     {
-        //
+        $preguntas->delete();
+        return response()->noContent();
     }
 }

@@ -108,7 +108,7 @@ class UserController extends Controller
              // Validar los datos y actualizar el usuario
              $data = $validator->validated();
              $user->update($data);
- 
+
              return response()->json([
                  'status' => 200,
                  'success' => true,
@@ -160,7 +160,7 @@ class UserController extends Controller
         $user =  User::with('media')->find($request->id);
         return  $user;
     }
-    
+
 
     public function destroy(User $user)
     {
