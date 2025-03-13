@@ -115,6 +115,8 @@ class PreguntasController extends Controller
             $data = $validator->validated();
             $pregunta->update($data);
 
+            $pregunta->respuestas()->update($data['respuestas']);
+
             return response()->json([
                 'status' => 200,
                 'success' => true,
@@ -133,9 +135,9 @@ class PreguntasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Preguntas $preguntas)
+    public function destroy(Preguntas $pregunta)
     {
-        $preguntas->delete();
+        $pregunta->delete();
         return response()->noContent();
     }
 }

@@ -52,29 +52,50 @@ export default function usePreguntas() {
     }
 
     const deletePregunta = async (id) => {
-        axios.delete('/api/pregunta/' + id)
-        .then(response => {
-            getPreguntas(),
-            router.push({ name: 'questions.index' })
-            swal({
-                icon: 'success',
-                title: 'Pregunta eliminada correctamente'
+        swal({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this action!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            confirmButtonColor: '#ef4444',
+            timer: 20000,
+            timerProgressBar: true,
+            reverseButtons: true
+        })
+            .then(result => {
+                if (result.isConfirmed) {
+                    axios.delete('/api/pregunta/' + id)
+                        .then((response) => {
+                            getPreguntas()
+                            router.push({name: 'questions.index'})
+                            swal({
+                                icon: 'success',
+                                title: 'Question deleted successfully'
+                            })
+                            console.log(response)
+                        })
+                        .catch(error => {
+                            swal({
+                                icon: 'error',
+                                title: 'Something went wrong'
+                            })
+                            console.log(response)
+                        })
+                }
             })
-            console.log(response)
-        }).catch(error => {
-            console.log(error)
-        }) 
     }
 
     const updatePregunta = async (pregunta) => {
         console.log(pregunta);
-        axios.put('/api/posts/' + pregunta.id, post)
+        axios.put('/api/pregunta/' + pregunta.id, pregunta)
             .then(response => {
                 router.push({name: 'questions.index'})
                 swal({
                     icon: 'success',
                     title: 'Post updated successfully'
                 })
+                console.log(response)
             })
             .catch(error => {
                 console.log(response)

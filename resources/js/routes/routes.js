@@ -400,7 +400,7 @@ export default [
                 meta: { breadCrumb: 'Preguntas'},
                 children: [
                     {
-                        name: 'question.index',
+                        name: 'questions.index',
                         path: '',
                         component: () => import('../views/admin/preguntas/index.vue'),
                         meta: { breadCrumb: 'Preguntas' }

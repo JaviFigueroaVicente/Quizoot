@@ -64,7 +64,7 @@ export default function useForms() {
                             router.push({name: 'formularios.index'})
                             swal({
                                 icon: 'success',
-                                title: 'Post deleted successfully'
+                                title: 'Form deleted successfully'
                             })
                             console.log(response)
                         })
@@ -110,6 +110,7 @@ export default function useForms() {
         getForms,
         getForm,
         storeForm,
+        updateForm,
         deleteForm
     }
 }

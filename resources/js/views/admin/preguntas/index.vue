@@ -30,7 +30,7 @@
                                 <Button icon="pi pi-pencil" severity="info" size="small" class="mr-1"/>
                             </router-link>
 
-                            <Button icon="pi pi-trash" severity="danger" @click.prevent="deletePregunta(slotProps.data.id, slotProps.index)" size="small"/>
+                            <Button icon="pi pi-trash" severity="danger" @click.prevent="deletePregunta(slotProps.data.id)" size="small"/>
                         </template>
                     </Column>
                 </DataTable>
@@ -51,8 +51,8 @@ const {preguntas, getPreguntas, deletePregunta} = usePreguntas();
 const {can} = useAbility()
 const filters = ref();
 
-onMounted(() => {
-    getPreguntas();
+onMounted(() => {;
+    getPreguntas()
 });
 
 
