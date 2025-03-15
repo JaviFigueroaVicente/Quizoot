@@ -13,6 +13,7 @@
                                 </IconField>
                                 <Button type="button" icon="pi pi-filter-slash" label="Clear" class="ml-1" outlined @click="initFilters()" />
                                 <Button type="button" icon="pi pi-refresh" class="h-100 ml-1" outlined @click="getUsers()" />
+                                <router-link :to="{name: 'formularios.create'}" class="flex align-items-center"><button type="button" class="btn btn-primary button button-action">Crear formulario</button></router-link>
                             </template>
                         </Toolbar>
                     </template>

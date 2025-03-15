@@ -12,6 +12,7 @@ use App\Models\Category;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class FormulariosController extends Controller
 {
@@ -29,6 +30,16 @@ class FormulariosController extends Controller
         ]);
     }
 
+    public function userFormularios(){
+        $user_id = auth()->id();
+        $formularios = Formularios::where('user_id', $user_id)->get();
+
+        return response()->json([
+            'status' => 405,
+            'success' => true,
+            'data' => FormulariosResource::collection($formularios),
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -90,11 +101,56 @@ class FormulariosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Formularios $formulario, StorePostRequest $request)
+    public function update(Request $request, Formularios $formulario)
     {
-        $formulario->update($request->validated());
+        try{
+            // Validar los datos recibidos
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string',
+                'description' => 'required|string',
+                'thumbnail' => 'nullable|image|max:2048',
+            ]);
 
-        return new FormulariosResource($formulario);
+            // Si la validación falla, devolver errores
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => 422,
+                    'success' => false,
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            // Validar los datos y actualizar el formulario
+            $data = $validator->validated();
+
+            // Actualizar el formulario
+            $formulario->update($data);
+
+            // Manejar la subida de la imagen
+            if ($request->hasFile('thumbnail')) {
+                // Eliminar la imagen anterior si existe
+                if ($formulario->media && $formulario->media->count() > 0) {
+                    $formulario->media->first()->delete();
+                }
+
+                // Guardar la nueva imagen
+                $formulario->addMediaFromRequest('thumbnail')->preservingOriginal()->toMediaCollection('formularios');
+            }
+
+            return response()->json([
+                'status' => 200,
+                'success' => true,
+                'data' => $formulario->load('media')
+            ]);
+
+        }catch (\Exception $e){
+            // Capturar excepciones y devolver un error 500 con detalles
+            return response()->json([
+                'status' => 500,
+                'success' => false,
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**

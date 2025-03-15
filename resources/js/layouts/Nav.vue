@@ -11,7 +11,7 @@
                         <router-link to="/forms" severity="help" class="nav-link"><Button severity="help" variant="text">Formularios</Button></router-link>
                     </li>  
                     <li class="nav-item">
-                        <router-link to="/app/form/preguntas" severity="help" class="nav-link"><Button severity="help" variant="text">Preguntas</Button></router-link>
+                        <router-link to="/app/preguntas" severity="help" class="nav-link"><Button severity="help" variant="text">Preguntas</Button></router-link>
                     </li>             
                     <li class="nav-item">
                         <router-link to="/rankings" severity="help" class="nav-link"><Button severity="help" variant="text">Rankings</Button></router-link>

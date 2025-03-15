@@ -175,47 +175,68 @@ export default [
             path:'form',
             children : [
                 {
-                    name: 'form.create',
-                    path: 'create',
-                    component: () => import('../views/forms/Create.vue'),
-                    meta: { breadCrumb: 'Create Form' }
-                },
-                {
-                    name:'preguntas',
-                    path:'preguntas',
+                    name: 'form.mis-formularios',
+                    path: 'mis-formularios',
                     children : [
                         {
-                            name: 'preguntas.index',
+                            name: 'mis-formularios.index',
                             path: '',
-                            component: () => import('../views/preguntas/index.vue'),
-                            meta: { breadCrumb: 'Preguntas' }
+                            component: () => import('../views/forms/MisFormularios.vue'),
+                            meta: { breadCrumb: 'Mis Formularios' }
                         },
                         {
-                            name: 'preguntas.create',
+                            name: 'mis-formularios.edit',
+                            path: 'edit/:id',
+                            component: () => import('../views/forms/Edit.vue'),
+                            meta: { breadCrumb: 'Edit Form' }
+                        },
+                        {
+                            name: 'mis-formularios.create',
+                            path: 'create',
+                            component: () => import('../views/forms/Create.vue'),
+                            meta: { breadCrumb: 'Create Form' }
+                        }
+                    ],
+                },             
+            ],
+        },
+        {
+            name: 'preguntas',
+            path: 'preguntas',
+            children : [
+                {
+                    name: 'preguntas.index',
+                    path: '',
+                    component: () => import('../views/preguntas/index.vue'),
+                    meta: { breadCrumb: 'Preguntas' }
+                },
+                {
+                    name: 'preguntas.mis-preguntas',
+                    path: 'mis-preguntas',
+                    children : [
+                        {
+                            name: 'mis-preguntas.index',
+                            path: '',
+                            component: () => import('../views/preguntas/MisPreguntas.vue'),
+                            meta: { breadCrumb: 'Mis Preguntas' }
+                        },
+                        {
+                            name: 'mis-preguntas.create',
                             path: 'create',
                             component: () => import('../views/preguntas/Create.vue'),
-                            meta: { breadCrumb: 'Crear Preguntas' }
+                            meta: { breadCrumb: 'Create Pregunta' }
                         },
                         {
-                            name: 'preguntas.edit',
+                            name: 'mis-preguntas.edit',
                             path: 'edit/:id',
                             component: () => import('../views/preguntas/Edit.vue'),
-                            meta: { breadCrumb: 'Editar Preguntas' }
-                        },
-                        {
-                            name: 'preguntas.details',
-                            path: 'details/:id',
-                            component: () => import('../views/preguntas/Details.vue'),
-                            meta: { breadCrumb: 'Details Preguntas' }
+                            meta: { breadCrumb: 'Edit Pregunta' }
                         }
-                        
                     ],
-                }
-            ]
+                },
+            ],
         },
-
-
-        ]
+    ],
     },
 
     {

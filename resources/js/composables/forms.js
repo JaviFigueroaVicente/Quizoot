@@ -9,10 +9,6 @@ export default function useForms() {
         description: '',
         thumbnail: '',
     }); 
-
-    const router = useRouter()
-    const validationErrors = ref({})
-    const isLoading = ref(false)
     const swal = inject('$swal')
 
     const getForms = async () => {
@@ -26,6 +22,13 @@ export default function useForms() {
         });
     }
 
+    const getUserForms = async () => {
+        axios.get('/api/formulario-user')
+        .then(response => {
+            formularios.value = response.data.data;
+            console.log(response.data.data);
+        });
+    }
     const getForm = async (id) => {
         axios.get('/api/formulario/' + id)
             .then(response => {
@@ -36,12 +39,23 @@ export default function useForms() {
 
 
     const storeForm = async () => {
-        const response = axios.post('/api/formulario', formulario.value, {
+        axios.post('/api/formulario', formulario.value, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
-        });
-        console.log(response); 
+        })
+        .then(response => {
+            getForms()
+            swal({
+                icon: 'success',
+                title: 'Pregunta creada correctamente',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            console.log(response)
+        }).catch(error => {
+            console.log(error)
+        }) 
     }    
 
     const deleteForm = async (id) => {
@@ -61,10 +75,11 @@ export default function useForms() {
                     axios.delete('/api/formulario/' + id)
                         .then((response) => {
                             getForms()
-                            router.push({name: 'formularios.index'})
                             swal({
                                 icon: 'success',
-                                title: 'Form deleted successfully'
+                                title: 'Form deleted successfully',
+                                showConfirmButton: false,
+                                timer: 1500
                             })
                             console.log(response)
                         })
@@ -81,26 +96,28 @@ export default function useForms() {
     }
 
     const updateForm = async (formulario) => {
-        if (isLoading.value) return;
-
-        isLoading.value = true
-        validationErrors.value = {}
-
-        axios.put('/api/formulario/' + formulario.id, formulario)
-            .then(response => {
-                //router.push({name: 'formularios.index'})
-
+        axios.post('/api/formulario/' + formulario.id, formulario, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
+            .then(() => {
                 swal({
                     icon: 'success',
-                    title: 'Form updated successfully'
+                    title: 'Form updated successfully',
+                    showConfirmButton: false,
+                    timer: 1500
                 })
+                console.log(formulario)
             })
             .catch(error => {
-                if (error.response?.data) {
-                    validationErrors.value = error.response.data.errors
-                }
+                console.log(formulario)
+                swal({
+                    icon: 'error',
+                    title: 'Error al actualizar el formulario',
+                    showConfirmButton: true
+                });
             })
-            .finally(() => isLoading.value = false)
     }
 
 
@@ -108,6 +125,7 @@ export default function useForms() {
         formularios,
         formulario,
         getForms,
+        getUserForms,
         getForm,
         storeForm,
         updateForm,

@@ -13,15 +13,14 @@
       <DropZone v-model="formulario.thumbnail"/>
     </div>
   </div>
-  <router-link :to="{name: 'preguntas.create'}" class="flex align-items-center"><button type="button" class="btn btn-primary button button-action">Crear pregunta</button></router-link>
+  <router-link :to="{name: 'mis-preguntas.create'}" class="flex align-items-center"><button type="button" class="btn btn-primary button button-action">Crear pregunta</button></router-link>
   <button type="submit" class="btn btn-custom mt-2" @click.prevent="onFormSubmit">Crear Formulario</button>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 import * as yup from "yup";
-import { es, id } from "yup-locales";
+import { es } from "yup-locales";
 import DropZone from "@/components/DropZone.vue";
 import { authStore } from "@/store/auth";
 import useForms from "@/composables/forms";
@@ -30,7 +29,7 @@ import useForms from "@/composables/forms";
 const { storeForm, formulario } = useForms();
 
 yup.setLocale(es);
-const route = useRoute();
+const router = useRouter();
 const store = authStore();
 
 
@@ -39,14 +38,12 @@ const schema = yup.object().shape({
     description: yup.string().required(),
 });
 
-// Mostrar imagen
-
-
 // Enviara crear el formulario
 const onFormSubmit = async () => {
     try {
       schema.validate(formulario.value, { abortEarly: false });
       storeForm();
+      router.push({name: 'mis-formularios.index'});
     } catch (validationError) {
       console.error(validationError);
     }

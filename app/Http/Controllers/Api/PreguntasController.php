@@ -24,6 +24,18 @@ class PreguntasController extends Controller
         ]);
     }
 
+    public function userPreguntas()
+    {
+        $user_id = auth()->id();
+        $preguntas = Preguntas::where('user_id', $user_id)->get();
+
+        return response()->json([
+            'status' => 405,
+            'success' => true,
+            'data' => $preguntas
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -98,6 +110,7 @@ class PreguntasController extends Controller
             $validator = Validator::make($request->all(), [
                 'pregunta' => 'required|string|max:255',
                 'respuestas' => 'required|array|min:2|max:4',
+                'respuestas.*.id' => 'required|exists:respuestas,id',
                 'respuestas.*.respuesta' => 'required|string|max:255',
                 'respuestas.*.correcta' => 'boolean',
             ]);
@@ -113,14 +126,25 @@ class PreguntasController extends Controller
 
             // Validar los datos y actualizar el usuario
             $data = $validator->validated();
-            $pregunta->update($data);
+            $pregunta->update(['pregunta' => $data['pregunta']]);
 
-            $pregunta->respuestas()->update($data['respuestas']);
+            // Actualizar las respuestas
+            foreach ($data['respuestas'] as $respuestaData) {
+                // Buscar la respuesta por su ID
+                $respuesta = Respuestas::find($respuestaData['id']);
+                if ($respuesta) {
+                    // Actualizar los datos de la respuesta
+                    $respuesta->update([
+                        'respuesta' => $respuestaData['respuesta'],
+                        'correcta' => $respuestaData['correcta'],
+                    ]);
+                }
+            }
 
             return response()->json([
                 'status' => 200,
                 'success' => true,
-                'data' => $pregunta
+                'data' => $pregunta->load('respuestas')
             ]);
         } catch (\Exception $e) {
             // Capturar excepciones y devolver un error 500 con detalles

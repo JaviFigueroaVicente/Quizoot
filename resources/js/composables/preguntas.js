@@ -28,6 +28,16 @@ export default function usePreguntas() {
             }) 
     }
 
+    const getUserPreguntas = async () => {
+        axios.get('/api/pregunta-user')
+            .then(response => {
+                preguntas.value = response.data
+                console.log(preguntas.value)
+            }).catch(error => {
+                console.log(error)
+            }) 
+    }
+
     const getPregunta = async (id) => {
         axios.get('/api/pregunta/' + id)
         .then(response => {
@@ -41,9 +51,12 @@ export default function usePreguntas() {
     const storePregunta = async () => {
         axios.post('/api/pregunta/', pregunta.value)
         .then(response => {
+            getPreguntas()
             swal({
                 icon: 'success',
-                title: 'Pregunta creada correctamente'
+                title: 'Pregunta creada correctamente',
+                showConfirmButton: false,
+                timer: 1500
             })
             console.log(response)
         }).catch(error => {
@@ -68,10 +81,11 @@ export default function usePreguntas() {
                     axios.delete('/api/pregunta/' + id)
                         .then((response) => {
                             getPreguntas()
-                            router.push({name: 'questions.index'})
                             swal({
                                 icon: 'success',
-                                title: 'Question deleted successfully'
+                                title: 'Question deleted successfully',
+                                showConfirmButton: false,
+                                timer: 1500
                             })
                             console.log(response)
                         })
@@ -87,18 +101,18 @@ export default function usePreguntas() {
     }
 
     const updatePregunta = async (pregunta) => {
-        console.log(pregunta);
         axios.put('/api/pregunta/' + pregunta.id, pregunta)
-            .then(response => {
-                router.push({name: 'questions.index'})
+            .then(() => {
                 swal({
                     icon: 'success',
-                    title: 'Post updated successfully'
+                    title: 'Pregunta updated successfully',
+                    showConfirmButton: false,
+                    timer: 1500
                 })
-                console.log(response)
+                console.log(pregunta)
             })
             .catch(error => {
-                console.log(response)
+                console.log(pregunta)
             })
     }
 
@@ -106,6 +120,7 @@ export default function usePreguntas() {
         preguntas,
         pregunta,
         getPreguntas,
+        getUserPreguntas,
         getPregunta,
         storePregunta,
         updatePregunta,

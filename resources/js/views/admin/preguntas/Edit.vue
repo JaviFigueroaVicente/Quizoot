@@ -1,7 +1,5 @@
 <template>
     <h2>EDITAR PREGUNTA</h2>
-
-    {{ pregunta }}
     <div class="container">
         <div class="row">
             <label for="pregunta">Pregunta</label>
@@ -13,25 +11,10 @@
                 :maxSelectedLabels="1" class="w-full md:w-80" />
         </div>
         <div class="row card justify-center gap-4">
-            <div class="flex items-center gap-2">
-                <Checkbox v-model="pregunta.respuestas[0].correcta" inputId="ingredient1" name="pregunta.respuestas[0].correcta" :binary="true" :false-value="0" :true-value="1" />
-                <label for="ingredient1"></label>
-                <input name="ingredient1" v-model="pregunta.respuestas[0].respuesta" type="text"></input>
-            </div>
-            <div class="flex items-center gap-2">
-                <Checkbox v-model="pregunta.respuestas[1].correcta" inputId="ingredient2" name="pregunta.respuestas[1].correcta" :binary="true" :false-value="0" :true-value="1" />
-                <label for="ingredient2"></label>
-                <input name="ingredient2" v-model="pregunta.respuestas[1].respuesta" type="text"></input>
-            </div>
-            <div class="flex items-center gap-2">
-                <Checkbox v-model="pregunta.respuestas[2].correcta" inputId="ingredient3" name="pregunta.respuestas[2].correcta" :binary="true" :false-value="0" :true-value="1" />  
-                <label for="ingredient3"></label>
-                <input name="ingredient3" v-model="pregunta.respuestas[2].respuesta" type="text"></input>
-            </div>
-            <div class="flex items-center gap-2">
-                <Checkbox v-model="pregunta.respuestas[3].correcta" inputId="ingredient4" name="pregunta.respuestas[3].correcta" :binary="true" :false-value="0" :true-value="1" />
-                <label for="ingredient4"></label>
-                <input name="ingredient4" v-model="pregunta.respuestas[3].respuesta" type="text"></input>
+            <div class="flex items-center gap-2" v-for="(respuesta, index) in pregunta.respuestas" :key="index">
+                <Checkbox v-model="respuesta.correcta" :inputId="'ingredient' + (index + 1)" :name="'pregunta.respuestas.' + index + '.correcta'" :binary="true" :false-value="0" :true-value="1" />
+                <label :for="'ingredient' + (index + 1)"></label>
+                <input :name="'ingredient' + (index + 1)" v-model="respuesta.respuesta" type="text" />
             </div>
         </div>
         <button type="submit" class="btn btn-primary button button-action mt-2" @click.prevent="onFormSubmit">Actualizar Pregunta</button>
@@ -39,13 +22,14 @@
 </template>
 <script setup>
 import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import * as yup from "yup";
 import { es } from "yup-locales";
 import usePreguntas from "@/composables/preguntas";
 
 
 yup.setLocale(es);
+const router = useRouter();
 const route = useRoute();
 const { getPregunta, pregunta, updatePregunta} = usePreguntas();
 
@@ -62,7 +46,9 @@ const schema = yup.object().shape({
 const onFormSubmit = async () => {
     try {
         schema.validate(pregunta.value, { abortEarly: false });
-        updatePregunta(pregunta);
+        console.log(pregunta.value);
+        updatePregunta(pregunta.value);
+        router.push({name: 'questions.index'});
     } catch (validationError) {
         console.error(validationError);
     }

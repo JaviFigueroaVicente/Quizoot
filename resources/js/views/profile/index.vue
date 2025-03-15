@@ -2,7 +2,7 @@
     <div class="container text-center">
         <div class="row row-cols-3">
             <div class="col">
-                <router-link to="/app/profile/edit">
+                <router-link :to="{ name: 'profile.edit' }">
                     <div>
                         <img src="/images/icons/edit.svg" alt="">
                         <h4>Editar Perfil</h4>                    
@@ -10,7 +10,7 @@
                 </router-link>
             </div>
             <div class="col">
-                <router-link to="/app/form/create">
+                <router-link :to="{ name: 'mis-formularios.create' }">
                     <div>
                         <img src="/images/icons/crear_form.svg" alt="">
                         <h4>Crear Formulario</h4>                    
@@ -19,19 +19,34 @@
             </div>
             <div class="col">
                 <div>
-
+                    <router-link :to="{ name: 'mis-preguntas.create' }">
+                        <div>
+                            <img src="/images/icons/crear_form.svg" alt="">
+                            <h4>Crear Pregunta</h4>                    
+                        </div>
+                    </router-link>
                 </div>
             </div>
         </div>
         <div class="row row-cols-3">
             <div class="col">
                 <div>
-
+                    <router-link :to="{ name: 'mis-formularios.index' }">
+                        <div>
+                            <img src="/images/icons/forms.svg" alt="">
+                            <h4>Mis Formularios</h4>
+                        </div>
+                    </router-link>
                 </div>
             </div>
             <div class="col">
                 <div>
-
+                    <router-link :to="{ name: 'mis-preguntas.index'}">
+                        <div>
+                            <img src="/images/icons/preguntas.svg" alt="">
+                            <h4>Mis Preguntas</h4>
+                        </div>
+                    </router-link>
                 </div>
             </div>
             <div class="col">
