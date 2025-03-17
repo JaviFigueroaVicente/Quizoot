@@ -82,6 +82,22 @@ class FormulariosController extends Controller
 
 //        hay que usar una tabla intemedia y usar un sync
     }
+
+    public function asignarPreguntas(Request $request, $formulario_id){
+        $request->validate([
+            'pregunta_ids' => 'required|array',
+            'pregunta_ids.*' => 'exists:preguntas,id',
+        ]);
+
+        $formulario = Formularios::findOrFail($formulario_id);
+        $formulario->preguntas()->sync($request->pregunta_ids);
+
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'data' => $formulario->load('preguntas'),
+        ]);
+    }
     /**
      * Display the specified resource.
      */

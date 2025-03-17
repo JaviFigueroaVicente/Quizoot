@@ -29,12 +29,14 @@
                         </template>
                     </Column>
                     <Column field="created_at" header="Creado el" sortable></Column>
-                    <Column class="pe-0 me-0 icon-column-2">
+                    <Column class="pe-0 me-0 icon-column-3">
                         <template #body="slotProps">
-                            <router-link v-if="can('user-edit')" :to="{ name: 'mis-formularios.edit', params: { id: slotProps.data.id } }">
+                            <router-link :to="{ name: 'mis-formularios.asignar-preguntas', params: { id: slotProps.data.id } }">
+                                <Button icon="pi pi-plus" severity="help" size="small" class="mr-1"></Button>
+                            </router-link>
+                            <router-link :to="{ name: 'mis-formularios.edit', params: { id: slotProps.data.id } }">
                                 <Button icon="pi pi-pencil" severity="info" size="small" class="mr-1"/>
                             </router-link>
-
                             <Button icon="pi pi-trash" severity="danger" @click.prevent="deleteForm(slotProps.data.id)" size="small"/>
                         </template>
                     </Column>

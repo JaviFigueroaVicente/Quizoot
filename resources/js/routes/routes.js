@@ -195,7 +195,13 @@ export default [
                             path: 'create',
                             component: () => import('../views/forms/Create.vue'),
                             meta: { breadCrumb: 'Create Form' }
-                        }
+                        },
+                        {
+                            name: 'mis-formularios.asignar-preguntas',
+                            path: ':id/asignar-preguntas',
+                            component: () => import('../views/forms/AsignarPreguntas.vue'),
+                            meta: { breadCrumb: 'Asignar Preguntas' }
+                        },
                     ],
                 },             
             ],

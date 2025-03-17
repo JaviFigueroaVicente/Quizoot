@@ -25,7 +25,7 @@
 
                         <Column field="id" header="ID" sortable></Column>
                         <Column field="pregunta" header="Pregunta" sortable></Column>
-                        <Column field="created_at" header="Creado el" sortable></Column>+
+                        <Column field="created_at" header="Creado el" sortable></Column>
                         <Column class="pe-0 me-0 icon-column-2">
                             <template #body="slotProps">
                                 <router-link v-if="can('user-edit')" :to="{ name: 'mis-preguntas.edit', params: { id: slotProps.data.id } }">

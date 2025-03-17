@@ -80,6 +80,7 @@ Route::get('formulario/{id}', [FormulariosController::class, 'show']);
 Route::post('formulario', [FormulariosController::class, 'store']);
 Route::delete('formulario/{formulario}', [FormulariosController::class, 'destroy']);
 Route::post ('formulario/{formulario}', [FormulariosController::class, 'update']);
+Route::post('asignar-preguntas/{formularioId}', [FormulariosController::class, 'asignarPreguntas']);
 
 
 

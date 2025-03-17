@@ -28,6 +28,12 @@ class Formularios extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
+    //Crear relación con preguntas para poder crear la tabla intermedia
+    public function preguntas()
+    {
+        return $this->belongsToMany(Preguntas::class, 'formularios_preguntas', 'formulario_id', 'pregunta_id');
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('formularios') // Nombre de la colección

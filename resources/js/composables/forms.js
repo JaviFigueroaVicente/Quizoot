@@ -9,6 +9,8 @@ export default function useForms() {
         description: '',
         thumbnail: '',
     }); 
+    const selectedPreguntas = ref([])
+
     const swal = inject('$swal')
 
     const getForms = async () => {
@@ -48,7 +50,7 @@ export default function useForms() {
             getForms()
             swal({
                 icon: 'success',
-                title: 'Pregunta creada correctamente',
+                title: 'Formlario creado correctamente',
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -57,6 +59,25 @@ export default function useForms() {
             console.log(error)
         }) 
     }    
+
+    const asignarPreguntas = async (preguntaIds) => {
+        const formularioId = formulario.value.id;
+        axios.post('/api/asignar-preguntas/' + formularioId, {
+            pregunta_ids: preguntaIds
+        })
+        .then (response => {
+            getForms()
+            swal({
+                icon: 'success',
+                title: 'Preguntas asignadas correctamente',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            console.log(response)
+        }).catch(error => {
+            console.log(error)
+        })
+    }
 
     const deleteForm = async (id) => {
         swal({
@@ -124,10 +145,12 @@ export default function useForms() {
     return{
         formularios,
         formulario,
+        selectedPreguntas,
         getForms,
         getUserForms,
         getForm,
         storeForm,
+        asignarPreguntas,
         updateForm,
         deleteForm
     }

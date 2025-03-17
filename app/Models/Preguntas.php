@@ -26,4 +26,10 @@ class Preguntas extends Model
     {
         return $this->hasMany(Respuestas::class);
     }
+
+    //Crear relacion con formularios para poder crear la tabla intermedia
+    public function formularios()
+    {
+        return $this->belongsToMany(Formularios::class, 'formularios_preguntas', 'pregunta_id', 'formulario_id');
+    }
 }

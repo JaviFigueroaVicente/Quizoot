@@ -43,7 +43,7 @@ const onFormSubmit = async () => {
     try {
       schema.validate(formulario.value, { abortEarly: false });
       storeForm();
-      router.push({name: 'mis-formularios.index'});
+      router.push({name: 'mis-formularios.asignar-preguntas'});
     } catch (validationError) {
       console.error(validationError);
     }

@@ -12,9 +12,9 @@
         </div>
         <div class="row card justify-center gap-4">
             <div class="flex items-center gap-2" v-for="(respuesta, index) in pregunta.respuestas" :key="index">
-                <Checkbox v-model="respuesta.correcta" :inputId="'ingredient' + (index + 1)" :name="'pregunta.respuestas.' + index + '.correcta'" :binary="true" :false-value="0" :true-value="1" />
-                <label :for="'ingredient' + (index + 1)"></label>
-                <input :name="'ingredient' + (index + 1)" v-model="respuesta.respuesta" type="text" />
+                <Checkbox v-model="respuesta.correcta" :inputId="'respuesta' + (index + 1)" :name="'pregunta.respuestas.' + index + '.correcta'" :binary="true" :false-value="0" :true-value="1" />
+                <label :for="'respuesta' + (index + 1)"></label>
+                <input :name="'respuesta' + (index + 1)" v-model="respuesta.respuesta" type="text" />
             </div>
         </div>
         <button type="submit" class="btn btn-primary button button-action mt-2" @click.prevent="onFormSubmit">Crear Pregunta</button>
