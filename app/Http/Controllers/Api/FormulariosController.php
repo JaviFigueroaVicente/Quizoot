@@ -40,6 +40,16 @@ class FormulariosController extends Controller
             'data' => FormulariosResource::collection($formularios),
         ]);
     }
+
+    public function getPreguntasFormulario(string $id){
+        $formulario = Formularios::with('preguntas')->findOrFail($id);
+
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'data' => $formulario->preguntas
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      */

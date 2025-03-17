@@ -72,7 +72,7 @@ import * as yup from 'yup';
 
 const router = useRouter();
 const { preguntas, getUserPreguntas } = usePreguntas();
-const { getForm, selectedPreguntas, asignarPreguntas } = useForms();
+const { getForm, getFormPreguntas, selectedPreguntas, asignarPreguntas } = useForms();
 const filters = ref();
 
 const schema = yup.object().shape({
@@ -82,6 +82,7 @@ const schema = yup.object().shape({
 onMounted(() => {
     getUserPreguntas();
     getForm(router.currentRoute.value.params.id);
+    getFormPreguntas(router.currentRoute.value.params.id);
 });
 
 const initFilters = () => {

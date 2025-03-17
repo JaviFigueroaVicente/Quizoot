@@ -28,27 +28,12 @@
                 
                 <!-- Right Section -->
                 <div class="col-md-8 right-section">
-                    <ul class="list-group">
-                        <li class="list-group-item">1 - Question 1<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">2 - Question 2<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">3 - Question 3<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">4 - Question 4<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">5 - Question 5<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">6 - Question 6<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">7 - Question 7<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">8 - Question 8<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">9 - Question 9<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">10 - Question 10<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">11 - Question 1<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">12 - Question 2<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">13 - Question 3<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">14 - Question 4<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">15 - Question 5<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">16 - Question 6<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">17 - Question 7<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">18 - Question 8<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">19 - Question 9<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
-                        <li class="list-group-item">20 - Question 10<br><span class="question-text">This is an example of what the question might look like, it will improve later ???</span></li>
+                    <ul  class="list-group">
+                        <li v-for="(pregunta, index) in selectedPreguntas" :key="pregunta.id" class="list-group-item">
+                            <strong>{{ index + 1 }} - Pregunta: </strong>
+                            <br>
+                            <span class="question-text">{{ pregunta.pregunta }}</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -64,11 +49,12 @@ import {useRoute} from "vue-router";
 import useForms from "@/composables/forms";
 
 const route = useRoute();
-const {getForm, formulario} = useForms();
+const {getForm, formulario, getFormPreguntas, selectedPreguntas } = useForms();
 
 onMounted(() => {
     console.log(route.params.id);
     getForm(route.params.id);
+    getFormPreguntas(route.params.id);
     })
 </script>
 <style scoped>

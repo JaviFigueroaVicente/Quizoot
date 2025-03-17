@@ -21,7 +21,9 @@ export default function useForms() {
         .then(response => {
             formularios.value = response.data.data;
             console.log(response.data.data);
-        });
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     const getUserForms = async () => {
@@ -36,7 +38,19 @@ export default function useForms() {
             .then(response => {
                 formulario.value = response.data;
                 console.log(response.data);
-            });
+            }).catch(error => {
+                console.log(error)
+            })
+    }
+
+    const getFormPreguntas = async (id) => {
+        axios.get('/api/asignar-preguntas/' + id)
+            .then(response => {
+                selectedPreguntas.value = response.data.data;
+                console.log(response.data.data);
+            }).catch(error => {
+                console.log(error)
+            })
     }
 
 
@@ -147,6 +161,7 @@ export default function useForms() {
         getForms,
         getUserForms,
         getForm,
+        getFormPreguntas,
         storeForm,
         asignarPreguntas,
         updateForm,
