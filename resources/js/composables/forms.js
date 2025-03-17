@@ -47,7 +47,6 @@ export default function useForms() {
             }
         })
         .then(response => {
-            getForms()
             swal({
                 icon: 'success',
                 title: 'Formlario creado correctamente',
@@ -66,7 +65,6 @@ export default function useForms() {
             pregunta_ids: preguntaIds
         })
         .then (response => {
-            getForms()
             swal({
                 icon: 'success',
                 title: 'Preguntas asignadas correctamente',

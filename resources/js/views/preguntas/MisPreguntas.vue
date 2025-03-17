@@ -49,7 +49,7 @@ import {useAbility} from '@casl/vue'
 import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
 
 const router = useRouter();
-const {preguntas, getUserPreguntas} = usePreguntas();
+const {preguntas, getUserPreguntas, deletePregunta } = usePreguntas();
 const {can} = useAbility()
 const filters = ref();
 
