@@ -27,7 +27,7 @@
                 <template #empty> No question found. </template>
                 <Column>
                     <template #body="slotProps">
-                        <Checkbox v-model="selectedPreguntas" :inputId="slotProps.data.id" :value="slotProps.data" b/>
+                        <Checkbox checkbox.checked.background="#ff0000" v-model="selectedPreguntas" :inputId="slotProps.data.id" :value="slotProps.data" b/>
                     </template>
                 </Column>
                 <Column field="id" header="ID" sortable></Column>
@@ -135,16 +135,15 @@ li{
 
 
 .btn-custom {
-  background-color: #874eca;
-  color: white;
-  border: none;
   padding: 10px;
   width: 100%;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-.btn-custom:hover {
-  background-color: #402462;
 }
 
+.p-checkbox-checked{
+    --p-checkbox-checked-background: #874eca;
+    --p-checkbox-checked-hover-background: #402462;
+    --p-checkbox-checked-border-color: #874eca;
+    --p-checkbox-checked-hover-border-color: 402462;
+    --p-checkbox-checked-focus-border-color: #874eca;
+}
 </style>
