@@ -8,7 +8,7 @@
                     <img v-else src="images/placeholder.png" alt="Placeholder" class="form-image">
                     <h3 class="fw-bold mb-1 mt-2">{{ formulario.name }}</h3>
                     <p>{{ formulario.description }}</p>
-                    <button class="btn btn-lila mb-3">Jugar Solo</button>
+                    <router-link :to="{name:'formIndividual'}"><button class="btn btn-lila mb-3">Jugar Solo</button></router-link>
                     <!-- Sección Derecha: Ranking -->
                     <div class="ranking-container mb-2">
                         <h4 class="ranking-title">🏆 Ranking</h4>
@@ -179,4 +179,27 @@ onMounted(() => {
     .right-section::-webkit-scrollbar-thumb:hover {
         background-color: #402462;
     }
+
+    @media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+    }
+
+    .left-section {
+        position: relative; /* Evita que se superponga */
+        height: auto;
+        margin-bottom: 20px; /* Espacio entre secciones */
+    }
+
+    .right-section {
+        max-height: none; /* Elimina la restricción de altura */
+        overflow-y: visible; /* Permite que crezca naturalmente */
+    }
+
+    .list-group {
+        max-height: 400px; /* Evita que sea demasiado larga en móviles */
+        overflow-y: auto; /* Permite desplazamiento */
+    }
+}
+
 </style>

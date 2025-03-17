@@ -172,4 +172,28 @@ export default {
     flex-shrink: 0;
     text-align: right;
 }
+
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+    }
+
+    .left-section {
+        position: relative; /* Evita que quede fija */
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .ranking-container {
+        height: auto; /* Permite que crezca según el contenido */
+        padding: 15px;
+        margin-top: 20px;
+    }
+
+    .ranking-list-container {
+        max-height: 320px; /* Evita que sea demasiado larga */
+        overflow-y: auto; /* Permite desplazamiento */
+    }
+}
+
 </style>
