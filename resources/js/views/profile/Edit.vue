@@ -166,6 +166,11 @@ const updateImage = async () => {
     const formData = new FormData();
     formData.append('users', imagenFile.value);
     
+    // Crear un objeto URL para la vista previa inmediata
+    const previewUrl = URL.createObjectURL(imagenFile.value);
+    // Actualizar la vista de la imagen inmediatamente
+    usuario.value.avatar = previewUrl;
+    
     axios.post('/api/user/updateimg/' + store.user.id, formData)
     .then((response) => {
         swal({
@@ -174,11 +179,14 @@ const updateImage = async () => {
             showConfirmButton: false,
             timer: 1500
         });
-        // Actualizar el store con la nueva imagen si es necesario
-        if (store.user && response.data) {
-            // Suponiendo que la respuesta incluye la URL de la media
-            if (response.data.media && response.data.media.length > 0) {
-                store.user.thumbnail = response.data.media[0].original_url;
+        // Actualizar el store con la nueva imagen desde la respuesta del servidor
+        if (response.data && response.data.media && response.data.media.length > 0) {
+            const serverImageUrl = response.data.media[0].original_url;
+            usuario.value.avatar = serverImageUrl;
+            
+            if (store.user) {
+                store.user.thumbnail = serverImageUrl;
+                store.user.avatar = serverImageUrl;
             }
         }
     })
@@ -190,6 +198,14 @@ const updateImage = async () => {
             detail: 'Error al actualizar la imagen',
             life: 3000,
         });
+        
+        // En caso de error, revertir al avatar anterior
+        axios.get('/api/users/' + store.user.id)
+            .then((response) => {
+                if (response.data && response.data.data) {
+                    usuario.value.avatar = response.data.data.avatar;
+                }
+            });
     });
 };
 
@@ -204,8 +220,8 @@ const onFormSubmit = () => {
 const onFormSubmitIMG = () => {
     if (imagenFile.value) {
         updateImage();
-        window.location.reload();
-        // router.push({ name: 'profile.index' });
+        // window.location.reload();
+        router.push({ name: 'profile.index' });
     } else {
         toast.add({
             severity: 'error',
