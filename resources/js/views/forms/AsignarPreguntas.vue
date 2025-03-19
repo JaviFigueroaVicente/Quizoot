@@ -23,11 +23,10 @@
                     </template>
                     </Toolbar>
                 </template>
-
                 <template #empty> No question found. </template>
                 <Column>
                     <template #body="slotProps">
-                        <Checkbox v-model="selectedPreguntas" :inputId="slotProps.data.id" :value="slotProps.data"/>
+                        <Checkbox :inputId="slotProps.data.id" :value="slotProps.data" />
                     </template>
                 </Column>
                 <Column field="id" header="ID" sortable></Column>

@@ -172,19 +172,19 @@ onMounted(() => {
     }
 
     .left-section {
-        position: relative; /* Evita que se superponga */
+        position: relative;
         height: auto;
-        margin-bottom: 20px; /* Espacio entre secciones */
+        margin-bottom: 20px; 
     }
 
     .right-section {
-        max-height: none; /* Elimina la restricción de altura */
-        overflow-y: visible; /* Permite que crezca naturalmente */
+        max-height: none; 
+        overflow-y: visible; 
     }
 
     .list-group {
-        max-height: 400px; /* Evita que sea demasiado larga en móviles */
-        overflow-y: auto; /* Permite desplazamiento */
+        max-height: 400px; 
+        overflow-y: auto; 
     }
 }
 
