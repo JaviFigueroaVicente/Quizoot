@@ -179,6 +179,7 @@ const updateImage = async () => {
             showConfirmButton: false,
             timer: 1500
         });
+        
         // Actualizar el store con la nueva imagen desde la respuesta del servidor
         if (response.data && response.data.media && response.data.media.length > 0) {
             const serverImageUrl = response.data.media[0].original_url;
