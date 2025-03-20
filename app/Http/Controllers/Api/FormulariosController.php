@@ -32,7 +32,7 @@ class FormulariosController extends Controller
 
     public function userFormularios(){
         $user_id = auth()->id();
-        $formularios = Formularios::where('user_id', $user_id)->get();
+        $formularios = Formularios::withCount('preguntas')->where('user_id', $user_id)->get();
 
         return response()->json([
             'status' => 405,
