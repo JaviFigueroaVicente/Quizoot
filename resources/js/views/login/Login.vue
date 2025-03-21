@@ -119,4 +119,12 @@ input {
     box-shadow: none;
 }
 
+button{
+    background-color: #874eca;
+    border: none;
+}
+
+button:hover{
+    background-color: #402462;
+}
 </style>

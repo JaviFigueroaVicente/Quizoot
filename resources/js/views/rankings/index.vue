@@ -1,4 +1,8 @@
 <template>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    
     <header class="text-center py-3 mt-3 mb-1 title ">
         <h1 class="fw-bold">Rankings</h1>
     </header>
