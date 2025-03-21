@@ -2,7 +2,7 @@ import { ref, inject } from 'vue'
 import { useRouter } from 'vue-router'
 
 export default function usePreguntas() {
-    const preguntas = ref([])
+    const preguntas = ref([]);
     const pregunta = ref({
         pregunta: '',
         respuestas: [
@@ -33,6 +33,7 @@ export default function usePreguntas() {
             .then(response => {
                 preguntas.value = response.data
                 console.log(preguntas.value)
+                return response.data
             }).catch(error => {
                 console.log(error)
             }) 
@@ -42,7 +43,7 @@ export default function usePreguntas() {
         axios.get('/api/pregunta/' + id)
         .then(response => {
             pregunta.value = response.data
-            console.log(response.data)
+            console.log('Pregunta:', pregunta.value);
         }).catch(error => {
             console.log(error)
         }) 

@@ -211,12 +211,6 @@ export default [
             path: 'preguntas',
             children : [
                 {
-                    name: 'preguntas.index',
-                    path: '',
-                    component: () => import('../views/preguntas/index.vue'),
-                    meta: { breadCrumb: 'Preguntas' }
-                },
-                {
                     name: 'preguntas.mis-preguntas',
                     path: 'mis-preguntas',
                     children : [

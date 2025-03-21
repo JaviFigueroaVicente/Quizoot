@@ -26,7 +26,7 @@ class FormulariosController extends Controller
         return response()->json([
             'status' => 405,
             'success' => true,
-            'data' => FormulariosResource::collection($formularios),
+            'data' => FormulariosResource::collection($formularios)
         ]);
     }
 

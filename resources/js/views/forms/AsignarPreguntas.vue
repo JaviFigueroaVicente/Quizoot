@@ -6,7 +6,7 @@
             <div class="card-header bg-transparent ps-0 pe-0">
                 <h5 class="float-start mb-0">Buscar Preguntas</h5>
             </div>
-            <DataTable v-model:filters="filters" :value="preguntas.data" paginator :rows="5"
+            <DataTable v-model:filters="filters" v-model:selection="selectedPreguntas" :value="preguntas.data" paginator :rows="5"
                     :globalFilterFields="['id','pregunta','created_at']" stripedRows dataKey="id" size="small">
                 <template #header>
                     <Toolbar pt:root:class="toolbar-table">
@@ -24,11 +24,7 @@
                     </Toolbar>
                 </template>
                 <template #empty> No question found. </template>
-                <Column>
-                    <template #body="slotProps">
-                        <Checkbox :inputId="slotProps.data.id" :value="slotProps.data" />
-                    </template>
-                </Column>
+                <Column selectionMode="multiple" value="preguntas.data" dataKey="id"></Column>
                 <Column field="id" header="ID" sortable></Column>
                 <Column field="pregunta" header="Pregunta" sortable></Column>
                 <Column field="created_at" header="Creado el" sortable></Column>
@@ -102,12 +98,7 @@ const clearSelectedPreguntas = () => {
 
 const onFormSubmit = async () => {
     try {
-        const preguntaIds = [];
-        for (let i = 0; i < selectedPreguntas.value.length; i++) {
-            preguntaIds.push(selectedPreguntas.value[i].id);
-        }
-        schema.validate({ pregunta_ids: preguntaIds }, { abortEarly: false });
-        asignarPreguntas(preguntaIds);
+        asignarPreguntas();
         router.push({name: 'mis-formularios.index'});
     } catch (validationError) {
         console.error(validationError);

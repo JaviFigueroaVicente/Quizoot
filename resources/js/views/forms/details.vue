@@ -3,7 +3,7 @@
         <div class="container my-2">
             <div class="row" v-if="formulario">
                 <!-- Left Section -->
-                <div class="col-md-4 left-section" >
+                <div class="col-md-4 left-section">
                     <img v-if="formulario && formulario.media && formulario.media.length > 0" :src="formulario.media[0].original_url" alt="User image" class="form-image">
                     <img v-else src="images/placeholder.png" alt="Placeholder" class="form-image">
                     <h3 class="fw-bold mb-1 mt-2">{{ formulario.name }}</h3>
@@ -28,11 +28,37 @@
                 
                 <!-- Right Section -->
                 <div class="col-md-8 right-section">
-                    <ul  class="list-group">
+                    <ul class="list-group">
                         <li v-for="(pregunta, index) in selectedPreguntas" :key="pregunta.id" class="list-group-item">
                             <strong>{{ index + 1 }} - Pregunta: </strong>
                             <br>
                             <span class="question-text">{{ pregunta.pregunta }}</span>
+                            <!-- <button @click="getPregunta(pregunta.id)" :data-bs-target="'#modal-' + pregunta.id" data-bs-toggle="modal">
+                                Ver pregunta
+                            </button>
+                            <div class="modal fade" :id="'modal-' + pregunta.id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Respuestas</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row card justify-center gap-4">
+                                                <div class="flex items-center gap-2" v-for="(respuesta, index) in pregunta.respuestas" :key="index">
+                                                    <Checkbox v-model="respuesta.correcta" :inputId="'respuesta' + (index + 1)" :name="'pregunta.respuestas.' + index + '.correcta'" :binary="true" :false-value="0" :true-value="1"/>
+                                                    <label :for="'respuesta' + (index + 1)"></label>
+                                                    <input :name="'respuesta' + (index + 1)" v-model="respuesta.respuesta" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
                         </li>
                     </ul>
                 </div>
@@ -43,19 +69,24 @@
         </div>
     </div>
 </template>
+
 <script setup>
-import {ref, onMounted} from "vue";
-import {useRoute} from "vue-router";
-import useForms from "@/composables/forms";
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import useForms from '@/composables/forms';
+import usePreguntas from '@/composables/preguntas';
 
 const route = useRoute();
-const {getForm, formulario, getFormPreguntas, selectedPreguntas } = useForms();
+const { getForm, formulario, getFormPreguntas, selectedPreguntas } = useForms();
+const { getPregunta, preguntas} = usePreguntas();
 
 onMounted(() => {
     console.log(route.params.id);
     getForm(route.params.id);
     getFormPreguntas(route.params.id);
-    })
+});
+
+
 </script>
 <style scoped>
     .btn-lila {
