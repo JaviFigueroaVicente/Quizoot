@@ -18,6 +18,7 @@
                 <button class="kahoot-button green">Respuesta 3</button>
                 <button class="kahoot-button yellow">Respuesta 4</button>
             </section>
+            <router-link to="/forms" class="exit-button">Abandonar</router-link>
         </section>
     </body>
 </template>
@@ -64,12 +65,15 @@ html, body {
     width: 100vw;
     background-color: white;
     z-index: 1;
-    padding: 40px;
+    padding: 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    max-height: 80vh;
 }
 
 .header {
@@ -77,6 +81,8 @@ html, body {
     align-items: center;
     justify-content: center;
     gap: 20px;
+    width: 100%;
+    position: relative;
 }
 
 .logo-nav {
@@ -84,7 +90,7 @@ html, body {
 }
 
 .header h2 {
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: #333;
     margin: 0;
 }
@@ -103,12 +109,22 @@ html, body {
     margin-top: 20px;
     justify-items: stretch;
     width: 100vw;
-    padding: 0 20px; /* Add padding to the left and right */
+    padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+    .buttons-section {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .white-section {
+        margin-top: 50px;
+    }
 }
 
 .kahoot-button {
-    font-size: 2.5rem;
-    padding: 50px 100px;
+    font-size: 2rem;
+    padding: 40px 80px;
     border: none;
     border-radius: 20px;
     cursor: pointer;
@@ -139,5 +155,23 @@ html, body {
 .kahoot-button:hover {
     background-color: #874eca;
     transform: scale(1.02);
+}
+
+.exit-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 1.2rem;
+    color: white;
+    text-decoration: none;
+    background-color: #e84118;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-weight: normal;
+}
+
+.exit-button:hover {
+    background-color: #c23616;
 }
 </style>

@@ -28,6 +28,11 @@
                             <span v-else>No hay imagen</span>
                         </template>
                     </Column>
+                    <Column field="preguntas_count" header="Nº Preguntas" sortable>
+                        <template #body="slotProps">
+                            {{ slotProps.data.preguntas_count ?? 0 }}
+                        </template>
+                    </Column>
                     <Column field="created_at" header="Creado el" sortable></Column>
                     <Column class="pe-0 me-0 icon-column-3">
                         <template #body="slotProps">
