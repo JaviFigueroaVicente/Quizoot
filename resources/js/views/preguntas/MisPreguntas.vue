@@ -46,10 +46,23 @@
             </div>
         </div>
     </div>
-    <Dialog v-model:visible="dialogVisible" modal header="Edit Profile" :style="{ width: '25rem' }">
-        <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your information.</span>
+    <Dialog v-model:visible="dialogVisible" modal :style="{ width: '30rem', padding: '15px', height: 'auto' }" pcCloseButton="">
+        <template #header>
+            <h2><strong>Respuestas</strong></h2>
+        </template>
         <div class="flex items-center gap-4 mb-8">
-            {{ preguntaActual.respuestas }}
+            <ul class="list-group">
+                <li v-for="respuesta in preguntaActual.respuestas" :key="respuesta.id">
+                    <div v-if="respuesta.correcta == 1">
+                        <i class="pi pi-check" style="color: green;"></i>
+                        <p>{{respuesta.respuesta}}</p>
+                    </div>
+                    <div v-else>
+                        <i class="pi pi-times" style="color: red;"></i>
+                        <p>{{respuesta.respuesta}}</p>
+                    </div>                
+                </li>
+            </ul>
         </div>
     </Dialog>
 </template>
@@ -60,6 +73,7 @@ import { useRouter } from 'vue-router';
 import usePreguntas from '@/composables/preguntas';
 import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
 import { Column } from 'primevue';
+
 const dialogVisible = ref(false);
 const preguntaActual = ref({});
 
@@ -96,4 +110,21 @@ initFilters();
 .ver-respuestas:hover{
     color: #402462;
 }
+
+.list-group {
+    list-style: none;
+    gap: 30px;
+    margin: 30px;
+}
+
+.list-group div{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.list-group p{
+    font-size: 1.75rem;
+}
+
 </style>

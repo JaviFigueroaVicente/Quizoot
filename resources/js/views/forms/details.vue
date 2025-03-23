@@ -33,32 +33,9 @@
                             <strong>{{ index + 1 }} - Pregunta: </strong>
                             <br>
                             <span class="question-text">{{ pregunta.pregunta }}</span>
-                            <!-- <button @click="getPregunta(pregunta.id)" :data-bs-target="'#modal-' + pregunta.id" data-bs-toggle="modal">
-                                Ver pregunta
+                            <button class="ver-respuestas" @click="verRespuestas(pregunta)">
+                                Ver Respuestas
                             </button>
-                            <div class="modal fade" :id="'modal-' + pregunta.id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Respuestas</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row card justify-center gap-4">
-                                                <div class="flex items-center gap-2" v-for="(respuesta, index) in pregunta.respuestas" :key="index">
-                                                    <Checkbox v-model="respuesta.correcta" :inputId="'respuesta' + (index + 1)" :name="'pregunta.respuestas.' + index + '.correcta'" :binary="true" :false-value="0" :true-value="1"/>
-                                                    <label :for="'respuesta' + (index + 1)"></label>
-                                                    <input :name="'respuesta' + (index + 1)" v-model="respuesta.respuesta" type="text" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
                         </li>
                     </ul>
                 </div>
@@ -68,6 +45,26 @@
             </div>
         </div>
     </div>
+
+    <Dialog v-model:visible="dialogVisible" modal :style="{ width: '30rem', padding: '15px', height: 'auto' }" pcCloseButton="">
+        <template #header>
+            <h2><strong>Respuestas</strong></h2>
+        </template>
+        <div class="flex items-center gap-4 mb-8">
+            <ul class="list-respuestas">
+                <li v-for="respuesta in preguntaActual.respuestas" :key="respuesta.id">
+                    <div v-if="respuesta.correcta == 1">
+                        <i class="pi pi-check" style="color: green;"></i>
+                        <p>{{respuesta.respuesta}}</p>
+                    </div>
+                    <div v-else>
+                        <i class="pi pi-times" style="color: red;"></i>
+                        <p>{{respuesta.respuesta}}</p>
+                    </div>                
+                </li>
+            </ul>
+        </div>
+    </Dialog>
 </template>
 
 <script setup>
@@ -76,15 +73,23 @@ import { useRoute } from 'vue-router';
 import useForms from '@/composables/forms';
 import usePreguntas from '@/composables/preguntas';
 
+const dialogVisible = ref(false);
+const preguntaActual = ref({});
+
 const route = useRoute();
-const { getForm, formulario, getFormPreguntas, selectedPreguntas } = useForms();
-const { getPregunta, preguntas} = usePreguntas();
+const { getForm, formulario, getFormPreguntas,selectedPreguntas } = useForms();
+const { preguntas} = usePreguntas();
 
 onMounted(() => {
     console.log(route.params.id);
     getForm(route.params.id);
     getFormPreguntas(route.params.id);
 });
+
+const verRespuestas= (pregunta)=>{
+    preguntaActual.value = pregunta;
+    dialogVisible.value = true;
+}
 
 
 </script>
@@ -110,6 +115,23 @@ onMounted(() => {
         object-fit: cover;
         border-radius: 10px;
     }
+
+    .list-respuestas {
+        list-style: none;
+        gap: 30px;
+        margin: 30px;
+    }
+
+    .list-respuestas div{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .list-respuestas p{
+        font-size: 1.75rem;
+    }
+
 
     .list-group {
         border: 2px solid #874ECA;

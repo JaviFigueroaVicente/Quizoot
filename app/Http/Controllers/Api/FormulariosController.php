@@ -42,7 +42,7 @@ class FormulariosController extends Controller
     }
 
     public function getPreguntasFormulario(string $id){
-        $formulario = Formularios::with('preguntas')->findOrFail($id);
+        $formulario = Formularios::with('preguntas.respuestas')->findOrFail($id);
 
         return response()->json([
             'status' => 200,
