@@ -3,7 +3,7 @@
         <div class="container my-2">
             <div class="row" v-if="formulario">
                 <!-- Left Section -->
-                <div class="col-md-4 left-section" >
+                <div class="col-md-4 left-section">
                     <img v-if="formulario && formulario.media && formulario.media.length > 0" :src="formulario.media[0].original_url" alt="User image" class="form-image">
                     <img v-else src="images/placeholder.png" alt="Placeholder" class="form-image">
                     <h3 class="fw-bold mb-1 mt-2">{{ formulario.name }}</h3>
@@ -28,11 +28,14 @@
                 
                 <!-- Right Section -->
                 <div class="col-md-8 right-section">
-                    <ul  class="list-group">
+                    <ul class="list-group">
                         <li v-for="(pregunta, index) in selectedPreguntas" :key="pregunta.id" class="list-group-item">
                             <strong>{{ index + 1 }} - Pregunta: </strong>
                             <br>
                             <span class="question-text">{{ pregunta.pregunta }}</span>
+                            <button class="ver-respuestas" @click="verRespuestas(pregunta)">
+                                Ver Respuestas
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -42,20 +45,51 @@
             </div>
         </div>
     </div>
+
+    <Dialog v-model:visible="dialogVisible" modal :style="{ width: '30rem', padding: '15px', height: 'auto' }" pcCloseButton="">
+        <template #header>
+            <h2><strong>Respuestas</strong></h2>
+        </template>
+        <div class="flex items-center gap-4 mb-8">
+            <ul class="list-respuestas">
+                <li v-for="respuesta in preguntaActual.respuestas" :key="respuesta.id">
+                    <div v-if="respuesta.correcta == 1">
+                        <i class="pi pi-check" style="color: green;"></i>
+                        <p>{{respuesta.respuesta}}</p>
+                    </div>
+                    <div v-else>
+                        <i class="pi pi-times" style="color: red;"></i>
+                        <p>{{respuesta.respuesta}}</p>
+                    </div>                
+                </li>
+            </ul>
+        </div>
+    </Dialog>
 </template>
+
 <script setup>
-import {ref, onMounted} from "vue";
-import {useRoute} from "vue-router";
-import useForms from "@/composables/forms";
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import useForms from '@/composables/forms';
+
+const dialogVisible = ref(false);
+const preguntaActual = ref({});
 
 const route = useRoute();
-const {getForm, formulario, getFormPreguntas, selectedPreguntas } = useForms();
+const { getForm, formulario, getFormPreguntas,selectedPreguntas } = useForms();
 
 onMounted(() => {
     console.log(route.params.id);
     getForm(route.params.id);
     getFormPreguntas(route.params.id);
-    })
+});
+
+const verRespuestas= (pregunta)=>{
+    preguntaActual.value = pregunta;
+    dialogVisible.value = true;
+}
+
+
 </script>
 <style scoped>
     .btn-lila {
@@ -79,6 +113,23 @@ onMounted(() => {
         object-fit: cover;
         border-radius: 10px;
     }
+
+    .list-respuestas {
+        list-style: none;
+        gap: 30px;
+        margin: 30px;
+    }
+
+    .list-respuestas div{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .list-respuestas p{
+        font-size: 1.75rem;
+    }
+
 
     .list-group {
         border: 2px solid #874ECA;

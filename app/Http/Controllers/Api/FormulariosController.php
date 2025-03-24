@@ -26,7 +26,7 @@ class FormulariosController extends Controller
         return response()->json([
             'status' => 405,
             'success' => true,
-            'data' => FormulariosResource::collection($formularios),
+            'data' => FormulariosResource::collection($formularios)
         ]);
     }
 
@@ -42,7 +42,7 @@ class FormulariosController extends Controller
     }
 
     public function getPreguntasFormulario(string $id){
-        $formulario = Formularios::with('preguntas')->findOrFail($id);
+        $formulario = Formularios::with('preguntas.respuestas')->findOrFail($id);
 
         return response()->json([
             'status' => 200,

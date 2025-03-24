@@ -211,12 +211,6 @@ export default [
             path: 'preguntas',
             children : [
                 {
-                    name: 'preguntas.index',
-                    path: '',
-                    component: () => import('../views/preguntas/index.vue'),
-                    meta: { breadCrumb: 'Preguntas' }
-                },
-                {
                     name: 'preguntas.mis-preguntas',
                     path: 'mis-preguntas',
                     children : [
@@ -242,7 +236,7 @@ export default [
                 },
                 {
                     name: 'formIndividual',
-                    path: '/contestarFormulario',
+                    path: '/contestarFormulario/:id',
                     component: () => import('../views/forms/form_individual/index.vue'),
                     meta: { breadCrumb: 'Form Individual' }
                 }

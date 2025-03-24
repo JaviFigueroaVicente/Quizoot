@@ -12,6 +12,7 @@ export default function useForms() {
     }); 
     const selectedPreguntas = ref([])
 
+    const isLoading = ref(false);
     const swal = inject('$swal')
 
     const getForms = async () => {
@@ -47,6 +48,7 @@ export default function useForms() {
     const getFormPreguntas = async (id) => {
         axios.get('/api/asignar-preguntas/' + id)
             .then(response => {
+                isLoading.value = true;
                 selectedPreguntas.value = response.data.data;
                 console.log(response.data.data);
             }).catch(error => {
@@ -74,23 +76,27 @@ export default function useForms() {
         }) 
     }    
 
-    const asignarPreguntas = async (preguntaIds) => {
+    const asignarPreguntas = async () => {
         const formularioId = formulario.value.id;
-        axios.post('/api/asignar-preguntas/' + formularioId, {
-            pregunta_ids: preguntaIds
-        })
-        .then (response => {
+        const preguntaIds = [];
+        for (let i = 0; i < selectedPreguntas.value.length; i++) {
+            preguntaIds.push(selectedPreguntas.value[i].id);
+        }
+        try {
+            const response = axios.post('/api/asignar-preguntas/' + formularioId, {
+                pregunta_ids: preguntaIds
+            });
             swal({
                 icon: 'success',
                 title: 'Preguntas asignadas correctamente',
                 showConfirmButton: false,
                 timer: 1500
-            })
-            console.log(response)
-        }).catch(error => {
-            console.log(error)
-        })
-    }
+            });
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const deleteForm = async (id) => {
         swal({
@@ -159,6 +165,7 @@ export default function useForms() {
         formularios,
         formulario,
         selectedPreguntas,
+        isLoading,
         getForms,
         getUserForms,
         getForm,
