@@ -236,7 +236,7 @@ export default [
                 },
                 {
                     name: 'formIndividual',
-                    path: '/contestarFormulario',
+                    path: '/contestarFormulario/:id',
                     component: () => import('../views/forms/form_individual/index.vue'),
                     meta: { breadCrumb: 'Form Individual' }
                 }

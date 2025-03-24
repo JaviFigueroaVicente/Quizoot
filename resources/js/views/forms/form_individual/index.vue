@@ -1,39 +1,54 @@
 <template>
-    <!DOCTYPE html>
-    <body>
-        <section class="container">
-            <img src="/images/Home/Fondo_Home.webp" class="background-image" />
-            <section class="white-section">
-                <div class="header">
-                    <router-link to="/forms" class="navbar-brand">
-                        <img src="/images/Nav/Logo.webp" alt="Logo" class="logo-nav">
-                    </router-link>
-                    <h2>Pregunta 1:</h2>
-                </div>
-                <p>Este es un contenido dentro de la sección con fondo blanco. Puedes agregar más texto o elementos aquí según lo necesites. ¡Todo se verá sobre la imagen de fondo!</p>
-            </section>
-            <section class="buttons-section">
-                <button class="kahoot-button red">Respuesta 1</button>
-                <button class="kahoot-button blue">Respuesta 2</button>
-                <button class="kahoot-button green">Respuesta 3</button>
-                <button class="kahoot-button yellow">Respuesta 4</button>
-            </section>
-            <router-link to="/forms" class="exit-button">Abandonar</router-link>
+    <section class="container">
+        
+        <img src="/images/Home/Fondo_Home.webp" class="background-image" />
+        <section class="white-section">
+            <div class="header">
+                <Timeline :value="selectedPreguntas.preguntas_count" layout="horizontal" class="custom-timeline">
+                    <template #marker="formulario">
+                        <span class="p-p-2 p-rounded-full" :style="{ backgroundColor: '#607D8B', color: '#ffffff' }">
+                        1
+                        </span>
+                    </template>
+                    <!-- <template #content="formulario">
+                        <p>{{ formulario.pregunta }}</p>
+                    </template> -->
+                </Timeline>
+                <router-link to="/forms" class="navbar-brand">
+                    <img src= "/images/Nav/Logo.webp" alt="Logo" class="logo-nav">
+                </router-link>
+                <h2>Pregunta 1:</h2>
+            </div>
+            <p>{{ formulario.pregunta }}</p>
         </section>
-    </body>
+        <section class="buttons-section">
+            <button class="kahoot-button red">Respuesta 1</button>
+            <button class="kahoot-button blue">Respuesta 2</button>
+            <button class="kahoot-button green">Respuesta 3</button>
+            <button class="kahoot-button yellow">Respuesta 4</button>
+        </section>
+        <router-link to="/forms" class="exit-button">Abandonar</router-link>
+    </section>
+
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import useForms from '@/composables/forms';
+
+
+const route = useRoute();
+const { getForm, formulario, getFormPreguntas,selectedPreguntas } = useForms();
+
+onMounted(() => {
+    console.log(route.params.id);
+    getForm(route.params.id);
+    getFormPreguntas(route.params.id);
+});
 </script>
 
 <style scoped>
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-}
-
 .container {
     display: flex;
     flex-direction: column;

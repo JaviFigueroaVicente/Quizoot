@@ -71,14 +71,12 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import useForms from '@/composables/forms';
-import usePreguntas from '@/composables/preguntas';
 
 const dialogVisible = ref(false);
 const preguntaActual = ref({});
 
 const route = useRoute();
 const { getForm, formulario, getFormPreguntas,selectedPreguntas } = useForms();
-const { preguntas} = usePreguntas();
 
 onMounted(() => {
     console.log(route.params.id);
