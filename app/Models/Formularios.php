@@ -19,13 +19,19 @@ class Formularios extends Model implements HasMedia
     protected $fillable = [
         'name',
         'user_id',
-        'description'
+        'description',
+        'categoria_id'
     ];
 
     // Recupera el usuario que ha creado el formulario
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function categorias()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     //Crear relación con preguntas para poder crear la tabla intermedia

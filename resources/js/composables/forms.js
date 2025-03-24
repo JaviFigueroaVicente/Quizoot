@@ -8,6 +8,7 @@ export default function useForms() {
         name: '',
         description: '',
         thumbnail: '',
+        category_id: '',
     }); 
     const selectedPreguntas = ref([])
 

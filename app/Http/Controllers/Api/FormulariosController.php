@@ -67,12 +67,14 @@ class FormulariosController extends Controller
             'name' => 'required|string',
             'description' => 'required|string',
             'thumbnail' => 'nullable|image|max:2048',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         $formulario = Formularios::create([
             'name' => $validated['name'],
             'description' => $validated['description'],
             'user_id' => auth()->id(),
+            'categoria_id' => $validated['category_id'],
         ]);
 
         if ($request->hasFile('thumbnail')) {
@@ -89,8 +91,6 @@ class FormulariosController extends Controller
             'success' => true,
             'data' => $formulario->load('media'),
         ]);
-
-//        hay que usar una tabla intemedia y usar un sync
     }
 
     public function asignarPreguntas(Request $request, $formulario_id){

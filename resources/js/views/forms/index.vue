@@ -9,20 +9,16 @@
 
     <main class="container my-2">
         <div class="dropdown">
-            <button class="btn btn-light me-2 btn-hover-lila" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                +
-            </button>
+            <button class="btn btn-light me-2 btn-hover-lila dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> + </button>
+            
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="#">Entretenimiento</a></li>
-                <li><a class="dropdown-item" href="#">Cultura General</a></li>
-                <li><a class="dropdown-item" href="#">Deportes</a></li>
-                <li><a class="dropdown-item" href="#">Videojuegos</a></li>
-                <li><a class="dropdown-item" href="#">Música</a></li>
-                <li><a class="dropdown-item" href="#">Historia</a></li>
-                <li><a class="dropdown-item" href="#">Comida</a></li>
-                <li><a class="dropdown-item" href="#">Ciencia y Tecnología</a></li>
-                <li><a class="dropdown-item" href="#">Personalidad y Estilo de Vida</a></li>
+                <li v-for="category in categoryList" :key="category.id">
+                <a class="dropdown-item" href="#" @click.prevent="selectCategory(category)">
+                    {{ category.name }}
+                </a>
+                </li>
             </ul>
+            
             <span>Categorías</span>
         </div>
 
@@ -96,8 +92,17 @@
 
 <script setup>
 
+import { onMounted } from "vue";
 import Paginator from 'primevue/paginator';
 import FormCards from '@/components/FormCards.vue';
+import useCategories from "@/composables/categories";
+
+const { categoryList, getCategoryList } = useCategories();
+
+onMounted(() => {
+  getCategoryList();
+});
+
 
 </script>
 
