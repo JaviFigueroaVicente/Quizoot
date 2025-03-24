@@ -15,19 +15,27 @@ export default function useForms() {
     const isLoading = ref(false);
     const swal = inject('$swal')
 
-    const getForms = async () => {
-        axios.get('/api/formulario',{
-        headers: {
+    const getForms = async (categoryId = null) => {
+        let url = '/api/formulario';
+
+        if (categoryId) {
+            url += `?category_id=${categoryId}`;
+        }
+
+        axios.get(url, {
+            headers: {
                 "content-type": "multipart/form-data"
-        }})
+            }
+        })
         .then(response => {
             formularios.value = response.data.data;
             console.log(response.data.data);
-        }).catch(error => {
-            console.log(error)
         })
+        .catch(error => {
+            console.log(error);
+        });
     }
-
+    
     const getUserForms = async () => {
         axios.get('/api/formulario-user')
         .then(response => {

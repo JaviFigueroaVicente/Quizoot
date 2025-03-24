@@ -23,66 +23,6 @@
         </div>
 
         <FormCards></FormCards>
-        
-        <div class="row row-cols-3 g-4 mt-3">
-            <!-- Tarjetas de formularios con imágenes -->
-                <router-link to="/forms/details">
-                <div class="col">
-                    <div class="card text-center p-3">
-                        <img src="images/forms/disney.jpg" alt="Formulario 1" class="form-image">
-                        <p class="mt-2">Disney Form</p>
-                    </div>
-                </div>
-            </router-link>
-            <div class="col">
-                <div class="card text-center p-3">
-                    <img src="images/forms/marvel.jpg" alt="Formulario 2" class="form-image">
-                    <p class="mt-2">Marvel Form</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card text-center p-3">
-                    <img src="images/forms/coches.jpg" alt="Formulario 3" class="form-image">
-                    <p class="mt-2">Car Form</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card text-center p-3">
-                    <img src="images/forms/componentes.webp" alt="Formulario 4" class="form-image">
-                    <p class="mt-2">Components Form</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card text-center p-3">
-                    <img src="images/forms/deportes.jpg" alt="Formulario 5" class="form-image">
-                    <p class="mt-2">Sports Form</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card text-center p-3">
-                    <img src="images/forms/gaming.jpg" alt="Formulario 6" class="form-image">
-                    <p class="mt-2">Gaming Form</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card text-center p-3">
-                    <img src="images/forms/musica.jpg" alt="Formulario 7" class="form-image">
-                    <p class="mt-2">Music Form</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card text-center p-3">
-                    <img src="images/forms/historia.jpg" alt="Formulario 8" class="form-image">
-                    <p class="mt-2">History Form</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card text-center p-3">
-                    <img src="images/forms/comida.jpg" alt="Formulario 9" class="form-image">
-                    <p class="mt-2">Food Form</p>
-                </div>
-            </div>
-        </div>
 
         <div class="mt-4 mb-4">
             <Paginator :rows="9" :totalRecords="90" :rowsPerPageOptions="[5, 10, 15, 20]" :pageLinkSize="3"></Paginator>

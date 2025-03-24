@@ -31,7 +31,7 @@ class Formularios extends Model implements HasMedia
 
     public function categorias()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'categoria_id');
     }
 
     //Crear relación con preguntas para poder crear la tabla intermedia
