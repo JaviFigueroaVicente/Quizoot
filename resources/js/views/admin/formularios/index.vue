@@ -23,8 +23,12 @@
                     <Column field="id" header="ID" sortable></Column>
                     <Column field="name" header="Nombre" sortable></Column>
                     <Column field="description" header="Descripcion"></Column>
-                    <Column field="user_id" header="Id Usuario" sortable>
+                    <Column field="preguntas_count" header="Nº Preguntas" sortable>
+                        <template #body="slotProps">
+                            {{ slotProps.data.preguntas_count ?? 0 }}
+                        </template>
                     </Column>
+                    <Column field="user_id" header="Id Usuario" sortable></Column>
                     <Column field="original_image" header="Foto"><template #body="slotProps">
                             <img v-if="slotProps.data.original_image" :src="slotProps.data.original_image" alt="Imagen" class="thumbnail" />
                             <span v-else>No hay imagen</span>

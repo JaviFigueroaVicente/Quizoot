@@ -20,7 +20,7 @@ class FormulariosController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request){
-        $query = Formularios::query();
+        $query = Formularios::withCount('preguntas');
 
         if ($request->has('category_id') && !empty($request->category_id)) {
             $query->where('categoria_id', $request->category_id);
