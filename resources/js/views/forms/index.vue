@@ -12,17 +12,24 @@
             <button class="btn btn-light me-2 btn-hover-lila dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> + </button>
             
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <!-- Todos los formularios -->
+                <li>
+                    <a class="dropdown-item" href="#" @click.prevent="selectCategory()">
+                        Todos
+                    </a>
+                </li>
+                <!-- Categorías -->
                 <li v-for="category in categoryList" :key="category.id">
-                <a class="dropdown-item" href="#" @click.prevent="selectCategory(category)">
-                    {{ category.name }}
-                </a>
+                    <a class="dropdown-item" href="#" @click.prevent="selectCategory(category.id)">
+                        {{ category.name }}
+                    </a>
                 </li>
             </ul>
             
             <span>Categorías</span>
         </div>
 
-        <FormCards></FormCards>
+        <FormCards :formularios="formularios"></FormCards>
 
         <div class="mt-4 mb-4">
             <Paginator :rows="9" :totalRecords="90" :rowsPerPageOptions="[5, 10, 15, 20]" :pageLinkSize="3"></Paginator>
@@ -36,13 +43,20 @@ import { onMounted } from "vue";
 import Paginator from 'primevue/paginator';
 import FormCards from '@/components/FormCards.vue';
 import useCategories from "@/composables/categories";
+import useForms from "@/composables/forms";
 
 const { categoryList, getCategoryList } = useCategories();
+const { formularios, getForms } = useForms();
 
 onMounted(() => {
   getCategoryList();
+  getForms();
 });
 
+const selectCategory = (categoryId) => {
+  console.log("Categoría seleccionada:", categoryId);
+  getForms(categoryId);
+};
 
 </script>
 

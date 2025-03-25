@@ -19,12 +19,17 @@ class FormulariosController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $formularios = Formularios::all();
+    public function index(Request $request){
+        $query = Formularios::query();
+
+        if ($request->has('category_id') && !empty($request->category_id)) {
+            $query->where('categoria_id', $request->category_id);
+        }
+
+        $formularios = $query->get();
 
         return response()->json([
-            'status' => 405,
+            'status' => 200,
             'success' => true,
             'data' => FormulariosResource::collection($formularios)
         ]);
