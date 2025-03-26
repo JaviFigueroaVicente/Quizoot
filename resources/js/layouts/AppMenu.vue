@@ -59,6 +59,7 @@ const model = ref([
        items: [
             { label: 'Formularios', icon: 'pi pi-fw pi-id-card', to: '/admin/formularios', permision: 'all' },
             { label: 'Preguntas', icon: 'pi pi-fw pi-id-card', to: '/admin/questions', permision: 'all' },
+            { label: 'Categorias', icon: 'pi pi-fw pi-id-card', to: '/admin/categories', permision: 'all' },
         ]
     }
 ]);

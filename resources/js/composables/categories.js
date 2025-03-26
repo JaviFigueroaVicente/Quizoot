@@ -100,17 +100,18 @@ export default function useCategories() {
                     axios.delete('/api/categories/' + id)
                         .then(response => {
                             getCategories()
-                            router.push({name: 'categories.index'})
                             swal({
                                 icon: 'success',
                                 title: 'Category deleted successfully'
                             })
+                            console.log(response)
                         })
                         .catch(error => {
                             swal({
                                 icon: 'error',
                                 title: 'Something went wrong'
                             })
+                            console.log(response)
                         })
                 }
             })
