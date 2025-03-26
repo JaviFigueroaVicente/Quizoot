@@ -62,8 +62,7 @@ class CategoryController extends Controller
     }
 
     public function destroy(Category $category) {
-        // $this->authorize('category-delete');
-        
+
         $category->delete();
         return response()->noContent();
     }
