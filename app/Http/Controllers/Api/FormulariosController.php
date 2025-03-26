@@ -50,6 +50,50 @@ class FormulariosController extends Controller
             'data' => $formulario->preguntas
         ]);
     }
+
+    public function getPreguntasSinRespuesta(string $id){
+        $formulario = Formularios::with('preguntas.respuestas')->findOrFail($id);
+
+        $preguntas = $formulario->preguntas->map(function ($pregunta) {
+            return [
+                'id' => $pregunta->id,
+                'pregunta' => $pregunta->pregunta,
+                'respuestas' => $pregunta->respuestas->pluck('respuesta'),
+            ];
+        });
+
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'data' => $preguntas
+        ]);
+    }
+
+    public function verificarRespuesta(Request $request)
+    {
+        $request->validate([
+            'pregunta_id' => 'required|exists:preguntas,id',
+            'respuesta' => 'required|string'
+        ]);
+
+        $pregunta = Preguntas::with('respuestas')->findOrFail($request->pregunta_id);
+
+        $respuestaCorrecta = $pregunta->respuestas->firstWhere('correcta', true);
+
+        if ($respuestaCorrecta && $respuestaCorrecta->respuesta === $request->respuesta) {
+            return response()->json([
+                'status' => 200,
+                'success' => true,
+                'es_correcta' => true
+            ]);
+        }
+
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'es_correcta' => false
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      */

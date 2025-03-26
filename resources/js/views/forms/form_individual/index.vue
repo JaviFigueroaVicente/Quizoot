@@ -1,51 +1,68 @@
 <template>
     <section class="container">
-        
         <img src="/images/Home/Fondo_Home.webp" class="background-image" />
+        <section class="header-container">
+            <Timeline :value="selectedPreguntas.length" layout="horizontal" class="custom-timeline">
+                <template #marker="slotProps">
+                    <span class="p-p-2 p-rounded-full" :style="{ backgroundColor: '#607D8B', color: '#ffffff' }">
+                        {{ slotProps.item.index }}
+                    </span>
+                </template>
+            </Timeline>
+            <router-link to="/forms" class="exit-button">Abandonar</router-link>
+        </section>
         <section class="white-section">
             <div class="header">
-                <Timeline :value="selectedPreguntas.preguntas_count" layout="horizontal" class="custom-timeline">
-                    <template #marker="formulario">
-                        <span class="p-p-2 p-rounded-full" :style="{ backgroundColor: '#607D8B', color: '#ffffff' }">
-                        1
-                        </span>
-                    </template>
-                    <!-- <template #content="formulario">
-                        <p>{{ formulario.pregunta }}</p>
-                    </template> -->
-                </Timeline>
                 <router-link to="/forms" class="navbar-brand">
-                    <img src= "/images/Nav/Logo.webp" alt="Logo" class="logo-nav">
+                    <img src="/images/Nav/Logo.webp" alt="Logo" class="logo-nav">
                 </router-link>
-                <h2>Pregunta 1:</h2>
+                <h2 v-if="preguntaActual">Pregunta {{ currentQuestionIndex + 1 }}:</h2>
             </div>
-            <p>{{ formulario.pregunta }}</p>
+            <p v-if="preguntaActual">{{ preguntaActual.pregunta }}</p>
         </section>
-        <section class="buttons-section">
-            <button class="kahoot-button red">Respuesta 1</button>
-            <button class="kahoot-button blue">Respuesta 2</button>
-            <button class="kahoot-button green">Respuesta 3</button>
-            <button class="kahoot-button yellow">Respuesta 4</button>
+        <section class="buttons-section" v-if="preguntaActual">
+            <button v-for="(respuesta, index) in preguntaActual.respuestas" :key="index" class="kahoot-button" :class="['red', 'blue', 'green', 'yellow'][index % 4]" @click="seleccionRespuesta(respuesta)">
+                {{ respuesta }}
+            </button>
         </section>
-        <router-link to="/forms" class="exit-button">Abandonar</router-link>
     </section>
-
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import useForms from '@/composables/forms';
 
-
 const route = useRoute();
-const { getForm, formulario, getFormPreguntas,selectedPreguntas } = useForms();
+const { getForm, selectedPreguntas, getPreguntasSinRespuesta, verificarRespuesta } = useForms();
+
+const currentQuestionIndex = ref(0);
+
+const preguntaActual = computed(() => {
+    return selectedPreguntas.value && selectedPreguntas.value.length > 0 ? selectedPreguntas.value[currentQuestionIndex.value] : null;
+});
+
+const seleccionRespuesta = async (respuesta) => {
+    if (preguntaActual.value) {
+        const result = verificarRespuesta(preguntaActual.value, respuesta);
+        siguientePregunta(); 
+    }
+};
+
+const siguientePregunta = () => {
+    if (currentQuestionIndex.value < selectedPreguntas.value.length - 1) {
+        currentQuestionIndex.value++;
+    }
+};
 
 onMounted(() => {
     console.log(route.params.id);
     getForm(route.params.id);
-    getFormPreguntas(route.params.id);
+    getPreguntasSinRespuesta(route.params.id).then(() => {
+        currentQuestionIndex.value = 0;
+    });
 });
+
 </script>
 
 <style scoped>
@@ -71,10 +88,10 @@ onMounted(() => {
     left: 0;
     z-index: -1;
     filter: brightness(50%);
+    opacity: 0.75;
 }
 
 .white-section {
-    position: relative;
     top: 0;
     left: 0;
     width: 100vw;
@@ -173,7 +190,6 @@ onMounted(() => {
 }
 
 .exit-button {
-    position: fixed;
     top: 20px;
     right: 20px;
     font-size: 1.2rem;
@@ -184,6 +200,12 @@ onMounted(() => {
     border-radius: 5px;
     transition: background-color 0.3s;
     font-weight: normal;
+}
+
+.exit-button-container {
+    top: 20px;
+    right: 20px;
+    justify-content: center;
 }
 
 .exit-button:hover {

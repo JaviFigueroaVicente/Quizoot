@@ -47,7 +47,6 @@ export default function useForms() {
     const getFormPreguntas = async (id) => {
         axios.get('/api/asignar-preguntas/' + id)
             .then(response => {
-                isLoading.value = true;
                 selectedPreguntas.value = response.data.data;
                 console.log(response.data.data);
             }).catch(error => {
@@ -55,6 +54,44 @@ export default function useForms() {
             })
     }
 
+    const getPreguntasSinRespuesta = async (id) => {
+        axios.get('/api/preguntas-form/' + id)
+            .then(response => {
+                selectedPreguntas.value = response.data.data;
+                console.log(response.data.data);
+            }).catch(error => {
+                console.log(error)
+            })
+    }
+
+    const verificarRespuesta = async (pregunta, respuesta) => {
+        console.log(respuesta);
+        const preguntaId = pregunta.id;
+
+        axios.post('/api/verificar-respuesta', {
+            pregunta_id: preguntaId,
+            respuesta: respuesta
+        })
+        .then(response => {
+            if (response.data.es_correcta) {
+                swal({
+                    icon: 'success',
+                    title: 'Has acertado!',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            } else {
+                swal({
+                    icon: 'error',
+                    title: 'Has fallado...',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            }
+        })
+        
+
+    };
 
     const storeForm = async () => {
         axios.post('/api/formulario', formulario.value, {
@@ -169,6 +206,8 @@ export default function useForms() {
         getUserForms,
         getForm,
         getFormPreguntas,
+        getPreguntasSinRespuesta,
+        verificarRespuesta,
         storeForm,
         asignarPreguntas,
         updateForm,

@@ -14,6 +14,7 @@ import { langStore } from "@/store/lang";
 import './plugins/axios.js';
 
 
+
 /*PRIMEVUE */
 import PrimeVue from "primevue/config";
 import Accordion from 'primevue/accordion';
@@ -62,6 +63,7 @@ import MeterGroup from 'primevue/metergroup';
 import Tooltip from 'primevue/tooltip';
 import FloatLabel from 'primevue/floatlabel';
 import Message from 'primevue/message';
+import Timeline from 'primevue/timeline';
 
 
 /*STYLES */
@@ -151,6 +153,7 @@ app.component('IconField', IconField);
 app.component('InputIcon', InputIcon);
 app.component('MeterGroup', MeterGroup);
 app.component('Message', Message);
+app.component('Timeline', Timeline);
 
 app.directive('tooltip', Tooltip);
 app.directive('ripple', Ripple);

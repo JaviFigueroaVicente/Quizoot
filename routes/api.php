@@ -82,7 +82,8 @@ Route::delete('formulario/{formulario}', [FormulariosController::class, 'destroy
 Route::post ('formulario/{formulario}', [FormulariosController::class, 'update']);
 Route::post('asignar-preguntas/{formularioId}', [FormulariosController::class, 'asignarPreguntas']);
 Route::get('asignar-preguntas/{id}', [FormulariosController::class, 'getPreguntasFormulario']);
-
+Route::get('preguntas-form/{id}', [FormulariosController::class, 'getPreguntasSinRespuesta']);
+Route::post('verificar-respuesta', [FormulariosController::class, 'verificarRespuesta']);
 
 Route::get('pregunta', [PreguntasController::class, 'index']);
 Route::get('pregunta-user', [PreguntasController::class, 'userPreguntas']);
