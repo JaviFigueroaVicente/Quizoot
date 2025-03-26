@@ -148,7 +148,7 @@ export default [
     },
 
     {
-        path: '/app',
+        path: '/',
         component: AuthenticatedUserLayout,
         beforeEnter: requireLogin,
         children:[
