@@ -50,41 +50,14 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        $this->authorize('category-edit');
         return new CategoryResource($category);
     }
 
-    public function update(Request $request, Category $category)
+    public function update(Category $category, StoreCategoryRequest $request)
     {
-        try {
-            $validator = Validator::make($request->all(), [
-                'name' => 'required|string',
-            ]);
+        $category->update($request->validated());
 
-            if ($validator->fails()) {
-                return response()->json([
-                    'status' => 422,
-                    'success' => false,
-                    'errors' => $validator->errors()
-                ], 422);
-            }
-
-            $data = $validator->validated();
-            $category->update($data);
-
-            return response()->json([
-                'status' => 200,
-                'success' => true,
-                'data' => $category
-            ]);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 500,
-                'success' => false,
-                'error' => $e->getMessage()
-            ], 500);
-        }
+        return new CategoryResource($category);
     }
 
     public function destroy(Category $category) {

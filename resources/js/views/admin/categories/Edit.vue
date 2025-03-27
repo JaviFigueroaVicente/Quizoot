@@ -27,9 +27,9 @@ const schema = {
     name: 'required|min:3'
 };
 
-const { validate, errors, resetForm } = useForm({ validationSchema: schema });
+const { validate} = useForm({ validationSchema: schema });
 const { value: name } = useField('name', null, { initialValue: '' });
-const { category: postData, getCategory, update, validationErrors, isLoading } = useCategories();
+const { category: postData, getCategory, updateCategory} = useCategories();
 const category = reactive({
     name
 });
@@ -39,7 +39,7 @@ const router = useRouter();
 function submitForm() {
     validate().then(form => {
         if (form.valid) {
-            update(category);
+            updateCategory(category);
         }
     });
 }
@@ -48,7 +48,6 @@ onMounted(() => {
     getCategory(route.params.id);
 });
 
-// Rastrear cambios en `postData` y actualizar `category` correctamente
 watchEffect(() => {
     if (postData.value) {
         category.id = postData.value.id;
