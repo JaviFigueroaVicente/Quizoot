@@ -57,13 +57,23 @@ watchEffect(() => {
 </script>
 
 <style scoped>
-.editable-title {
-    font-size: 2rem;
-    border: none;
-    outline: none;
-    width: 100%;
+.editable-title,
+.editable-description {
+  cursor: text;
+  outline: none;
+  min-height: 40px;
+  padding: 8px;
+  border: 2px solid #402462;
+  border-radius: 8px;
+  border-color: #d0d0d0;
+  background-color: #fff;
+  width: 100%;
 }
 
+.editable-title:focus,
+.editable-description:focus {
+  border-color: #874eca;
+}
 .main-container {
   display: flex;
   gap: 20px;
@@ -78,5 +88,18 @@ watchEffect(() => {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
+}
+
+.btn-custom {
+  background-color: #874eca;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+.btn-custom:hover {
+  background-color: #402462;
 }
 </style>

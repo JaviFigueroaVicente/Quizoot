@@ -33,13 +33,11 @@ export default function useCategories() {
     }
 
     const getCategory = (id) => {
-        console.log("🔄 Obteniendo categoría con ID:", id);
-    
         axios.get(`/api/categories/${id}`)
             .then(response => {
                 if (response.data.data) {
                     category.value = response.data.data;
-                    console.log("✅ Categoría cargada:", category.value);
+                    console.log("Categoría cargada:", category.value);
                 } else {
                     console.warn("⚠️ La categoría no se encontró.");
                     swal({
@@ -50,7 +48,7 @@ export default function useCategories() {
                 }
             })
             .catch(error => {
-                console.error("❌ Error al obtener la categoría:", error);
+                console.error("Error al obtener la categoría:", error);
     
                 if (error.response?.status === 404) {
                     swal({
