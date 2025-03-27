@@ -1,6 +1,5 @@
 import { get } from 'lodash'
-import { ref, inject } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, inject} from 'vue'
 
 export default function useForms() {
     const formularios = ref([])
@@ -10,8 +9,6 @@ export default function useForms() {
         thumbnail: '',
     }); 
     const selectedPreguntas = ref([])
-
-    const isLoading = ref(false);
     const swal = inject('$swal')
 
     const getForms = async () => {
@@ -65,32 +62,19 @@ export default function useForms() {
     }
 
     const verificarRespuesta = async (pregunta, respuesta) => {
-        console.log(respuesta);
         const preguntaId = pregunta.id;
-
-        axios.post('/api/verificar-respuesta', {
+        const response = await axios.post('/api/verificar-respuesta', {
             pregunta_id: preguntaId,
             respuesta: respuesta
-        })
-        .then(response => {
-            if (response.data.es_correcta) {
-                swal({
-                    icon: 'success',
-                    title: 'Has acertado!',
-                    showConfirmButton: false,
-                    timer: 3000
-                });
-            } else {
-                swal({
-                    icon: 'error',
-                    title: 'Has fallado...',
-                    showConfirmButton: false,
-                    timer: 3000
-                });
-            }
-        })
-        
+        });
 
+        if (response.data.es_correcta) {
+            
+            return true; 
+        } else {
+            
+            return false; 
+        }
     };
 
     const storeForm = async () => {
@@ -201,7 +185,6 @@ export default function useForms() {
         formularios,
         formulario,
         selectedPreguntas,
-        isLoading,
         getForms,
         getUserForms,
         getForm,

@@ -2,13 +2,7 @@
     <section class="container">
         <img src="/images/Home/Fondo_Home.webp" class="background-image" />
         <section class="header-container">
-            <Timeline :value="selectedPreguntas.length" layout="horizontal" class="custom-timeline">
-                <template #marker="slotProps">
-                    <span class="p-p-2 p-rounded-full" :style="{ backgroundColor: '#607D8B', color: '#ffffff' }">
-                        {{ slotProps.item.index }}
-                    </span>
-                </template>
-            </Timeline>
+            <ProgressBar :value="tiempo" class="tiempoPregunta" />
             <router-link to="/forms" class="exit-button">Abandonar</router-link>
         </section>
         <section class="white-section">
@@ -19,6 +13,7 @@
                 <h2 v-if="preguntaActual">Pregunta {{ currentQuestionIndex + 1 }}:</h2>
             </div>
             <p v-if="preguntaActual">{{ preguntaActual.pregunta }}</p>
+            <p>Puntaje: {{ score }}</p> 
         </section>
         <section class="buttons-section" v-if="preguntaActual">
             <button v-for="(respuesta, index) in preguntaActual.respuestas" :key="index" class="kahoot-button" :class="['red', 'blue', 'green', 'yellow'][index % 4]" @click="seleccionRespuesta(respuesta)">
@@ -29,43 +24,115 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { ref, onMounted, computed, onBeforeUnmount, inject } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import useForms from '@/composables/forms';
 
+const router = useRouter();
 const route = useRoute();
 const { getForm, selectedPreguntas, getPreguntasSinRespuesta, verificarRespuesta } = useForms();
-
 const currentQuestionIndex = ref(0);
+const score = ref(0);
+let tiempoRestante = ref(0)
+const swal = inject('$swal')
+const tiempo = ref(0);
+const interval = ref();
+
 
 const preguntaActual = computed(() => {
     return selectedPreguntas.value && selectedPreguntas.value.length > 0 ? selectedPreguntas.value[currentQuestionIndex.value] : null;
 });
 
 const seleccionRespuesta = async (respuesta) => {
+    endProgress();
     if (preguntaActual.value) {
-        const result = verificarRespuesta(preguntaActual.value, respuesta);
-        siguientePregunta(); 
+        const result = await verificarRespuesta(preguntaActual.value, respuesta);
+        if(result){
+            const puntosPorTiempo = tiempoRestante.value * 10;
+            score.value += puntosPorTiempo;
+        }
+        mostrarMensaje(result);
     }
 };
 
 const siguientePregunta = () => {
+    endProgress();
     if (currentQuestionIndex.value < selectedPreguntas.value.length - 1) {
         currentQuestionIndex.value++;
+        tiempo.value = 0;
+        tiempoRestante.value = 100; 
+        startProgress();
+    }else{
+        router.push({name: 'forms.index'});
     }
 };
+
+const mostrarMensaje = (result) => {
+    if (result) {
+        swal({
+            icon: 'success',
+            title: 'Has acertado!',
+            showConfirmButton: false,
+            timer: 3000
+        }).then(() => {
+            siguientePregunta();
+        });
+    } else {
+        swal({
+            icon: 'error',
+            title: 'Has fallado...',
+            showConfirmButton: false,
+            timer: 3000
+        }).then(() => {
+            siguientePregunta();
+        });
+    }
+};
+
+const startProgress = () => {
+    interval.value = setInterval(() => {
+        let newValue = tiempo.value + 1;
+        if (newValue >= 100) {
+            newValue = 100;
+            tiempoRestante.value = 0;
+            endProgress(); 
+            mostrarMensaje(false);
+            return;
+        }
+        tiempo.value = newValue;
+        tiempoRestante.value = 100 - newValue;
+    }, 300);
+};
+
+const endProgress = () => {
+    clearInterval(interval.value);
+    interval.value = null;
+}
 
 onMounted(() => {
     console.log(route.params.id);
     getForm(route.params.id);
     getPreguntasSinRespuesta(route.params.id).then(() => {
         currentQuestionIndex.value = 0;
+        tiempo.value = 0
+        tiempoRestante.value = 100;
+        startProgress();
     });
+    
+});
+
+onBeforeUnmount(() => {
+    endProgress();
 });
 
 </script>
 
 <style scoped>
+
+.tiempoPregunta .p-progressbar-value-label {
+    display: none !important;
+}
+
 .container {
     display: flex;
     flex-direction: column;
