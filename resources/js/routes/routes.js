@@ -304,7 +304,7 @@ export default [
                         component: () => import('../views/admin/categories/Edit.vue'),
                         meta: {
                             breadCrumb: 'Edit category',
-                            linked: false,
+                            // linked: false,
                         }
                     }
                 ]

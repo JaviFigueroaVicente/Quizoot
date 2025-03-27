@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -41,7 +42,7 @@ class CategoryController extends Controller
 
     public function store(StoreCategoryRequest $request)
     {
-        $this->authorize('category-create');
+        // $this->authorize('category-create');
         $category = Category::create($request->validated());
 
         return new CategoryResource($category);
@@ -53,12 +54,37 @@ class CategoryController extends Controller
         return new CategoryResource($category);
     }
 
-    public function update(Category $category, StoreCategoryRequest $request)
+    public function update(Request $request, Category $category)
     {
-        $this->authorize('category-edit');
-        $category->update($request->validated());
+        try {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string',
+            ]);
 
-        return new CategoryResource($category);
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => 422,
+                    'success' => false,
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            $data = $validator->validated();
+            $category->update($data);
+
+            return response()->json([
+                'status' => 200,
+                'success' => true,
+                'data' => $category
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 500,
+                'success' => false,
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function destroy(Category $category) {

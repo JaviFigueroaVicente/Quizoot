@@ -2,7 +2,7 @@
     <div class="grid">
         <div class="col-12">
             <div class="card">
-                <DataTable :value="categories.data" v-model:filters="filters" paginator :rows="15" stripedRows dataKey="id" size="small" sortField="id" sortOrder="1">
+                <DataTable :value="categories.data" v-model:filters="filters" paginator :rows="15" stripedRows dataKey="id" size="small">
 
                     <template #header>
 
@@ -15,6 +15,7 @@
 
                                 <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="initFilters()" />
                                 <Button type="button" icon="pi pi-refresh" class="h-100 ml-1" outlined @click="getGroups()" />
+                                <router-link :to="{name: 'categories.create'}" class="flex align-items-center"><button type="button" class="btn btn-primary button button-action">Crear Categoria</button></router-link>
                             </template>
 
                             <template #end>

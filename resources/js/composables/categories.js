@@ -36,6 +36,9 @@ export default function useCategories() {
         axios.get('/api/categories/' + id)
             .then(response => {
                 category.value = response.data.data;
+                console.log(response.data);
+            }).catch(error => {
+                console.log(error)
             })
     }
 
@@ -62,25 +65,24 @@ export default function useCategories() {
     }
 
     const updateCategory = async (category) => {
-        if (isLoading.value) return;
-
-        isLoading.value = true
-        validationErrors.value = {}
-
         axios.put('/api/categories/' + category.id, category)
             .then(response => {
-                router.push({name: 'categories.index'})
                 swal({
                     icon: 'success',
-                    title: 'Category updated successfully'
+                    title: 'Category updated successfully',
+                    showConfirmButton: false,
+                    timer: 1500
                 })
+                console.log(category)
             })
             .catch(error => {
-                if (error.response?.data) {
-                    validationErrors.value = error.response.data.errors
-                }
+                console.log(category)
+                swal({
+                    icon: 'error',
+                    title: 'Error al actualizar la categoria',
+                    showConfirmButton: true
+                });
             })
-            .finally(() => isLoading.value = false)
     }
 
     const deleteCategory = async (id) => {

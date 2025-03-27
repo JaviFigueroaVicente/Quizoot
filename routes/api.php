@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\api\UsuariosController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +29,6 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::post('users/updateimg', [UserController::class,'updateimg']); //Listar
 
     Route::apiResource('posts', PostControllerAdvance::class);
-    Route::apiResource('categories', CategoryController::class);
     Route::apiResource('roles', RoleController::class);
 
     Route::get('role-list', [RoleController::class, 'getList']);
@@ -82,6 +82,9 @@ Route::delete('formulario/{formulario}', [FormulariosController::class, 'destroy
 Route::post ('formulario/{formulario}', [FormulariosController::class, 'update']);
 Route::post('asignar-preguntas/{formularioId}', [FormulariosController::class, 'asignarPreguntas']);
 Route::get('asignar-preguntas/{id}', [FormulariosController::class, 'getPreguntasFormulario']);
+
+
+Route::apiResource('categories', CategoryController::class);
 
 
 Route::get('pregunta', [PreguntasController::class, 'index']);
