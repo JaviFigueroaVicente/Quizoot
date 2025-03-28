@@ -50,6 +50,18 @@
                 </div>
             </div>
             <div class="col">
+                <div>
+                    <router-link :to="{ name: 'mis-formularios.index' }">
+                        <div>
+                            <img src="/images/icons/respondidos.png" alt="">
+                            <h4>Formularios Respondidos</h4>
+                        </div>
+                    </router-link>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-3">
+            <div class="col">
                 <router-link to="/logout" @click="logout">
                     <div>
                         <img src="/images/icons/logout.svg" alt="">
