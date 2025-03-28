@@ -13,7 +13,7 @@
                 <h2 v-if="preguntaActual">Pregunta {{ currentQuestionIndex + 1 }}:</h2>
             </div>
             <p v-if="preguntaActual">{{ preguntaActual.pregunta }}</p>
-            <p>Puntaje: {{ score }}</p> 
+            <p>Puntuación: {{ score }}</p> 
         </section>
         <section class="buttons-section" v-if="preguntaActual">
             <button v-for="(respuesta, index) in preguntaActual.respuestas" :key="index" class="kahoot-button" :class="['red', 'blue', 'green', 'yellow'][index % 4]" @click="seleccionRespuesta(respuesta)">
@@ -61,7 +61,6 @@ const siguientePregunta = () => {
         currentQuestionIndex.value++;
         tiempo.value = 0;
         tiempoRestante.value = 100; 
-        startProgress();
     }else{
         router.push({name: 'forms.index'});
     }
@@ -69,23 +68,26 @@ const siguientePregunta = () => {
 
 const mostrarMensaje = (result) => {
     if (result) {
+        siguientePregunta();
         swal({
             icon: 'success',
             title: 'Has acertado!',
             showConfirmButton: false,
             timer: 3000
         }).then(() => {
-            siguientePregunta();
-        });
+            startProgress();
+        })
     } else {
+        siguientePregunta();
         swal({
             icon: 'error',
             title: 'Has fallado...',
             showConfirmButton: false,
             timer: 3000
         }).then(() => {
-            siguientePregunta();
-        });
+            startProgress();
+        })
+
     }
 };
 
@@ -95,8 +97,13 @@ const startProgress = () => {
         if (newValue >= 100) {
             newValue = 100;
             tiempoRestante.value = 0;
-            endProgress(); 
-            mostrarMensaje(false);
+            siguientePregunta()
+            swal({
+                icon: 'error',
+                title: 'Has fallado...',
+                showConfirmButton: false,
+                timer: 3000
+            })
             return;
         }
         tiempo.value = newValue;
