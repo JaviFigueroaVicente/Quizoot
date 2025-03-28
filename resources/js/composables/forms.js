@@ -78,10 +78,8 @@ export default function useForms() {
         });
 
         if (response.data.es_correcta) {
-            
             return true; 
         } else {
-            
             return false; 
         }
     };

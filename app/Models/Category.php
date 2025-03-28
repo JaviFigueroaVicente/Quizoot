@@ -22,6 +22,6 @@ class Category extends Model
 
     public function formularios()
     {
-        return $this->belongsToMany(Formulario::class);
+        return $this->belongsToMany(Formularios::class);
     }
 }

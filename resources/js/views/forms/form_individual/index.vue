@@ -3,7 +3,7 @@
         <img src="/images/Home/Fondo_Home.webp" class="background-image" />
         <section class="header-container">
             <ProgressBar :value="tiempo" class="tiempoPregunta" />
-            <router-link to="/forms" class="exit-button">Abandonar</router-link>
+            <router-link @click="endProgress" to="/forms" class="exit-button">Abandonar</router-link>
         </section>
         <section class="white-section">
             <div class="header">
@@ -24,9 +24,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, onBeforeUnmount, inject } from 'vue';
+import { ref, onMounted, computed, onUnmounted, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import useForms from '@/composables/forms';
+import { end } from '@popperjs/core';
 
 const router = useRouter();
 const route = useRoute();
@@ -56,36 +57,36 @@ const seleccionRespuesta = async (respuesta) => {
 };
 
 const siguientePregunta = () => {
-    endProgress();
     if (currentQuestionIndex.value < selectedPreguntas.value.length - 1) {
         currentQuestionIndex.value++;
-        tiempo.value = 0;
-        tiempoRestante.value = 100; 
+        startProgress();
     }else{
+        endProgress();
         router.push({name: 'forms.index'});
     }
 };
 
 const mostrarMensaje = (result) => {
-    if (result) {
-        siguientePregunta();
+    tiempo.value = 0;
+    tiempoRestante.value = 100; 
+    if (result) {     
         swal({
             icon: 'success',
             title: 'Has acertado!',
             showConfirmButton: false,
             timer: 3000
         }).then(() => {
-            startProgress();
+            siguientePregunta();
         })
+
     } else {
-        siguientePregunta();
         swal({
             icon: 'error',
             title: 'Has fallado...',
             showConfirmButton: false,
             timer: 3000
         }).then(() => {
-            startProgress();
+            siguientePregunta();
         })
 
     }
@@ -97,6 +98,7 @@ const startProgress = () => {
         if (newValue >= 100) {
             newValue = 100;
             tiempoRestante.value = 0;
+            endProgress();
             siguientePregunta()
             swal({
                 icon: 'error',
@@ -128,7 +130,7 @@ onMounted(() => {
     
 });
 
-onBeforeUnmount(() => {
+onUnmounted(() => {
     endProgress();
 });
 
