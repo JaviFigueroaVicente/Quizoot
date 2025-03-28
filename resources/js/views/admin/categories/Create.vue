@@ -1,38 +1,16 @@
 <template>
-    <div class="row justify-content-center my-5">
-        <div class="col-md-6">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <form @submit.prevent="submitForm">
-
-                        <div class="mb-3">
-                            <label for="post-name" class="form-label">
-                                Title
-                            </label>
-                            <input v-model="category.name" id="post-name" type="text" class="form-control">
-                            <div class="text-danger mt-1">
-                                {{ errors.name }}
-                            </div>
-                            <div class="text-danger mt-1">
-                                <div v-for="message in validationErrors?.name">
-                                    {{ message }}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-4">
-                            <button :disabled="isLoading" class="btn btn-primary">
-                                <div v-show="isLoading" class=""></div>
-                                <span v-if="isLoading">Processing...</span>
-                                <span v-else>Save</span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
+    <div class="mb-3">
+        <!-- Sección Izquierda: Título, Descripción y Subir Imagen -->
+        <div class="container">
+            <div>
+                <label for="name"></label>
+                <input class="fw-bold editable-title align-left mb-5" id="name" placeholder='Introducir Aquí El Nombre  De La Categoria' v-model="category.name"></input>
             </div>
         </div>
     </div>
+    <button type="submit" class="btn btn-custom mt-2" @click.prevent="submitForm">Crear Categoria</button>
 </template>
+
 <script setup>
     import { reactive } from "vue";
     import useCategories from "../../../composables/categories";
@@ -57,3 +35,51 @@
         validate().then(form => { if (form.valid) storeCategory(category) })
     }
 </script>
+
+<style scoped>
+
+.container {
+max-width: 600px;
+background: white;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+margin-top: 20px;
+}
+
+.editable-title,
+.editable-description {
+cursor: text;
+outline: none;
+min-height: 40px;
+padding: 8px;
+border: 2px solid #402462;
+border-radius: 8px;
+border-color: #d0d0d0;
+background-color: #fff;
+width: 100%;
+}
+
+.editable-title:focus,
+.editable-description:focus {
+border-color: #874eca;
+}
+
+
+.align-left {
+text-align: left;
+}
+
+.btn-custom {
+background-color: #874eca;
+color: white;
+border: none;
+padding: 10px;
+width: 100%;
+border-radius: 5px;
+transition: background-color 0.3s ease;
+}
+.btn-custom:hover {
+background-color: #402462;
+}
+</style>

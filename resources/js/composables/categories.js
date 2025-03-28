@@ -19,7 +19,7 @@ export default function useCategories() {
         search_title = '',
         search_global = '',
         order_column = 'created_at',
-        order_direction = 'desc'
+        order_direction = 'asc'
     ) => {
         axios.get('/api/categories?page=' + page +
             '&search_id=' + search_id +
@@ -32,12 +32,39 @@ export default function useCategories() {
             })
     }
 
-    const getCategory = async (id) => {
-        axios.get('/api/categories/' + id)
+    const getCategory = (id) => {
+        axios.get(`/api/categories/${id}`)
             .then(response => {
-                category.value = response.data.data;
+                if (response.data.data) {
+                    category.value = response.data.data;
+                    console.log("Categoría cargada:", category.value);
+                } else {
+                    console.warn("⚠️ La categoría no se encontró.");
+                    swal({
+                        icon: 'warning',
+                        title: 'Categoría no encontrada',
+                        text: 'No se pudo cargar la categoría.',
+                    });
+                }
             })
-    }
+            .catch(error => {
+                console.error("Error al obtener la categoría:", error);
+    
+                if (error.response?.status === 404) {
+                    swal({
+                        icon: 'error',
+                        title: 'Error 404',
+                        text: 'La categoría solicitada no existe.',
+                    });
+                } else {
+                    swal({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'No se pudo obtener la categoría.',
+                    });
+                }
+            });
+    };
 
     const storeCategory = async (category) => {
         if (isLoading.value) return;
@@ -100,17 +127,18 @@ export default function useCategories() {
                     axios.delete('/api/categories/' + id)
                         .then(response => {
                             getCategories()
-                            router.push({name: 'categories.index'})
                             swal({
                                 icon: 'success',
                                 title: 'Category deleted successfully'
                             })
+                            console.log(response)
                         })
                         .catch(error => {
                             swal({
                                 icon: 'error',
                                 title: 'Something went wrong'
                             })
+                            console.log(response)
                         })
                 }
             })

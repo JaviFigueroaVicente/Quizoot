@@ -10,6 +10,7 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+    protected $table = 'categories';
 
     /**
      * Get the posts for the category.
@@ -19,9 +20,8 @@ class Category extends Model
         return $this->belongsToMany(Post::class,'category_post');
     }
 
-    public function exercises()
+    public function formularios()
     {
-        return $this->belongsToMany(Exercises::class,'category_exercise');
+        return $this->belongsToMany(Formulario::class);
     }
-
 }

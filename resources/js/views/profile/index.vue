@@ -33,7 +33,7 @@
                 <div>
                     <router-link :to="{ name: 'mis-formularios.index' }">
                         <div>
-                            <img src="/images/icons/forms.svg" alt="">
+                            <img src="/images/icons/form.png" alt="">
                             <h4>Mis Formularios</h4>
                         </div>
                     </router-link>
@@ -43,12 +43,24 @@
                 <div>
                     <router-link :to="{ name: 'mis-preguntas.index'}">
                         <div>
-                            <img src="/images/icons/preguntas.svg" alt="">
+                            <img src="/images/icons/question.png" alt="">
                             <h4>Mis Preguntas</h4>
                         </div>
                     </router-link>
                 </div>
             </div>
+            <div class="col">
+                <div>
+                    <router-link :to="{ name: 'mis-formularios.index' }">
+                        <div>
+                            <img src="/images/icons/respondidos.png" alt="">
+                            <h4>Formularios Respondidos</h4>
+                        </div>
+                    </router-link>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-3">
             <div class="col">
                 <router-link to="/logout" @click="logout">
                     <div>

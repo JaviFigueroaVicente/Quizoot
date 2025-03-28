@@ -148,7 +148,7 @@ export default [
     },
 
     {
-        path: '/app',
+        path: '/',
         component: AuthenticatedUserLayout,
         beforeEnter: requireLogin,
         children:[
@@ -304,7 +304,7 @@ export default [
                         component: () => import('../views/admin/categories/Edit.vue'),
                         meta: {
                             breadCrumb: 'Edit category',
-                            linked: false,
+                            // linked: false,
                         }
                     }
                 ]

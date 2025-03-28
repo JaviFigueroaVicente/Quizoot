@@ -6,11 +6,24 @@
         <label for="name"></label>
         <input class="fw-bold editable-title align-left mb-5" id="name" placeholder='Introducir Aquí El Nombre  Del Formulario' v-model="formulario.name"></input>
       </div>
+
       <div>
         <label for="description"></label>
         <input class="editable-description align-left mb-5" id="description" placeholder='Escribe aquí la descripción del formulario...' v-model="formulario.description"></input>
       </div>
+
+      <div class="mb-4">
+        <label for="category">Categoría:</label>
+        <select id="category" v-model="formulario.category_id" class="form-select">
+          <option value="" disabled>Seleccione una categoría</option>
+          <option v-for="category in categoryList" :key="category.id" :value="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+    
       <DropZone v-model="formulario.thumbnail"/>
+
     </div>
   </div>
   <router-link :to="{name: 'mis-preguntas.create'}" class="flex align-items-center"><button type="button" class="btn btn-primary button button-action">Crear pregunta</button></router-link>
@@ -18,15 +31,18 @@
 </template>
 
 <script setup>
+import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 import * as yup from "yup";
 import { es } from "yup-locales";
 import DropZone from "@/components/DropZone.vue";
 import { authStore } from "@/store/auth";
 import useForms from "@/composables/forms";
+import useCategories from "@/composables/categories";
 
 
 const { storeForm, formulario } = useForms();
+const { categoryList, getCategoryList } = useCategories();
 
 yup.setLocale(es);
 const router = useRouter();
@@ -36,19 +52,24 @@ const store = authStore();
 const schema = yup.object().shape({
     name: yup.string().required(),
     description: yup.string().required(),
+    category_id: yup.number().required("Debe seleccionar una categoría"),
 });
 
 // Enviara crear el formulario
 const onFormSubmit = async () => {
     try {
       schema.validate(formulario.value, { abortEarly: false });
+      console.log(formulario.value);
       storeForm();
-      router.push({name: 'mis-formularios.asignar-preguntas'});
+      router.push({name: 'mis-formularios.index'});
     } catch (validationError) {
       console.error(validationError);
     }
 };
 
+onMounted(() => {
+  getCategoryList();
+});
 
 </script>
 

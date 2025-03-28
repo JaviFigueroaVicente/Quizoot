@@ -2,12 +2,7 @@
     <div class="grid">
         <div class="col-12">
             <div class="card">
-
-                <div class="card-header bg-transparent ps-0 pe-0">
-                    <h5 class="float-start mb-0">Categorías Ejercicios</h5>
-                </div>
-
-                <DataTable  :value="categories.data" v-model:filters="filters" paginator :rows="15" stripedRows dataKey="id" size="small">
+                <DataTable :value="categories.data" v-model:filters="filters" paginator :rows="15" stripedRows dataKey="id" size="small">
 
                     <template #header>
 
@@ -20,6 +15,7 @@
 
                                 <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="initFilters()" />
                                 <Button type="button" icon="pi pi-refresh" class="h-100 ml-1" outlined @click="getGroups()" />
+                                <router-link :to="{name: 'categories.create'}" class="flex align-items-center"><button type="button" class="btn btn-primary button button-action">Crear Categoria</button></router-link>
                             </template>
 
                             <template #end>
@@ -38,13 +34,11 @@
                     <Column field="name" header="name" sortable></Column>
                     <Column class="pe-0 me-0 icon-column-2">
                         <template #body="slotProps">
-
-                            <!--TODO Falta permisos-->
-                            <router-link  :to="{ name: 'categories.edit', params: { id: slotProps.data.id } }">
+                            <router-link :to="{ name: 'categories.edit', params: { id: slotProps.data.id } }">
                                 <Button icon="pi pi-pencil" severity="info" size="small" class="mr-1"/>
                             </router-link>
 
-                            <Button icon="pi pi-trash" severity="danger" v-if="can('category-delete')" @click.prevent="deleteCategory(slotProps.data.id)" size="small"/>
+                            <Button icon="pi pi-trash" severity="danger" @click.prevent="deleteCategory(slotProps.data.id)" size="small"/>
                         </template>
                     </Column>
 

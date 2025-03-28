@@ -9,84 +9,27 @@
 
     <main class="container my-2">
         <div class="dropdown">
-            <button class="btn btn-light me-2 btn-hover-lila" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                +
-            </button>
+            <button class="btn btn-light me-2 btn-hover-lila dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> + </button>
+            
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="#">Entretenimiento</a></li>
-                <li><a class="dropdown-item" href="#">Cultura General</a></li>
-                <li><a class="dropdown-item" href="#">Deportes</a></li>
-                <li><a class="dropdown-item" href="#">Videojuegos</a></li>
-                <li><a class="dropdown-item" href="#">Música</a></li>
-                <li><a class="dropdown-item" href="#">Historia</a></li>
-                <li><a class="dropdown-item" href="#">Comida</a></li>
-                <li><a class="dropdown-item" href="#">Ciencia y Tecnología</a></li>
-                <li><a class="dropdown-item" href="#">Personalidad y Estilo de Vida</a></li>
+                <!-- Todos los formularios -->
+                <li>
+                    <a class="dropdown-item" href="#" @click.prevent="selectCategory()">
+                        Todos
+                    </a>
+                </li>
+                <!-- Categorías -->
+                <li v-for="category in categoryList" :key="category.id">
+                    <a class="dropdown-item" href="#" @click.prevent="selectCategory(category.id)">
+                        {{ category.name }}
+                    </a>
+                </li>
             </ul>
+            
             <span>Categorías</span>
         </div>
 
-        <FormCards></FormCards>
-        
-        <div class="row row-cols-3 g-4 mt-3">
-            <!-- Tarjetas de formularios con imágenes -->
-                <router-link to="/forms/details">
-                <div class="col">
-                    <div class="card text-center p-3">
-                        <img src="images/forms/disney.jpg" alt="Formulario 1" class="form-image">
-                        <p class="mt-2">Disney Form</p>
-                    </div>
-                </div>
-            </router-link>
-            <div class="col">
-                <div class="card text-center p-3">
-                    <img src="images/forms/marvel.jpg" alt="Formulario 2" class="form-image">
-                    <p class="mt-2">Marvel Form</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card text-center p-3">
-                    <img src="images/forms/coches.jpg" alt="Formulario 3" class="form-image">
-                    <p class="mt-2">Car Form</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card text-center p-3">
-                    <img src="images/forms/componentes.webp" alt="Formulario 4" class="form-image">
-                    <p class="mt-2">Components Form</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card text-center p-3">
-                    <img src="images/forms/deportes.jpg" alt="Formulario 5" class="form-image">
-                    <p class="mt-2">Sports Form</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card text-center p-3">
-                    <img src="images/forms/gaming.jpg" alt="Formulario 6" class="form-image">
-                    <p class="mt-2">Gaming Form</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card text-center p-3">
-                    <img src="images/forms/musica.jpg" alt="Formulario 7" class="form-image">
-                    <p class="mt-2">Music Form</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card text-center p-3">
-                    <img src="images/forms/historia.jpg" alt="Formulario 8" class="form-image">
-                    <p class="mt-2">History Form</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card text-center p-3">
-                    <img src="images/forms/comida.jpg" alt="Formulario 9" class="form-image">
-                    <p class="mt-2">Food Form</p>
-                </div>
-            </div>
-        </div>
+        <FormCards :formularios="formularios"></FormCards>
 
         <div class="mt-4 mb-4">
             <Paginator :rows="9" :totalRecords="90" :rowsPerPageOptions="[5, 10, 15, 20]" :pageLinkSize="3"></Paginator>
@@ -96,8 +39,24 @@
 
 <script setup>
 
+import { onMounted } from "vue";
 import Paginator from 'primevue/paginator';
 import FormCards from '@/components/FormCards.vue';
+import useCategories from "@/composables/categories";
+import useForms from "@/composables/forms";
+
+const { categoryList, getCategoryList } = useCategories();
+const { formularios, getForms } = useForms();
+
+onMounted(() => {
+  getCategoryList();
+  getForms();
+});
+
+const selectCategory = (categoryId) => {
+  console.log("Categoría seleccionada:", categoryId);
+  getForms(categoryId);
+};
 
 </script>
 

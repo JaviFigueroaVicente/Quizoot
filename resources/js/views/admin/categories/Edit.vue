@@ -1,68 +1,105 @@
 <template>
-    <div class="row justify-content-center my-5">
-        <div class="col-md-6">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <form @submit.prevent="submitForm">
-
-                        <div class="mb-3">
-                            <label for="post-title" class="form-label">
-                                Title
-                            </label>
-                            <input v-model="category.name" id="post-title" type="text" class="form-control">
-                            <div class="text-danger mt-1">
-                                {{ errors.name }}
-                            </div>
-                            <div class="text-danger mt-1">
-                                <div v-for="message in validationErrors?.name">
-                                    {{ message }}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-4">
-                            <button :disabled="isLoading" class="btn btn-primary">
-                                <div v-show="isLoading" class=""></div>
-                                <span v-if="isLoading">Processing...</span>
-                                <span v-else>Save</span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
+    <div class="main-container mb-3">
+        <div class="container left-container" v-if="category">
+            <div>
+                <label for="name"></label>
+                <input class="fw-bold editable-title align-left mb-5" id="name" placeholder="Introducir Aquí El Nombre De La Categoria" v-model="category.name" />
             </div>
         </div>
+        <div v-else class="col-md-4 left-section">
+            <p>Cargando Categoria...</p>
+        </div>
     </div>
+    <button type="submit" class="btn btn-custom mt-2" @click.prevent="submitForm">Actualizar Categoria</button>
 </template>
+
 <script setup>
 import { onMounted, reactive, watchEffect } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import useCategories from "../../../composables/categories";
 import { useForm, useField, defineRule } from "vee-validate";
-import { required, min } from "@/validation/rules"
-defineRule('required', required)
+import { required, min } from "@/validation/rules";
+
+defineRule('required', required);
 defineRule('min', min);
 
-    const schema = {
-        name: 'required|min:3'
-    }
+const schema = {
+    name: 'required|min:3'
+};
 
-    const { validate, errors, resetForm } = useForm({ validationSchema: schema })
-    const { value: name } = useField('name', null, { initialValue: '' });
-    const { category: postData, getCategory, updateCategory, validationErrors, isLoading } = useCategories()
-    const category = reactive({
-        name
-    })
-    const route = useRoute()
-    function submitForm() {
-        validate().then(form => { if (form.valid) updateCategory(category) })
+const { validate} = useForm({ validationSchema: schema });
+const { value: name } = useField('name', null, { initialValue: '' });
+const { category: postData, getCategory, updateCategory} = useCategories();
+const category = reactive({
+    name
+});
+const route = useRoute();
+const router = useRouter();
+
+function submitForm() {
+    validate().then(form => {
+        if (form.valid) {
+            updateCategory(category);
+        }
+    });
+}
+
+onMounted(() => {
+    getCategory(route.params.id);
+});
+
+watchEffect(() => {
+    if (postData.value) {
+        category.id = postData.value.id;
+        category.name = postData.value.name;
     }
-    onMounted(() => {
-        getCategory(route.params.id)
-    })
-    
-    // https://vuejs.org/api/reactivity-core.html#watcheffect
-    watchEffect(() => {
-        category.id = postData.value.id
-        category.name = postData.value.name
-    })
+});
 </script>
+
+<style scoped>
+.editable-title,
+.editable-description {
+  cursor: text;
+  outline: none;
+  min-height: 40px;
+  padding: 8px;
+  border: 2px solid #402462;
+  border-radius: 8px;
+  border-color: #d0d0d0;
+  background-color: #fff;
+  width: 100%;
+}
+
+.editable-title:focus,
+.editable-description:focus {
+  border-color: #874eca;
+}
+.main-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.container {
+  max-width: 600px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.btn-custom {
+  background-color: #874eca;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+.btn-custom:hover {
+  background-color: #402462;
+}
+</style>

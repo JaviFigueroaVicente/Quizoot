@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -41,7 +42,7 @@ class CategoryController extends Controller
 
     public function store(StoreCategoryRequest $request)
     {
-        $this->authorize('category-create');
+        // $this->authorize('category-create');
         $category = Category::create($request->validated());
 
         return new CategoryResource($category);
@@ -49,22 +50,19 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        $this->authorize('category-edit');
         return new CategoryResource($category);
     }
 
     public function update(Category $category, StoreCategoryRequest $request)
     {
-        $this->authorize('category-edit');
         $category->update($request->validated());
 
         return new CategoryResource($category);
     }
 
     public function destroy(Category $category) {
-        $this->authorize('category-delete');
-        $category->delete();
 
+        $category->delete();
         return response()->noContent();
     }
 
