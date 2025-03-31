@@ -39,6 +39,8 @@ const route = useRoute();
 const schema = yup.object().shape({
     name: yup.string().required(),
     description: yup.string().required(),
+    category: yup.string().required(),
+    thumbnail: yup.mixed().required(),
 });
 
 // Enviara crear el formulario

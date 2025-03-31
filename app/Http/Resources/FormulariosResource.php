@@ -27,6 +27,7 @@ class FormulariosResource extends JsonResource
             'description' => $this->description,
             'user_id' => $this->user_id,
             'preguntas_count' => $this->preguntas_count,
+            'categoria_id' => $this->categoria_id,
             'original_image' => $this->media->isNotEmpty() ? $this->media[0]->original_url : null,
             'resized_image' => $this->getFirstMediaUrl('formularios', 'resized-image') ?: null,
             'created_at' => $this->created_at->toDateString()

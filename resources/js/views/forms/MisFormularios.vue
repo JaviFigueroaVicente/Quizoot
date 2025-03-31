@@ -33,6 +33,7 @@
                             {{ slotProps.data.preguntas_count ?? 0 }}
                         </template>
                     </Column>
+                    <Column field="categoria_id" header="Categoria" sortable></Column>
                     <Column field="created_at" header="Creado el" sortable></Column>
                     <Column class="pe-0 me-0 icon-column-3">
                         <template #body="slotProps">
