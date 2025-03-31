@@ -40,6 +40,11 @@ class Formularios extends Model implements HasMedia
         return $this->belongsToMany(Preguntas::class, 'formularios_preguntas', 'formulario_id', 'pregunta_id');
     }
 
+    public function formulariosRespondidos()
+    {
+        return $this->belongsToMany(Formularios::class, 'formularios_respondidos')->withPivot('score')->withTimestamps();
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('formularios') // Nombre de la colección

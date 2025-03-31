@@ -78,10 +78,8 @@ export default function useForms() {
         });
 
         if (response.data.es_correcta) {
-            
             return true; 
         } else {
-            
             return false; 
         }
     };
@@ -95,7 +93,7 @@ export default function useForms() {
         .then(response => {
             swal({
                 icon: 'success',
-                title: 'Formlario creado correctamente',
+                title: 'Formulario creado correctamente',
                 showConfirmButton: false,
                 timer: 1500
             })
