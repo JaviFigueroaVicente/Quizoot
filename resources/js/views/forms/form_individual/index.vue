@@ -1,5 +1,5 @@
 <template>
-    <section class="container">
+    <section v-if="!mostrarScore" class="container">
         <img src="/images/Home/Fondo_Home.webp" class="background-image" />
         <section class="header-container">
             <ProgressBar :value="tiempo" class="tiempoPregunta" />
@@ -21,24 +21,31 @@
             </button>
         </section>
     </section>
+    <section v-else class="container">
+        <img src="/images/Home/Fondo_Home.webp" class="background-image" />
+        <div>
+            <p>Tu puntuacion es de: {{ score }}</p>
+        </div>
+    </section>
 </template>
 
 <script setup>
 import { ref, onMounted, computed, onUnmounted, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import useForms from '@/composables/forms';
-import { end } from '@popperjs/core';
+import useFormulariosRespondidos from '@/composables/formularios_respondidos';
 
 const router = useRouter();
 const route = useRoute();
 const { getForm, selectedPreguntas, getPreguntasSinRespuesta, verificarRespuesta } = useForms();
+const { storeFormulariosRespondidos } = useFormulariosRespondidos();
 const currentQuestionIndex = ref(0);
 const score = ref(0);
 let tiempoRestante = ref(0)
 const swal = inject('$swal')
 const tiempo = ref(0);
 const interval = ref();
-
+const mostrarScore = ref(false);
 
 const preguntaActual = computed(() => {
     return selectedPreguntas.value && selectedPreguntas.value.length > 0 ? selectedPreguntas.value[currentQuestionIndex.value] : null;
@@ -61,8 +68,9 @@ const siguientePregunta = () => {
         currentQuestionIndex.value++;
         startProgress();
     }else{
-        endProgress();
-        router.push({name: 'forms.index'});
+        endProgress();        
+        mostrarScore.value = true;
+        storeFormulariosRespondidos(route.params.id, score.value);
     }
 };
 

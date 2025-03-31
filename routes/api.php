@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\PostControllerAdvance;
 use App\Http\Controllers\Api\PreguntasController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\api\RespuestasController;
+use App\Http\Controllers\api\FormulariosRespondidosController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\api\UsuariosController;
@@ -87,7 +88,6 @@ Route::post('verificar-respuesta', [FormulariosController::class, 'verificarResp
 
 Route::apiResource('categories', CategoryController::class);
 
-
 Route::get('pregunta', [PreguntasController::class, 'index']);
 Route::get('pregunta-user', [PreguntasController::class, 'userPreguntas']);
 Route::post('pregunta', [PreguntasController::class, 'store']);
@@ -95,3 +95,5 @@ Route::get('pregunta/{id}', [PreguntasController::class, 'show']);
 Route::delete('pregunta/{pregunta}', [PreguntasController::class, 'destroy']);
 Route::put('pregunta/{id}', [PreguntasController::class, 'update']);
 
+Route::post('formulario-respondido', [FormulariosRespondidosController::class, 'store']);
+Route::get('formulario-respondido/{formularioId}', [FormulariosRespondidosController::class, 'formularioRespondido']);

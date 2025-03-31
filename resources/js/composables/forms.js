@@ -93,7 +93,7 @@ export default function useForms() {
         .then(response => {
             swal({
                 icon: 'success',
-                title: 'Formlario creado correctamente',
+                title: 'Formulario creado correctamente',
                 showConfirmButton: false,
                 timer: 1500
             })
