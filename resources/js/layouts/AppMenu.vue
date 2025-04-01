@@ -26,6 +26,7 @@ import { ref } from 'vue';
 import AppMenuItem from './AppMenuItem.vue';
 import {useAbility} from '@casl/vue'
 import { authStore } from "../store/auth";
+import { icon } from '@fortawesome/fontawesome-svg-core';
 
 const {can} = useAbility();
 const auth = authStore();
@@ -60,6 +61,7 @@ const model = ref([
             { label: 'Formularios', icon: 'pi pi-fw pi-id-card', to: '/admin/formularios', permision: 'all' },
             { label: 'Preguntas', icon: 'pi pi-fw pi-id-card', to: '/admin/questions', permision: 'all' },
             { label: 'Categorias', icon: 'pi pi-fw pi-id-card', to: '/admin/categories', permision: 'all' },
+            { label: 'Formularios Respondidos', icon: 'pi pi-fw pi-id-card', to: '/admin/formulariosRespondidos', permision: 'all'}
         ]
     }
 ]);

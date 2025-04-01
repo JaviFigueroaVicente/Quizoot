@@ -195,10 +195,8 @@ class FormulariosController extends Controller
                 ], 422);
             }
 
-            // Validar los datos y actualizar el formulario
             $data = $validator->validated();
 
-            // Actualizar el formulario
             $formulario->update($data);
 
             // Manejar la subida de la imagen
@@ -230,7 +228,7 @@ class FormulariosController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     */
+     */ 
     public function destroy(Formularios $formulario)
     {
         $formulario->delete();

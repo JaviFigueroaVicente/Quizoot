@@ -10,7 +10,9 @@ class Formularios_Respondidos extends Model
     use HasFactory;
 
     protected $table = 'formularios_respondidos';
-    protected $primaryKey = 'id, formulario_id, user_id';
+
+    public $incrementing = false;
+    protected $primaryKey = ['user_id', 'formulario_id'];
     protected $fillable = [
         'user_id',
         'formulario_id',
