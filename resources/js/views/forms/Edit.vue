@@ -10,6 +10,7 @@
                 <label for="description"></label>
                 <input class="editable-description align-left mb-5" id="description" placeholder='Escribe aquí la descripción del formulario...' v-model="formulario.description"></input>
             </div>
+            <MultiSelect v-model="formulario.category_id" :options="categoryList" display="chip" optionLabel="name" optionValue="id" placeholder="Seleccione categorías" :maxSelectedLabels="3" class="w-full md:w-80"></MultiSelect>
             <div>
                 <img v-if="formulario && formulario.media && formulario.media.length > 0" :src="formulario.media[0].original_url" alt="User image" class="form-image">
                 <img v-else src="images/placeholder.png" alt="Placeholder" class="form-image">
@@ -28,9 +29,11 @@ import * as yup from "yup";
 import { es } from "yup-locales";
 import DropZone from "@/components/DropZone.vue";
 import useForms from "@/composables/forms";
+import useCategories from "@/composables/categories";
 import { onMounted } from "vue";
 
 const { getForm, updateForm, formulario } = useForms();
+const { categoryList, getCategoryList } = useCategories();
 
 yup.setLocale(es);
 const router = useRouter();
@@ -57,6 +60,7 @@ const onFormSubmit = async () => {
 onMounted(() => {
     console.log(route.params.id);
     getForm(route.params.id);
+    getCategoryList();
 })
 
 </script>
