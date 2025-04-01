@@ -4,7 +4,7 @@
     <div class="container left-container">
       <div>
         <label for="name"></label>
-        <input class="fw-bold editable-title align-left mb-5" id="name" placeholder='Introducir Aquí El Nombre  Del Formulario' v-model="formulario.name"></input>
+        <input class="fw-bold editable-title align-left mb-5" id="name" placeholder='Introducir Aquí El Nombre Del Formulario' v-model="formulario.name"></input>
       </div>
 
       <div>
@@ -13,25 +13,23 @@
       </div>
 
       <div class="mb-4">
-        <label for="category">Categoría:</label>
-        <select id="category" v-model="formulario.category_id" class="form-select">
-          <option value="" disabled>Seleccione una categoría</option>
-          <option v-for="category in categoryList" :key="category.id" :value="category.id">
-            {{ category.name }}
-          </option>
-        </select>
+        <label for="category">Categorías:</label>
+        <MultiSelect v-model="formulario.category_id" :options="categoryList" display="chip" optionLabel="name" optionValue="id" placeholder="Seleccione categorías" :maxSelectedLabels="3" class="w-full md:w-80" />
       </div>
     
-      <DropZone v-model="formulario.thumbnail"/>
-
+      <DropZone v-model="formulario.thumbnail" />
     </div>
   </div>
-  <router-link :to="{name: 'mis-preguntas.create'}" class="flex align-items-center"><button type="button" class="btn btn-primary button button-action">Crear pregunta</button></router-link>
+
+  <router-link :to="{name: 'mis-preguntas.create'}" class="flex align-items-center">
+    <button type="button" class="btn btn-primary button button-action">Crear pregunta</button>
+  </router-link>
+
   <button type="submit" class="btn btn-custom mt-2" @click.prevent="onFormSubmit">Crear Formulario</button>
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import * as yup from "yup";
 import { es } from "yup-locales";
@@ -40,37 +38,42 @@ import { authStore } from "@/store/auth";
 import useForms from "@/composables/forms";
 import useCategories from "@/composables/categories";
 
+const { storeForm, formulario, asignarCategorias } = useForms();
+const { categoryList, getCategoryList } = useCategories(); 
 
-const { storeForm, formulario } = useForms();
-const { categoryList, getCategoryList } = useCategories();
+formulario.value = {
+  name: "",
+  description: "",
+  category_id: [],
+};
 
 yup.setLocale(es);
 const router = useRouter();
 const store = authStore();
 
-
 const schema = yup.object().shape({
-    name: yup.string().required(),
-    description: yup.string().required(),
-    category_id: yup.number().required("Debe seleccionar una categoría"),
+  name: yup.string().required(),
+  description: yup.string().required(),
+  category_id: yup.array().min(1, "Debe seleccionar al menos una categoría"),
 });
 
-// Enviara crear el formulario
 const onFormSubmit = async () => {
-    try {
-      schema.validate(formulario.value, { abortEarly: false });
-      console.log(formulario.value);
-      storeForm();
-      router.push({name: 'mis-formularios.index'});
-    } catch (validationError) {
-      console.error(validationError);
-    }
+  try {
+    await schema.validate(formulario.value, { abortEarly: false });
+    console.log("Formulario enviado:", formulario.value);
+    await storeForm();
+    
+    await asignarCategorias(formulario.value.id, { category_ids: formulario.value.category_id });
+
+    router.push({ name: 'mis-formularios.index' });
+  } catch (validationError) {
+    console.error("Errores de validación:", validationError.errors);
+  }
 };
 
 onMounted(() => {
   getCategoryList();
 });
-
 </script>
 
 <style scoped>
@@ -115,7 +118,6 @@ onMounted(() => {
 .editable-description:focus {
   border-color: #874eca;
 }
-
 
 .align-left {
   text-align: left;

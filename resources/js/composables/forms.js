@@ -7,7 +7,7 @@ export default function useForms() {
         name: '',
         description: '',
         thumbnail: '',
-        category_id: '',
+        category_id: [],
     }); 
     const selectedPreguntas = ref([])
     const swal = inject('$swal')
@@ -125,6 +125,28 @@ export default function useForms() {
         }
     };
 
+    const asignarCategorias = async (formularioId, categoryIds) => {
+        try {
+            const response = await axios.post('/api/asignar-categorias/' + formularioId , {
+                category_ids: categoryIds,
+            });
+            swal({
+                icon: 'success',
+                title: 'Categorías asignadas correctamente',
+                showConfirmButton: false,
+                timer: 1500,
+            });
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+            swal({
+                icon: 'error',
+                title: 'Error al asignar categorías',
+                showConfirmButton: true,
+            });
+        }
+    };
+
     const deleteForm = async (id) => {
         swal({
             title: 'Are you sure?',
@@ -201,7 +223,8 @@ export default function useForms() {
         storeForm,
         asignarPreguntas,
         updateForm,
-        deleteForm
+        deleteForm,
+        asignarCategorias
     }
 }
 

@@ -116,30 +116,31 @@ class FormulariosController extends Controller
             'name' => 'required|string',
             'description' => 'required|string',
             'thumbnail' => 'nullable|image|max:2048',
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'required|array',
+            'category_id.*' => 'exists:categories,id',
         ]);
-
+    
         $formulario = Formularios::create([
             'name' => $validated['name'],
             'description' => $validated['description'],
             'user_id' => auth()->id(),
-            'categoria_id' => $validated['category_id'],
         ]);
-
+    
+        if (!empty($validated['category_id'])) {
+            $formulario->categories()->sync($validated['category_id']);
+        }
+    
         if ($request->hasFile('thumbnail')) {
             $formulario->addMedia($request->file('thumbnail'))
                 ->preservingOriginal()
                 ->toMediaCollection('formularios');
         }
-
-        $formulario->save();
-
-        // Devolver una respuesta exitosa
+    
         return response()->json([
-            'status' => 405,
+            'status' => 201,
             'success' => true,
-            'data' => $formulario->load('media'),
-        ]);
+            'data' => $formulario->load('media', 'categories'),
+        ], 201);
     }
 
     public function asignarPreguntas(Request $request, $formulario_id){
@@ -157,6 +158,23 @@ class FormulariosController extends Controller
             'data' => $formulario->load('preguntas'),
         ]);
     }
+
+    public function asignarCategorias(Request $request, $formularioId){
+        $request->validate([
+            'category_ids' => 'required|array',
+            'category_ids.*' => 'exists:categories,id',
+        ]);
+
+        $formulario = Formularios::findOrFail($formularioId);
+        $formulario->categories()->sync($request->category_ids);
+
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'message' => 'Categorías asignadas correctamente',
+        ]);
+    }
+
     /**
      * Display the specified resource.
      */

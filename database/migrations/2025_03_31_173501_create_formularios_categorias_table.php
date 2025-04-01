@@ -15,7 +15,6 @@ return new class extends Migration
             $table->foreignId('formulario_id')->constrained('formularios')->onDelete('cascade');
             $table->foreignId('categoria_id')->constrained('categories')->onDelete('cascade');
             $table->primary(['formulario_id', 'categoria_id']);
-            $table->timestamps();
         });
     }
 
