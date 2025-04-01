@@ -85,23 +85,55 @@ export default function useForms() {
     };
 
     const storeForm = async () => {
-        axios.post('/api/formulario', formulario.value, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        })
-        .then(response => {
+        try {
+            const response = await axios.post('/api/formulario', formulario.value, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+
+            const formularioId = response.data.data.id;
+            await asignarCategorias(formularioId);
+            
             swal({
                 icon: 'success',
                 title: 'Formulario creado correctamente',
                 showConfirmButton: false,
-                timer: 1500
-            })
-            console.log(response)
-        }).catch(error => {
-            console.log(error)
-        }) 
-    }    
+                timer: 1500,
+            });
+        } catch (error) {
+            console.error('Error al crear el formulario:', error);
+            swal({
+                icon: 'error',
+                title: 'Error al crear el formulario',
+                showConfirmButton: true,
+            });
+        }
+    };
+    
+    const asignarCategorias = async (formularioId) => {
+        try {
+            const response = await axios.post('/api/asignar-categorias/' + formularioId, {
+                category_ids: formulario.value.category_id,
+            });
+    
+            swal({
+                icon: 'success',
+                title: 'Categorías asignadas correctamente',
+                showConfirmButton: false,
+                timer: 1500,
+            });
+    
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+            swal({
+                icon: 'error',
+                title: 'Error al asignar categorías',
+                showConfirmButton: true,
+            });
+        }
+    };
 
     const asignarPreguntas = async () => {
         const formularioId = formulario.value.id;
@@ -122,28 +154,6 @@ export default function useForms() {
             console.log(response);
         } catch (error) {
             console.log(error);
-        }
-    };
-
-    const asignarCategorias = async (formularioId, categoryIds) => {
-        try {
-            const response = await axios.post('/api/asignar-categorias/' + formularioId , {
-                category_ids: categoryIds,
-            });
-            swal({
-                icon: 'success',
-                title: 'Categorías asignadas correctamente',
-                showConfirmButton: false,
-                timer: 1500,
-            });
-            console.log(response);
-        } catch (error) {
-            console.error(error);
-            swal({
-                icon: 'error',
-                title: 'Error al asignar categorías',
-                showConfirmButton: true,
-            });
         }
     };
 

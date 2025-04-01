@@ -62,8 +62,6 @@ const onFormSubmit = async () => {
     await schema.validate(formulario.value, { abortEarly: false });
     console.log("Formulario enviado:", formulario.value);
     await storeForm();
-    
-    await asignarCategorias(formulario.value.id, { category_ids: formulario.value.category_id });
 
     router.push({ name: 'mis-formularios.index' });
   } catch (validationError) {
