@@ -180,7 +180,7 @@ class FormulariosController extends Controller
      */
     public function show(string $id)
     {
-        return Formularios::with('user', 'media')->findOrFail($id);
+        return Formularios::with('user', 'media', 'categories')->findOrFail($id);
     }
 
     /**
@@ -194,54 +194,61 @@ class FormulariosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Formularios $formulario)
-    {
-        try{
+    public function update(Request $request, Formularios $formulario){
+        try {
             // Validar los datos recibidos
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string',
                 'description' => 'required|string',
                 'thumbnail' => 'nullable|image|max:2048',
+                'category_id' => 'required|array',
+                'category_id.*' => 'exists:categories,id',
             ]);
-
-            // Si la validación falla, devolver errores
+    
             if ($validator->fails()) {
                 return response()->json([
                     'status' => 422,
                     'success' => false,
-                    'errors' => $validator->errors()
+                    'errors' => $validator->errors(),
                 ], 422);
             }
-
-            // Validar los datos y actualizar el formulario
+    
             $data = $validator->validated();
-
-            // Actualizar el formulario
-            $formulario->update($data);
-
+    
+            // Actualizar los campos básicos del formulario
+            $formulario->update([
+                'name' => $data['name'],
+                'description' => $data['description'],
+            ]);
+    
+            // Sincronizar las categorías
+            if (!empty($data['category_id'])) {
+                $formulario->categories()->sync($data['category_id']);
+            } else {
+                $formulario->categories()->detach(); // Si no hay categorías seleccionadas, eliminar todas
+            }
+    
             // Manejar la subida de la imagen
             if ($request->hasFile('thumbnail')) {
-                // Eliminar la imagen anterior si existe
                 if ($formulario->media && $formulario->media->count() > 0) {
                     $formulario->media->first()->delete();
                 }
-
-                // Guardar la nueva imagen
-                $formulario->addMediaFromRequest('thumbnail')->preservingOriginal()->toMediaCollection('formularios');
+    
+                $formulario->addMediaFromRequest('thumbnail')
+                    ->preservingOriginal()
+                    ->toMediaCollection('formularios');
             }
-
+    
             return response()->json([
                 'status' => 200,
                 'success' => true,
-                'data' => $formulario->load('media')
+                'data' => $formulario->load('media', 'categories'),
             ]);
-
-        }catch (\Exception $e){
-            // Capturar excepciones y devolver un error 500 con detalles
+        } catch (\Exception $e) {
             return response()->json([
                 'status' => 500,
                 'success' => false,
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
