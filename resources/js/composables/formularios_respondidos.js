@@ -3,11 +3,7 @@ import { ref, inject } from 'vue'
 
 export default function useFormulariosRespondidos() {
     const formulariosRespondidos = ref([]);
-    const formularioRespondido = ref({
-        user_id: '',
-        formulario_id: '',
-        score: ''
-    });
+    const formularioRespondido = ref([]);
 
     const swal = inject('$swal')
 
@@ -20,6 +16,16 @@ export default function useFormulariosRespondidos() {
             console.log(error)
         })
     }    
+
+    const getFormulariosRespondidosUser = async (id) => {
+        axios.get('/api/formularios-respondidos/' + id)
+        .then (response => {
+            formulariosRespondidos.value = response.data.data;
+            console.log(formulariosRespondidos.value);
+        }).catch(error => {
+            console.log(error)
+        })
+    }
 
     const storeFormulariosRespondidos = async (formularioId, score) => {
         formularioRespondido.value.formulario_id = formularioId
@@ -35,17 +41,33 @@ export default function useFormulariosRespondidos() {
     }
 
 
-    const getFormularioRespondido = async (id, idUser) => {
-        axios.get('/api/formulario-respondido/' + id + '/' + idUser)
-        .then(response => {
-            formularioRespondido.value = response.data
-            console.log(response.data)
-        }).catch(error => {
+    const getFormularioRespondido = async (userId, idFormulario) => {
+        try{
+            axios.get('/api/formulario-respondido/' + userId + '/' + idFormulario)
+            .then(response => {
+                formularioRespondido.value = response.data.data
+                console.log(formularioRespondido.value)
+            }).catch(error => {
+                console.log(error)
+            }) 
+        } catch (error) {
             console.log(error)
-        }) 
+        }
+        
     }
 
-    const deleteFormularioRespondido = async (id, idUser) => {
+    const updateFormularioRespondido = async (formulario) => {
+        console.log(formulario.value)
+        axios.put('/api/formulario-respondido/' + formulario, formulario.value)
+        .then(response => {
+            formularioRespondido.value = response.data
+            console.log(response)
+        }).catch(error => {
+            console.log(error)
+        })  
+    }
+
+    const deleteFormularioRespondido = async (id) => {
         swal({
             title: 'Are you sure?',
             text: 'You won\'t be able to revert this action!',
@@ -59,9 +81,9 @@ export default function useFormulariosRespondidos() {
         })
         .then(result => {
             if (result.isConfirmed) {
-                axios.delete('/api/formulario-respondido/' + id + '/' + idUser)
+                axios.delete('/api/formulario-respondido/' + id)
                     .then((response) => {
-                        getPreguntas()
+                        getFormulariosRespondidos()
                         swal({
                             icon: 'success',
                             title: 'Formulario Respondido deleted successfully',
@@ -85,8 +107,10 @@ export default function useFormulariosRespondidos() {
         formulariosRespondidos,
         formularioRespondido,
         getFormulariosRespondidos,
+        getFormulariosRespondidosUser,
         storeFormulariosRespondidos,
         getFormularioRespondido,
+        updateFormularioRespondido,
         deleteFormularioRespondido
     }
 }

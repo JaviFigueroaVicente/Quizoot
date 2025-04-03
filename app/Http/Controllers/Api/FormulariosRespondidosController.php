@@ -27,6 +27,16 @@ class FormulariosRespondidosController extends Controller
      //
     }
 
+    public function getFormulariosRespondidosUser(string $user_id){
+
+        $formularios_respondidos = Formularios_Respondidos::where('user_id', $user_id)->get();
+
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'data' => $formularios_respondidos
+        ]);
+    }
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -48,9 +58,15 @@ class FormulariosRespondidosController extends Controller
     }
 
 
-    public function show(string $formularioId, string $userId)
+    public function show(string $userId, string $formularioId)
     {
-        return Formularios_Respondidos::where('user_id', $userId)->where('formulario_id', $formularioId)->first();
+        $formulario_respondido = Formularios_Respondidos::where('user_id', $userId)->where('formulario_id', $formularioId)->first();
+
+        return response() -> json([
+            'status' => 201,
+            'success' => true,
+            'data' => $formulario_respondido
+        ]);
     }
 
 
@@ -65,6 +81,7 @@ class FormulariosRespondidosController extends Controller
         $validator = Validator::make($request->all(), [
             'score' => 'required',
             'formulario_id' => 'required|exists:formularios,id',
+            'user_id' => 'required|exists:users,id',
         ]);
 
         if ($validator->fails()) {
@@ -78,6 +95,7 @@ class FormulariosRespondidosController extends Controller
         $data = $validator->validated();
 
         $formularios_Respondidos->update($data);
+
         return response()->json([
             'status' => 200,
             'success' => true,
@@ -87,9 +105,12 @@ class FormulariosRespondidosController extends Controller
 
     public function destroy(string $formularioId, string $userId)
     {
-        $formulario = Formularios_Respondidos::where('user_id', $userId)->where('formulario_id', $formularioId)->first();
 
-        $formulario->delete();
+        $formularioRespondido = Formularios_Respondidos::where('user_id', $userId)
+            ->where('formulario_id', $formularioId)
+            ->first();
+
+        $formularioRespondido->delete();
 
         return response()->noContent();
     }

@@ -459,13 +459,13 @@ export default [
                 children: [
                     {
                         name: 'formulariosRespondidos.index',
-                        path: '',
+                        path: ':id',
                         component: () => import('../views/admin/formulariosRespondidos/index.vue'),
                         meta: { breadCrumb: 'Formularios Respondidos' }
                     },
                     {
                         name: 'formulariosRespondidos.edit',
-                        path: 'edit/:id/:id',
+                        path: 'edit/:id/:formularioId',
                         component: () => import('../views/admin/formulariosRespondidos/Edit.vue'),
                         meta: { breadCrumb: 'Edit Formularios Respondidos' }
                     },
