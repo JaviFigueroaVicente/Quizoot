@@ -219,6 +219,17 @@ export default function useForms() {
             })
     }
 
+    const getFormCategories = async (id) => {
+        try {
+            const response = await axios.get(`/api/formularios/${id}/categorias`);  
+            
+            // Verifica que la respuesta contenga los nombres de las categorías
+            return response.data.data.map(category => category.nombre); 
+        } catch (error) {
+            console.error("Error al obtener categorías del formulario:", error);
+            return [];
+        }
+    };
 
     return{
         formularios,
@@ -234,7 +245,8 @@ export default function useForms() {
         asignarPreguntas,
         updateForm,
         deleteForm,
-        asignarCategorias
+        asignarCategorias,
+        getFormCategories
     }
 }
 

@@ -88,6 +88,7 @@ Route::post('verificar-respuesta', [FormulariosController::class, 'verificarResp
 
 Route::apiResource('categories', CategoryController::class);
 Route::post('asignar-categorias/{formularioId}', [FormulariosController::class, 'asignarCategorias']);
+Route::get('/formularios/{id}/categorias', [FormulariosController::class, 'getCategoriasFormulario']);
 
 Route::get('pregunta', [PreguntasController::class, 'index']);
 Route::get('pregunta-user', [PreguntasController::class, 'userPreguntas']);

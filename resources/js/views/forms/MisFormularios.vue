@@ -12,8 +12,10 @@
                                     <InputText v-model="filters['global'].value" placeholder="Buscar" />
                                 </IconField>
                                 <Button type="button" icon="pi pi-filter-slash" label="Clear" class="ml-1" outlined @click="initFilters()" />
-                                <Button type="button" icon="pi pi-refresh" class="h-100 ml-1" outlined @click="getUsers()" />
-                                <router-link :to="{name: 'mis-formularios.create'}" class="flex align-items-center"><button type="button" class="btn btn-primary button button-action">Crear formulario</button></router-link>
+                                <Button type="button" icon="pi pi-refresh" class="h-100 ml-1" outlined @click="getUserForms()" />
+                                <router-link :to="{name: 'mis-formularios.create'}" class="flex align-items-center">
+                                    <button type="button" class="btn btn-primary button button-action">Crear formulario</button>
+                                </router-link>
                             </template>
                         </Toolbar>
                     </template>
@@ -23,7 +25,8 @@
                     <Column field="id" header="ID" sortable></Column>
                     <Column field="name" header="Nombre" sortable></Column>
                     <Column field="description" header="Descripcion"></Column>
-                    <Column field="original_image" header="Foto"><template #body="slotProps">
+                    <Column field="original_image" header="Foto">
+                        <template #body="slotProps">
                             <img v-if="slotProps.data.original_image" :src="slotProps.data.original_image" alt="Imagen" class="thumbnail" />
                             <span v-else>No hay imagen</span>
                         </template>
@@ -33,7 +36,15 @@
                             {{ slotProps.data.preguntas_count ?? 0 }}
                         </template>
                     </Column>
-                    <Column field="categoria_id" header="Categoria" sortable></Column>
+                    <Column field="categoria_id" header="Categoria" sortable>
+                        <template #body="slotProps">
+                            <!-- Mostrar las categorías asignadas -->
+                            <span v-if="slotProps.data.categories && slotProps.data.categories.length > 0">
+                                {{ slotProps.data.categories.map(category => category.nombre).join(', ') }}
+                            </span>
+                            <span v-else>No asignada</span>
+                        </template>
+                    </Column>
                     <Column field="created_at" header="Creado el" sortable></Column>
                     <Column class="pe-0 me-0 icon-column-3">
                         <template #body="slotProps">
@@ -56,18 +67,17 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import useForms from '@/composables/forms';
-import {useAbility} from '@casl/vue'
-import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
+import { useAbility } from '@casl/vue';
+import { FilterMatchMode } from '@primevue/core/api';
 
 const router = useRouter();
-const {formularios, getUserForms, deleteForm} = useForms();
-const {can} = useAbility()
+const { formularios, getUserForms, deleteForm } = useForms();
+const { can } = useAbility();
 const filters = ref();
 
 onMounted(() => {
     getUserForms();
 });
-
 
 const initFilters = () => {
     filters.value = {
@@ -76,8 +86,8 @@ const initFilters = () => {
 };
 
 initFilters();
-
 </script>
+
 <style scoped>
 .thumbnail {
     width: 50px;

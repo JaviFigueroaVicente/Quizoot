@@ -20,20 +20,21 @@ class FormulariosController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request){
-        $query = Formularios::withCount('preguntas');
-
+        $query = Formularios::with('categories')->withCount('preguntas');
+    
         if ($request->has('category_id') && !empty($request->category_id)) {
             $query->where('categoria_id', $request->category_id);
         }
-
+    
         $formularios = $query->get();
-
+    
         return response()->json([
             'status' => 200,
             'success' => true,
             'data' => FormulariosResource::collection($formularios)
         ]);
-    }
+    }    
+    
 
     public function userFormularios(){
         $user_id = auth()->id();
@@ -126,6 +127,7 @@ class FormulariosController extends Controller
             'user_id' => auth()->id(),
         ]);
     
+        // Asignar las categorías
         if (!empty($validated['category_id'])) {
             $formulario->categories()->sync($validated['category_id']);
         }
@@ -142,7 +144,7 @@ class FormulariosController extends Controller
             'data' => $formulario->load('media', 'categories'),
         ], 201);
     }
-
+    
     public function asignarPreguntas(Request $request, $formulario_id){
         $request->validate([
             'pregunta_ids' => 'required|array',
@@ -175,6 +177,17 @@ class FormulariosController extends Controller
         ]);
     }
 
+    public function getCategoriasFormulario($id)
+    {
+        $formulario = Formularios::with('categories')->findOrFail($id);
+
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'data' => $formulario->categories->pluck('nombre'),
+        ]);
+    }
+
     /**
      * Display the specified resource.
      */
@@ -183,6 +196,7 @@ class FormulariosController extends Controller
         return Formularios::with('user', 'media', 'categories')->findOrFail($id);
     }
 
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -190,6 +204,7 @@ class FormulariosController extends Controller
     {
         //
     }
+
 
     /**
      * Update the specified resource in storage.
