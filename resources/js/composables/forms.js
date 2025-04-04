@@ -7,7 +7,7 @@ export default function useForms() {
         name: '',
         description: '',
         thumbnail: '',
-        category_id: '',
+        category_id: [],
     }); 
     const selectedPreguntas = ref([])
     const swal = inject('$swal')
@@ -85,23 +85,55 @@ export default function useForms() {
     };
 
     const storeForm = async () => {
-        axios.post('/api/formulario', formulario.value, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        })
-        .then(response => {
+        try {
+            const response = await axios.post('/api/formulario', formulario.value, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+
+            const formularioId = response.data.data.id;
+            await asignarCategorias(formularioId);
+            
             swal({
                 icon: 'success',
                 title: 'Formulario creado correctamente',
                 showConfirmButton: false,
-                timer: 1500
-            })
-            console.log(response)
-        }).catch(error => {
-            console.log(error)
-        }) 
-    }    
+                timer: 1500,
+            });
+        } catch (error) {
+            console.error('Error al crear el formulario:', error);
+            swal({
+                icon: 'error',
+                title: 'Error al crear el formulario',
+                showConfirmButton: true,
+            });
+        }
+    };
+    
+    const asignarCategorias = async (formularioId) => {
+        try {
+            const response = await axios.post('/api/asignar-categorias/' + formularioId, {
+                category_ids: formulario.value.category_id,
+            });
+    
+            swal({
+                icon: 'success',
+                title: 'Categorías asignadas correctamente',
+                showConfirmButton: false,
+                timer: 1500,
+            });
+    
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+            swal({
+                icon: 'error',
+                title: 'Error al asignar categorías',
+                showConfirmButton: true,
+            });
+        }
+    };
 
     const asignarPreguntas = async () => {
         const formularioId = formulario.value.id;
@@ -187,6 +219,17 @@ export default function useForms() {
             })
     }
 
+    const getFormCategories = async (id) => {
+        try {
+            const response = await axios.get(`/api/formularios/${id}/categorias`);  
+            
+            // Verifica que la respuesta contenga los nombres de las categorías
+            return response.data.data.map(category => category.nombre); 
+        } catch (error) {
+            console.error("Error al obtener categorías del formulario:", error);
+            return [];
+        }
+    };
 
     return{
         formularios,
@@ -201,7 +244,9 @@ export default function useForms() {
         storeForm,
         asignarPreguntas,
         updateForm,
-        deleteForm
+        deleteForm,
+        asignarCategorias,
+        getFormCategories
     }
 }
 

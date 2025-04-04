@@ -10,6 +10,7 @@
                 <label for="description"></label>
                 <input class="editable-description align-left mb-5" id="description" placeholder='Escribe aquí la descripción del formulario...' v-model="formulario.description"></input>
             </div>
+            <MultiSelect v-model="formulario.category_id" :options="categoryList" display="chip" optionLabel="name" optionValue="id" placeholder="Seleccione nuevas categorías" :maxSelectedLabels="3" class="w-full md:w-80"></MultiSelect>
             <div>
                 <img v-if="formulario && formulario.media && formulario.media.length > 0" :src="formulario.media[0].original_url" alt="User image" class="form-image">
                 <img v-else src="images/placeholder.png" alt="Placeholder" class="form-image">
@@ -28,35 +29,50 @@ import * as yup from "yup";
 import { es } from "yup-locales";
 import DropZone from "@/components/DropZone.vue";
 import useForms from "@/composables/forms";
+import useCategories from "@/composables/categories";
 import { onMounted } from "vue";
 
 const { getForm, updateForm, formulario } = useForms();
-
-yup.setLocale(es);
+const { categoryList, getCategoryList } = useCategories();
 const router = useRouter();
 const route = useRoute();
+yup.setLocale(es);
 
-const schema = yup.object().shape({
-    name: yup.string().required(),
-    description: yup.string().required(),
-});
-
-// Enviara crear el formulario
-const onFormSubmit = async () => {
-    try {
-      schema.validate(formulario.value, { abortEarly: false });
-      updateForm(formulario.value);
-      router.push({name: 'mis-formularios.index'});
-    } catch (validationError) {
-      console.error(validationError);
-    }
+// Inicializar formulario
+formulario.value = {
+    name: "",
+    description: "",
+    thumbnail: null,
+    category_id: [],
 };
 
-onMounted(() => {
-    console.log(route.params.id);
-    getForm(route.params.id);
-})
+const schema = yup.object().shape({
+    name: yup.string().required("El nombre es obligatorio"),
+    description: yup.string().required("La descripción es obligatoria"),
+    category_id: yup.array().min(1, "Debe seleccionar al menos una categoría"),
+});
 
+onMounted(async () => {
+    await getCategoryList();
+    const formularioId = route.params.id;
+    if (formularioId) {
+        const response = await getForm(formularioId);
+        formulario.value = response;
+    }
+});
+
+// Enviar formulario
+const onFormSubmit = async () => {
+    try {
+        await schema.validate(formulario.value, { abortEarly: false });
+
+        await updateForm(formulario.value);
+
+        router.push({ name: "mis-formularios.index" });
+    } catch (validationError) {
+        console.error("Errores de validación:", validationError.errors);
+    }
+};
 </script>
 
 <style scoped>

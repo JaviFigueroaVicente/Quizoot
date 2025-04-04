@@ -20,20 +20,21 @@ class FormulariosController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request){
-        $query = Formularios::withCount('preguntas');
-
+        $query = Formularios::with('categories')->withCount('preguntas');
+    
         if ($request->has('category_id') && !empty($request->category_id)) {
             $query->where('categoria_id', $request->category_id);
         }
-
+    
         $formularios = $query->get();
-
+    
         return response()->json([
             'status' => 200,
             'success' => true,
             'data' => FormulariosResource::collection($formularios)
         ]);
-    }
+    }    
+    
 
     public function userFormularios(){
         $user_id = auth()->id();
@@ -116,32 +117,34 @@ class FormulariosController extends Controller
             'name' => 'required|string',
             'description' => 'required|string',
             'thumbnail' => 'nullable|image|max:2048',
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'required|array',
+            'category_id.*' => 'exists:categories,id',
         ]);
-
+    
         $formulario = Formularios::create([
             'name' => $validated['name'],
             'description' => $validated['description'],
             'user_id' => auth()->id(),
-            'categoria_id' => $validated['category_id'],
         ]);
-
+    
+        // Asignar las categorías
+        if (!empty($validated['category_id'])) {
+            $formulario->categories()->sync($validated['category_id']);
+        }
+    
         if ($request->hasFile('thumbnail')) {
             $formulario->addMedia($request->file('thumbnail'))
                 ->preservingOriginal()
                 ->toMediaCollection('formularios');
         }
-
-        $formulario->save();
-
-        // Devolver una respuesta exitosa
+    
         return response()->json([
-            'status' => 405,
+            'status' => 201,
             'success' => true,
-            'data' => $formulario->load('media'),
-        ]);
+            'data' => $formulario->load('media', 'categories'),
+        ], 201);
     }
-
+    
     public function asignarPreguntas(Request $request, $formulario_id){
         $request->validate([
             'pregunta_ids' => 'required|array',
@@ -157,13 +160,42 @@ class FormulariosController extends Controller
             'data' => $formulario->load('preguntas'),
         ]);
     }
+
+    public function asignarCategorias(Request $request, $formularioId){
+        $request->validate([
+            'category_ids' => 'required|array',
+            'category_ids.*' => 'exists:categories,id',
+        ]);
+
+        $formulario = Formularios::findOrFail($formularioId);
+        $formulario->categories()->sync($request->category_ids);
+
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'message' => 'Categorías asignadas correctamente',
+        ]);
+    }
+
+    public function getCategoriasFormulario($id)
+    {
+        $formulario = Formularios::with('categories')->findOrFail($id);
+
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'data' => $formulario->categories->pluck('nombre'),
+        ]);
+    }
+
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        return Formularios::with('user', 'media')->findOrFail($id);
+        return Formularios::with('user', 'media', 'categories')->findOrFail($id);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -173,55 +205,65 @@ class FormulariosController extends Controller
         //
     }
 
+
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Formularios $formulario)
-    {
-        try{
+    public function update(Request $request, Formularios $formulario){
+        try {
             // Validar los datos recibidos
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string',
                 'description' => 'required|string',
                 'thumbnail' => 'nullable|image|max:2048',
+                'category_id' => 'required|array',
+                'category_id.*' => 'exists:categories,id',
             ]);
-
-            // Si la validación falla, devolver errores
+    
             if ($validator->fails()) {
                 return response()->json([
                     'status' => 422,
                     'success' => false,
-                    'errors' => $validator->errors()
+                    'errors' => $validator->errors(),
                 ], 422);
             }
-
+    
             $data = $validator->validated();
-
-            $formulario->update($data);
-
+    
+            // Actualizar los campos básicos del formulario
+            $formulario->update([
+                'name' => $data['name'],
+                'description' => $data['description'],
+            ]);
+    
+            // Sincronizar las categorías
+            if (!empty($data['category_id'])) {
+                $formulario->categories()->sync($data['category_id']);
+            } else {
+                $formulario->categories()->detach(); // Si no hay categorías seleccionadas, eliminar todas
+            }
+    
             // Manejar la subida de la imagen
             if ($request->hasFile('thumbnail')) {
-                // Eliminar la imagen anterior si existe
                 if ($formulario->media && $formulario->media->count() > 0) {
                     $formulario->media->first()->delete();
                 }
-
-                // Guardar la nueva imagen
-                $formulario->addMediaFromRequest('thumbnail')->preservingOriginal()->toMediaCollection('formularios');
+    
+                $formulario->addMediaFromRequest('thumbnail')
+                    ->preservingOriginal()
+                    ->toMediaCollection('formularios');
             }
-
+    
             return response()->json([
                 'status' => 200,
                 'success' => true,
-                'data' => $formulario->load('media')
+                'data' => $formulario->load('media', 'categories'),
             ]);
-
-        }catch (\Exception $e){
-            // Capturar excepciones y devolver un error 500 con detalles
+        } catch (\Exception $e) {
             return response()->json([
                 'status' => 500,
                 'success' => false,
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }

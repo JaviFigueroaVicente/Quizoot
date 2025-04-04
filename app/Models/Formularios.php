@@ -20,7 +20,6 @@ class Formularios extends Model implements HasMedia
         'name',
         'user_id',
         'description',
-        'categoria_id'
     ];
 
     // Recupera el usuario que ha creado el formulario
@@ -29,9 +28,8 @@ class Formularios extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
-    public function categorias()
-    {
-        return $this->belongsTo(Category::class, 'categoria_id');
+    public function categories(){
+        return $this->belongsToMany(Category::class, 'formularios_categorias', 'formulario_id', 'categoria_id');
     }
 
     //Crear relación con preguntas para poder crear la tabla intermedia

@@ -20,8 +20,8 @@ class Category extends Model
         return $this->belongsToMany(Post::class,'category_post');
     }
 
-    public function formularios()
-    {
-        return $this->belongsToMany(Formularios::class);
+    public function categories(){
+        return $this->belongsToMany(Category::class, 'formulario_category', 'formulario_id', 'category_id');
     }
+
 }

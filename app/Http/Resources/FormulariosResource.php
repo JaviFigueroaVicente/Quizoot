@@ -29,7 +29,13 @@ class FormulariosResource extends JsonResource
             'preguntas_count' => $this->preguntas_count,
             'original_image' => $this->media->isNotEmpty() ? $this->media[0]->original_url : null,
             'resized_image' => $this->getFirstMediaUrl('formularios', 'resized-image') ?: null,
-            'created_at' => $this->created_at->toDateString()
+            'created_at' => $this->created_at->toDateString(),
+            'categories' => $this->categories->map(function ($category) {
+                return [
+                    'id' => $category->id,
+                    'nombre' => $category->name,
+                ];
+            }),
         ];
     }
 
