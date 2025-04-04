@@ -12,7 +12,7 @@
                                     <InputText v-model="filters['global'].value" placeholder="Buscar" />
                                 </IconField>
                                 <Button type="button" icon="pi pi-filter-slash" label="Clear" class="ml-1" outlined @click="initFilters()" />
-                                <Button type="button" icon="pi pi-refresh" class="h-100 ml-1" outlined @click="getFormulariosRespondidosUser(slotsProps.data.user_id)" />
+                                <Button type="button" icon="pi pi-refresh" class="h-100 ml-1" outlined @click="getFormulariosRespondidosUser(route.params.id)" />
                             </template>
                         </Toolbar>
                     </template>
@@ -29,7 +29,7 @@
                                 <Button icon="pi pi-pencil" severity="info" size="small" class="mr-1"/>
                             </router-link>
 
-                            <Button icon="pi pi-trash" severity="danger" @click.prevent="deleteFormularioRespondido(slotProps.data.formulario_id)" size="small"/>
+                            <Button icon="pi pi-trash" severity="danger" @click.prevent="deleteFormularioRespondido(slotProps.data.user_id, slotProps.data.formulario_id)" size="small"/>
                         </template>
                     </Column>
                 </DataTable>

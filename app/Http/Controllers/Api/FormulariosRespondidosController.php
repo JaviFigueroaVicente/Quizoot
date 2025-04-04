@@ -103,14 +103,11 @@ class FormulariosRespondidosController extends Controller
         ]);
     }
 
-    public function destroy(string $formularioId, string $userId)
+    public function destroy(string $userId, string $formularioId)
     {
-
-        $formularioRespondido = Formularios_Respondidos::where('user_id', $userId)
-            ->where('formulario_id', $formularioId)
-            ->first();
-
-        $formularioRespondido->delete();
+        Formularios_Respondidos::where('user_id', $userId)
+        ->where('formulario_id', $formularioId)
+        ->delete();
 
         return response()->noContent();
     }

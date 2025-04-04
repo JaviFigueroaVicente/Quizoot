@@ -3,7 +3,11 @@ import { ref, inject } from 'vue'
 
 export default function useFormulariosRespondidos() {
     const formulariosRespondidos = ref([]);
-    const formularioRespondido = ref([]);
+    const formularioRespondido = ref({
+        user_id: '',
+        formulario_id: '',
+        score: ''
+    });
 
     const swal = inject('$swal')
 
@@ -67,7 +71,7 @@ export default function useFormulariosRespondidos() {
         })  
     }
 
-    const deleteFormularioRespondido = async (id) => {
+    const deleteFormularioRespondido = async (userId, formulario_id) => {
         swal({
             title: 'Are you sure?',
             text: 'You won\'t be able to revert this action!',
@@ -76,20 +80,20 @@ export default function useFormulariosRespondidos() {
             confirmButtonText: 'Yes, delete it!',
             confirmButtonColor: '#ef4444',
             timer: 20000,
-            timerProgressBar: true,
+            timerProgressBar: true, 
             reverseButtons: true
         })
         .then(result => {
             if (result.isConfirmed) {
-                axios.delete('/api/formulario-respondido/' + id)
+                axios.delete(`/api/formulario-respondido/${userId}/${formulario_id}`)
                     .then((response) => {
-                        getFormulariosRespondidos()
                         swal({
                             icon: 'success',
                             title: 'Formulario Respondido deleted successfully',
                             showConfirmButton: false,
                             timer: 1500
                         })
+                        getFormulariosRespondidosUser(userId)
                         console.log(response)
                     })
                     .catch(error => {
@@ -97,7 +101,7 @@ export default function useFormulariosRespondidos() {
                             icon: 'error',
                             title: 'Something went wrong'
                         })
-                        console.log(response)
+                        console.log(error)
                     })
             }
         })
