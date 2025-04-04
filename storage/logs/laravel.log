@@ -5947,3 +5947,4 @@ Stack trace:
 [2025-04-04 17:18:37] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
 [2025-04-04 17:18:46] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
 [2025-04-04 17:18:49] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-04 17:19:00] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
