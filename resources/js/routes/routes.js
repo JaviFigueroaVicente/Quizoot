@@ -239,6 +239,12 @@ export default [
                     path: '/contestarFormulario/:id',
                     component: () => import('../views/forms/form_individual/index.vue'),
                     meta: { breadCrumb: 'Form Individual' }
+                },
+                {
+                    name: 'formRespondido',
+                    path: '/formRespondido/:id',
+                    component: () => import('../views/forms/form_individual/details.vue'),
+                    meta: { breadCrumb: 'Form Respondido' }
                 }
             ]
         },
@@ -446,6 +452,32 @@ export default [
                     }
                 ]
             },
+            {
+                name: 'formulariosRespondidos',
+                path: 'formulariosRespondidos',
+                meta: { breadCrumb: 'Formularios Respondidos'},
+                children: [
+                    {
+                        name: 'formulariosRespondidos.index',
+                        path: ':id',
+                        component: () => import('../views/admin/formulariosRespondidos/index.vue'),
+                        meta: { breadCrumb: 'Formularios Respondidos' }
+                    },
+                    {
+                        name: 'formulariosRespondidos.edit',
+                        path: 'edit/:id/:formularioId',
+                        component: () => import('../views/admin/formulariosRespondidos/Edit.vue'),
+                        meta: { breadCrumb: 'Edit Formularios Respondidos' }
+                    },
+                    {
+                        name: 'formulariosRespondidos.create',
+                        path: 'create',
+                        component: () => import('../views/admin/formulariosRespondidos/Create.vue'),
+                        
+                    }
+                ]
+            },
+
             //TODO Organizar rutas
             {
                 name: 'roles.index',
@@ -472,5 +504,5 @@ export default [
         path: "/:pathMatch(.*)*",
         name: 'NotFound',
         component: () => import("../views/errors/404.vue"),
-    },
-];
+    }
+]

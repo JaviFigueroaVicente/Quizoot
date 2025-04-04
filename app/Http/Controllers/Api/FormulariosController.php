@@ -270,7 +270,7 @@ class FormulariosController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     */
+     */ 
     public function destroy(Formularios $formulario)
     {
         $formulario->delete();

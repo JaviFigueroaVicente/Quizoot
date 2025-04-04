@@ -47,6 +47,13 @@
                         <Column field="surname2" header="Apellido2" sortable></Column>
                         <Column field="email" header="Email" sortable></Column>
                         <Column field="created_at" header="Creado el" sortable></Column>
+                        <Column>
+                            <template #body="slotProps">
+                                <router-link :to="{ name: 'formulariosRespondidos.index', params: { id: slotProps.data.id } }">
+                                    Ver Formularios Respondidos
+                                </router-link>
+                            </template>
+                        </Column>
 
 <!--                        <Column header="categories" sortable-->
 <!--                                sortField="categories.name"-->
