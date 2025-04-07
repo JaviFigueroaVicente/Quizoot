@@ -28,6 +28,15 @@
                             {{ slotProps.data.preguntas_count ?? 0 }}
                         </template>
                     </Column>
+                    <Column field="categoria_id" header="Categoria" sortable>
+                        <template #body="slotProps">
+                            <!-- Mostrar las categorías asignadas -->
+                            <span v-if="slotProps.data.categories && slotProps.data.categories.length > 0">
+                                {{ slotProps.data.categories.map(category => category.nombre).join(', ') }}
+                            </span>
+                            <span v-else>No asignada</span>
+                        </template>
+                    </Column>
                     <Column field="user_id" header="Id Usuario" sortable></Column>
                     <Column field="original_image" header="Foto"><template #body="slotProps">
                             <img v-if="slotProps.data.original_image" :src="slotProps.data.original_image" alt="Imagen" class="thumbnail" />
