@@ -177,14 +177,13 @@ class FormulariosController extends Controller
         ]);
     }
 
-    public function getCategoriasFormulario($id)
-    {
+    public function getCategoriasFormulario($id){
         $formulario = Formularios::with('categories')->findOrFail($id);
 
         return response()->json([
             'status' => 200,
             'success' => true,
-            'data' => $formulario->categories->pluck('nombre'),
+            'data' => $formulario->categories,
         ]);
     }
 

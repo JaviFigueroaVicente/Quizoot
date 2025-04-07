@@ -32,8 +32,8 @@ import useForms from "@/composables/forms";
 import useCategories from "@/composables/categories";
 import { onMounted } from "vue";
 
-const { getForm, updateForm, formulario } = useForms();
-const { categoryList, getCategoryList } = useCategories();
+const { getForm, updateForm, formulario, getFormCategories} = useForms();
+const { categoryList, getCategoryList} = useCategories();
 const router = useRouter();
 const route = useRoute();
 yup.setLocale(es);
@@ -58,6 +58,9 @@ onMounted(async () => {
     if (formularioId) {
         const response = await getForm(formularioId);
         formulario.value = response;
+
+        const categorias = await getFormCategories(formularioId);
+        console.log("Categorías del formulario:", categorias);
     }
 });
 
