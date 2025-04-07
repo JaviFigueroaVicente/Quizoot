@@ -19,7 +19,8 @@ class CategoryTableSeeder extends Seeder
             'Educación',
             'Alimentación',
             'Programación',
-            'Varios'
+            'Juegos',
+            'Animacion',
         ];
 
 
