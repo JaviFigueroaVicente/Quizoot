@@ -23,7 +23,9 @@ class FormulariosController extends Controller
         $query = Formularios::with('categories')->withCount('preguntas');
     
         if ($request->has('category_id') && !empty($request->category_id)) {
-            $query->where('categoria_id', $request->category_id);
+            $query->whereHas('categories', function ($q) use ($request) {
+                $q->where('categories.id', $request->category_id);
+            });
         }
     
         $formularios = $query->get();
@@ -33,7 +35,7 @@ class FormulariosController extends Controller
             'success' => true,
             'data' => FormulariosResource::collection($formularios)
         ]);
-    }    
+    }
     
 
     public function userFormularios(){
