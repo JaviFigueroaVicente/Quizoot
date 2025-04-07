@@ -13,7 +13,7 @@ class FormulariosRespondidosController extends Controller
 {
     public function index()
     {
-        $formularios_respondidos = Formularios_Respondidos::all();
+        $formularios_respondidos = User::all();
 
         return response()->json([
             'status' => 405,
@@ -76,10 +76,12 @@ class FormulariosRespondidosController extends Controller
         //
     }
 
-    public function update(Request $request, Formularios_Respondidos $formularios_Respondidos)
+    public function update(Request $request, string $userId, string $formularioId)
     {
+        $formularios_Respondidos = Formularios_Respondidos::where('user_id', $userId)->where('formulario_id', $formularioId)->first();
+
         $validator = Validator::make($request->all(), [
-            'score' => 'required',
+            'score' => 'required|numeric',
             'formulario_id' => 'required|exists:formularios,id',
             'user_id' => 'required|exists:users,id',
         ]);

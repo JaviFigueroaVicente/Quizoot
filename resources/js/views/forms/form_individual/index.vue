@@ -4,6 +4,7 @@
         <section class="header-container">
             <ProgressBar :value="tiempo" class="tiempoPregunta" />
             <router-link @click="endProgress" to="/forms" class="exit-button">Abandonar</router-link>
+            <h2>Mejor Puntuación: {{ formularioRespondido.score }}</h2>
         </section>
         <section class="white-section">
             <div class="header">
@@ -24,6 +25,7 @@
     <section v-else class="container">
         <img src="/images/Home/Fondo_Home.webp" class="background-image" />
         <div>
+            <h2 v-if="scoreAnterior !== undefined && scoreAnterior < score">Nuevo record!</h2>
             <p>Tu puntuacion es de: {{ score }}</p>
         </div>
     </section>
@@ -34,11 +36,13 @@ import { ref, onMounted, computed, onUnmounted, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import useForms from '@/composables/forms';
 import useFormulariosRespondidos from '@/composables/formularios_respondidos';
+import { authStore } from '@/store/auth';
 
+const store = authStore();
 const router = useRouter();
 const route = useRoute();
 const { getForm, selectedPreguntas, getPreguntasSinRespuesta, verificarRespuesta } = useForms();
-const { storeFormulariosRespondidos } = useFormulariosRespondidos();
+const { storeFormulariosRespondidos, formularioRespondido, getFormularioRespondido } = useFormulariosRespondidos();
 const currentQuestionIndex = ref(0);
 const score = ref(0);
 let tiempoRestante = ref(0)
@@ -46,6 +50,7 @@ const swal = inject('$swal')
 const tiempo = ref(0);
 const interval = ref();
 const mostrarScore = ref(false);
+const scoreAnterior = ref(0);
 
 const preguntaActual = computed(() => {
     return selectedPreguntas.value && selectedPreguntas.value.length > 0 ? selectedPreguntas.value[currentQuestionIndex.value] : null;
@@ -135,6 +140,8 @@ onMounted(() => {
         tiempoRestante.value = 100;
         startProgress();
     });
+    getFormularioRespondido(store.user.id, route.params.id);
+    
     
 });
 

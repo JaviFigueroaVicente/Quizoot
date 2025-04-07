@@ -11,7 +11,7 @@
             </div>
             <div>
                 <label for="score"></label>
-                <input class="align-left mb-5" id="score" v-model="formularioRespondido.score"></input>
+                <input class="align-left mb-5" id="score" v-model.number="formularioRespondido.score" type="number"></input>
             </div>
             
         </div>
@@ -26,7 +26,7 @@ import { useRouter, useRoute } from "vue-router";
 import * as yup from "yup";
 import { es } from "yup-locales";
 import useFormulariosRespondidos from "@/composables/formularios_respondidos";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 
 const { formularioRespondido, getFormularioRespondido, updateFormularioRespondido } = useFormulariosRespondidos();
 
@@ -37,14 +37,14 @@ const route = useRoute();
 const schema = yup.object().shape({
     formulario_id: yup.number().required(),
     user_id: yup.number().required(),
-    score: yup.string().required(),
+    score: yup.number().required(),
 });
 
 
 const onFormSubmit = async () => {
     try {
       schema.validate(formularioRespondido.value, { abortEarly: false });
-      updateFormularioRespondido(formularioRespondido.value);
+      updateFormularioRespondido(formularioRespondido.value.user_id, formularioRespondido.value.formulario_id, formularioRespondido.value);
       router.push({name: 'formulariosRespondidos.index'});
     } catch (validationError) {
       console.error(validationError);
