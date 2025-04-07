@@ -221,15 +221,15 @@ export default function useForms() {
 
     const getFormCategories = async (id) => {
         try {
-            const response = await axios.get(`/api/formularios/${id}/categorias`);  
+            const response = await axios.get(`/api/formularios/${id}/categorias`);
             
-            // Verifica que la respuesta contenga los nombres de las categorías
-            return response.data.data.map(category => category.nombre); 
+            return response.data.data.map(item => item.id);
         } catch (error) {
             console.error("Error al obtener categorías del formulario:", error);
             return [];
         }
     };
+    
 
     return{
         formularios,
