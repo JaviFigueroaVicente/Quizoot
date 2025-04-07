@@ -11,17 +11,22 @@ class RespuestasTableSeeder extends Seeder
     {
         $respuestas = [
             // Para la pregunta con ID 1
-            ['respuesta' => 'París', 'correcta' => true, 'pregunta_id' => 1],
-            ['respuesta' => 'Madrid', 'correcta' => false, 'pregunta_id' => 1],
-            ['respuesta' => 'Londres', 'correcta' => false, 'pregunta_id' => 1],
+            ['respuesta' => 'París', 'correcta' => 1, 'preguntas_id' => 1],
+            ['respuesta' => 'Madrid', 'correcta' => 0, 'preguntas_id' => 1],
+            ['respuesta' => 'Londres', 'correcta' => 0, 'preguntas_id' => 1],
+            ['respuesta' => 'Roma', 'correcta' => 0, 'preguntas_id' => 1],
 
             // Para la pregunta con ID 2
-            ['respuesta' => '7', 'correcta' => true, 'pregunta_id' => 2],
-            ['respuesta' => '5', 'correcta' => false, 'pregunta_id' => 2],
+            ['respuesta' => '7', 'correcta' => 1, 'preguntas_id' => 2],
+            ['respuesta' => '5', 'correcta' => 0, 'preguntas_id' => 2],
+            ['respuesta' => '6', 'correcta' => 0, 'preguntas_id' => 2],
+            ['respuesta' => '8', 'correcta' => 0, 'preguntas_id' => 2],
 
             // Para la pregunta con ID 3
-            ['respuesta' => 'Leonardo da Vinci', 'correcta' => true, 'pregunta_id' => 3],
-            ['respuesta' => 'Picasso', 'correcta' => false, 'pregunta_id' => 3],
+            ['respuesta' => 'Leonardo da Vinci', 'correcta' => 1, 'preguntas_id' => 3],
+            ['respuesta' => 'Picasso', 'correcta' => 0, 'preguntas_id' => 3],
+            ['respuesta' => 'Van Gogh', 'correcta' => 0, 'preguntas_id' => 3],
+            ['respuesta' => 'Dalí', 'correcta' => 0, 'preguntas_id' => 3],
         ];
 
         foreach ($respuestas as $respuesta) {
