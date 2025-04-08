@@ -8,12 +8,13 @@ use App\Models\Formularios;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
 
 class FormulariosRespondidosController extends Controller
 {
     public function index()
     {
-        $formularios_respondidos = User::all();
+        $formularios_respondidos = Formularios_Respondidos::all();
 
         return response()->json([
             'status' => 405,
@@ -37,6 +38,17 @@ class FormulariosRespondidosController extends Controller
             'data' => $formularios_respondidos
         ]);
     }
+
+    public function getFormulariosRespondidosForm(string $formularioId){
+        $formularios_respondidos = Formularios_Respondidos::where('formulario_id', $formularioId)->get();
+
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'data' => $formularios_respondidos
+        ]);
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([

@@ -21,8 +21,19 @@ export default function useFormulariosRespondidos() {
         })
     }    
 
+
     const getFormulariosRespondidosUser = async (id) => {
         axios.get('/api/formularios-respondidos/' + id)
+        .then (response => {
+            formulariosRespondidos.value = response.data.data;
+            console.log(formulariosRespondidos.value);
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
+    const getFormulariosRespondidosFormulario = async (id) => {
+        axios.get('/api/formularios-respondidos-formulario/' + id)
         .then (response => {
             formulariosRespondidos.value = response.data.data;
             console.log(formulariosRespondidos.value);
@@ -114,6 +125,7 @@ export default function useFormulariosRespondidos() {
         formularioRespondido,
         getFormulariosRespondidos,
         getFormulariosRespondidosUser,
+        getFormulariosRespondidosFormulario,
         storeFormulariosRespondidos,
         getFormularioRespondido,
         updateFormularioRespondido,

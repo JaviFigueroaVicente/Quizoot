@@ -85,6 +85,7 @@ Route::post('asignar-preguntas/{formularioId}', [FormulariosController::class, '
 Route::get('asignar-preguntas/{id}', [FormulariosController::class, 'getPreguntasFormulario']);
 Route::get('preguntas-form/{id}', [FormulariosController::class, 'getPreguntasSinRespuesta']);
 Route::post('verificar-respuesta', [FormulariosController::class, 'verificarRespuesta']);
+Route::get('ranking/{id}', [FormulariosController::class, 'getRankingFormulario']);
 
 Route::apiResource('categories', CategoryController::class);
 Route::post('asignar-categorias/{formularioId}', [FormulariosController::class, 'asignarCategorias']);
@@ -99,6 +100,7 @@ Route::put('pregunta/{id}', [PreguntasController::class, 'update']);
 
 Route::get('formularios-respondidos', [FormulariosRespondidosController::class, 'index']);
 Route::get('formularios-respondidos/{user_id}', [FormulariosRespondidosController::class, 'getFormulariosRespondidosUser']);
+Route::get('formularios-respondidos-formulario/{formularioId}', [FormulariosRespondidosController::class, 'getFormulariosRespondidosForm']);
 Route::post('formulario-respondido', [FormulariosRespondidosController::class, 'store']);
 Route::get('formulario-respondido/{userId}/{formularioId}', [FormulariosRespondidosController::class, 'show']);
 Route::delete('formulario-respondido/{userId}/{formularioId}', [FormulariosRespondidosController::class, 'destroy']);
