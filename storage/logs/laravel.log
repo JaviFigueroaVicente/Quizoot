@@ -7333,3 +7333,26 @@ Stack trace:
 #37 C:\\laragon\\www\\Quizoot\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #38 {main}
 "} 
+[2025-04-08 13:48:02] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-08 13:48:02] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-08 13:48:02] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-08 13:48:02] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-08 13:48:02] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-08 13:48:02] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-08 13:48:02] local.ERROR: Uncaught ReflectionException: Class "Spatie\Permission\Middlewares\RoleMiddleware" does not exist in Command line code:1
+Stack trace:
+#0 Command line code(1): ReflectionMethod->__construct('Spatie\\Permissi...', 'handle')
+#1 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught ReflectionException: Class \"Spatie\\Permission\\Middlewares\\RoleMiddleware\" does not exist in Command line code:1
+Stack trace:
+#0 Command line code(1): ReflectionMethod->__construct('Spatie\\\\Permissi...', 'handle')
+#1 {main}
+  thrown at Command line code:1)
+[stacktrace]
+#0 {main}
+"} 
+[2025-04-08 13:48:02] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-08 13:48:03] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-08 13:48:03] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-08 13:48:07] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-08 13:48:07] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
