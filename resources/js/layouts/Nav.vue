@@ -37,7 +37,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mt-2 mt-lg-0 me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <router-link to="/" class="nav-link"><Button variant="text" class="button-jugar">Jugar</Button></router-link>
+                        <router-link class="nav-link" to="#" @click="playRandomForm"><Button variant="text" class="button-jugar">Jugar</Button></router-link>
                     </li>
                     <li class="nav-item">
                         <router-link to="/forms" severity="help" class="nav-link"><Button severity="help" variant="text">Formularios</Button></router-link>
@@ -79,8 +79,36 @@
 import useAuth from "@/composables/auth";
 import LocaleSwitcher from "../components/LocaleSwitcher.vue";
 import { authStore } from "../store/auth";
+import { useRouter } from 'vue-router';
+import { ref, onMounted } from 'vue';
+import useForms from '@/composables/forms';
 
 const { processing, logout } = useAuth();
+const router = useRouter();
+const { formularios, getForms } = useForms();
+
+onMounted(async () => {
+  await getForms();  // Usar await dentro de una función async
+});
+
+const playRandomForm = () => {
+  if (!formularios.value || formularios.value.length === 0) {
+    console.error("No hay formularios disponibles.");
+    return;
+  }
+  
+  const randomForm = formularios.value[Math.floor(Math.random() * formularios.value.length)];
+
+  if (!randomForm || !randomForm.id) {
+    console.error("Formulario aleatorio no encontrado.");
+    return;
+  }
+  
+  router.push(`/forms/details/${randomForm.id}`);
+};
+
+
+
 </script>
 
 <style scoped>
