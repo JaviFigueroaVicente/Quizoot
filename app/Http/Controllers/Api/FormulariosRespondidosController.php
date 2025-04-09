@@ -90,30 +90,22 @@ class FormulariosRespondidosController extends Controller
 
     public function update(Request $request, string $userId, string $formularioId)
     {
-        $formularios_Respondidos = Formularios_Respondidos::where('user_id', $userId)->where('formulario_id', $formularioId)->first();
+        Formularios_Respondidos::where('user_id', $userId)->where('formulario_id', $formularioId)->delete();
 
-        $validator = Validator::make($request->all(), [
-            'score' => 'required|numeric',
-            'formulario_id' => 'required|exists:formularios,id',
-            'user_id' => 'required|exists:users,id',
+        $validated = $request->validate([
+            'score' => 'required'
         ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 422,
-                'success' => false,
-                'errors' => $validator->errors()
-            ], 422);
-        }
-
-        $data = $validator->validated();
-
-        $formularios_Respondidos->update($data);
+        $formulario_respondido = Formularios_Respondidos::create([
+            'score' => $validated['score'],
+            'user_id' => $userId,
+            'formulario_id' => $formularioId,
+        ]);
 
         return response()->json([
-            'status' => 200,
+            'status' => 201,
             'success' => true,
-            'data' => $formularios_Respondidos,
+            'data' => $formulario_respondido,
         ]);
     }
 

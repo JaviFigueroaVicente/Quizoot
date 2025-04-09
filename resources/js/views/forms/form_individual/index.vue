@@ -4,7 +4,8 @@
         <section class="header-container">
             <ProgressBar :value="tiempo" class="tiempoPregunta" />
             <router-link @click="endProgress" to="/forms" class="exit-button">Abandonar</router-link>
-            <h2>Mejor Puntuación: {{ formularioRespondido.score }}</h2>
+            <!-- <h2 v-if="formularioRespondido.score !==null">Mejor Puntuación: {{ formularioRespondido.score }}</h2>
+            <h2 v-else >Mejor Puntuación: N/A</h2> -->
         </section>
         <section class="white-section">
             <div class="header">
@@ -25,7 +26,7 @@
     <section v-else class="container">
         <img src="/images/Home/Fondo_Home.webp" class="background-image" />
         <div>
-            <h2 v-if="scoreAnterior !== undefined && scoreAnterior < score">Nuevo record!</h2>
+            <!-- <h2 v-if="scoreAnterior !== undefined && scoreAnterior < score">Nuevo record!</h2> -->
             <p>Tu puntuacion es de: {{ score }}</p>
         </div>
     </section>
@@ -74,7 +75,7 @@ const siguientePregunta = () => {
         startProgress();
     }else{
         endProgress();        
-        mostrarScore.value = true;
+        // mostrarScore.value = true;
         storeFormulariosRespondidos(route.params.id, score.value);
     }
 };
@@ -140,7 +141,7 @@ onMounted(() => {
         tiempoRestante.value = 100;
         startProgress();
     });
-    getFormularioRespondido(store.user.id, route.params.id);
+    // getFormularioRespondido(store.user.id, route.params.id);
     
     
 });

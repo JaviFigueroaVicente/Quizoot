@@ -57,7 +57,7 @@ class User extends Authenticatable implements HasMedia
 
     public function usuariosRespondieron()
     {
-        return $this->belongsToMany(User::class, 'formularios_respondidos')->withPivot('score')->withTimestamps();
+        return $this->belongsToMany(Formularios::class, 'formularios_respondidos', 'user_id', 'formulario_id')->withPivot('score')->withTimestamps();
     }
 
     public function registerMediaCollections(): void

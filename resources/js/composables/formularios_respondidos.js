@@ -73,14 +73,13 @@ export default function useFormulariosRespondidos() {
         
     }
 
-    const updateFormularioRespondido = async (user_id, formulario_id, formulario) => {
-        console.log(formulario.value)
-        await axios.put('/api/formulario-respondido/' + user_id + '/' + formulario_id, formulario.value)
-        .then(response => {
-            formularioRespondido.value = response.data.data
-            console.log(formularioRespondido.value)
+    const updateFormularioRespondido = async (formulario) => {
+        axios.post('/api/formulario-respondido/' + formulario.user_id + '/' + formulario.formulario_id, formulario)
+        .then(() => {
+            console.log(formulario)
         }).catch(error => {
             console.log(error)
+            console.log(formulario)
         })  
     }
 
