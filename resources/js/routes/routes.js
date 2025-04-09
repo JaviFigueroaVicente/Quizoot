@@ -92,7 +92,7 @@ export default [
                     },
                     {
                         name: 'rankings.details',
-                        path: 'details',
+                        path: 'details/:id',
                         component: () => import('../views/rankings/details.vue'),
                         meta: { breadCrumb: 'Form Details' }
                     }
@@ -474,6 +474,12 @@ export default [
                         path: 'create',
                         component: () => import('../views/admin/formulariosRespondidos/Create.vue'),
                         
+                    },
+                    {
+                        name: 'formulariosRespondidos.indexByForm',
+                        path: 'indexByForm/:id',
+                        component: () => import('../views/admin/formulariosRespondidos/indexByForm.vue'),
+                        meta: { breadCrumb: 'Show Formularios Respondidos' }
                     }
                 ]
             },

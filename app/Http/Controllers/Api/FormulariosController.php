@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FormulariosResource;
 use App\Models\Formularios;
+use App\Models\Formularios_Respondidos;
 use App\Models\Preguntas;
 use App\Models\Respuestas;
 use App\Http\Requests\StorePostRequest;
@@ -12,6 +13,7 @@ use App\Models\Category;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class FormulariosController extends Controller
@@ -21,15 +23,15 @@ class FormulariosController extends Controller
      */
     public function index(Request $request){
         $query = Formularios::with('categories')->withCount('preguntas');
-    
+
         if ($request->has('category_id') && !empty($request->category_id)) {
             $query->whereHas('categories', function ($q) use ($request) {
                 $q->where('categories.id', $request->category_id);
             });
         }
-    
+
         $formularios = $query->get();
-    
+
         return response()->json([
             'status' => 200,
             'success' => true,
@@ -74,6 +76,16 @@ class FormulariosController extends Controller
             'status' => 200,
             'success' => true,
             'data' => $preguntas
+        ]);
+    }
+
+    public function getRankingFormulario(string $formularioId){
+        $ranking = Formularios_Respondidos::with('user.media')->where('formulario_id', $formularioId)->orderBy('score', 'desc')->get();
+
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'data' => $ranking
         ]);
     }
 
@@ -122,31 +134,31 @@ class FormulariosController extends Controller
             'category_id' => 'required|array',
             'category_id.*' => 'exists:categories,id',
         ]);
-    
+
         $formulario = Formularios::create([
             'name' => $validated['name'],
             'description' => $validated['description'],
             'user_id' => auth()->id(),
         ]);
-    
+
         // Asignar las categorías
         if (!empty($validated['category_id'])) {
             $formulario->categories()->sync($validated['category_id']);
         }
-    
+
         if ($request->hasFile('thumbnail')) {
             $formulario->addMedia($request->file('thumbnail'))
                 ->preservingOriginal()
                 ->toMediaCollection('formularios');
         }
-    
+
         return response()->json([
             'status' => 201,
             'success' => true,
             'data' => $formulario->load('media', 'categories'),
         ], 201);
     }
-    
+
     public function asignarPreguntas(Request $request, $formulario_id){
         $request->validate([
             'pregunta_ids' => 'required|array',
@@ -220,7 +232,7 @@ class FormulariosController extends Controller
                 'category_id' => 'required|array',
                 'category_id.*' => 'exists:categories,id',
             ]);
-    
+
             if ($validator->fails()) {
                 return response()->json([
                     'status' => 422,
@@ -228,33 +240,33 @@ class FormulariosController extends Controller
                     'errors' => $validator->errors(),
                 ], 422);
             }
-    
+
             $data = $validator->validated();
-    
+
             // Actualizar los campos básicos del formulario
             $formulario->update([
                 'name' => $data['name'],
                 'description' => $data['description'],
             ]);
-    
+
             // Sincronizar las categorías
             if (!empty($data['category_id'])) {
                 $formulario->categories()->sync($data['category_id']);
             } else {
                 $formulario->categories()->detach(); // Si no hay categorías seleccionadas, eliminar todas
             }
-    
+
             // Manejar la subida de la imagen
             if ($request->hasFile('thumbnail')) {
                 if ($formulario->media && $formulario->media->count() > 0) {
                     $formulario->media->first()->delete();
                 }
-    
+
                 $formulario->addMediaFromRequest('thumbnail')
                     ->preservingOriginal()
                     ->toMediaCollection('formularios');
             }
-    
+
             return response()->json([
                 'status' => 200,
                 'success' => true,
@@ -271,7 +283,7 @@ class FormulariosController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     */ 
+     */
     public function destroy(Formularios $formulario)
     {
         $formulario->delete();

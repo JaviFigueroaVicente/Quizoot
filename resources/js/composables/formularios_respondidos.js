@@ -21,6 +21,7 @@ export default function useFormulariosRespondidos() {
         })
     }    
 
+
     const getFormulariosRespondidosUser = async (id) => {
         axios.get('/api/formularios-respondidos/' + id)
         .then (response => {
@@ -31,7 +32,18 @@ export default function useFormulariosRespondidos() {
         })
     }
 
+    const getFormulariosRespondidosFormulario = async (id) => {
+        axios.get('/api/formularios-respondidos-formulario/' + id)
+        .then (response => {
+            formulariosRespondidos.value = response.data.data;
+            console.log(formulariosRespondidos.value);
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
     const storeFormulariosRespondidos = async (formularioId, score) => {
+        const scoreAnterior = formularioRespondido.value.score;
         formularioRespondido.value.formulario_id = formularioId
         formularioRespondido.value.score = score
         console.log(formularioRespondido.value)
@@ -42,6 +54,7 @@ export default function useFormulariosRespondidos() {
         }).catch(error => {
             console.log(error)
         }) 
+        return scoreAnterior
     }
 
 
@@ -60,12 +73,12 @@ export default function useFormulariosRespondidos() {
         
     }
 
-    const updateFormularioRespondido = async (formulario) => {
+    const updateFormularioRespondido = async (user_id, formulario_id, formulario) => {
         console.log(formulario.value)
-        axios.put('/api/formulario-respondido/' + formulario, formulario.value)
+        await axios.put('/api/formulario-respondido/' + user_id + '/' + formulario_id, formulario.value)
         .then(response => {
-            formularioRespondido.value = response.data
-            console.log(response)
+            formularioRespondido.value = response.data.data
+            console.log(formularioRespondido.value)
         }).catch(error => {
             console.log(error)
         })  
@@ -112,6 +125,7 @@ export default function useFormulariosRespondidos() {
         formularioRespondido,
         getFormulariosRespondidos,
         getFormulariosRespondidosUser,
+        getFormulariosRespondidosFormulario,
         storeFormulariosRespondidos,
         getFormularioRespondido,
         updateFormularioRespondido,

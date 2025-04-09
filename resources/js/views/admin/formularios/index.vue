@@ -44,6 +44,13 @@
                         </template>
                     </Column>
                     <Column field="created_at" header="Creado el" sortable></Column>
+                    <Column>
+                        <template #body="slotProps">
+                            <router-link :to="{ name: 'formulariosRespondidos.indexByForm', params: { id: slotProps.data.id } }">
+                                Ver Usuarios que han respondido
+                            </router-link>
+                        </template>
+                    </Column>
                     <Column class="pe-0 me-0 icon-column-2">
                         <template #body="slotProps">
                             <router-link v-if="can('user-edit')" :to="{ name: 'formularios.edit', params: { id: slotProps.data.id } }">

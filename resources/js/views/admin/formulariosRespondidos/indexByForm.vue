@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="card">
                 <DataTable v-model:filters="filters" :value="formulariosRespondidos" paginator :rows="5"
-                            :globalFilterFields="['formulario_id', 'score', 'created_at', 'updated_at']" stripedRows size="small" dataKey="formulario_id">
+                            :globalFilterFields="['user_id', 'score', 'created_at', 'updated_at']" stripedRows size="small" dataKey="formulario_id">
                     <template #header>
                         <Toolbar pt:root:class="toolbar-table">
                             <template #start>
@@ -17,9 +17,9 @@
                         </Toolbar>
                     </template>
 
-                    <template #empty> No se encuentran formularios respondidos </template>
+                    <template #empty> No se encuentran usuario que han respondido </template>
 
-                    <Column field="formulario_id" header="ID del formulario" sortable></Column>
+                    <Column field="user_id" header="ID del usuario" sortable></Column>
                     <Column field="score" header="Score"></Column>
                     <Column field="created_at" header="Creado el" sortable></Column>
                     <Column field="updated_at" header="Actualizado el" sortable></Column>
@@ -47,12 +47,14 @@ import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
 
 const route = useRoute();
 const router = useRouter();
-const {getFormulariosRespondidosUser, deleteFormularioRespondido, formulariosRespondidos } = useFormulariosRespondidos();
+const {getFormulariosRespondidosFormulario, deleteFormularioRespondido, formulariosRespondidos } = useFormulariosRespondidos();
 const {can} = useAbility()
 const filters = ref();
 
 onMounted(() => {
-    getFormulariosRespondidosUser(route.params.id)
+    getFormulariosRespondidosFormulario(route.params.id).then(() => {
+    console.log("Datos de formularios:", formulariosRespondidos.value);
+  });
 });
 
 

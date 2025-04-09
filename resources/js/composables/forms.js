@@ -9,6 +9,7 @@ export default function useForms() {
         thumbnail: '',
         category_id: [],
     }); 
+    const ranking = ref([])
     const selectedPreguntas = ref([])
     const swal = inject('$swal')
 
@@ -64,6 +65,16 @@ export default function useForms() {
         axios.get('/api/preguntas-form/' + id)
             .then(response => {
                 selectedPreguntas.value = response.data.data;
+                console.log(response.data.data);
+            }).catch(error => {
+                console.log(error)
+            })
+    }
+
+    const getRankingFormulario = async (id) => {
+        axios.get('/api/ranking/' + id)
+            .then(response => {
+                ranking.value = response.data.data;
                 console.log(response.data.data);
             }).catch(error => {
                 console.log(error)
@@ -235,11 +246,13 @@ export default function useForms() {
         formularios,
         formulario,
         selectedPreguntas,
+        ranking,
         getForms,
         getUserForms,
         getForm,
         getFormPreguntas,
         getPreguntasSinRespuesta,
+        getRankingFormulario,
         verificarRespuesta,
         storeForm,
         asignarPreguntas,

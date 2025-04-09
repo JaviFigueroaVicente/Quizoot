@@ -4,24 +4,33 @@
             <div class="row">
                 <!-- Imagen Decorativa -->
                 <div class="col-md-4 d-flex flex-column align-items-center left-section">
-                    <img src="/images/forms/disney.jpg" alt="User image" class="img-fluid form-image">
-                    <h3 class="fw-bold mt-3">Disney Form</h3>
-                    <p>Esta es la descripción del formulario para que los usuarios puedan ver de qué va.</p>
+                    <img v-if="formulario && formulario.media && formulario.media.length > 0" :src="formulario.media[0].original_url" alt="User image" class="img-fluid form-image">
+                    <img v-else src="images/placeholder.png" alt="Placeholder" class="form-image">
+                    <h3 class="fw-bold mt-3">{{ formulario.name }}</h3>
+                    <p>{{ formulario.description }}</p>
                 </div>
 
                 <!-- Ranking Grande a la Derecha -->
                 <div class="col-md-8 ranking-container">
                     <h3 class="ranking-title">🏆 Top Players</h3>
-
                     <!-- Lista de Ranking Desplazable -->
                     <div class="ranking-list-container">
                         <ul class="ranking-list">
-                            <li v-for="(player, index) in players" :key="index" class="ranking-item">
-                                <span class="ranking-position" :class="getPositionClass(player.rank)">
-                                    {{ player.rank }}
-                                </span>
-                                <span class="ranking-name">{{ player.name }}</span>
-                                <span class="ranking-score">{{ player.score }} pts</span>
+                            <li v-for="(rank, index) in ranking" :key="rank.user_id" class="ranking-item">
+                                <div v-if="index%2 === 0" class="ranking-item-impar">
+                                    <span class="ranking-position">{{ index + 1 }}</span>
+                                    <img v-if="rank.user.media && rank.user.media.length > 0" :src="rank.user.media[0].original_url" :alt="rank.user.name" alt="">
+                                    <img v-else src="/images/Nav/PerfilSinFoto.webp" alt="">
+                                    <span class="ranking-name">{{ rank.user.name }} {{ rank.user.surname1 }}</span>
+                                    <span class="ranking-score">{{ rank.score }} pts</span>
+                                </div>
+                                <div v-else>
+                                    <span class="ranking-position">{{ index + 1 }}</span>
+                                    <img v-if="rank.user.media && rank.user.media.length > 0" :src="rank.user.media[0].original_url" :alt="rank.user.name" alt="">
+                                    <img v-else src="/images/Nav/PerfilSinFoto.webp" alt="">
+                                    <span class="ranking-name">{{ rank.user.name }} {{ rank.user.surname1 }}</span>
+                                    <span class="ranking-score">{{ rank.score }} pts</span>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -31,36 +40,25 @@
     </div>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            players: []
-        };
-    },
-    methods: {
-        getPositionClass(rank) {
-            if (rank === 1) return "gold";
-            if (rank === 2) return "silver";
-            if (rank === 3) return "bronze";
-            return "";
-        },
-        generatePlayers() {
-            let points = 100;
-            for (let i = 1; i <= 50; i++) {
-                this.players.push({
-                    rank: i,
-                    name: `Player ${i}`,
-                    score: points
-                });
-                points--;
-            }
-        }
-    },
-    created() {
-        this.generatePlayers();
-    }
-};
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+import useForms from '@/composables/forms';
+
+const route = useRoute();
+const router = useRouter();
+const { getForm, getRankingFormulario, formulario, ranking } = useForms();
+
+onMounted(() => {
+    getForm(route.params.id).then(() => {
+        console.log("Datos de formularios:", formulario.value);
+    });
+    getRankingFormulario(route.params.id).then(() => {
+    console.log("Datos de ranking:", ranking.value);
+  });
+});
+
+
 </script>
 
 <style scoped>
@@ -80,7 +78,8 @@ export default {
 
 .ranking-container {
     background: #874eca;
-    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     color: white;
@@ -109,6 +108,14 @@ export default {
     background-color: rgba(255, 255, 255, 0.7);
 }
 
+.ranking-item div{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
 .ranking-title {
     font-weight: bold;
     font-size: 24px;
@@ -118,25 +125,25 @@ export default {
 .ranking-list {
     list-style: none;
     padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.ranking-list img{
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
 }
 
 .ranking-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     font-size: 18px;
-    transition: background-color 0.3s ease;
 }
 
-.ranking-item:last-child {
-    border-bottom: none;
-}
-
-.ranking-item:hover {
+.ranking-item-impar {
     background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
 }
 
 .ranking-position {
@@ -145,18 +152,6 @@ export default {
     flex-shrink: 0;
     width: 40px;
     text-align: center;
-}
-
-.gold {
-    color: #FFD700;
-}
-
-.silver {
-    color: #C0C0C0;
-}
-
-.bronze {
-    color: #CD7F32;
 }
 
 .ranking-name {
@@ -169,7 +164,7 @@ export default {
     font-weight: bold;
     font-size: 18px;
     color: #ffffff;
-    flex-shrink: 0;
+    padding-right: 10px;
     text-align: right;
 }
 
