@@ -5,7 +5,7 @@
                 <!-- Imagen Decorativa -->
                 <div class="col-md-4 d-flex flex-column align-items-center left-section">
                     <img v-if="formulario && formulario.media && formulario.media.length > 0" :src="formulario.media[0].original_url" alt="User image" class="img-fluid form-image">
-                    <img v-else src="images/placeholder.png" alt="Placeholder" class="form-image">
+                    <img v-else src="/images/placeholder.jpg" alt="Placeholder" class="form-image">
                     <h3 class="fw-bold mt-3">{{ formulario.name }}</h3>
                     <p>{{ formulario.description }}</p>
                 </div>
