@@ -8,6 +8,9 @@
                     <img v-else src="/images/placeholder.jpg" alt="Placeholder" class="form-image">
                     <h3 class="fw-bold mt-3">{{ formulario.name }}</h3>
                     <p>{{ formulario.description }}</p>
+                    <div v-for="category in formulario.categories">  
+                        <p>{{ category.name }}</p>
+                    </div>
                 </div>
 
                 <!-- Ranking Grande a la Derecha -->

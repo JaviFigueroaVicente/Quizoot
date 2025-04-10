@@ -11,7 +11,7 @@
             </div>
             <div>
                 <label for="score"></label>
-                <input class="align-left mb-5" id="score" v-model.number="formularioRespondido.score" type="number"></input>
+                <input class="align-left mb-5" id="score" v-model="formularioRespondido.score" type="number"></input>
             </div>
             
         </div>
@@ -44,8 +44,8 @@ const schema = yup.object().shape({
 const onFormSubmit = async () => {
     try {
       schema.validate(formularioRespondido.value, { abortEarly: false });
-      updateFormularioRespondido(formularioRespondido.value.user_id, formularioRespondido.value.formulario_id, formularioRespondido.value);
-      router.push({name: 'formulariosRespondidos.index'});
+      updateFormularioRespondido(formularioRespondido.value);
+    //   router.push({name: 'formulariosRespondidos.index'});
     } catch (validationError) {
       console.error(validationError);
     }

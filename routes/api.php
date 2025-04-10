@@ -104,4 +104,4 @@ Route::get('formularios-respondidos-formulario/{formularioId}', [FormulariosResp
 Route::post('formulario-respondido', [FormulariosRespondidosController::class, 'store']);
 Route::get('formulario-respondido/{userId}/{formularioId}', [FormulariosRespondidosController::class, 'show']);
 Route::delete('formulario-respondido/{userId}/{formularioId}', [FormulariosRespondidosController::class, 'destroy']);
-Route::put('formulario-respondido/{userId}/{formularioId}', [FormulariosRespondidosController::class, 'update']);
+Route::post('formulario-respondido/{userId}/{formularioId}', [FormulariosRespondidosController::class, 'update']);

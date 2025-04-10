@@ -40,7 +40,7 @@ class Formularios extends Model implements HasMedia
 
     public function formulariosRespondidos()
     {
-        return $this->hasMany(Formularios::class, 'formularios_respondidos')->withPivot('score')->withTimestamps();
+        return $this->belongsToMany(User::class, 'formularios_respondidos', 'formulario_id', 'user_id')->withPivot('score')->withTimestamps();
     }
 
     public function registerMediaCollections(): void
