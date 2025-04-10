@@ -52,7 +52,6 @@
                 </router-link>
             </div>
         </div>
-
         <div class="mt-4 mb-4">
             <Paginator :rows="9" :totalRecords="formularios.length" :rowsPerPageOptions="[5, 10, 15, 20]" :pageLinkSize="3"></Paginator>
         </div>
