@@ -2,15 +2,15 @@
     <head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
-    
-    <div class="text-center py-3 mt-3 mb-1 title ">
+
+    <div class="text-center py-3 mt-3 mb-1 title">
         <h1 class="fw-bold">Rankings</h1>
     </div>
 
     <main class="container my-2">
         <div class="dropdown">
             <button class="btn btn-light me-2 btn-hover-lila dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> + </button>
-            
+
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <!-- Todos los formularios -->
                 <li>
@@ -25,134 +25,37 @@
                     </a>
                 </li>
             </ul>
-            
+
             <span>Categorías</span>
         </div>
-        
+
         <div class="row row-cols-1 g-4 mt-3">
-            <router-link to="/rankings/details">
-                <div class="col">
+            <div v-if="formularios.length === 0" class="col-12 text-center">
+                <p>No hay formularios disponibles.</p>
+            </div>
+
+            <div class="col" v-for="formulario in formularios" :key="formulario.id">
+                <router-link :to="{ name: 'forms.details', params: { id: formulario.id }}">
                     <div class="card d-flex flex-row align-items-center p-3 horizontal-card">
-                        <img src="images/forms/disney.jpg" alt="Formulario 1" class="form-image-horizontal me-5">
+                        <img :src="formulario.original_image ? formulario.original_image : '/images/placeholder.jpg'" alt="Formulario" class="form-image-horizontal me-5">
                         <div class="d-flex justify-content-between w-100">
-                            <h5 class="mb-0 fw-bold me-3">Disney Form</h5>
+                            <h5 class="mb-0 fw-bold me-3">{{ formulario.name }}</h5>
                             <div class="d-flex align-items-center">
-                                <span class="badge me-3">Animación</span>
-                                <p class="mb-0 text-muted small">Respuestas: 123</p>
+                                <span v-if="formulario.categories && formulario.categories.length" class="badge me-3">
+                                    {{ formulario.categories.map(categoria => categoria.nombre).join(', ') }}
+                                </span>
+                                <span v-else class="badge me-3">Sin categoría</span>
+                                <p class="mb-0 text-muted small">Respuestas: {{ formulario.answers_count || 0 }}</p>
                             </div>
                         </div>
                     </div>
-                </div>
-            </router-link>
-
-            <div class="col">
-                <div class="card d-flex flex-row align-items-center p-3 horizontal-card">
-                    <img src="images/forms/marvel.jpg" alt="Formulario 2" class="form-image-horizontal me-5">
-                    <div class="d-flex justify-content-between w-100">
-                        <h5 class="mb-0 fw-bold me-3">Marvel Form</h5>
-                        <div class="d-flex align-items-center">
-                            <span class="badge me-3">Cultura General</span>
-                            <p class="mb-0 text-muted small">Respuestas: 97</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card d-flex flex-row align-items-center p-3 horizontal-card">
-                    <img src="images/forms/coches.jpg" alt="Formulario 3" class="form-image-horizontal me-5">
-                    <div class="d-flex justify-content-between w-100">
-                        <h5 class="mb-0 fw-bold me-3">Car Form</h5>
-                        <div class="d-flex align-items-center">
-                            <span class="badge me-3">Videojuegos</span>
-                            <p class="mb-0 text-muted small">Respuestas: 84</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card d-flex flex-row align-items-center p-3 horizontal-card">
-                    <img src="images/forms/componentes.webp" alt="Formulario 4" class="form-image-horizontal me-5">
-                    <div class="d-flex justify-content-between w-100">
-                        <h5 class="mb-0 fw-bold me-3">Components Form</h5>
-                        <div class="d-flex align-items-center">
-                            <span class="badge me-3">Ciencia</span>
-                            <p class="mb-0 text-muted small">Respuestas: 110</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card d-flex flex-row align-items-center p-3 horizontal-card">
-                    <img src="images/forms/deportes.jpg" alt="Formulario 5" class="form-image-horizontal me-5">
-                    <div class="d-flex justify-content-between w-100">
-                        <h5 class="mb-0 fw-bold me-3">Sports Form</h5>
-                        <div class="d-flex align-items-center">
-                            <span class="badge me-3">Deportes</span>
-                            <p class="mb-0 text-muted small">Respuestas: 88</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card d-flex flex-row align-items-center p-3 horizontal-card">
-                    <img src="images/forms/gaming.jpg" alt="Formulario 6" class="form-image-horizontal me-5">
-                    <div class="d-flex justify-content-between w-100">
-                        <h5 class="mb-0 fw-bold me-3">Gaming Form</h5>
-                        <div class="d-flex align-items-center">
-                            <span class="badge me-3">Videojuegos</span>
-                            <p class="mb-0 text-muted small">Respuestas: 105</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card d-flex flex-row align-items-center p-3 horizontal-card">
-                    <img src="images/forms/musica.jpg" alt="Formulario 7" class="form-image-horizontal me-5">
-                    <div class="d-flex justify-content-between w-100">
-                        <h5 class="mb-0 fw-bold me-3">Music Form</h5>
-                        <div class="d-flex align-items-center">
-                            <span class="badge me-3">Música</span>
-                            <p class="mb-0 text-muted small">Respuestas: 76</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card d-flex flex-row align-items-center p-3 horizontal-card">
-                    <img src="images/forms/historia.jpg" alt="Formulario 8" class="form-image-horizontal me-5">
-                    <div class="d-flex justify-content-between w-100">
-                        <h5 class="mb-0 fw-bold me-3">History Form</h5>
-                        <div class="d-flex align-items-center">
-                            <span class="badge me-3">Historia</span>
-                            <p class="mb-0 text-muted small">Respuestas: 68</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card d-flex flex-row align-items-center p-3 horizontal-card">
-                    <img src="images/forms/comida.jpg" alt="Formulario 9" class="form-image-horizontal me-5">
-                    <div class="d-flex justify-content-between w-100">
-                        <h5 class="mb-0 fw-bold me-3">Food Form</h5>
-                        <div class="d-flex align-items-center">
-                            <span class="badge me-3">Comida</span>
-                            <p class="mb-0 text-muted small">Respuestas: 91</p>
-                        </div>
-                    </div>
-                </div>
+                </router-link>
             </div>
         </div>
 
         <div class="mt-4 mb-4">
-            <Paginator :rows="9" :totalRecords="90" :rowsPerPageOptions="[5, 10, 15, 20]" :pageLinkSize="3"></Paginator>
-        </div>            
+            <Paginator :rows="9" :totalRecords="formularios.length" :rowsPerPageOptions="[5, 10, 15, 20]" :pageLinkSize="3"></Paginator>
+        </div>
     </main>
 </template>
 
@@ -168,15 +71,14 @@ const { formularios, getForms } = useForms();
 onMounted(() => {
     getCategoryList();
     getForms();
-    filteredForms.value = formularios;
 });
 
 const selectCategory = (categoryId) => {
-  console.log("Categoría seleccionada:", categoryId);
-  getForms(categoryId);
+    console.log("Categoría seleccionada:", categoryId);
+    getForms(categoryId);
 };
-
 </script>
+
 
 <style scoped>
     .title{
