@@ -35,7 +35,7 @@
             </div>
 
             <div class="col" v-for="formulario in formularios" :key="formulario.id">
-                <router-link :to="{ name: 'forms.details', params: { id: formulario.id }}">
+                <router-link :to="{ name: 'rankings.details', params: { id: formulario.id }}">
                     <div class="card d-flex flex-row align-items-center p-3 horizontal-card">
                         <img :src="formulario.original_image ? formulario.original_image : '/images/placeholder.jpg'" alt="Formulario" class="form-image-horizontal me-5">
                         <div class="d-flex justify-content-between w-100">
