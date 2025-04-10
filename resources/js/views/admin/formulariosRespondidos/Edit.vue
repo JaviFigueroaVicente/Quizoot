@@ -45,7 +45,7 @@ const onFormSubmit = async () => {
     try {
       schema.validate(formularioRespondido.value, { abortEarly: false });
       updateFormularioRespondido(formularioRespondido.value);
-    //   router.push({name: 'formulariosRespondidos.index'});
+      router.push({name: 'formularios.index'});
     } catch (validationError) {
       console.error(validationError);
     }
@@ -54,7 +54,6 @@ const onFormSubmit = async () => {
 onMounted(() => {
     console.log(route.params.formularioId, route.params.id);
     getFormularioRespondido(route.params.id, route.params.formularioId);
-    console.log(formularioRespondido.value);
 })
 
 </script>

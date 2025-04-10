@@ -4,8 +4,8 @@
         <section class="header-container">
             <ProgressBar :value="tiempo" class="tiempoPregunta" />
             <router-link @click="endProgress" to="/forms" class="exit-button">Abandonar</router-link>
-            <!-- <h2 v-if="formularioRespondido.score !==null">Mejor Puntuación: {{ formularioRespondido.score }}</h2>
-            <h2 v-else >Mejor Puntuación: N/A</h2> -->
+            <h2 v-if="scoreAnterior !== null">Mejor Puntuación: {{ scoreAnterior }}</h2>
+            <h2 v-else>Mejor Puntuación: N/A</h2>
         </section>
         <section class="white-section">
             <div class="header">
@@ -26,8 +26,8 @@
     <section v-else class="container">
         <img src="/images/Home/Fondo_Home.webp" class="background-image" />
         <div>
-            <!-- <h2 v-if="scoreAnterior !== undefined && scoreAnterior < score">Nuevo record!</h2> -->
-            <p>Tu puntuacion es de: {{ score }}</p>
+            <h2 v-if="scoreAnterior !== null && score > scoreAnterior">¡Nuevo récord!</h2>
+            <p>Tu puntuación es de: {{ score }}</p>
         </div>
     </section>
 </template>
@@ -43,7 +43,7 @@ const store = authStore();
 const router = useRouter();
 const route = useRoute();
 const { getForm, selectedPreguntas, getPreguntasSinRespuesta, verificarRespuesta } = useForms();
-const { storeFormulariosRespondidos, formularioRespondido, getFormularioRespondido } = useFormulariosRespondidos();
+const { storeFormulariosRespondidos, formularioRespondido, getScoreAnterior, updateFormularioRespondido, scoreAnterior } = useFormulariosRespondidos();
 const currentQuestionIndex = ref(0);
 const score = ref(0);
 let tiempoRestante = ref(0)
@@ -51,7 +51,6 @@ const swal = inject('$swal')
 const tiempo = ref(0);
 const interval = ref();
 const mostrarScore = ref(false);
-const scoreAnterior = ref(0);
 
 const preguntaActual = computed(() => {
     return selectedPreguntas.value && selectedPreguntas.value.length > 0 ? selectedPreguntas.value[currentQuestionIndex.value] : null;
@@ -75,8 +74,27 @@ const siguientePregunta = () => {
         startProgress();
     }else{
         endProgress();        
-        // mostrarScore.value = true;
-        storeFormulariosRespondidos(route.params.id, score.value);
+        mostrarScore.value = true;
+        console.log(score.value);
+        console.log(scoreAnterior.value);
+        if (score.value > scoreAnterior.value) {
+            if(scoreAnterior.value !== 0){
+                formularioRespondido.value.formulario_id = route.params.id;
+                formularioRespondido.value.user_id = store.user.id;
+                formularioRespondido.value.score = score.value;
+                updateFormularioRespondido(formularioRespondido.value);
+                console.log("formulario actualizado");
+                console.log(formularioRespondido.value);
+                mostrarScore.value = true;
+            }else{                
+                storeFormulariosRespondidos(route.params.id, score.value);
+                console.log(route.params.id, score.value);
+                console.log("formulario creado");
+            }
+        } else {
+            mostrarScore.value = true;
+            console.log("puntuacion inferior a la anterior");
+        }      
     }
 };
 
@@ -141,9 +159,7 @@ onMounted(() => {
         tiempoRestante.value = 100;
         startProgress();
     });
-    // getFormularioRespondido(store.user.id, route.params.id);
-    
-    
+   getScoreAnterior(store.user.id, route.params.id);
 });
 
 onUnmounted(() => {

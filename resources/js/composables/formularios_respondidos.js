@@ -6,10 +6,11 @@ export default function useFormulariosRespondidos() {
     const formularioRespondido = ref({
         user_id: '',
         formulario_id: '',
-        score: ''
+        score: 0
     });
 
     const swal = inject('$swal')
+    const scoreAnterior = ref(0);
 
     const getFormulariosRespondidos = async () => {
         axios.get('/api/formularios-respondidos')
@@ -43,18 +44,15 @@ export default function useFormulariosRespondidos() {
     }
 
     const storeFormulariosRespondidos = async (formularioId, score) => {
-        const scoreAnterior = formularioRespondido.value.score;
         formularioRespondido.value.formulario_id = formularioId
         formularioRespondido.value.score = score
-        console.log(formularioRespondido.value)
-        axios.post('/api/formulario-respondido', formularioRespondido.value, )
+        axios.post('/api/formulario-respondido', formularioRespondido.value)
         .then(response => {
             formularioRespondido.value = response.data
             console.log(response)
         }).catch(error => {
             console.log(error)
         }) 
-        return scoreAnterior
     }
 
 
@@ -63,7 +61,7 @@ export default function useFormulariosRespondidos() {
             axios.get('/api/formulario-respondido/' + userId + '/' + idFormulario)
             .then(response => {
                 formularioRespondido.value = response.data.data
-                console.log(formularioRespondido.value)
+                scoreAnterior.value = formularioRespondido.value.score
             }).catch(error => {
                 console.log(error)
             }) 
@@ -71,6 +69,20 @@ export default function useFormulariosRespondidos() {
             console.log(error)
         }
         
+    }
+
+    const getScoreAnterior = (userId, idFormulario) => {
+        try{
+            axios.get('/api/formulario-respondido/' + userId + '/' + idFormulario)
+            .then(response => {
+                console.log(response.data.data.score);
+                scoreAnterior.value = response.data.data.score
+            }).catch(error => {
+                console.log(error)
+            }) 
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const updateFormularioRespondido = async (formulario) => {
@@ -122,6 +134,8 @@ export default function useFormulariosRespondidos() {
     return{
         formulariosRespondidos,
         formularioRespondido,
+        scoreAnterior,
+        getScoreAnterior,
         getFormulariosRespondidos,
         getFormulariosRespondidosUser,
         getFormulariosRespondidosFormulario,
