@@ -14962,3 +14962,4 @@ Stack trace:
 #70 D:\\DAW2\\laragon\\laragon\\www\\Quizoot\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('D:\\\\DAW2\\\\laragon...')
 #71 {main}
 "} 
+[2025-04-11 16:51:21] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
