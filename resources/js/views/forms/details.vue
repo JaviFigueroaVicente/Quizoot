@@ -5,7 +5,7 @@
                 <!-- Left Section -->
                 <div class="col-md-4 left-section">
                     <img v-if="formulario && formulario.media && formulario.media.length > 0" :src="formulario.media[0].original_url" alt="User image" class="form-image">
-                    <img v-else src="images/placeholder.png" alt="Placeholder" class="form-image">
+                    <img v-else src="/images/placeholder.jpg" alt="Placeholder" class="form-image">
                     <h3 class="fw-bold mb-1 mt-2">{{ formulario.name }}</h3>
                     <p>{{ formulario.description }}</p>
                     <router-link :to="{name:'formIndividual'}"><button class="btn btn-lila mb-3">Jugar Solo</button></router-link>

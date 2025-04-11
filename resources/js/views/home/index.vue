@@ -12,41 +12,50 @@
         </section>
         <section class="section-cards">
             <div class="row row-cols-1 row-cols-md-2 g-4">
+                
                 <div class="col">
-                    <div class="card">
-                        <img src="/images/Home/play.webp" class="card-img-top play" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Jugar <img src="/images/icons/play.svg" class="icon" alt=""></h5>
-                            <p class="card-text">Elige un formulario de muchas categorías y compite con otros jugadores para ganar.</p>
+                    <router-link to="/forms">
+                        <div class="card">
+                            <img src="/images/Home/play.webp" class="card-img-top play" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Formularios<img src="/images/icons/play.svg" class="icon" alt=""></h5>
+                                <p class="card-text">Elige un formulario de muchas categorías y compite con otros jugadores para ganar.</p>
+                            </div>
                         </div>
-                    </div>
+                    </router-link>
                 </div>
                 <div class="col">
-                    <div class="card">
-                        <img src="/images/Home/pencil.webp" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Crear <img src="/images/icons/pencil.svg" class="icon" alt=""></h5>
-                            <p class="card-text">Diseña un formulario personalizado y reta a la comunidad a demostrar su conocimiento.</p>
+                    <router-link to="/form/mis-formularios/create">
+                        <div class="card">
+                            <img src="/images/Home/pencil.webp" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Crear <img src="/images/icons/pencil.svg" class="icon" alt=""></h5>
+                                <p class="card-text">Diseña un formulario personalizado y reta a la comunidad a demostrar su conocimiento.</p>
+                            </div>
                         </div>
-                    </div>
+                    </router-link>
                 </div>
                 <div class="col">
-                    <div class="card">
-                        <img src="/images/Home/trophy.webp" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Ranking <img src="/images/icons/trophy.svg" class="icon" alt=""></h5>
-                            <p class="card-text">Consulta el ranking global y descubre tu mejor puntuación en cada formulario.</p>
+                    <router-link to="/rankings">
+                        <div class="card">
+                            <img src="/images/Home/trophy.webp" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Ranking <img src="/images/icons/trophy.svg" class="icon" alt=""></h5>
+                                <p class="card-text">Consulta el ranking global y descubre tu mejor puntuación en cada formulario.</p>
+                            </div>
                         </div>
-                    </div>
+                    </router-link>
                 </div>
                 <div class="col">
-                    <div class="card">
-                        <img src="/images/Home/form.webp" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Random <img src="/images/icons/dice.svg" class="icon" alt=""></h5>
-                            <p class="card-text">Déjanos elegir por ti y demuestra cuánto sabes en una categoría aleatoria.</p>
+                    <router-link to="#" @click="playRandomForm">
+                        <div class="card">
+                            <img src="/images/Home/form.webp" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Random <img src="/images/icons/dice.svg" class="icon" alt=""></h5>
+                                <p class="card-text">Déjanos elegir por ti y demuestra cuánto sabes en una categoría aleatoria.</p>
+                            </div>
                         </div>
-                    </div>
+                    </router-link>
                 </div>
             </div>
         </section>
@@ -68,6 +77,36 @@
         </section>
     </main>    
 </template>
+
+<script setup>
+import { useRouter } from 'vue-router';
+import { ref, onMounted } from 'vue';
+import useForms from '@/composables/forms';
+
+const router = useRouter();
+const { formularios, getForms } = useForms();
+
+onMounted(async () => {
+  await getForms();
+});
+
+const playRandomForm = () => {
+  if (!formularios.value || formularios.value.length === 0) {
+    console.error("No hay formularios disponibles.");
+    return;
+  }
+  
+  const randomForm = formularios.value[Math.floor(Math.random() * formularios.value.length)];
+
+  if (!randomForm || !randomForm.id) {
+    console.error("Formulario aleatorio no encontrado.");
+    return;
+  }
+  
+  router.push(`/forms/details/${randomForm.id}`);
+};
+
+</script>
 
 <style scoped>
     main{
