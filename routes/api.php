@@ -56,6 +56,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     });
 });
 
+Route::post('user', [UserController::class, 'register']);
 Route::get('category-list', [CategoryController::class, 'getList']);
 
 Route::get('get-posts', [PostControllerAdvance::class, 'getPosts']);
