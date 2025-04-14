@@ -5,9 +5,7 @@
             <div class="section-principal-top">
                 <h1>BIENVENIDO A <strong>QUIZOOT</strong></h1>
                 <p>Únete a millones de jugadores en la plataforma de <br>aprendizaje más divertida</p>
-                <router-link to="/forms"><button class="button-aprende">¡APRENDE AHORA!</button></router-link>
-                <!-- <button class="button-aprende">¡APRENDE AHORA!</button> -->
-                
+                <router-link to="/forms"><button class="button-aprende">¡APRENDE AHORA!</button></router-link>                
             </div>
         </section>
         <section class="section-cards">
@@ -47,9 +45,9 @@
                     </router-link>
                 </div>
                 <div class="col">
-                    <router-link to="#" @click="playRandomForm">
+                    <router-link @click="playRandomForm" to="#" >
                         <div class="card">
-                            <img src="/images/Home/form.webp" class="card-img-top" alt="...">
+                        <img src="/images/Home/form.webp" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">Random <img src="/images/icons/dice.svg" class="icon" alt=""></h5>
                                 <p class="card-text">Déjanos elegir por ti y demuestra cuánto sabes en una categoría aleatoria.</p>
@@ -89,14 +87,14 @@ const { formularios, getForms } = useForms();
 const playRandomForm = () => {
     getForms()
     if (!formularios.value || formularios.value.length === 0) {
-        console.error("No hay formularios disponibles.");
+        // console.error("No hay formularios disponibles.");
         return;
     }
     
     const randomForm = formularios.value[Math.floor(Math.random() * formularios.value.length)];
 
     if (!randomForm || !randomForm.id) {
-        console.error("Formulario aleatorio no encontrado.");
+        // console.error("Formulario aleatorio no encontrado.");
         return;
     }
     

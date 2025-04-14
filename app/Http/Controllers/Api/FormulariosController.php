@@ -38,7 +38,7 @@ class FormulariosController extends Controller
             'data' => FormulariosResource::collection($formularios)
         ]);
     }
-    
+
 
     public function userFormularios(){
         $user_id = auth()->id();

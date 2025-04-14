@@ -27,7 +27,7 @@ export default function useForms() {
         })
         .then(response => {
             formularios.value = response.data.data;
-            console.log(response.data.data);
+            // console.log(response.data.data);
         })
         .catch(error => {
             console.log(error);
@@ -38,14 +38,14 @@ export default function useForms() {
         axios.get('/api/formulario-user')
         .then(response => {
             formularios.value = response.data.data;
-            console.log(response.data.data);
+            // console.log(response.data.data);
         });
     }
     const getForm = async (id) => {
         axios.get('/api/formulario/' + id)
             .then(response => {
                 formulario.value = response.data;
-                console.log(response.data);
+                // console.log(response.data);
             }).catch(error => {
                 console.log(error)
             })
@@ -55,7 +55,7 @@ export default function useForms() {
         axios.get('/api/asignar-preguntas/' + id)
             .then(response => {
                 selectedPreguntas.value = response.data.data;
-                console.log(response.data.data);
+                // console.log(response.data.data);
             }).catch(error => {
                 console.log(error)
             })
@@ -65,7 +65,7 @@ export default function useForms() {
         axios.get('/api/preguntas-form/' + id)
             .then(response => {
                 selectedPreguntas.value = response.data.data;
-                console.log(response.data.data);
+                // console.log(response.data.data);
             }).catch(error => {
                 console.log(error)
             })
@@ -75,7 +75,7 @@ export default function useForms() {
         axios.get('/api/ranking/' + id)
             .then(response => {
                 ranking.value = response.data.data;
-                console.log(response.data.data);
+                // console.log(response.data.data);
             }).catch(error => {
                 console.log(error)
             })
@@ -111,6 +111,7 @@ export default function useForms() {
                 title: 'Formulario creado correctamente',
                 showConfirmButton: false,
                 timer: 1500,
+                allowOutsideClick: false 
             });
         } catch (error) {
             console.error('Error al crear el formulario:', error);
@@ -118,6 +119,7 @@ export default function useForms() {
                 icon: 'error',
                 title: 'Error al crear el formulario',
                 showConfirmButton: true,
+                allowOutsideClick: false 
             });
         }
     };
@@ -133,6 +135,7 @@ export default function useForms() {
                 title: 'Categorías asignadas correctamente',
                 showConfirmButton: false,
                 timer: 1500,
+                allowOutsideClick: false 
             });
     
             console.log(response);
@@ -142,6 +145,7 @@ export default function useForms() {
                 icon: 'error',
                 title: 'Error al asignar categorías',
                 showConfirmButton: true,
+                allowOutsideClick: false 
             });
         }
     };
@@ -160,7 +164,8 @@ export default function useForms() {
                 icon: 'success',
                 title: 'Preguntas asignadas correctamente',
                 showConfirmButton: false,
-                timer: 1500
+                timer: 1500,
+                allowOutsideClick: false 
             });
             console.log(response);
         } catch (error) {
@@ -178,7 +183,8 @@ export default function useForms() {
             confirmButtonColor: '#ef4444',
             timer: 20000,
             timerProgressBar: true,
-            reverseButtons: true
+            reverseButtons: true,
+            allowOutsideClick: false 
         })
             .then(result => {
                 if (result.isConfirmed) {
@@ -189,16 +195,17 @@ export default function useForms() {
                                 icon: 'success',
                                 title: 'Form deleted successfully',
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 1500,
+                                allowOutsideClick: false 
                             })
-                            console.log(response)
+                            // console.log(response)
                         })
                         .catch(error => {
                             swal({
                                 icon: 'error',
                                 title: 'Something went wrong'
                             })
-                            console.log(response)
+                            // console.log(response)
                         })
                 }
             })
@@ -216,16 +223,18 @@ export default function useForms() {
                     icon: 'success',
                     title: 'Form updated successfully',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
+                    allowOutsideClick: false 
                 })
-                console.log(formulario)
+                // console.log(formulario)
             })
             .catch(error => {
                 console.log(formulario)
                 swal({
                     icon: 'error',
                     title: 'Error al actualizar el formulario',
-                    showConfirmButton: true
+                    showConfirmButton: true,
+                    allowOutsideClick: false                 
                 });
             })
     }

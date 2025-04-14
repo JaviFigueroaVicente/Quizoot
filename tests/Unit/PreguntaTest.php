@@ -6,49 +6,73 @@ use App\Models\Preguntas;
 use App\Models\User;
 use Tests\TestCase;
 
-class PreguntaTest extends TestCase
-{
-    /**
-     * A basic feature test example.
-     */
-//    public function test_example(): void
+//class PreguntaTest extends TestCase
+//{
+//    public function test_create_pregunta()
 //    {
-//        $user = User::factory()->create();
-//        $this->actingAs($user);
+//        // Crear un usuario en la base de datos
+//        $user = User::where('email', 'admin@demo.com')->first();
 //
-//        // Preparamos los datos para enviar en la solicitud POST
+//        // Datos para crear la pregunta
 //        $preguntaData = [
-//            'pregunta' => $this->faker->sentence,
+//            'pregunta' => '¿Cuál es la capital de Francia?',
 //            'respuestas' => [
-//                ['respuesta' => $this->faker->sentence, 'correcta' => true],
-//                ['respuesta' => $this->faker->sentence, 'correcta' => false],
-//                ['respuesta' => $this->faker->sentence, 'correcta' => false],
-//                ['respuesta' => $this->faker->sentence, 'correcta' => false],
+//                ['respuesta' => 'París', 'correcta' => 1],
+//                ['respuesta' => 'Madrid', 'correcta' => 0],
+//                ['respuesta' => 'Berlín', 'correcta' => 0],
+//                ['respuesta' => 'Lisboa', 'correcta' => 0],
 //            ],
+//            'user_id' => $user->id, // Incluir el user_id en los datos de la pregunta
 //        ];
 //
-//        // Realizamos la solicitud POST
-//        $response = $this->postJson(route('pregunta.store'), $preguntaData);
+//        // Realizar una solicitud POST a la ruta /api/pregunta
+//        $response = $this->postJson('api/pregunta', $preguntaData);
 //
-//        // Verificamos que la respuesta tenga el código 200 (creado)
-//        $response->assertStatus(200);
+//        // Decodificar la respuesta JSON
+//        $responseData = $response->decodeResponseJson();
 //
-//        // Verificamos que los datos de la pregunta se hayan guardado correctamente
+//        // Verificar que la respuesta JSON contenga los datos esperados
+//        $response->assertJson([
+//            'data' => [
+//                'pregunta' => '¿Cuál es la capital de Francia?',
+//                'respuestas' => [
+//                    ['respuesta' => 'París', 'correcta' => 1],
+//                    ['respuesta' => 'Madrid', 'correcta' => 0],
+//                    ['respuesta' => 'Berlín', 'correcta' => 0],
+//                    ['respuesta' => 'Lisboa', 'correcta' => 0],
+//                ],
+//            ],
+//        ]);
+//
+//        // Verificar que la pregunta se haya creado correctamente en la base de datos
 //        $this->assertDatabaseHas('preguntas', [
-//            'pregunta' => $preguntaData['pregunta'],
+//            'pregunta' => '¿Cuál es la capital de Francia?',
 //            'user_id' => $user->id,
 //        ]);
 //
-//        // Verificamos que las respuestas se hayan guardado correctamente
-//        $storedPregunta = Preguntas::first();
-//        $this->assertCount(count($preguntaData['respuestas']), $storedPregunta->respuestas);
+//        // Verificar que las respuestas se hayan creado correctamente en la base de datos
+//        $this->assertDatabaseHas('respuestas', [
+//            'pregunta_id' => $responseData['data']['id'],
+//            'respuesta' => 'París',
+//            'correcta' => true,
+//        ]);
 //
-//        foreach ($preguntaData['respuestas'] as $index => $respuestaData) {
-//            $this->assertDatabaseHas('respuestas', [
-//                'pregunta_id' => $storedPregunta->id,
-//                'respuesta' => $respuestaData['respuesta'],
-//                'correcta' => $respuestaData['correcta'],
-//            ]);
-//        }
+//        $this->assertDatabaseHas('respuestas', [
+//            'pregunta_id' => $responseData['data']['id'],
+//            'respuesta' => 'Madrid',
+//            'correcta' => false,
+//        ]);
+//
+//        $this->assertDatabaseHas('respuestas', [
+//            'pregunta_id' => $responseData['data']['id'],
+//            'respuesta' => 'Berlín',
+//            'correcta' => false,
+//        ]);
+//
+//        $this->assertDatabaseHas('respuestas', [
+//            'pregunta_id' => $responseData['data']['id'],
+//            'respuesta' => 'Lisboa',
+//            'correcta' => false,
+//        ]);
 //    }
-}
+//}

@@ -83,17 +83,17 @@ const siguientePregunta = () => {
                 formularioRespondido.value.user_id = store.user.id;
                 formularioRespondido.value.score = score.value;
                 updateFormularioRespondido(formularioRespondido.value);
-                console.log("formulario actualizado");
-                console.log(formularioRespondido.value);
+                // console.log("formulario actualizado");
+                // console.log(formularioRespondido.value);
                 mostrarScore.value = true;
             }else{                
                 storeFormulariosRespondidos(route.params.id, score.value);
                 console.log(route.params.id, score.value);
-                console.log("formulario creado");
+                // console.log("formulario creado");
             }
         } else {
             mostrarScore.value = true;
-            console.log("puntuacion inferior a la anterior");
+            // console.log("puntuacion inferior a la anterior");
         }      
     }
 };
@@ -106,7 +106,8 @@ const mostrarMensaje = (result) => {
             icon: 'success',
             title: 'Has acertado!',
             showConfirmButton: false,
-            timer: 3000
+            timer: 3000,
+            allowOutsideClick: false 
         }).then(() => {
             siguientePregunta();
         })
@@ -116,7 +117,8 @@ const mostrarMensaje = (result) => {
             icon: 'error',
             title: 'Has fallado...',
             showConfirmButton: false,
-            timer: 3000
+            timer: 3000,
+            allowOutsideClick: false 
         }).then(() => {
             siguientePregunta();
         })
@@ -131,13 +133,7 @@ const startProgress = () => {
             newValue = 100;
             tiempoRestante.value = 0;
             endProgress();
-            siguientePregunta()
-            swal({
-                icon: 'error',
-                title: 'Has fallado...',
-                showConfirmButton: false,
-                timer: 3000
-            })
+            mostrarMensaje(false);
             return;
         }
         tiempo.value = newValue;
@@ -151,7 +147,7 @@ const endProgress = () => {
 }
 
 onMounted(() => {
-    console.log(route.params.id);
+    // console.log(route.params.id);
     getForm(route.params.id);
     getPreguntasSinRespuesta(route.params.id).then(() => {
         currentQuestionIndex.value = 0;
