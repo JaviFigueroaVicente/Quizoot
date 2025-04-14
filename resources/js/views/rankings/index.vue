@@ -45,7 +45,7 @@
                                     {{ formulario.categories.map(categoria => categoria.nombre).join(', ') }}
                                 </span>
                                 <span v-else class="badge me-3">Sin categoría</span>
-                                <p class="mb-0 text-muted small">Respuestas: {{ formulario.answers_count || 0 }}</p>
+                                <p class="mb-0 text-muted small">Respuestas: {{ formulario.formularios_respondidos_count || 0 }}</p>
                             </div>
                         </div>
                     </div>
