@@ -61,7 +61,6 @@ const model = ref([
             { label: 'Formularios', icon: 'pi pi-fw pi-id-card', to: '/admin/formularios', permision: 'all' },
             { label: 'Preguntas', icon: 'pi pi-fw pi-id-card', to: '/admin/questions', permision: 'all' },
             { label: 'Categorias', icon: 'pi pi-fw pi-id-card', to: '/admin/categories', permision: 'all' },
-            { label: 'Formularios Respondidos', icon: 'pi pi-fw pi-id-card', to: '/admin/formulariosRespondidos', permision: 'all'}
         ]
     }
 ]);

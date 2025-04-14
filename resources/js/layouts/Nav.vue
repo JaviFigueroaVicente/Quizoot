@@ -1,5 +1,6 @@
 <template>
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        {{ authStore().user.value }}
         <div class="container">
             <!-- Logo a la izquierda -->
             <router-link to="/" class="navbar-brand">
@@ -16,7 +17,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><router-link class="dropdown-item" to="/app/profile">Perfil</router-link></li>
-                        <li><router-link class="dropdown-item" to="/admin">Admin</router-link></li>
+                        <li v-if="authStore().user?.roles[0].name === 'admin'"><router-link class="dropdown-item" to="/admin">Admin</router-link></li>
                         <li><router-link to="/admin/posts" class="dropdown-item">Mis formularios</router-link></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="javascript:void(0)" @click="logout">Logout</a></li>
@@ -54,7 +55,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><router-link class="dropdown-item" to="/profile">Perfil</router-link></li>
-                            <li><router-link class="dropdown-item" to="/admin">Admin</router-link></li>
+                            <li v-if="authStore().user?.roles[0].name === 'admin'"><router-link class="dropdown-item" to="/admin">Admin</router-link></li>
                             <li><router-link to="/form/mis-formularios" class="dropdown-item">Mis formularios</router-link></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="javascript:void(0)" @click="logout">Logout</a></li>
@@ -87,24 +88,21 @@ const { processing, logout } = useAuth();
 const router = useRouter();
 const { formularios, getForms } = useForms();
 
-onMounted(async () => {
-  await getForms();  // Usar await dentro de una función async
-});
-
 const playRandomForm = () => {
-  if (!formularios.value || formularios.value.length === 0) {
-    console.error("No hay formularios disponibles.");
-    return;
-  }
-  
-  const randomForm = formularios.value[Math.floor(Math.random() * formularios.value.length)];
+    getForms()  
+    if (!formularios.value || formularios.value.length === 0) {
+        console.error("No hay formularios disponibles.");
+        return;
+    }
+    
+    const randomForm = formularios.value[Math.floor(Math.random() * formularios.value.length)];
 
-  if (!randomForm || !randomForm.id) {
-    console.error("Formulario aleatorio no encontrado.");
-    return;
-  }
-  
-  router.push(`/forms/details/${randomForm.id}`);
+    if (!randomForm || !randomForm.id) {
+        console.error("Formulario aleatorio no encontrado.");
+        return;
+    }
+    
+    router.push(`/forms/details/${randomForm.id}`);
 };
 
 

@@ -79,10 +79,8 @@ export default function useAuth() {
         processing.value = true
         validationErrors.value = {}
 
-        await axios.post('/register', registerForm)
+        await axios.post('/api/user', registerForm)
             .then(async response => {
-                // await store.dispatch('auth/getUser')
-                // await loginUser()
                 swal({
                     icon: 'success',
                     title: 'Registration successfully',

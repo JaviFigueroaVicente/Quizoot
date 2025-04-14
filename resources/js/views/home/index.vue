@@ -86,24 +86,21 @@ import useForms from '@/composables/forms';
 const router = useRouter();
 const { formularios, getForms } = useForms();
 
-onMounted(async () => {
-  await getForms();
-});
-
 const playRandomForm = () => {
-  if (!formularios.value || formularios.value.length === 0) {
-    console.error("No hay formularios disponibles.");
-    return;
-  }
-  
-  const randomForm = formularios.value[Math.floor(Math.random() * formularios.value.length)];
+    getForms()
+    if (!formularios.value || formularios.value.length === 0) {
+        console.error("No hay formularios disponibles.");
+        return;
+    }
+    
+    const randomForm = formularios.value[Math.floor(Math.random() * formularios.value.length)];
 
-  if (!randomForm || !randomForm.id) {
-    console.error("Formulario aleatorio no encontrado.");
-    return;
-  }
-  
-  router.push(`/forms/details/${randomForm.id}`);
+    if (!randomForm || !randomForm.id) {
+        console.error("Formulario aleatorio no encontrado.");
+        return;
+    }
+    
+    router.push(`/forms/details/${randomForm.id}`);
 };
 
 </script>

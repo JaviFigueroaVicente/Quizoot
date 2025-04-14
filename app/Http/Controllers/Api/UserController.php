@@ -45,6 +45,33 @@ class UserController extends Controller
         return UserResource::collection($users);
     }
 
+    public function register(StoreUserRequest $request)
+    {
+        $role = 2;
+
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+        ]);
+
+        $user = new User();
+
+        $user->name = $validated['name'];
+        $user->alias = $validated['name'];
+        $user->email = $validated['email'];
+        $user->password = Hash::make($validated['password']);
+        $user->surname1 = '';
+        $user->surname2 = '';
+
+        if ($user->save()) {
+            if ($role) {
+                $user->assignRole($role);
+            }
+            return new UserResource($user);
+        }
+    }
+
     public function store(StoreUserRequest $request)
     {
         $role = Role::find($request->role_id);
