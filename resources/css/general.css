@@ -8,12 +8,18 @@
     src: url("../fonts/Roboto/static/Roboto-Medium.ttf");
 }
 
+
+
 *{
     font-family: "Roboto";
 }
 
 h1, h2, h5, button{
     font-family: "Atma";
+}
+
+main{    
+    overflow-x: hidden;
 }
 
 .button-action{

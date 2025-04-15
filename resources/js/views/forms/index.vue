@@ -32,7 +32,7 @@
         <FormCards :formularios="paginatedFormularios"></FormCards>
 
         <div class="mt-4 mb-4">
-            <Paginator :rows="rowsPerPage" :totalRecords="formularios.length" :rowsPerPageOptions="[9]" :pageLinkSize="3" :first="currentPage * rowsPerPage"@page="onPageChange"/>
+            <Paginator class="paginator" :rows="rowsPerPage" :totalRecords="formularios.length" :pageLinkSize="3" :first="currentPage * rowsPerPage"@page="onPageChange"/>
         </div>
     </main>
 </template>

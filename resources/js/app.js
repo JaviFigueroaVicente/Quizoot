@@ -64,6 +64,7 @@ import Tooltip from 'primevue/tooltip';
 import FloatLabel from 'primevue/floatlabel';
 import Message from 'primevue/message';
 import Timeline from 'primevue/timeline';
+import AnimateOnScroll from 'primevue/animateonscroll';
 
 
 /*STYLES */
@@ -158,6 +159,7 @@ app.component('Timeline', Timeline);
 app.directive('tooltip', Tooltip);
 app.directive('ripple', Ripple);
 app.directive('styleclass', StyleClass);
+app.directive('animateonscroll', AnimateOnScroll);
 
 
 app.mount('#app')

@@ -1,16 +1,26 @@
 <template>
     <main>
         <section class="section-principal">
-            <video src="/images/Home/Home_Fondo.mp4" autoplay="true" muted="true" loop="true"></video>
-            <div class="section-principal-top">
+            <transition name="video-izquierda">
+                <div v-if="showVideos" class="video-container">
+                    <video class="video-izquierda" src="/images/Home/fondo2.mp4" autoplay="true" muted="true" loop="true"></video>
+                </div>
+            </transition>
+            <div class="section-principal-top fade-in">
                 <h1>BIENVENIDO A <strong>QUIZOOT</strong></h1>
                 <p>Únete a millones de jugadores en la plataforma de <br>aprendizaje más divertida</p>
-                <router-link to="/forms"><button class="button-aprende">¡APRENDE AHORA!</button></router-link>                
+                <router-link to="/forms">
+                    <button class="button-aprende">¡APRENDE AHORA!</button>
+                </router-link>
             </div>
+            <transition name="video-derecha">
+                <div v-if="showVideos" class="video-container">
+                    <video class="video-derecha" src="/images/Home/fondo2.mp4" autoplay="true" muted="true" loop="true"></video>
+                </div>
+            </transition>
         </section>
         <section class="section-cards">
             <div class="row row-cols-1 row-cols-md-2 g-4">
-                
                 <div class="col">
                     <router-link to="/forms">
                         <div class="card">
@@ -100,10 +110,26 @@ const playRandomForm = () => {
     
     router.push(`/forms/details/${randomForm.id}`);
 };
-
 </script>
+<script>
 
+export default {
+    name: 'SectionPrincipal',
+    data() {
+        return {
+            showVideos: false
+        };
+    },
+    mounted() {
+        setTimeout(() => {
+            this.showVideos = true;
+        }, 100);
+    }
+}
+</script>
 <style scoped>
+    
+    
     main{
         overflow-x: hidden;
     }
@@ -114,33 +140,106 @@ const playRandomForm = () => {
     /* SECTION PRINCIPAL */
     .section-principal{
         height: 85vh;
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+        margin: 0;
+        position: relative;
+        overflow: hidden;
     }
+
+    .video-container {
+        width: 30%;
+        position: relative;
+        overflow: hidden;
+    }
+
     
     video {
+       height: 100%;
+       width: 100%;
+       object-fit: cover;
+    }
+
+    .video-izquierda{
         position: absolute;
         top: 0;
         left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1000;
-        object-fit: cover; /* Asegura que el video cubra toda la sección sin distorsionarse */
+        -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 25%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
+        mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 0%, rgba(0,0,0,1) 85%, rgba(0,0,0,0));
+    }
+
+    .video-derecha{
+        position: absolute;
+        top: 0;
+        left: 0;
+        -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 25%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
+        mask-image: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 0%, rgba(0,0,0,1) 85%, rgba(0,0,0,0));
     }
 
     .section-principal-top{
+        -webkit-mask-image: 
+            linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 90%, rgba(0,0,0,0)),
+            linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
+
+        mask-image: 
+            linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 90%, rgba(0,0,0,0)),
+            linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
+        width: 55%;
         padding-top: 7.5em;
         padding-bottom: 10em;
-        margin-left: 20%;
-        margin-right: 20%;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
         background-color: #ffffff;
-        height: 90vh;
-        -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
-        mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 85%, rgba(0,0,0,0));
         display: flex; 
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
+    }
+    .video-izquierda-enter-active {
+        animation: videoIzquierdaEntrada 2s ease-in-out forwards;
+    }
+
+    .video-derecha-enter-active {
+        animation: videoDerechaEntrada 2s ease-in-out forwards;
+    }
+
+    @keyframes videoIzquierdaEntrada {
+        from {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes videoDerechaEntrada {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    .fade-in {
+        opacity: 0;
+        animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
 
     h1{
@@ -153,8 +252,8 @@ const playRandomForm = () => {
     }
     
     strong{
-        color: #874ECA;
-        font-family: "Atma";
+        color: #874ECA;        
+        font-family: Atma;
     }
 
     p{
@@ -164,7 +263,7 @@ const playRandomForm = () => {
     .button-aprende {
         margin-top: 1em;
         height: 75px;
-        width: 400px; /* Aumento del ancho para pantallas grandes */
+        width: 400px; 
         font-size: 1.56rem;
         font-weight: bold;
         border-radius: 50px;
@@ -173,11 +272,11 @@ const playRandomForm = () => {
         border: none;
         transition: all 0.2s ease;
         min-height: 75px;
-        display: inline-flex; /* Cambiar display para mantener el texto en una línea */
-        justify-content: center; /* Centra el texto en el botón */
-        align-items: center; /* Centra el texto verticalmente */
-        text-align: center; /* Asegura que el texto esté centrado */
-        white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+        display: inline-flex; 
+        justify-content: center; 
+        align-items: center; 
+        text-align: center;
+        white-space: nowrap; 
     }
 
     .button-aprende:hover{
