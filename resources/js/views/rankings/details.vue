@@ -6,10 +6,12 @@
                 <div class="col-md-4 d-flex flex-column align-items-center left-section">
                     <img v-if="formulario && formulario.media && formulario.media.length > 0" :src="formulario.media[0].original_url" alt="User image" class="img-fluid form-image">
                     <img v-else src="/images/placeholder.jpg" alt="Placeholder" class="form-image">
-                    <h3 class="fw-bold mt-3">{{ formulario.name }}</h3>
-                    <p>{{ formulario.description }}</p>
-                    <div v-for="category in formulario.categories">  
-                        <p>{{ category.name }}</p>
+                    <h3 class="fw-bold mt-3 text-start w-100">{{ formulario.name }}</h3>
+                    <p class="text-start w-100">{{ formulario.description }}</p>
+                    <div class="d-flex flex-wrap gap-2 text-start w-100">
+                        <span v-for="category in formulario.categories" :key="category.id" class="category-decoration">
+                            {{ category.name }}
+                        </span>
                     </div>
                 </div>
 
@@ -69,7 +71,6 @@ onMounted(() => {
     position: sticky;
     top: 20px;
     height: calc(100vh - 20px);
-    text-align: center;
 }
 
 .form-image {
@@ -77,6 +78,15 @@ onMounted(() => {
     max-height: 300px;
     object-fit: cover;
     border-radius: 10px;
+}
+
+.category-decoration {
+    background-color: #5e2ea5;
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .ranking-container {

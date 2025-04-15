@@ -16843,6 +16843,19 @@ Stack trace:
 [stacktrace]
 #0 {main}
 "} 
+<<<<<<< HEAD
+[2025-04-14 15:19:39] local.ERROR: Uncaught ReflectionException: Class "Spatie\Permission\Middlewares\RoleMiddleware" does not exist in Command line code:1
+Stack trace:
+#0 Command line code(1): ReflectionMethod->__construct('Spatie\\Permissi...', 'handle')
+#1 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught ReflectionException: Class \"Spatie\\Permission\\Middlewares\\RoleMiddleware\" does not exist in Command line code:1
+Stack trace:
+#0 Command line code(1): ReflectionMethod->__construct('Spatie\\\\Permissi...', 'handle')
+#1 {main}
+  thrown at Command line code:1)
+[stacktrace]
+#0 {main}
+=======
 >>>>>>> origin/marc
 [2025-04-13 09:16:06] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
 [2025-04-13 09:22:50] local.ERROR: SQLSTATE[HY000]: General error: 1364 Field 'surname1' doesn't have a default value (Connection: mysql, SQL: insert into `users` (`email`, `password`, `name`, `updated_at`, `created_at`) values (javi@gmail.com, $2y$10$lW7iMB/tlTZSH0qfOKSd6e2nI2ahqiQGPGzLhba0PqJsC7rGujUZe, javi, 2025-04-13 09:22:50, 2025-04-13 09:22:50)) {"exception":"[object] (Illuminate\\Database\\QueryException(code: HY000): SQLSTATE[HY000]: General error: 1364 Field 'surname1' doesn't have a default value (Connection: mysql, SQL: insert into `users` (`email`, `password`, `name`, `updated_at`, `created_at`) values (javi@gmail.com, $2y$10$lW7iMB/tlTZSH0qfOKSd6e2nI2ahqiQGPGzLhba0PqJsC7rGujUZe, javi, 2025-04-13 09:22:50, 2025-04-13 09:22:50)) at D:\\DAW2\\laragon\\laragon\\www\\Quizoot\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:829)
@@ -18372,6 +18385,19 @@ Stack trace:
 #56 D:\\DAW2\\laragon\\laragon\\www\\Quizoot\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #57 D:\\DAW2\\laragon\\laragon\\www\\Quizoot\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('D:\\\\DAW2\\\\laragon...')
 #58 {main}
+>>>>>>> origin/javi
+"} 
+[2025-04-14 15:25:07] local.ERROR: Uncaught ReflectionException: Class "Spatie\Permission\Middlewares\RoleMiddleware" does not exist in Command line code:1
+Stack trace:
+#0 Command line code(1): ReflectionMethod->__construct('Spatie\\Permissi...', 'handle')
+#1 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught ReflectionException: Class \"Spatie\\Permission\\Middlewares\\RoleMiddleware\" does not exist in Command line code:1
+Stack trace:
+#0 Command line code(1): ReflectionMethod->__construct('Spatie\\\\Permissi...', 'handle')
+#1 {main}
+  thrown at Command line code:1)
+[stacktrace]
+#0 {main}
 "} 
 [2025-04-13 19:43:07] testing.ERROR: Route [login] not defined. {"exception":"[object] (Symfony\\Component\\Routing\\Exception\\RouteNotFoundException(code: 0): Route [login] not defined. at D:\\DAW2\\laragon\\laragon\\www\\Quizoot\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php:477)
 [stacktrace]
