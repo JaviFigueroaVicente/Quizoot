@@ -239,12 +239,6 @@ export default [
                     path: '/contestarFormulario/:id',
                     component: () => import('../views/forms/form_individual/index.vue'),
                     meta: { breadCrumb: 'Form Individual' }
-                },
-                {
-                    name: 'formRespondido',
-                    path: '/formRespondido/:id',
-                    component: () => import('../views/forms/form_individual/details.vue'),
-                    meta: { breadCrumb: 'Form Respondido' }
                 }
             ]
         },
