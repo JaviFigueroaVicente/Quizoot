@@ -29,17 +29,16 @@
             <span>Categorías</span>
         </div>
 
-        <FormCards :formularios="formularios"></FormCards>
+        <FormCards :formularios="paginatedFormularios"></FormCards>
 
         <div class="mt-4 mb-4">
-            <Paginator :rows="9" :totalRecords="90" :rowsPerPageOptions="[5, 10, 15, 20]" :pageLinkSize="3"></Paginator>
+            <Paginator :rows="rowsPerPage" :totalRecords="formularios.length" :rowsPerPageOptions="[9]" :pageLinkSize="3" :first="currentPage * rowsPerPage"@page="onPageChange"/>
         </div>
     </main>
 </template>
 
 <script setup>
-
-import { onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import Paginator from 'primevue/paginator';
 import FormCards from '@/components/FormCards.vue';
 import useCategories from "@/composables/categories";
@@ -48,6 +47,18 @@ import useForms from "@/composables/forms";
 const { categoryList, getCategoryList } = useCategories();
 const { formularios, getForms } = useForms();
 
+const currentPage = ref(0);
+const rowsPerPage = 9;
+
+const paginatedFormularios = computed(() => {
+  const start = currentPage.value * rowsPerPage;
+  return formularios.value.slice(start, start + rowsPerPage);
+});
+
+const onPageChange = (event) => {
+  currentPage.value = event.page;
+};
+
 onMounted(() => {
   getCategoryList();
   getForms();
@@ -55,9 +66,9 @@ onMounted(() => {
 
 const selectCategory = (categoryId) => {
   console.log("Categoría seleccionada:", categoryId);
+  currentPage.value = 0;
   getForms(categoryId);
 };
-
 </script>
 
 <style scoped>
