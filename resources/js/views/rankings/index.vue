@@ -30,11 +30,11 @@
         </div>
 
         <div class="row row-cols-1 g-4 mt-3">
-            <div v-if="formularios.length === 0" class="col-12 text-center">
+            <div v-if="paginatedFormularios.length === 0" class="col-12 text-center">
                 <p>No hay formularios disponibles.</p>
             </div>
 
-            <div class="col" v-for="formulario in formularios" :key="formulario.id">
+            <div class="col" v-for="formulario in paginatedFormularios" :key="formulario.id">
                 <router-link :to="{ name: 'rankings.details', params: { id: formulario.id }}">
                     <div class="card d-flex flex-row align-items-center p-3 horizontal-card">
                         <img :src="formulario.original_image ? formulario.original_image : '/images/placeholder.jpg'" alt="Formulario" class="form-image-horizontal me-5">
@@ -53,19 +53,32 @@
             </div>
         </div>
         <div class="mt-4 mb-4">
-            <Paginator :rows="9" :totalRecords="formularios.length" :rowsPerPageOptions="[5, 10, 15, 20]" :pageLinkSize="3"></Paginator>
+            <Paginator :rows="rowsPerPage" :totalRecords="formularios.length" :rowsPerPageOptions="[5, 10, 15, 20]" :pageLinkSize="3" :first="currentPage * rowsPerPage" @page="onPageChange"/>
         </div>
     </main>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import Paginator from 'primevue/paginator';
 import useCategories from "@/composables/categories";
 import useForms from "@/composables/forms";
 
 const { categoryList, getCategoryList } = useCategories();
 const { formularios, getForms } = useForms();
+
+const currentPage = ref(0);
+const rowsPerPage = ref(3);
+
+const paginatedFormularios = computed(() => {
+    const start = currentPage.value * rowsPerPage.value;
+    return formularios.value.slice(start, start + rowsPerPage.value);
+});
+
+const onPageChange = (event) => {
+    currentPage.value = event.page;
+    rowsPerPage.value = event.rows;
+};
 
 onMounted(() => {
     getCategoryList();
@@ -74,10 +87,10 @@ onMounted(() => {
 
 const selectCategory = (categoryId) => {
     console.log("Categoría seleccionada:", categoryId);
+    currentPage.value = 0;
     getForms(categoryId);
 };
 </script>
-
 
 <style scoped>
     .title{
@@ -184,5 +197,23 @@ const selectCategory = (categoryId) => {
     .card .small {
         font-size: 1rem;
         margin-left: 30px;
+    }
+
+    /* Paginator */
+    :deep(.p-paginator .p-paginator-page) {
+        border: 2px solid #d3d3d3;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        color: #874ECA;
+        font-weight: bold;
+        margin: 0 4px;
+        background-color: #f9f9f9;
+    }
+
+    :deep(.p-paginator .p-paginator-page:hover) {
+        background-color: #f3f0fa;
+        border-color: #874ECA;
+        color: #874ECA;
     }
 </style>

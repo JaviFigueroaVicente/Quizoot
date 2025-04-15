@@ -113,31 +113,21 @@ const selectCategory = (categoryId) => {
         cursor: pointer;
     }
 
-    .pagination .page-link {
+    /* Paginator */
+    :deep(.p-paginator .p-paginator-page) {
+        border: 2px solid #d3d3d3;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
         color: #874ECA;
-        border: 1px solid #874ECA;
-        border-radius: 5px;
-        padding: 0.5rem 1rem;
-        margin: 0 5px;
+        font-weight: bold;
+        margin: 0 4px;
+        background-color: #f9f9f9;
     }
 
-    .pagination .page-item.active .page-link {
-        background-color: #874ECA;
-        color: white;
+    :deep(.p-paginator .p-paginator-page:hover) {
+        background-color: #f3f0fa;
         border-color: #874ECA;
-    }
-
-    .pagination .page-link:hover {
-        background-color: #dcdcdc;
         color: #874ECA;
-    }
-
-    .pagination .page-item.disabled .page-link {
-        color: #dcdcdc;
-        pointer-events: none;
-    }
-
-    .pagination .page-link:focus {
-        box-shadow: none;
     }
 </style>
