@@ -8,6 +8,7 @@
     </div>
 
     <div class="container my-2">
+        <!-- Div categorias -->
         <div class="dropdown">
             <button class="btn btn-light me-2 btn-hover-lila dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> + </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -23,8 +24,10 @@
             <span>Categorías</span>
         </div>
 
+        <!-- Componentes Formularios -->
         <FormCards :formularios="paginatedFormularios"></FormCards>
 
+        <!-- Paginación -->
         <div class="mt-4 mb-4">
             <Paginator :rows="rowsPerPage" :totalRecords="formularios.length" :pageLinkSize="3" :first="currentPage * rowsPerPage"@page="onPageChange"/>
         </div>
