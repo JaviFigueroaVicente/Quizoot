@@ -1,31 +1,25 @@
 <template>
-    <head>
+    <div>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    </head>
+    </div>
     
-    <header class="text-center py-3 mt-3 mb-1 title ">
+    <div class="text-center py-3 mt-3 mb-1 title ">
         <h1 class="fw-bold">Formularios</h1>
-    </header>
+    </div>
 
-    <main class="container my-2">
+    <div class="container my-2">
         <div class="dropdown">
             <button class="btn btn-light me-2 btn-hover-lila dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> + </button>
-            
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <!-- Todos los formularios -->
                 <li>
-                    <a class="dropdown-item" href="#" @click.prevent="selectCategory()">
-                        Todos
-                    </a>
+                    <a class="dropdown-item" href="#" @click.prevent="selectCategory()">Todos</a>
                 </li>
-                <!-- Categorías -->
                 <li v-for="category in categoryList" :key="category.id">
                     <a class="dropdown-item" href="#" @click.prevent="selectCategory(category.id)">
                         {{ category.name }}
                     </a>
                 </li>
             </ul>
-            
             <span>Categorías</span>
         </div>
 
@@ -34,7 +28,7 @@
         <div class="mt-4 mb-4">
             <Paginator :rows="rowsPerPage" :totalRecords="formularios.length" :pageLinkSize="3" :first="currentPage * rowsPerPage"@page="onPageChange"/>
         </div>
-    </main>
+    </div>
 </template>
 
 <script setup>
