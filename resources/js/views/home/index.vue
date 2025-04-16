@@ -1,6 +1,6 @@
 <template>
     <main>
-        <section class="section-principal">
+        <section class="section-principal" :key="componentKey">
             <transition name="video-izquierda">
                 <div v-if="showVideos" class="video-container">
                     <video class="video-izquierda" src="/images/Home/fondo2.mp4" autoplay="true" muted="true" loop="true"></video>
@@ -19,9 +19,9 @@
                 </div>
             </transition>
         </section>
-        <section class="section-cards">
-            <div class="row row-cols-1 row-cols-md-2 g-4">
-                <div class="col">
+        <section class="section-cards container mt-4">
+            <div class="row">
+                <div class="col col-lg-3 col-md-6 col-sm-12 mb-4" v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 zoom-in-50 animate-duration-1000' }">
                     <router-link to="/forms">
                         <div class="card">
                             <img src="/images/Home/play.webp" class="card-img-top play" alt="...">
@@ -32,7 +32,7 @@
                         </div>
                     </router-link>
                 </div>
-                <div class="col">
+                <div class="col col-lg-3 col-md-6 col-sm-12 mb-4" v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 zoom-in-75 animate-duration-1000' }">
                     <router-link to="/form/mis-formularios/create">
                         <div class="card">
                             <img src="/images/Home/pencil.webp" class="card-img-top" alt="...">
@@ -43,7 +43,7 @@
                         </div>
                     </router-link>
                 </div>
-                <div class="col">
+                <div class="col col-lg-3 col-md-6 col-sm-12 mb-4" v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 zoom-in-75 animate-duration-1000' }">
                     <router-link to="/rankings">
                         <div class="card">
                             <img src="/images/Home/trophy.webp" class="card-img-top" alt="...">
@@ -54,7 +54,7 @@
                         </div>
                     </router-link>
                 </div>
-                <div class="col">
+                <div class="col col-lg-3 col-md-6 col-sm-12 mb-4" v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 zoom-in-50 animate-duration-1000' }">
                     <router-link @click="playRandomForm" to="#" >
                         <div class="card">
                         <img src="/images/Home/form.webp" class="card-img-top" alt="...">
@@ -71,7 +71,7 @@
             <div class="card mb-8">
                 <div class="row g-0">
                     <div class="col-md-6 div-foto">
-                        <img src="/images/Home/cohete.webp" class="img-fluid rounded-start" alt="...">
+                        <video src="/images/Home/cohete.mp4" class="img-fluid" alt="..." autoplay="true" muted="true" loop="true"></video>
                     </div>
                     <div class="col-md-6 div-body">
                         <div class="card-body">
@@ -117,19 +117,82 @@ export default {
     name: 'SectionPrincipal',
     data() {
         return {
-            showVideos: false
+            showVideos: false,
+            componentKey: 0
         };
     },
     mounted() {
-        setTimeout(() => {
-            this.showVideos = true;
-        }, 100);
+        this.restartAnimation();
+    },
+
+    methods: {
+        restartAnimation() {
+            // console.log('Restarting animation');
+            this.showVideos = false;
+            this.componentKey += 1;
+            // console.log('Component key:', this.componentKey);
+            setTimeout(() => {
+                this.showVideos = true;
+                // console.log('showVideos establecido en true');
+            }, 100);
+        }
+    },
+
+    watch: {
+        $route(to, from) {
+            if (to.path === '') {
+                this.restartAnimation();
+            }
+        }
     }
 }
 </script>
 <style scoped>
-    
-    
+
+    .animate-enter {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .fade-in-10 {
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        .fade-in-10.zoom-in-50 {
+            animation: zoomIn 1s ease-in-out forwards;
+        }
+
+        .fade-in-10.zoom-in-75 {
+            animation: zoomIn75 1s ease-in-out forwards;
+        }
+
+        .animate-duration-1000 {
+            animation-duration: 1s;
+        }
+
+
+    @keyframes zoomIn {
+        from {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes zoomIn75 {
+        from {
+            opacity: 0;
+            transform: scale(0.75);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
     main{
         overflow-x: hidden;
     }
@@ -139,7 +202,7 @@ export default {
 
     /* SECTION PRINCIPAL */
     .section-principal{
-        height: 85vh;
+        height: 95vh;
         display: flex;
         justify-content: space-between;
         padding: 0;
@@ -185,7 +248,6 @@ export default {
         mask-image: 
             linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 90%, rgba(0,0,0,0)),
             linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
-        width: 55%;
         padding-top: 7.5em;
         padding-bottom: 10em;
         margin-left: 0px;
@@ -248,7 +310,7 @@ export default {
         margin-bottom: 0.5em;
         letter-spacing: 5%;
         line-height: 125x;
-        width: 60%;
+        width: 65%;
     }
     
     strong{
@@ -285,7 +347,9 @@ export default {
 
     /* SECTION CARDS */
     .section-cards{
-        margin-top: 5%;
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
     }
     .section-cards img{
         height: 200px;
@@ -310,18 +374,16 @@ export default {
     }
 
     .section-cards .row{
-        padding-left: 10%;
-        padding-right: 10%;
         padding-top: 7.5em;
         gap: 3%;
     }
 
     .section-cards .col{
         border: 1px solid #874ECA;
+        padding: 1em;
         border-radius: 30px;
         background-color: #ffffff;
-        transition: all 0.2s ease;
-        
+        transition: all 0.2s ease; 
     }
 
     .section-cards .col:hover{
@@ -340,7 +402,7 @@ export default {
     .button-contestar {
         margin-top: 1em;
         height: 75px;
-        width: 500px; /* Aumento del ancho para pantallas grandes */
+        width: 500px; 
         font-size: 1.56rem;
         font-weight: bold;
         border-radius: 50px;
@@ -349,11 +411,11 @@ export default {
         border: none;
         transition: all 0.2s ease;
         min-height: 75px;
-        display: inline-flex; /* Cambiar display para mantener el texto en una línea */
-        justify-content: center; /* Centra el texto en el botón */
-        align-items: center; /* Centra el texto verticalmente */
-        text-align: center; /* Asegura que el texto esté centrado */
-        white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+        display: inline-flex;
+        justify-content: center; 
+        align-items: center; 
+        text-align: center; 
+        white-space: nowrap; 
     }
 
     .button-aprende:hover{
@@ -375,9 +437,10 @@ export default {
     padding: 0;    
     width: 70%;
     max-width: 1100px;
-    height: 500px;
-    max-height: 500px;
+    min-height: 500px;
+    max-height: 700px; 
     background-color: rgba(255, 255, 255, 0.7);
+    border: none;
 }
 
 .section-comenzar .row{
@@ -386,15 +449,18 @@ export default {
 
 .section-comenzar .card .div-foto{
     width: 40%;
+    height: 100%;
 }
 
-.section-comenzar img{
-    height: 104%;   
-    width: 103%;
-    margin-left: -3%;
-    margin-top: -0.5%;
+.section-comenzar video{
+    height: 100%;   
+    width: 100%;
+    margin-left: 0%;
+    margin-top: 0%;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 250px;
+    border-top-right-radius: 250px;
 }
 
 .section-comenzar .card-body{
@@ -417,38 +483,50 @@ export default {
 .section-comenzar button{
     width: 100%;
     margin-bottom: 10%;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
 }
+
+.section-comenzar button:hover{
+    background-color: #402462;
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
 
     .button-aprende {
-        width: 250px !important;
         font-size: 1.5rem !important;
     }
 
     .section-principal-top {
-        margin-left: 5%;
-        margin-right: 5%;
+        padding-left: 10%;
+        padding-right: 10%;
         padding-top: 5em;
         padding-bottom: 5em;
         background-color: rgba(255, 255, 255, 0.8);
+        width:100% !important;
     }
 
     h1 {
-        font-size: 4rem;
+        font-size: 6rem;
         width: 90%;
+        line-height: 120px;
     }
 
     p {
-        font-size: 1.4rem;
-        width: 90%;
+        font-size: 1.6rem;
         margin-bottom: 0.5em;
+        line-height: 40px;
     }
 
     .button-aprende {
-        width: 250px;
         font-size: 1.2rem;
+        width: 100%
+    }
+
+    .section-principal-top a{
+        width: 90%
     }
 
     .section-comenzar .card {
@@ -459,17 +537,18 @@ export default {
 
     .section-comenzar .div-foto {
         width: 50%;
+        height: 100%;
     }
 
     .section-comenzar img {
         width: 100%;
-        height: 104%;
-        object-fit: cover;
+        height: 100%;
+        margin-right: 30px;
         border-radius: 15px;
     }
 
     .section-comenzar .card-body {
-        margin-left: 5%;
+        padding-left: 5%;
         text-align: center;
     }
 
@@ -480,10 +559,31 @@ export default {
     .section-comenzar button {
         width: 100%;
         font-size: 1.2rem;
+        padding-left: 1.5em;
+        padding-right: 1.5em;
+    }
+
+    .section-comenzar button:hover{
+        background-color: #402462;
     }
 }
-/* 📱 Responsive para móviles */
+/*Responsive para móviles */
 @media (max-width: 768px) {
+    .section-principal{
+        height: auto;
+    }
+
+    .section-principal-top h1{
+        font-size: 4rem;
+        list-style: none;
+    }
+    .section-cards .row{
+        padding-top: 20px
+    }
+
+    .section-cards .col{
+        margin: 20px;
+    }
 
     .section-comenzar .card {
         width: 90%;
@@ -493,18 +593,20 @@ export default {
         flex-direction: row-reverse;
     }
 
-    .section-comenzar .div-foto {
-        width: 50%;
-        height: 100%;
+    .section-comenzar .card .div-foto {
+        width: 100%;
+        flex-direction: column;
     }
 
-    .section-comenzar img {
-        width: 100%;
-        height: 515px;
-        object-fit: cover;
+    .section-comenzar video{
+        height: 250px;   
+        width: 100%;;
+        margin-left: 0%;
+        margin-top: 0%;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 300px;
+        border-bottom-right-radius: 300px;
         border-top-right-radius: 15px;
-        border-bottom-right-radius: 15px;
-        margin-bottom: -200px;
     }
 
     .section-comenzar .card-body {
@@ -512,12 +614,13 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin-left: 155px;
-        margin-top: -160px;
+        margin-left: 0;
     }
 
     .section-comenzar h5 {
-        font-size: 2rem;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 2.5rem;
     }
 
     .section-comenzar p {
@@ -526,9 +629,13 @@ export default {
         text-align: center;
     }
 
-    .button-aprende {
+    .section-comenzar .card-body a{
+       width: 70%;
+    }
+
+    .button-contestar {
+        margin-bottom: 10px;
         width: 85%;
-        font-size: 50px;
     }
 }
 </style>

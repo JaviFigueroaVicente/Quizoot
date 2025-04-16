@@ -90,6 +90,7 @@ app.use(abilitiesPlugin, ability)
 app.use(ToastService);
 app.use(DialogService);
 app.use(ConfirmationService);
+app.use(AnimateOnScroll);
 
 const i18n = installI18n(app);
 const l = langStore();
