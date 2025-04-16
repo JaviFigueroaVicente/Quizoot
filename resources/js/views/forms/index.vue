@@ -12,11 +12,13 @@
         <div class="dropdown">
             <button class="btn btn-light me-2 btn-hover-lila dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> + </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <!-- Botón para mostrar todos los formularios -->
                 <li>
-                    <a class="dropdown-item" href="#" @click.prevent="selectCategory()">Todos</a>
+                    <a class="dropdown-item" :class="{ active: selectedCategory === null }" href="#" @click.prevent="selectCategory()">Todos</a>
                 </li>
+                <!-- Lista de categorías con clase activa si está seleccionada -->
                 <li v-for="category in categoryList" :key="category.id">
-                    <a class="dropdown-item" href="#" @click.prevent="selectCategory(category.id)">
+                    <a class="dropdown-item" :class="{ active: selectedCategory === category.id }" href="#" @click.prevent="selectCategory(category.id)">
                         {{ category.name }}
                     </a>
                 </li>
@@ -29,7 +31,7 @@
 
         <!-- Paginación -->
         <div class="mt-4 mb-4">
-            <Paginator :rows="rowsPerPage" :totalRecords="formularios.length" :pageLinkSize="3" :first="currentPage * rowsPerPage"@page="onPageChange"/>
+            <Paginator :rows="rowsPerPage" :totalRecords="formularios.length" :pageLinkSize="3" :first="currentPage * rowsPerPage" @page="onPageChange"/>
         </div>
     </div>
 </template>
@@ -47,84 +49,102 @@ const { formularios, getForms } = useForms();
 const currentPage = ref(0);
 const rowsPerPage = 9;
 
+// Variable para guardar la categoría seleccionada y marcarla visualmente
+const selectedCategory = ref(null);
+
+// Funcion para guardar los formularios en el paginator y asi mostrarlos como queramos
 const paginatedFormularios = computed(() => {
   const start = currentPage.value * rowsPerPage;
   return formularios.value.slice(start, start + rowsPerPage);
 });
 
+// Funcion para cambiar de pagina
 const onPageChange = (event) => {
   currentPage.value = event.page;
 };
 
+// Funcion que llama a las funciones para coger la lista de categorias y formularios al cargar la pagina
 onMounted(() => {
   getCategoryList();
   getForms();
 });
 
-const selectCategory = (categoryId) => {
-  console.log("Categoría seleccionada:", categoryId);
+// Funcion para seleccionar la categoria que quieres y dejarla marcada como activa
+const selectCategory = (categoryId = null) => {
+  selectedCategory.value = categoryId;
   currentPage.value = 0;
   getForms(categoryId);
 };
 </script>
 
 <style scoped>
-    .title{
-        color: #874ECA;
-        font-family: "Atma";
-    }
+.title{
+    color: #874ECA;
+    font-family: "Atma";
+}
 
-    .btn-hover-lila {
-        font-size: 12px;
-        font-weight: bold;
-    }
+.btn-hover-lila {
+    font-size: 12px;
+    font-weight: bold;
+}
 
-    .btn-hover-lila:hover {
-        color: #874ECA;
-    }
+.btn-hover-lila:hover {
+    color: #874ECA;
+}
 
-    .dropdown-menu .dropdown-item:hover {
-        color: #874ECA;
-    }
+.dropdown-menu .dropdown-item:active {
+    background-color: #f1f1f1 !important;
+    color: #333 !important;
+}
 
-    .card {
-        border: none;
-        border-radius: 10px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease-in-out;
-    }
+.dropdown-menu .dropdown-item:hover {
+    color: #874ECA;
+}
 
-    .card:hover {
-        transform: translateY(-5px);
-    }
+.dropdown-menu .active {
+    background-color: #e9d8fd;
+    font-weight: bold;
+    color: #874ECA;
+}
 
-    .form-image {
-        width: 100%;
-        height: 120px;
-        object-fit: cover;
-        border-radius: 10px;
-    }
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
 
-    .text-center span {
-        font-size: 1.2rem;
-        cursor: pointer;
-    }
+.card:hover {
+    transform: translateY(-5px);
+}
 
-    /* Paginator */
-    :deep(.p-paginator .p-paginator-page) {
-        border: 2px solid #d3d3d3;
-        border-radius: 50%;
-        width: 35px;
-        height: 35px;
-        color: #874ECA;
-        font-weight: bold;
-        margin: 0 4px;
-        background-color: #f9f9f9;
-    }
+.form-image {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+}
 
-    :deep(.p-paginator .p-paginator-page:hover) {
-        background-color: #f3f0fa;
-        border-color: #874ECA;
-        color: #874ECA;
-    }
+.text-center span {
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* Paginator */
+:deep(.p-paginator .p-paginator-page) {
+    border: 2px solid #d3d3d3;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    color: #874ECA;
+    font-weight: bold;
+    margin: 0 4px;
+    background-color: #f9f9f9;
+}
+
+:deep(.p-paginator .p-paginator-page:hover) {
+    background-color: #f3f0fa;
+    border-color: #874ECA;
+    color: #874ECA;
+}
 </style>
