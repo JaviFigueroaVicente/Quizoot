@@ -11,6 +11,7 @@ const logoUrl = computed(() => {
 
 <template>
   <footer class="text-white pt-4">
+    <!-- Sección de Logo -->
     <div class="container mt-1">
       <div class="row text-center">
         <div class="col-md-12 mb-3 d-flex justify-content-center align-items-center">
@@ -21,6 +22,7 @@ const logoUrl = computed(() => {
       </div>
       <hr class="footer-divider">
 
+      <!-- Sección de Enlaces de Columnas -->
       <div class="row text-start footer-columns">
           <ul class="list-unstyled d-flex align-items-center justify-content-evenly">
             <li class="mb-2"><a href="#" class="footer-link">About</a></li>
@@ -34,7 +36,7 @@ const logoUrl = computed(() => {
 
       <hr class="footer-divider">
 
-      <!-- Sección de Redes Sociales (Ahora alineada a la izquierda) -->
+      <!-- Sección de Redes Sociales -->
       <div class="footer-social display-flex justify-content-evenly">
         <span>Síguenos</span>
         <a href="#" class="social-icon"><i class="bi bi-twitter-x"></i></a>
