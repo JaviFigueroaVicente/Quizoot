@@ -16,7 +16,7 @@ export default function useFormulariosRespondidos() {
         axios.get('/api/formularios-respondidos')
         .then (response => {
             formulariosRespondidos.value = response.data.data
-            console.log(response.data.data)
+            // console.log(response.data.data)
         }).catch(error => {
             console.log(error)
         })
@@ -27,7 +27,7 @@ export default function useFormulariosRespondidos() {
         axios.get('/api/formularios-respondidos/' + id)
         .then (response => {
             formulariosRespondidos.value = response.data.data;
-            console.log(formulariosRespondidos.value);
+            // console.log(formulariosRespondidos.value);
         }).catch(error => {
             console.log(error)
         })
@@ -37,7 +37,7 @@ export default function useFormulariosRespondidos() {
         axios.get('/api/formularios-respondidos-formulario/' + id)
         .then (response => {
             formulariosRespondidos.value = response.data.data;
-            console.log(formulariosRespondidos.value);
+            // console.log(formulariosRespondidos.value);
         }).catch(error => {
             console.log(error)
         })
@@ -49,7 +49,7 @@ export default function useFormulariosRespondidos() {
         axios.post('/api/formulario-respondido', formularioRespondido.value)
         .then(response => {
             formularioRespondido.value = response.data
-            console.log(response)
+            // console.log(response)
         }).catch(error => {
             console.log(error)
         }) 
@@ -75,7 +75,7 @@ export default function useFormulariosRespondidos() {
         try{
             axios.get('/api/formulario-respondido/' + userId + '/' + idFormulario)
             .then(response => {
-                console.log(response.data.data.score);
+                // console.log(response.data.data.score);
                 scoreAnterior.value = response.data.data.score
             }).catch(error => {
                 console.log(error)
@@ -88,7 +88,7 @@ export default function useFormulariosRespondidos() {
     const updateFormularioRespondido = async (formulario) => {
         axios.post('/api/formulario-respondido/' + formulario.user_id + '/' + formulario.formulario_id, formulario)
         .then(() => {
-            console.log(formulario)
+            // console.log(formulario)
         }).catch(error => {
             console.log(error)
             console.log(formulario)
@@ -118,7 +118,7 @@ export default function useFormulariosRespondidos() {
                             timer: 1500
                         })
                         getFormulariosRespondidosUser(userId)
-                        console.log(response)
+                        // console.log(response)
                     })
                     .catch(error => {
                         swal({

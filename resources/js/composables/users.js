@@ -98,8 +98,7 @@ export default function useUsers() {
 
         axios.put('/api/users/' + user.id, user)
             .then(response => {
-                //router.push({name: 'users.index'})
-
+                router.push({name: 'users.index'})
                 swal({
                     icon: 'success',
                     title: 'User updated successfully'
@@ -130,9 +129,8 @@ export default function useUsers() {
                     axios.delete('/api/users/' + id)
                         .then(response => {
                             users.value.data.splice(index, 1);
-
-                            //getUsers()
-                            //router.push({name: 'users.index'})
+                            getUsers()
+                            router.push({name: 'users.index'})
                             swal({
                                 icon: 'success',
                                 title: 'User deleted successfully'

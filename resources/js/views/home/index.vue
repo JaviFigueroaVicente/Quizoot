@@ -1,19 +1,27 @@
 <template>
     <main>
-        <section class="section-principal">
-            <video src="/images/Home/Home_Fondo.mp4" autoplay="true" muted="true" loop="true"></video>
-            <div class="section-principal-top">
+        <section class="section-principal" :key="componentKey">
+            <transition name="video-izquierda">
+                <div v-if="showVideos" class="video-container">
+                    <video class="video-izquierda" src="/images/Home/fondo2.mp4" autoplay="true" muted="true" loop="true"></video>
+                </div>
+            </transition>
+            <div class="section-principal-top fade-in">
                 <h1>BIENVENIDO A <strong>QUIZOOT</strong></h1>
                 <p>Únete a millones de jugadores en la plataforma de <br>aprendizaje más divertida</p>
-                <router-link to="/forms"><button class="button-aprende">¡APRENDE AHORA!</button></router-link>
-                <!-- <button class="button-aprende">¡APRENDE AHORA!</button> -->
-                
+                <router-link to="/forms">
+                    <button class="button-aprende">¡APRENDE AHORA!</button>
+                </router-link>
             </div>
+            <transition name="video-derecha">
+                <div v-if="showVideos" class="video-container">
+                    <video class="video-derecha" src="/images/Home/fondo2.mp4" autoplay="true" muted="true" loop="true"></video>
+                </div>
+            </transition>
         </section>
-        <section class="section-cards">
-            <div class="row row-cols-1 row-cols-md-2 g-4">
-                
-                <div class="col">
+        <section class="section-cards container mt-4">
+            <div class="row">
+                <div class="col col-lg-3 col-md-6 col-sm-12 mb-4" v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 zoom-in-50 animate-duration-1000' }">
                     <router-link to="/forms">
                         <div class="card">
                             <img src="/images/Home/play.webp" class="card-img-top play" alt="...">
@@ -24,7 +32,7 @@
                         </div>
                     </router-link>
                 </div>
-                <div class="col">
+                <div class="col col-lg-3 col-md-6 col-sm-12 mb-4" v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 zoom-in-75 animate-duration-1000' }">
                     <router-link to="/form/mis-formularios/create">
                         <div class="card">
                             <img src="/images/Home/pencil.webp" class="card-img-top" alt="...">
@@ -35,7 +43,7 @@
                         </div>
                     </router-link>
                 </div>
-                <div class="col">
+                <div class="col col-lg-3 col-md-6 col-sm-12 mb-4" v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 zoom-in-75 animate-duration-1000' }">
                     <router-link to="/rankings">
                         <div class="card">
                             <img src="/images/Home/trophy.webp" class="card-img-top" alt="...">
@@ -46,10 +54,10 @@
                         </div>
                     </router-link>
                 </div>
-                <div class="col">
-                    <router-link to="#" @click="playRandomForm">
+                <div class="col col-lg-3 col-md-6 col-sm-12 mb-4" v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 zoom-in-50 animate-duration-1000' }">
+                    <router-link @click="playRandomForm" to="#" >
                         <div class="card">
-                            <img src="/images/Home/form.webp" class="card-img-top" alt="...">
+                        <img src="/images/Home/form.webp" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">Random <img src="/images/icons/dice.svg" class="icon" alt=""></h5>
                                 <p class="card-text">Déjanos elegir por ti y demuestra cuánto sabes en una categoría aleatoria.</p>
@@ -63,13 +71,15 @@
             <div class="card mb-8">
                 <div class="row g-0">
                     <div class="col-md-6 div-foto">
-                        <img src="/images/Home/cohete.webp" class="img-fluid rounded-start" alt="...">
+                        <video src="/images/Home/cohete.mp4" class="img-fluid" alt="..." autoplay="true" muted="true" loop="true"></video>
                     </div>
                     <div class="col-md-6 div-body">
                         <div class="card-body">
                             <h5 class="card-title">¿LISTO PARA COMENZAR?</h5>
                             <p class="card-text">Es tu momento de demostrar lo que sabes, superar desafíos y escalar posiciones hasta convertirte en el número uno del ranking.</p>
-                            <router-link to="/forms"><button class="button-contestar">CONTESTAR FORMULARIO</button></router-link>
+                            <router-link to="/forms">
+                                <button class="button-contestar">CONTESTAR FORMULARIO</button>
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -89,23 +99,102 @@ const { formularios, getForms } = useForms();
 const playRandomForm = () => {
     getForms()
     if (!formularios.value || formularios.value.length === 0) {
-        console.error("No hay formularios disponibles.");
+        // console.error("No hay formularios disponibles.");
         return;
     }
     
     const randomForm = formularios.value[Math.floor(Math.random() * formularios.value.length)];
 
     if (!randomForm || !randomForm.id) {
-        console.error("Formulario aleatorio no encontrado.");
+        // console.error("Formulario aleatorio no encontrado.");
         return;
     }
     
     router.push(`/forms/details/${randomForm.id}`);
 };
-
 </script>
+<script>
 
+export default {
+    name: 'SectionPrincipal',
+    data() {
+        return {
+            showVideos: false,
+            componentKey: 0
+        };
+    },
+    mounted() {
+        this.restartAnimation();
+    },
+
+    methods: {
+        restartAnimation() {
+            // console.log('Restarting animation');
+            this.showVideos = false;
+            this.componentKey += 1;
+            // console.log('Component key:', this.componentKey);
+            setTimeout(() => {
+                this.showVideos = true;
+                // console.log('showVideos establecido en true');
+            }, 100);
+        }
+    },
+
+    watch: {
+        $route(to, from) {
+            if (to.path === '') {
+                this.restartAnimation();
+            }
+        }
+    }
+}
+</script>
 <style scoped>
+
+    .animate-enter {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .fade-in-10 {
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        .fade-in-10.zoom-in-50 {
+            animation: zoomIn 1s ease-in-out forwards;
+        }
+
+        .fade-in-10.zoom-in-75 {
+            animation: zoomIn75 1s ease-in-out forwards;
+        }
+
+        .animate-duration-1000 {
+            animation-duration: 1s;
+        }
+
+
+    @keyframes zoomIn {
+        from {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes zoomIn75 {
+        from {
+            opacity: 0;
+            transform: scale(0.75);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
     main{
         overflow-x: hidden;
     }
@@ -115,34 +204,106 @@ const playRandomForm = () => {
 
     /* SECTION PRINCIPAL */
     .section-principal{
-        height: 85vh;
+        height: 95vh;
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+        margin: 0;
+        position: relative;
+        overflow: hidden;
     }
+
+    .video-container {
+        width: 30%;
+        position: relative;
+        overflow: hidden;
+    }
+
     
     video {
+       height: 100%;
+       width: 100%;
+       object-fit: cover;
+    }
+
+    .video-izquierda{
         position: absolute;
         top: 0;
         left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1000;
-        object-fit: cover; /* Asegura que el video cubra toda la sección sin distorsionarse */
+        -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 25%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
+        mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 0%, rgba(0,0,0,1) 85%, rgba(0,0,0,0));
+    }
+
+    .video-derecha{
+        position: absolute;
+        top: 0;
+        left: 0;
+        -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 25%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
+        mask-image: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 0%, rgba(0,0,0,1) 85%, rgba(0,0,0,0));
     }
 
     .section-principal-top{
+        -webkit-mask-image: 
+            linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 90%, rgba(0,0,0,0)),
+            linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
+
+        mask-image: 
+            linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 90%, rgba(0,0,0,0)),
+            linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
         padding-top: 7.5em;
         padding-bottom: 10em;
-        margin-left: 20%;
-        margin-right: 20%;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
         background-color: #ffffff;
-        height: 90vh;
-        -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
-        mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 85%, rgba(0,0,0,0));
         display: flex; 
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
+    }
+    .video-izquierda-enter-active {
+        animation: videoIzquierdaEntrada 2s ease-in-out forwards;
+    }
+
+    .video-derecha-enter-active {
+        animation: videoDerechaEntrada 2s ease-in-out forwards;
+    }
+
+    @keyframes videoIzquierdaEntrada {
+        from {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes videoDerechaEntrada {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    .fade-in {
+        opacity: 0;
+        animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
 
     h1{
@@ -151,12 +312,12 @@ const playRandomForm = () => {
         margin-bottom: 0.5em;
         letter-spacing: 5%;
         line-height: 125x;
-        width: 60%;
+        width: 65%;
     }
     
     strong{
-        color: #874ECA;
-        font-family: "Atma";
+        color: #874ECA;        
+        font-family: Atma;
     }
 
     p{
@@ -164,9 +325,10 @@ const playRandomForm = () => {
     }
 
     .button-aprende {
+        position: relative;
         margin-top: 1em;
         height: 75px;
-        width: 400px; /* Aumento del ancho para pantallas grandes */
+        width: 400px; 
         font-size: 1.56rem;
         font-weight: bold;
         border-radius: 50px;
@@ -174,21 +336,97 @@ const playRandomForm = () => {
         color: #ffffff;
         border: none;
         transition: all 0.2s ease;
-        min-height: 75px;
-        display: inline-flex; /* Cambiar display para mantener el texto en una línea */
-        justify-content: center; /* Centra el texto en el botón */
-        align-items: center; /* Centra el texto verticalmente */
-        text-align: center; /* Asegura que el texto esté centrado */
-        white-space: nowrap; /* Evita que el texto se divida en varias líneas */
     }
 
-    .button-aprende:hover{
-        background-color: #402462 !important;
+    .button-aprende:active{  
+        transform: scale(0.96);
+    }
+
+    .button-aprende:before,
+    .button-aprende:after {
+        position: absolute;
+        content: "";
+        width: 150%;
+        left: 50%;
+        height: 100%;
+        transform: translateX(-50%);
+        z-index: -1000;
+        background-repeat: no-repeat;
+    }
+
+        
+    .button-aprende:hover:before {
+        top: -70%;
+        background-image: radial-gradient(circle, #402462 20%, transparent 20%),
+            radial-gradient(circle, transparent 20%, #402462 20%, transparent 30%),
+            radial-gradient(circle, #402462 20%, transparent 20%),
+            radial-gradient(circle, #402462 20%, transparent 20%),
+            radial-gradient(circle, transparent 10%, #402462 15%, transparent 20%),
+            radial-gradient(circle, #402462 20%, transparent 20%),
+            radial-gradient(circle, #402462 20%, transparent 20%),
+            radial-gradient(circle, #402462 20%, transparent 20%),
+            radial-gradient(circle, #402462 20%, transparent 20%);
+        background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%,
+            10% 10%, 18% 18%;
+        background-position: 50% 120%;
+        animation: greentopBubbles 0.6s ease;
+    }
+
+    @keyframes greentopBubbles {
+        0% {
+            background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%,
+            40% 90%, 55% 90%, 70% 90%;
+        }
+
+        50% {
+            background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%,
+            50% 50%, 65% 20%, 90% 30%;
+        }
+
+        100% {
+            background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%,
+            50% 40%, 65% 10%, 90% 20%;
+            background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+        }
+    }
+
+    .button-aprende:hover::after {
+        bottom: -70%;
+        background-image: radial-gradient(circle, #402462 20%, transparent 20%),
+            radial-gradient(circle, #402462 20%, transparent 20%),
+            radial-gradient(circle, transparent 10%, #402462 15%, transparent 20%),
+            radial-gradient(circle, #402462 20%, transparent 20%),
+            radial-gradient(circle, #402462 20%, transparent 20%),
+            radial-gradient(circle, #402462 20%, transparent 20%),
+            radial-gradient(circle, #402462 20%, transparent 20%);
+        background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 20% 20%, 18% 18%;
+        background-position: 50% 0%;
+        animation: greenbottomBubbles 0.6s ease;
+    }
+
+    @keyframes greenbottomBubbles {
+        0% {
+            background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%,
+            70% -10%, 70% 0%;
+        }
+
+        50% {
+            background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%,
+            105% 0%;
+        }
+
+        100% {
+            background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%,
+            110% 10%;
+            background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+        }
     }
 
     /* SECTION CARDS */
     .section-cards{
-        margin-top: 5%;
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
     }
     .section-cards img{
         height: 200px;
@@ -213,23 +451,28 @@ const playRandomForm = () => {
     }
 
     .section-cards .row{
-        padding-left: 10%;
-        padding-right: 10%;
         padding-top: 7.5em;
         gap: 3%;
     }
 
     .section-cards .col{
         border: 1px solid #874ECA;
+        padding: 1em;
         border-radius: 30px;
         background-color: #ffffff;
-        transition: all 0.2s ease;
-        
+        transition: all 0.2s ease-in-out; 
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     }
 
     .section-cards .col:hover{
         border: solid 2px #402462; 
-        transform: scale(1.05);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .section-cards .col:active{
+        transform: translateY(0.5em);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     }
 
     .section-cards .card{
@@ -243,7 +486,7 @@ const playRandomForm = () => {
     .button-contestar {
         margin-top: 1em;
         height: 75px;
-        width: 500px; /* Aumento del ancho para pantallas grandes */
+        width: 500px; 
         font-size: 1.56rem;
         font-weight: bold;
         border-radius: 50px;
@@ -252,15 +495,31 @@ const playRandomForm = () => {
         border: none;
         transition: all 0.2s ease;
         min-height: 75px;
-        display: inline-flex; /* Cambiar display para mantener el texto en una línea */
-        justify-content: center; /* Centra el texto en el botón */
-        align-items: center; /* Centra el texto verticalmente */
-        text-align: center; /* Asegura que el texto esté centrado */
-        white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+        display: inline-flex;
+        justify-content: center; 
+        align-items: center; 
+        text-align: center; 
+        white-space: nowrap;transition: all 0.4s ease;
     }
 
     .button-aprende:hover{
         background-color: #402462 !important;
+    }
+
+    .button-contestar:hover{
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3);
+        background-color: #402462 !important;
+    }
+
+    .button-contestar:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .button-contestar:active {
+        transform: scale(0.98);
+        opacity: 0.8;
     }
 
 /* SECTION COMENZAR */
@@ -278,9 +537,10 @@ const playRandomForm = () => {
     padding: 0;    
     width: 70%;
     max-width: 1100px;
-    height: 500px;
-    max-height: 500px;
+    min-height: 500px;
+    max-height: 700px; 
     background-color: rgba(255, 255, 255, 0.7);
+    border: none;
 }
 
 .section-comenzar .row{
@@ -289,15 +549,18 @@ const playRandomForm = () => {
 
 .section-comenzar .card .div-foto{
     width: 40%;
+    height: 100%;
 }
 
-.section-comenzar img{
-    height: 104%;   
-    width: 103%;
-    margin-left: -3%;
-    margin-top: -0.5%;
+.section-comenzar video{
+    height: 100%;   
+    width: 100%;
+    margin-left: 0%;
+    margin-top: 0%;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 250px;
+    border-top-right-radius: 250px;
 }
 
 .section-comenzar .card-body{
@@ -320,38 +583,50 @@ const playRandomForm = () => {
 .section-comenzar button{
     width: 100%;
     margin-bottom: 10%;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
 }
+
+.section-comenzar button:hover{
+    background-color: #402462;
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
 
     .button-aprende {
-        width: 250px !important;
         font-size: 1.5rem !important;
     }
 
     .section-principal-top {
-        margin-left: 5%;
-        margin-right: 5%;
+        padding-left: 10%;
+        padding-right: 10%;
         padding-top: 5em;
         padding-bottom: 5em;
         background-color: rgba(255, 255, 255, 0.8);
+        width:100% !important;
     }
 
     h1 {
-        font-size: 4rem;
+        font-size: 6rem;
         width: 90%;
+        line-height: 120px;
     }
 
     p {
-        font-size: 1.4rem;
-        width: 90%;
+        font-size: 1.6rem;
         margin-bottom: 0.5em;
+        line-height: 40px;
     }
 
     .button-aprende {
-        width: 250px;
         font-size: 1.2rem;
+        width: 100%
+    }
+
+    .section-principal-top a{
+        width: 90%
     }
 
     .section-comenzar .card {
@@ -362,17 +637,18 @@ const playRandomForm = () => {
 
     .section-comenzar .div-foto {
         width: 50%;
+        height: 100%;
     }
 
     .section-comenzar img {
         width: 100%;
-        height: 104%;
-        object-fit: cover;
+        height: 100%;
+        margin-right: 30px;
         border-radius: 15px;
     }
 
     .section-comenzar .card-body {
-        margin-left: 5%;
+        padding-left: 5%;
         text-align: center;
     }
 
@@ -383,10 +659,31 @@ const playRandomForm = () => {
     .section-comenzar button {
         width: 100%;
         font-size: 1.2rem;
+        padding-left: 1.5em;
+        padding-right: 1.5em;
+    }
+
+    .section-comenzar button:hover{
+        background-color: #402462;
     }
 }
-/* 📱 Responsive para móviles */
+/*Responsive para móviles */
 @media (max-width: 768px) {
+    .section-principal{
+        height: auto;
+    }
+
+    .section-principal-top h1{
+        font-size: 4rem;
+        list-style: none;
+    }
+    .section-cards .row{
+        padding-top: 20px
+    }
+
+    .section-cards .col{
+        margin: 20px;
+    }
 
     .section-comenzar .card {
         width: 90%;
@@ -396,18 +693,20 @@ const playRandomForm = () => {
         flex-direction: row-reverse;
     }
 
-    .section-comenzar .div-foto {
-        width: 50%;
-        height: 100%;
+    .section-comenzar .card .div-foto {
+        width: 100%;
+        flex-direction: column;
     }
 
-    .section-comenzar img {
-        width: 100%;
-        height: 515px;
-        object-fit: cover;
+    .section-comenzar video{
+        height: 250px;   
+        width: 100%;;
+        margin-left: 0%;
+        margin-top: 0%;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 300px;
+        border-bottom-right-radius: 300px;
         border-top-right-radius: 15px;
-        border-bottom-right-radius: 15px;
-        margin-bottom: -200px;
     }
 
     .section-comenzar .card-body {
@@ -415,12 +714,13 @@ const playRandomForm = () => {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin-left: 155px;
-        margin-top: -160px;
+        margin-left: 0;
     }
 
     .section-comenzar h5 {
-        font-size: 2rem;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 2.5rem;
     }
 
     .section-comenzar p {
@@ -429,9 +729,13 @@ const playRandomForm = () => {
         text-align: center;
     }
 
-    .button-aprende {
+    .section-comenzar .card-body a{
+       width: 70%;
+    }
+
+    .button-contestar {
+        margin-bottom: 10px;
         width: 85%;
-        font-size: 50px;
     }
 }
 </style>

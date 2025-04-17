@@ -5,11 +5,6 @@
             <label for="pregunta">Pregunta</label>
             <input type="text" v-model="pregunta.pregunta" placeholder="Escibre tu pregunta" class="w-full md:w-80" />
         </div>
-        <div class="row">
-            <label for="categoria">Categoria</label>
-            <MultiSelect display="chip" :options="categorias" optionLabel="name" filter placeholder="Select categorias"
-                :maxSelectedLabels="1" class="w-full md:w-80" />
-        </div>
         <div class="row card justify-center gap-4">
             <div class="flex items-center gap-2" v-for="(respuesta, index) in pregunta.respuestas" :key="index">
                 <Checkbox v-model="respuesta.correcta" :inputId="'respuesta' + (index + 1)" :name="'pregunta.respuestas.' + index + '.correcta'" :binary="true" :false-value="0" :true-value="1" />
@@ -31,19 +26,6 @@ const { storePregunta, pregunta } = usepregunta();
 
 yup.setLocale(es);
 const router = useRouter();
-
-const categorias = ref([
-    { name: 'Entretenimiento', code: '1' },
-    { name: 'Cultura General', code: '2' },
-    { name: 'Deportes', code: '3' },
-    { name: 'Videojuegos', code: '4' },
-    { name: 'Música', code: '5' },
-    { name: 'Historia', code: '6' },
-    { name: 'Comida', code: '7' },
-    { name: 'Ciencia y Tecnología', code: '8' },
-    { name: 'Personalidad y Estilo de Vida', code: '9' }
-]);
-
 
 const schema = yup.object().shape({
     pregunta: yup.string().required(),

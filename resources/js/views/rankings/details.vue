@@ -56,10 +56,10 @@ const { getForm, getRankingFormulario, formulario, ranking } = useForms();
 
 onMounted(() => {
     getForm(route.params.id).then(() => {
-        console.log("Datos de formularios:", formulario.value);
+        // console.log("Datos de formularios:", formulario.value);
     });
     getRankingFormulario(route.params.id).then(() => {
-    console.log("Datos de ranking:", ranking.value);
+    // console.log("Datos de ranking:", ranking.value);
   });
 });
 

@@ -79,7 +79,7 @@ const route = useRoute();
 const { getForm, formulario, getFormPreguntas,selectedPreguntas } = useForms();
 
 onMounted(() => {
-    console.log(route.params.id);
+    // console.log(route.params.id);
     getForm(route.params.id);
     getFormPreguntas(route.params.id);
 });

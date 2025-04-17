@@ -12,29 +12,30 @@ const logoUrl = computed(() => {
 <template>
   <footer class="text-white pt-4">
     <div class="container mt-1">
+      <div class="row text-center">
+        <div class="col-md-12 mb-3 d-flex justify-content-center align-items-center">
+          <a href="/">
+            <img src="/images/Nav/Logo.webp" alt="Logo" class="footer-logo">
+          </a>
+        </div>
+      </div>
+      <hr class="footer-divider">
+
       <div class="row text-start footer-columns">
-        <!-- Columna 1 -->
-        <div class="col-md-2 mb-3">
-          <ul class="list-unstyled">
+          <ul class="list-unstyled d-flex align-items-center justify-content-evenly">
             <li class="mb-2"><a href="#" class="footer-link">About</a></li>
             <li class="mb-2"><a href="#" class="footer-link">Sobre Nosotros</a></li>
             <li class="mb-2"><a href="#" class="footer-link">Contáctanos</a></li>
-          </ul>
-        </div>
-        <!-- Columna 2 (Ahora alineada a la izquierda también) -->
-        <div class="col-md-6 mb-3">
-          <ul class="list-unstyled">
             <li class="mb-2"><a href="#" class="footer-link">Recourses</a></li>
             <li class="mb-2"><a href="#" class="footer-link">Formularios</a></li>
             <li class="mb-2"><a href="#" class="footer-link">Rankings</a></li>
           </ul>
-        </div>
       </div>
 
       <hr class="footer-divider">
 
       <!-- Sección de Redes Sociales (Ahora alineada a la izquierda) -->
-      <div class="footer-social text-start">
+      <div class="footer-social display-flex justify-content-evenly">
         <span>Síguenos</span>
         <a href="#" class="social-icon"><i class="bi bi-twitter-x"></i></a>
         <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
@@ -55,7 +56,7 @@ footer {
   font-family: Arial, sans-serif;
   text-align: left;
   padding-bottom: 20px;
-  background-color: #4B4B4B;
+  background-color: #6b6b6b;
 }
 
 .footer-link {
@@ -88,8 +89,12 @@ footer {
   margin-right: 10px;
 }
 
+.footer-social span {
+  font-size: 25px;
+}
+
 .social-icon {
-  font-size: 18px; 
+  font-size: 25px; 
   color: white;
   transition: color 0.3s;
 }
@@ -100,15 +105,17 @@ footer {
 
 .footer-text {
   font-size: 15px;
-  margin-top: 10px;
+  margin-top: 15px;
   text-align: center;
   font-family: "Atma";
 }
 
 .footer-columns {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: nowrap;
+  margin-top: 30px;
+}
+
+.footer-columns li a{
+  font-size: 18px;
 }
 
 .footer-columns .col-md-2, .footer-columns .col-md-6 {
@@ -116,9 +123,8 @@ footer {
 }
 
 @media (max-width: 767px) {
-  .footer-columns {
-    flex-direction: row;
-    flex-wrap: wrap;
+  .footer-columns ul{
+    flex-direction: column;
     gap: 10px;
   }
 }

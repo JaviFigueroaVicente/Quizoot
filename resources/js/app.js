@@ -64,6 +64,7 @@ import Tooltip from 'primevue/tooltip';
 import FloatLabel from 'primevue/floatlabel';
 import Message from 'primevue/message';
 import Timeline from 'primevue/timeline';
+import AnimateOnScroll from 'primevue/animateonscroll';
 
 
 /*STYLES */
@@ -89,6 +90,7 @@ app.use(abilitiesPlugin, ability)
 app.use(ToastService);
 app.use(DialogService);
 app.use(ConfirmationService);
+app.use(AnimateOnScroll);
 
 const i18n = installI18n(app);
 const l = langStore();
@@ -158,6 +160,7 @@ app.component('Timeline', Timeline);
 app.directive('tooltip', Tooltip);
 app.directive('ripple', Ripple);
 app.directive('styleclass', StyleClass);
+app.directive('animateonscroll', AnimateOnScroll);
 
 
 app.mount('#app')

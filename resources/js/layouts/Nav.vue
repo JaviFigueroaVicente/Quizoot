@@ -38,7 +38,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mt-2 mt-lg-0 me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <router-link class="nav-link" to="#" @click="playRandomForm"><Button variant="text" class="button-jugar">Jugar</Button></router-link>
+                        <router-link class="nav-link" @click="playRandomForm" to="#"><Button variant="text" class="button-jugar">Jugar</Button></router-link>
                     </li>
                     <li class="nav-item">
                         <router-link to="/forms" severity="help" class="nav-link"><Button severity="help" variant="text">Formularios</Button></router-link>
