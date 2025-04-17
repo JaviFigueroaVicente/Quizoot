@@ -181,26 +181,26 @@ onMounted(() => {
     text-align: right;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 426px) {
     .row {
         flex-direction: column;
     }
 
     .left-section {
-        position: relative; /* Evita que quede fija */
+        position: relative;
         height: auto;
         margin-bottom: 20px;
     }
 
     .ranking-container {
-        height: auto; /* Permite que crezca según el contenido */
+        height: auto;
         padding: 15px;
         margin-top: 20px;
     }
 
     .ranking-list-container {
-        max-height: 320px; /* Evita que sea demasiado larga */
-        overflow-y: auto; /* Permite desplazamiento */
+        max-height: 320px;
+        overflow-y: auto;
     }
 }
 
