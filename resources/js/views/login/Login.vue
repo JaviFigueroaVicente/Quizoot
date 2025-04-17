@@ -71,7 +71,7 @@ const { loginForm, validationErrors, processing, submitLogin } = useAuth();
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: 90vh;
+    height: 100vh;
     margin: 0;
     padding: 0;
     position: relative;
