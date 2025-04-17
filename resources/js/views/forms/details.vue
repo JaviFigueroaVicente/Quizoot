@@ -109,7 +109,7 @@ const verRespuestas= (pregunta)=>{
 
     .form-image {
         width: 100%;
-        height: 300px;
+        height: 330px;
         object-fit: cover;
         border-radius: 10px;
     }
@@ -129,7 +129,6 @@ const verRespuestas= (pregunta)=>{
     .list-respuestas p{
         font-size: 1.75rem;
     }
-
 
     .list-group {
         border: 2px solid #874ECA;
@@ -217,26 +216,36 @@ const verRespuestas= (pregunta)=>{
         background-color: #402462;
     }
 
+    @media (max-width: 992px) {
+        .left-section {
+            position: relative;
+            top: unset;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .right-section {
+            max-height: none; 
+            overflow-y: visible; 
+        }
+
+        .list-group {
+            max-height: 400px; 
+            overflow-y: auto; 
+        }
+    }
+
     @media (max-width: 768px) {
-    .row {
-        flex-direction: column;
+        .list-group {
+            max-height: 687px; 
+            overflow-y: auto; 
+        }
     }
 
-    .left-section {
-        position: relative;
-        height: auto;
-        margin-bottom: 20px; 
+    @media (max-width: 576px) {
+        .row {
+            flex-direction: column;
+        }
     }
-
-    .right-section {
-        max-height: none; 
-        overflow-y: visible; 
-    }
-
-    .list-group {
-        max-height: 400px; 
-        overflow-y: auto; 
-    }
-}
 
 </style>

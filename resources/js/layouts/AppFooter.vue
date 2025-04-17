@@ -57,6 +57,7 @@ footer {
   text-align: left;
   padding-bottom: 20px;
   background-color: #6b6b6b;
+  overflow-x: hidden;
 }
 
 .footer-link {
@@ -81,6 +82,7 @@ footer {
   justify-content: flex-start;
   gap: 20px;
   padding: 10px 0;
+  flex-wrap: wrap;
 }
 
 .footer-title {
@@ -91,6 +93,7 @@ footer {
 
 .footer-social span {
   font-size: 25px;
+  white-space: nowrap;
 }
 
 .social-icon {
@@ -112,20 +115,28 @@ footer {
 
 .footer-columns {
   margin-top: 30px;
+  overflow-x: hidden;
 }
 
-.footer-columns li a{
+.footer-columns li a {
   font-size: 18px;
 }
 
-.footer-columns .col-md-2, .footer-columns .col-md-6 {
-  flex: 1;
-}
-
 @media (max-width: 767px) {
-  .footer-columns ul{
+  .footer-columns ul {
     flex-direction: column;
+    align-items: center;
     gap: 10px;
+  }
+
+  .footer-social {
+    justify-content: center;
+  }
+
+  .footer-social span {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
   }
 }
 </style>
