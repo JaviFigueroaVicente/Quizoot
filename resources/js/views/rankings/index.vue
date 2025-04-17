@@ -55,7 +55,7 @@
 
         <!-- Paginación -->
         <div class="mt-4 mb-4">
-            <Paginator :rows="rowsPerPage" :totalRecords="formularios.length" :rowsPerPageOptions="[5, 10, 15, 20]" :pageLinkSize="3" :first="currentPage * rowsPerPage" @page="onPageChange"/>
+            <Paginator :rows="rowsPerPage" :totalRecords="formularios.length" :pageLinkSize="2" :first="currentPage * rowsPerPage" @page="onPageChange"/>
         </div>
     </div>
 </template>
@@ -72,28 +72,23 @@ const { formularios, getForms } = useForms();
 const currentPage = ref(0);
 const rowsPerPage = ref(3);
 
-// Variable para mantener la categoría seleccionada
 const selectedCategoryId = ref(null);
 
-// Funcion para guardar los formularios en el paginator y asi mostrarlos como queramos
 const paginatedFormularios = computed(() => {
     const start = currentPage.value * rowsPerPage.value;
     return formularios.value.slice(start, start + rowsPerPage.value);
 });
 
-// Función para cambiar de página
 const onPageChange = (event) => {
     currentPage.value = event.page;
     rowsPerPage.value = event.rows;
 };
 
-// Función que llama a las funciones para coger la lista de categorías y formularios al cargar la página
 onMounted(() => {
     getCategoryList();
     getForms();
 });
 
-// Función para seleccionar la categoría que quieres y marcarla como activa
 const selectCategory = (categoryId = null) => {
     console.log("Categoría seleccionada:", categoryId);
     selectedCategoryId.value = categoryId;
@@ -103,138 +98,157 @@ const selectCategory = (categoryId = null) => {
 </script>
 
 <style scoped>
-    .title{
-        color: #874ECA;
-        font-family: "Atma";
-    }
+.title{
+    color: #874ECA;
+    font-family: "Atma";
+}
 
-    .btn-hover-lila {
-        font-size: 12px;
-        font-weight: bold;
-    }
+.btn-hover-lila {
+    font-size: 12px;
+    font-weight: bold;
+}
 
-    .btn-hover-lila:hover {
-        color: #874ECA;
-    }
+.btn-hover-lila:hover {
+    color: #874ECA;
+}
 
-    .dropdown-menu .dropdown-item:hover {
-        color: #874ECA;
-    }
+.dropdown-menu .dropdown-item:hover {
+    color: #874ECA;
+}
 
-    .card {
-        border: none;
-        border-radius: 10px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease-in-out;
-    }
-    
-    .card:hover {
-        transform: translateY(-5px);
-    }
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
 
-    .form-image {
-        width: 100%;
-        height: 120px;
-        object-fit: cover;
-        border-radius: 10px;
-    }
-    
-    .text-center span {
-        font-size: 1.2rem;
-        cursor: pointer;
-    }   
+.card:hover {
+    transform: translateY(-5px);
+}
 
-    .pagination .page-link {
-        color: #874ECA;
-        border: 1px solid #874ECA;
-        border-radius: 5px;
-        padding: 0.5rem 1rem;
-        margin: 0 5px;
-    }
+.form-image {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+}
 
-    .pagination .page-item.active .page-link {
-        background-color: #874ECA;
-        color: white;
-        border-color: #874ECA;
-    }
+.text-center span {
+    font-size: 1.2rem;
+    cursor: pointer;
+}   
 
-    .pagination .page-link:hover {
-        background-color: #dcdcdc;
-        color: #874ECA;
-    }
+.pagination .page-link {
+    color: #874ECA;
+    border: 1px solid #874ECA;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin: 0 5px;
+}
 
-    .pagination .page-item.disabled .page-link {
-        color: #dcdcdc;
-        pointer-events: none;
-    }
+.pagination .page-item.active .page-link {
+    background-color: #874ECA;
+    color: white;
+    border-color: #874ECA;
+}
 
-    .pagination .page-link:focus {
-        box-shadow: none;
+.pagination .page-link:hover {
+    background-color: #dcdcdc;
+    color: #874ECA;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #dcdcdc;
+    pointer-events: none;
+}
+
+.pagination .page-link:focus {
+    box-shadow: none;
+}
+
+.form-image-horizontal {
+    width: 2000px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.horizontal-card {
+    width: 100%;
+    min-height: 160px;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    margin-bottom: 30px;
+}
+
+.horizontal-card:hover {
+    transform: translateY(-8px);
+}
+
+.card .d-flex {
+    gap: 30px;
+}
+
+.card .badge {
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 10px;
+    background-color: #874ECA;
+}
+
+.card .small {
+    font-size: 1rem;
+    margin-left: 30px;
+}
+
+.dropdown-menu .dropdown-item:active {
+    background-color: #f1f1f1 !important;
+    color: #333 !important;
+}
+
+.active-category {
+    background-color: #f1f1f1 !important;
+    color: #874ECA !important;
+    font-weight: bold;
+}
+
+/* Paginator */
+:deep(.p-paginator .p-paginator-page) {
+    border: 2px solid #d3d3d3;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    color: #874ECA;
+    font-weight: bold;
+    margin: 0 4px;
+    background-color: #f9f9f9;
+}
+
+:deep(.p-paginator .p-paginator-page:hover) {
+    background-color: #f3f0fa;
+    border-color: #874ECA;
+    color: #874ECA;
+}
+
+/* Responsive a partir de 425px hacia abajo */
+@media (max-width: 426px) {
+    .card.d-flex.flex-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
     }
 
     .form-image-horizontal {
-        width: 2000px;
-        height: 180px;
-        object-fit: cover;
-        border-radius: 12px;
+        width: 100% !important;
+        height: 150px !important;
+        margin-bottom: 15px;
     }
 
-    .horizontal-card {
-        width: 100%;
-        min-height: 160px;
-        border: none;
-        border-radius: 15px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease-in-out;
-        margin-bottom: 30px;
+    .card .d-flex.justify-content-between {
+        flex-direction: column !important;
+        gap: 10px;
     }
-
-    .horizontal-card:hover {
-        transform: translateY(-8px);
-    }
-
-    .card .d-flex {
-        gap: 30px;
-    }
-
-    .card .badge {
-        font-size: 1rem;
-        padding: 0.4rem 0.8rem;
-        border-radius: 10px;
-        background-color: #874ECA;
-    }
-
-    .card .small {
-        font-size: 1rem;
-        margin-left: 30px;
-    }
-
-    .dropdown-menu .dropdown-item:active {
-        background-color: #f1f1f1 !important;
-        color: #333 !important;
-    }
-
-    .active-category {
-        background-color: #f1f1f1 !important;
-        color: #874ECA !important;
-        font-weight: bold;
-    }
-
-    /* Paginator */
-    :deep(.p-paginator .p-paginator-page) {
-        border: 2px solid #d3d3d3;
-        border-radius: 50%;
-        width: 35px;
-        height: 35px;
-        color: #874ECA;
-        font-weight: bold;
-        margin: 0 4px;
-        background-color: #f9f9f9;
-    }
-
-    :deep(.p-paginator .p-paginator-page:hover) {
-        background-color: #f3f0fa;
-        border-color: #874ECA;
-        color: #874ECA;
-    }
+}
 </style>
