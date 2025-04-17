@@ -59,7 +59,6 @@ const { loginForm, validationErrors, processing, submitLogin } = useAuth();
 </script>
 
 <style scoped>
-
 .title{
     color: #874eca;
     font-family: "Atma";
@@ -87,17 +86,19 @@ const { loginForm, validationErrors, processing, submitLogin } = useAuth();
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1;
+    backdrop-filter: blur(3px);
 }
 
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    overflow-y: hidden !important;
 }
 
 .card {
-    margin-top: 130px;
     z-index: 2;
+    margin-top: 12em;
 }
 
 input {
