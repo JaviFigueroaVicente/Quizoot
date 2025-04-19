@@ -36,12 +36,15 @@
                 <div class="col-md-8 right-section">
                     <ul class="list-group">
                         <li v-for="(pregunta, index) in selectedPreguntas" :key="pregunta.id" class="list-group-item">
-                            <strong>{{ index + 1 }} - Pregunta: </strong>
-                            <br>
-                            <span class="question-text">{{ pregunta.pregunta }}</span>
-                            <button class="ver-respuestas" @click="verRespuestas(pregunta)">
-                                Ver Respuestas
-                            </button>
+                            <div class="d-flex justify-content-between align-items-center w-100">
+                                <div>
+                                    <strong>{{ index + 1 }} - Pregunta: </strong><br>
+                                    <span class="question-text">{{ pregunta.pregunta }}</span>
+                                </div>
+                                <button class="btn-ver-respuestas" @click="verRespuestas(pregunta)">
+                                    Ver Respuestas
+                                </button>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -52,25 +55,22 @@
         </div>
     </div>
 
-    <Dialog v-model:visible="dialogVisible" modal :style="{ width: '30rem', padding: '15px', height: 'auto' }" pcCloseButton="">
+    <Dialog v-model:visible="dialogVisible" modal :draggable="false" :style="{ width: '30rem', padding: '15px', height: 'auto' , backgroundImage: 'url(/images/forms/fondoVentana.jpg)', backgroundPosition: 'center', backgroundSize: 'cover',}" pcCloseButton="">
         <template #header>
-            <h2><strong>Respuestas</strong></h2>
+            <h2 class="dialog-title">Respuestas !!</h2>
         </template>
-        <div class="flex items-center gap-4 mb-8">
+        <div class="respuestas-dialog-body">
             <ul class="list-respuestas">
-                <li v-for="respuesta in preguntaActual.respuestas" :key="respuesta.id">
-                    <div v-if="respuesta.correcta == 1">
-                        <i class="pi pi-check" style="color: green;"></i>
-                        <p>{{respuesta.respuesta}}</p>
+                <li v-for="respuesta in preguntaActual.respuestas" :key="respuesta.id" class="respuesta-item">
+                    <div :class="respuesta.correcta == 1 ? 'respuesta-correcta' : 'respuesta-incorrecta'">
+                        <i :class="respuesta.correcta == 1 ? 'pi pi-check' : 'pi pi-times'"></i>
+                        <p>{{ respuesta.respuesta }}</p>
                     </div>
-                    <div v-else>
-                        <i class="pi pi-times" style="color: red;"></i>
-                        <p>{{respuesta.respuesta}}</p>
-                    </div>                
                 </li>
             </ul>
         </div>
     </Dialog>
+
 </template>
 
 <script setup>
@@ -146,10 +146,6 @@ const verRespuestas= (pregunta)=>{
         color: #333;
     }
 
-    .list-group-item:hover {
-        background-color: #f1f1f1;
-    }
-
     .question-text {
         display: block;
         margin-top: 5px;
@@ -202,15 +198,6 @@ const verRespuestas= (pregunta)=>{
         gap: 8px;
     }
 
-    .ranking-item:last-child {
-        border-bottom: none;
-    }
-
-    .ranking-position {
-        font-size: 16px;
-        font-weight: bold;
-    }
-
     .ranking-avatar {
         width: 35px;
         height: 35px;
@@ -236,7 +223,7 @@ const verRespuestas= (pregunta)=>{
     }
 
     .right-section::-webkit-scrollbar {
-    width: 10px;
+        width: 10px;
     }
 
     .right-section::-webkit-scrollbar-thumb {
@@ -248,6 +235,73 @@ const verRespuestas= (pregunta)=>{
         background-color: #402462;
     }
 
+    /* Ver respuestas boton */
+    .btn-ver-respuestas {
+        background-color: #874ECA;
+        color: white;
+        border: none;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 8px 14px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        white-space: nowrap;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .btn-ver-respuestas:hover {
+        background-color: #402462;
+    }
+
+    /* Pestaña respuestas */
+    .dialog-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #ffffff;
+        margin-bottom: 10px;
+    }
+
+    .list-respuestas {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .respuesta-item {
+        padding: 10px 15px;
+        border-radius: 10px;
+        background-color: #f9f6ff;
+        box-shadow: 0 2px 5px rgba(135, 78, 202, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .respuesta-correcta,
+    .respuesta-incorrecta {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-size: 1.2rem;
+    }
+
+    .respuesta-correcta i {
+        color: green;
+        font-size: 1.5rem;
+    }
+
+    .respuesta-incorrecta i {
+        color: red;
+        font-size: 1.5rem;
+    }
+
+    .respuesta-item:hover {
+        transform: scale(1.01);
+        background-color: #efe5ff;
+    }
+
+    /* Responsive ajustes */
     @media (max-width: 992px) {
         .left-section {
             position: relative;
