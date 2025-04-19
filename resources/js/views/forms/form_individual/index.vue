@@ -1,26 +1,27 @@
 <template>
     <section v-if="!mostrarScore" class="container">
-        <!-- <div class="video-fondo-div">
+        <div class="video-fondo-div">
             <video class="video-fondo" src="/images/Home/fondo3.mp4" autoplay="true" muted="true" loop="true"></video>        
-        </div>       -->
-        <section class="header-container">
-            <div>
-                <ProgressBar :value="tiempo" class="tiempoPregunta" />
-            </div>            
-            <div class="header-score">
-                <h2 v-if="scoreAnterior !== 0">MEJOR PUNTUACIÓN:  {{ scoreAnterior }} pts</h2>
-                <h2 v-else>Mejor Puntuación: N/A</h2>
+        </div>      
+        <section class="text-section">
+            <div class="top-preguntas">
+                <p>{{ currentQuestionIndex + 1 }} / {{ preguntasTotales}}</p>
             </div>
-        </section>
-        <section class="white-section">
-            <div class="header">
-                <router-link to="/forms" class="navbar-brand">
-                    <img src="/images/Nav/Logo.webp" alt="Logo" class="logo-nav">
-                </router-link>
-                <h2 v-if="preguntaActual">PREGUNTA {{ currentQuestionIndex + 1 }}:</h2>
+            <div class="text-section-interior">
+                <section class="header-container">
+                    <div>
+                        <ProgressBar :value="tiempo" class="tiempoPregunta" />
+                    </div>            
+                    <!-- <div class="header-score">
+                        <h2 v-if="scoreAnterior !== 0">MEJOR PUNTUACIÓN:  {{ scoreAnterior }} pts</h2>
+                        <h2 v-else>Mejor Puntuación: N/A</h2>
+                    </div> -->
+                </section>
+                <section class="white-section">
+                    <h4 v-if="preguntaActual">{{ preguntaActual.pregunta }}</h4>
+                    <p>Puntuación: {{ score }} pts</p> 
+                </section>
             </div>
-            <p v-if="preguntaActual">{{ preguntaActual.pregunta }}</p>
-            <p>Puntuación: {{ score }}</p> 
         </section>
         <section class="buttons-section" v-if="preguntaActual">
             <button v-for="(respuesta, index) in preguntaActual.respuestas" :key="index" class="kahoot-button" :class="['red', 'blue', 'green', 'yellow'][index % 4]" @click="seleccionRespuesta(respuesta)">
@@ -28,23 +29,44 @@
             </button>
         </section>
         <section class="exit-div">
-            <router-link @click="endProgress" to="/forms" class="exit-button">Abandonar</router-link>
+            <button @click="abandonar" class="exit-button">Abandonar</button>
         </section>        
     </section>
     <section v-else class="container">
-        <div>
-            <h2 v-if="scoreAnterior !== null && score > scoreAnterior">¡Nuevo récord!</h2>
-            <p>Tu puntuación es de: {{ score }}</p>
+        <div class="video-fondo-div">
+            <video class="video-fondo" src="/images/Home/fondo3.mp4" autoplay="true" muted="true" loop="true"></video>        
+        </div>
+        <div class="container-puntuacion-final">    
+            <canvas v-if="scoreAnterior !== null && score > scoreAnterior" id="confetti" class="confetti-canvas"></canvas>          
+            <div v-if="scoreAnterior !== null && score > scoreAnterior">  
+                <img class="nuevo-record" src="/images/Icons/Corona.webp" alt="">
+                <h2>¡NUEVO RÉCORD!</h2>
+            </div>
+            <div v-else>
+
+            </div>
+            <div> 
+                <p>Tu puntuación es de: {{ score }} pts</p>
+            </div>
+            <div class="puntuacion-buttons">
+                <router-link :to="{ name: 'rankings.details', params: { id: route.params.id }}">
+                    <button>VER RANKING</button>
+                </router-link>
+                <router-link to="/forms">
+                    <button>VER FORMULARIOS</button>
+                </router-link>
+            </div>
         </div>
     </section>
 </template>
 
 <script setup>
-import { ref, onMounted, computed, onUnmounted, inject } from 'vue';
+import { ref, onMounted, computed, onUnmounted, inject, nextTick } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import useForms from '@/composables/forms';
 import useFormulariosRespondidos from '@/composables/formularios_respondidos';
 import { authStore } from '@/store/auth';
+import confetti from 'canvas-confetti';
 
 const store = authStore();
 const router = useRouter();
@@ -58,6 +80,21 @@ const swal = inject('$swal')
 const tiempo = ref(0);
 const interval = ref();
 const mostrarScore = ref(false);
+const preguntasTotales = computed(() => selectedPreguntas.value.length);
+
+const mostrarConfetti = async () => {
+    await nextTick();
+    const canvas = document.getElementById('confetti');
+    canvas.confetti = canvas.confetti || confetti.create(canvas, { resize: true });
+    canvas.confetti({
+        particleCount: 150, 
+        spread: 70,
+        origin: { y: 1}, 
+        ticks: 300,
+        gravity: 0.1
+    });
+};
+
 
 const preguntaActual = computed(() => {
     return selectedPreguntas.value && selectedPreguntas.value.length > 0 ? selectedPreguntas.value[currentQuestionIndex.value] : null;
@@ -98,6 +135,7 @@ const siguientePregunta = () => {
                 console.log(route.params.id, score.value);
                 // console.log("formulario creado");
             }
+            mostrarConfetti();
         } else {
             mostrarScore.value = true;
             // console.log("puntuacion inferior a la anterior");
@@ -153,6 +191,27 @@ const endProgress = () => {
     interval.value = null;
 }
 
+const abandonar = () => {
+    endProgress();
+    swal({
+        title: 'Seguro que quieres abandonar?',
+        text: 'Perderás tu puntuación actual!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, quiero abandonar!',
+        confirmButtonColor: '#ef4444',
+        allowOutsideClick: false,
+        reverseButtons: true
+    })
+    .then(result => {
+        if(result.isConfirmed){
+            router.push({ name: 'forms.details', params: { id: route.params.id } });
+        }else{
+            startProgress();
+        }
+    })
+}
+
 onMounted(() => {
     // console.log(route.params.id);
     getForm(route.params.id);
@@ -168,6 +227,8 @@ onMounted(() => {
 onUnmounted(() => {
     endProgress();
 });
+
+
 
 </script>
 
@@ -193,6 +254,7 @@ onUnmounted(() => {
     filter: blur(10px);
 }
 
+/* contenedor preguntas */
 .container{
     padding: 50px;
     height: 100%;
@@ -201,7 +263,42 @@ onUnmounted(() => {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+}
+
+.text-section{
+    border: 1px solid #874eca;
+    width: 100%;
+    border-radius: 20px;
     background-color: #402462;
+}
+
+
+.top-preguntas{
+    display: flex;
+    justify-content: center;
+    color: #FFFFFF;
+    margin-top: -25px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.top-preguntas p{
+    padding: 10px 30px;
+    border-radius: 25px;
+    border: 1px solid #874eca;
+    background-color: #402462;
+}
+
+.text-section-interior{
+    padding: 30px;
+    padding-top: 20px
+}
+
+.p-progressbar{
+    border: 1px solid #874eca;
+    --p-progressbar-value-background: #874eca;
+    --p-progressbar-label-color: #874eca;
+    background-color: #4f2f77;
 }
 
 .header-container{
@@ -210,20 +307,27 @@ onUnmounted(() => {
 
 .header-container .header-score{
     display: flex;
-    justify-content: center;
-    padding-top: 30px;
+    justify-content: center;;
+    padding-top: 50px;
     color: #FFFFFF;
 }
 
-h2{    
+h2{   
     font-weight: bolder;
     font-size: 2.5rem;
     margin-bottom: 0px;
 }
 
 .white-section{
-    color: #FFFFFF;    
-    height: 30%;
+    padding-top: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    color: #FFFFFF; 
+    gap: 15px;  
+
 }
 
 .white-section .header{
@@ -231,6 +335,24 @@ h2{
     align-items: center;
     gap: 20px;
 }
+
+
+.white-section h4{
+    font-size: 1.8rem;
+    padding-bottom: 50px;
+}
+
+.white-section p{
+    font-size: 1.3rem;
+}
+
+.buttons-section{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+
 
 .exit-div{
     width: 100%;
@@ -247,63 +369,176 @@ h2{
     border-radius: 5px;
     transition: background-color 0.3s;
     font-weight: normal;
+    border: none;
 }
 
 
 .exit-button:hover {
-    background-color: #c23616;
+    background-color: #aa2608;
 }
 
-
-.logo-nav {
-    height: 60px;
+.buttons-section{
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
-
-@media (max-width: 768px) {
-    .buttons-section {
-        grid-template-columns: repeat(1, 1fr);
-    }
-
-    .white-section {
-        margin-top: 50px;
-    }
-}
-/* 
 .kahoot-button {
     font-size: 2rem;
     padding: 40px 80px;
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: all 0.3s ease;
     width: 100%;
-} */
+    color: #FFFFFF;
+    
+}
 
 .kahoot-button.red {
-    background-color: #FF6347;
-    color: white;
+    background-color: #1E90FF;
+    box-shadow: rgb(20, 98, 134) 0px 10px 0px 0px;
 }
 
 .kahoot-button.blue {
-    background-color: #1E90FF;
-    color: white;
+    background-color: #50af70;    
+    box-shadow: rgb(0, 110, 77) 0px 10px 0px 0px;
 }
 
 .kahoot-button.green {
-    background-color: #32CD32;
-    color: white;
+    background-color:#ffae00;
+    box-shadow: rgb(184, 141, 0) 0px 10px 0px 0px;
 }
 
 .kahoot-button.yellow {
-    background-color: #FFD700;
-    color: black;
+    background-color: #FF6347;
+    box-shadow: rgb(156, 0, 0) 0px 10px 0px 0px;
 }
 
-.kahoot-button:hover {
+.kahoot-button.red:hover {
+    box-shadow: rgb(20, 98, 134) 0px 7px 0px 0px;
+    transform: translateY(5px);
+}
+
+.kahoot-button.blue:hover {
+    box-shadow: rgb(0, 110, 77) 0px 7px 0px 0px;
+    transform: translateY(5px);
+}
+
+.kahoot-button.green:hover {
+    box-shadow: rgb(184, 141, 0) 0px 6px 0px 0px;
+    transform: translateY(5px);
+}
+
+.kahoot-button.yellow:hover {
+    box-shadow: rgb(156, 0, 0) 0px 7px 0px 0px;
+    transform: translateY(5px);
+}
+
+
+
+@media (max-width: 768px) {
+    .container{
+        padding: 20px;
+        padding-top: 30px
+    }
+
+    .text-section-interior{
+        padding: 15px;
+        padding-top: 20px;
+    }
+
+    .white-section{
+        padding-top: 0px;
+    }
+
+    .white-section h4{
+        padding-bottom: 0px;
+    }
+    .buttons-section {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px;
+    }
+
+    .white-section {
+        margin-top: 20px;
+    }
+    
+    .kahoot-button{
+        font-size: 1.5rem;
+        padding: 20px 30px;
+    }
+
+    .header-container .header-score{
+        padding-top: 20px;
+    }
+}
+
+/* Contenedor puntuación final */
+.container-puntuacion-final{
+    height: 100%;
+    width: 100%;
+    border-radius: 25px;
+    background-color: rgb(64, 36, 98, 0.85);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+    color: white;
+}
+
+.container-puntuacion-final div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-puntuacion-final img{
+    width: 200px;
+    height: 200px;
+    padding-bottom: 25px;
+}
+
+.container-puntuacion-final h2{
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.container-puntuacion-final p{
+    font-size: 2rem;
+}
+
+.puntuacion-buttons button{
+    font-size: 1.5rem;
+    padding: 15px 30px;
+    border: 1px solid #874eca;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 400px;
+    color: #FFFFFF;
     background-color: #874eca;
-    transform: scale(1.02);
+    margin-top: 30px;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
 }
 
+.puntuacion-buttons button:hover{
+    background-color: #402462;
+}
+
+
+.confetti-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; 
+    z-index: 1; 
+}
 
 </style>
