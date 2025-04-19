@@ -19,7 +19,7 @@
                     </a>
                 </li>
                 <li v-for="category in categoryList" :key="category.id">
-                    <<!-- Lista de categorías con clase activa si está seleccionada -->
+                    <!-- Lista de categorías con clase activa si está seleccionada -->
                     <a class="dropdown-item" :class="{ 'active-category': selectedCategoryId === category.id }" href="#" @click.prevent="selectCategory(category.id)">
                         {{ category.name }}
                     </a>

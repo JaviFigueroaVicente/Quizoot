@@ -14,7 +14,7 @@ import Footer from './AppFooter.vue'
 const route = useRoute()
 
 const mostrarFooter = computed(() => {
-    return route.path !== '/login' && route.path !== '/register'
+    return route.path !== '/login' && route.path !== '/register' && route.path !== '/contestarFormulario/:id'
 })
 
 </script>

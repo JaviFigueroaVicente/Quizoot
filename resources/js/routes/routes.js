@@ -1,7 +1,9 @@
+import { before } from "lodash";
 import { authStore } from "../store/auth";
 
 const AuthenticatedLayout = () => import('../layouts/Authenticated.vue')
 const AuthenticatedUserLayout = () => import('../layouts/AuthenticatedUser.vue')
+const AuthenticatedStandardLayout = () => import('../layouts/AuthenticatedStandard.vue')
 const GuestLayout = ()  => import('../layouts/Guest.vue');
 const postsIndex  = ()  => import('../views/admin/posts/Index.vue');
 const postsCreate  = ()  => import('../views/admin/posts/Create.vue');
@@ -182,7 +184,7 @@ export default [
                             name: 'mis-formularios.index',
                             path: '',
                             component: () => import('../views/forms/MisFormularios.vue'),
-                            meta: { breadCrumb: 'Mis Formularios' }
+                            meta: { breadCrumb: 'Mis Formularios' },
                         },
                         {
                             name: 'mis-formularios.edit',
@@ -200,7 +202,7 @@ export default [
                             name: 'mis-formularios.asignar-preguntas',
                             path: ':id/asignar-preguntas',
                             component: () => import('../views/forms/AsignarPreguntas.vue'),
-                            meta: { breadCrumb: 'Asignar Preguntas' }
+                            meta: { breadCrumb: 'Asignar Preguntas' },
                         },
                     ],
                 },             
@@ -231,18 +233,26 @@ export default [
                             path: 'edit/:id',
                             component: () => import('../views/preguntas/Edit.vue'),
                             meta: { breadCrumb: 'Edit Pregunta' }
+                            
                         }
                     ],
-                },
-                {
-                    name: 'formIndividual',
-                    path: '/contestarFormulario/:id',
-                    component: () => import('../views/forms/form_individual/index.vue'),
-                    meta: { breadCrumb: 'Form Individual' }
                 }
             ]
         },
     ],
+    },
+    {
+        path: '/',
+        component: AuthenticatedStandardLayout,
+        beforeEnter: requireLogin,
+        children:[
+            {
+                name: 'formIndividual',
+                path: '/contestarFormulario/:id',
+                component: () => import('../views/forms/form_individual/index.vue'),
+                meta: { breadCrumb: 'Form Individual' }
+            }
+        ],
     },
 
     {

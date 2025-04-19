@@ -1,18 +1,23 @@
 <template>
     <section v-if="!mostrarScore" class="container">
-        <img src="/images/Home/Fondo_Home.webp" class="background-image" />
+        <!-- <div class="video-fondo-div">
+            <video class="video-fondo" src="/images/Home/fondo3.mp4" autoplay="true" muted="true" loop="true"></video>        
+        </div>       -->
         <section class="header-container">
-            <ProgressBar :value="tiempo" class="tiempoPregunta" />
-            <router-link @click="endProgress" to="/forms" class="exit-button">Abandonar</router-link>
-            <h2 v-if="scoreAnterior !== null">Mejor Puntuación: {{ scoreAnterior }}</h2>
-            <h2 v-else>Mejor Puntuación: N/A</h2>
+            <div>
+                <ProgressBar :value="tiempo" class="tiempoPregunta" />
+            </div>            
+            <div class="header-score">
+                <h2 v-if="scoreAnterior !== 0">MEJOR PUNTUACIÓN:  {{ scoreAnterior }} pts</h2>
+                <h2 v-else>Mejor Puntuación: N/A</h2>
+            </div>
         </section>
         <section class="white-section">
             <div class="header">
                 <router-link to="/forms" class="navbar-brand">
                     <img src="/images/Nav/Logo.webp" alt="Logo" class="logo-nav">
                 </router-link>
-                <h2 v-if="preguntaActual">Pregunta {{ currentQuestionIndex + 1 }}:</h2>
+                <h2 v-if="preguntaActual">PREGUNTA {{ currentQuestionIndex + 1 }}:</h2>
             </div>
             <p v-if="preguntaActual">{{ preguntaActual.pregunta }}</p>
             <p>Puntuación: {{ score }}</p> 
@@ -22,9 +27,11 @@
                 {{ respuesta }}
             </button>
         </section>
+        <section class="exit-div">
+            <router-link @click="endProgress" to="/forms" class="exit-button">Abandonar</router-link>
+        </section>        
     </section>
     <section v-else class="container">
-        <img src="/images/Home/Fondo_Home.webp" class="background-image" />
         <div>
             <h2 v-if="scoreAnterior !== null && score > scoreAnterior">¡Nuevo récord!</h2>
             <p>Tu puntuación es de: {{ score }}</p>
@@ -165,88 +172,93 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-
-.tiempoPregunta .p-progressbar-value-label {
-    display: none !important;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: stretch;
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
+.video-fondo-div {
+    position: absolute;
     top: 0;
     left: 0;
-    padding: 0;
-}
-
-.background-image {
     width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    position: fixed;
-    top: 0;
-    left: 0;
+    height: 100%;
+    overflow: hidden;
     z-index: -1;
-    filter: brightness(50%);
-    opacity: 0.75;
 }
 
-.white-section {
-    top: 0;
-    left: 0;
-    width: 100vw;
-    background-color: white;
-    z-index: 1;
-    padding: 20px;
-    box-sizing: border-box;
+.video-fondo {
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    object-fit: cover;
+    filter: blur(10px);
+}
+
+.container{
+    padding: 50px;
+    height: 100%;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    margin-top: 30px;
-    background: rgba(255, 255, 255, 0.9);
-    max-height: 80vh;
+    justify-content: space-between;
+    background-color: #402462;
 }
 
-.header {
+.header-container{
+    width: 100%;
+}
+
+.header-container .header-score{
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+    color: #FFFFFF;
+}
+
+h2{    
+    font-weight: bolder;
+    font-size: 2.5rem;
+    margin-bottom: 0px;
+}
+
+.white-section{
+    color: #FFFFFF;    
+    height: 30%;
+}
+
+.white-section .header{
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 20px;
-    width: 100%;
-    position: relative;
 }
+
+.exit-div{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.exit-button {
+    font-size: 1.2rem;
+    color: white;
+    text-decoration: none;
+    background-color: #e84118;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-weight: normal;
+}
+
+
+.exit-button:hover {
+    background-color: #c23616;
+}
+
 
 .logo-nav {
     height: 60px;
 }
 
-.header h2 {
-    font-size: 2.5rem;
-    color: #333;
-    margin: 0;
-}
-
-.white-section p {
-    font-size: 1.2rem;
-    color: #666;
-    line-height: 1.6;
-    margin-top: 20px;
-}
-
-.buttons-section {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    margin-top: 20px;
-    justify-items: stretch;
-    width: 100vw;
-    padding: 0 20px;
-}
 
 @media (max-width: 768px) {
     .buttons-section {
@@ -257,7 +269,7 @@ onUnmounted(() => {
         margin-top: 50px;
     }
 }
-
+/* 
 .kahoot-button {
     font-size: 2rem;
     padding: 40px 80px;
@@ -266,7 +278,7 @@ onUnmounted(() => {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     width: 100%;
-}
+} */
 
 .kahoot-button.red {
     background-color: #FF6347;
@@ -293,26 +305,5 @@ onUnmounted(() => {
     transform: scale(1.02);
 }
 
-.exit-button {
-    top: 20px;
-    right: 20px;
-    font-size: 1.2rem;
-    color: white;
-    text-decoration: none;
-    background-color: #e84118;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    font-weight: normal;
-}
 
-.exit-button-container {
-    top: 20px;
-    right: 20px;
-    justify-content: center;
-}
-
-.exit-button:hover {
-    background-color: #c23616;
-}
 </style>

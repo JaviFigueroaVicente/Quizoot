@@ -2,8 +2,8 @@
     <div class="layout-wrapper" :class="containerClass">
         
         <Navbar v-if="!isFormIndividualPage"></Navbar>
-        <div class="layout-sidebar" v-if="!isFormIndividualPage">
-            <Menu :model="items" class="w-full md:w-13rem menu border-0" appendTo="self">
+        <!-- <div class="layout-sidebar" v-if="!isFormIndividualPage"> -->
+            <!-- <Menu :model="items" class="w-full md:w-13rem menu border-0" appendTo="self">
                 <template #start>
                     <button class="relative overflow-hidden w-full p-link flex align-items-center p-2 pl-0 text-color hover:surface-200 border-noround">
                         <Avatar :image="authStore().user?.avatar" class="mr-3" shape="circle" />
@@ -30,9 +30,9 @@
                     </a>
                 </template>
 
-            </Menu>
+            </Menu> -->
             <!--            <app-sidebar></app-sidebar>-->
-        </div>
+        <!-- </div> -->
 
         <div class="layout-main-container ">
             <div class="card mb-2 bread" v-if="!isFormIndividualPage">
@@ -240,4 +240,9 @@ const isOutsideClicked = (event) => {
     top: 0;
     z-index: 100;
 }
+
+.layout-wrapper.layout-static .layout-main-container{
+    margin-left: 0px;
+}
+
 </style>

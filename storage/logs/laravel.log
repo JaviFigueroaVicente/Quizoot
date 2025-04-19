@@ -18618,3 +18618,4 @@ Stack trace:
 [2025-04-14 17:52:54] testing.ERROR: Error en store(): SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'user_id' cannot be null (Connection: mysql, SQL: insert into `preguntas` (`pregunta`, `user_id`, `updated_at`, `created_at`) values (¿Cuál es la capital de Francia?, ?, 2025-04-14 17:52:54, 2025-04-14 17:52:54))  
 [2025-04-14 17:53:18] testing.ERROR: Error en store(): SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'user_id' cannot be null (Connection: mysql, SQL: insert into `preguntas` (`pregunta`, `user_id`, `updated_at`, `created_at`) values (¿Cuál es la capital de Francia?, ?, 2025-04-14 17:53:18, 2025-04-14 17:53:18))  
 >>>>>>> origin/javi
+[2025-04-18 16:25:17] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  

@@ -3,9 +3,9 @@
         {{ authStore().user.value }}
         <div class="container">
             <!-- Logo a la izquierda -->
-            <router-link to="/" class="navbar-brand">
+            <a href="/" class="navbar-brand">
                 <img src="/images/Nav/Logo.webp" alt="Logo" class="logo-nav">
-            </router-link>
+            </a>
 
             <!-- Foto de usuario en el centro (en pantallas pequeñas) -->
             <div class="nav-center d-md-none">
@@ -190,9 +190,8 @@ nav .container {
 }
 
 .button-login:hover {
-    border: 1px solid #000000;
-    background-color: #d8bfd8;
-    color: #913595;
+    background-color: #402462;
+    color: #ffffff;
 }
 
 @media (max-width: 768px) {
