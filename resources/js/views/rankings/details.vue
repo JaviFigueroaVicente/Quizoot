@@ -87,6 +87,7 @@ onMounted(() => {
     border-radius: 20px;
     font-size: 14px;
     font-weight: 500;
+    margin-right: 2px;
 }
 
 .ranking-container {

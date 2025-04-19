@@ -6,21 +6,27 @@
                 <div class="col-md-4 left-section">
                     <img v-if="formulario && formulario.media && formulario.media.length > 0" :src="formulario.media[0].original_url" alt="User image" class="form-image">
                     <img v-else src="/images/placeholder.jpg" alt="Placeholder" class="form-image">
-                    <h3 class="fw-bold mb-1 mt-2">{{ formulario.name }}</h3>
-                    <p>{{ formulario.description }}</p>
-                    <router-link :to="{name:'formIndividual'}"><button class="btn btn-lila mb-3">Jugar Solo</button></router-link>
+                    <h3 class="fw-bold mb-1 mt-3">{{ formulario.name }}</h3>
+                    <p class="mt-1">{{ formulario.description }}</p>
+                    <div class="d-flex flex-wrap text-start w-100">
+                        <span v-for="category in formulario.categories" :key="category.id" class="category-decoration">
+                            {{ category.name }}
+                        </span>
+                    </div>
+                    <router-link :to="{name:'formIndividual'}"><button class="btn btn-lila mb-3 w-100 text-center">Jugar Solo</button></router-link>
                     <!-- Sección Derecha: Ranking -->
                     <div class="ranking-container mb-2">
                         <h4 class="ranking-title">🏆 Ranking</h4>
                         <ul class="ranking-list">
-                            <li class="ranking-item">
-                                <span class="ranking-position">🥇</span> John Doe - 95 pts
-                            </li>
-                            <li class="ranking-item">
-                                <span class="ranking-position">🥈</span> Jane Smith - 90 pts
-                            </li>
-                            <li class="ranking-item">
-                                <span class="ranking-position">🥉</span> Alice Johnson - 85 pts
+                            <li v-for="rank in ranking.slice(0, 3)" :key="rank.user_id" class="ranking-item">
+                                <img
+                                    :src="rank.user.media?.[0]?.original_url || '/images/profile-placeholder.png'"
+                                    alt="Foto de perfil"
+                                    class="ranking-avatar"
+                                />
+                                <span class="ranking-info">
+                                    {{ rank.user.name }} {{ rank.user.surname1 }} - {{ rank.score }} pts
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -76,12 +82,13 @@ const dialogVisible = ref(false);
 const preguntaActual = ref({});
 
 const route = useRoute();
-const { getForm, formulario, getFormPreguntas,selectedPreguntas } = useForms();
+const { getForm, formulario, getFormPreguntas, selectedPreguntas, getRankingFormulario, ranking } = useForms();
 
 onMounted(() => {
     // console.log(route.params.id);
     getForm(route.params.id);
     getFormPreguntas(route.params.id);
+    getRankingFormulario(route.params.id);
 });
 
 const verRespuestas= (pregunta)=>{
@@ -154,6 +161,18 @@ const verRespuestas= (pregunta)=>{
         text-align: left;
     }
 
+    .category-decoration {
+        background-color: #5e2ea5;
+        color: #ffffff;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 20px;
+        margin-right: 5px;
+        margin-top: -6px;
+    }
+
     /* Ranking */
     .ranking-container {
         background-color: #f8f9fa;
@@ -192,6 +211,19 @@ const verRespuestas= (pregunta)=>{
         font-weight: bold;
     }
 
+    .ranking-avatar {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #874ECA;
+    }
+
+    .ranking-info {
+        font-size: 14px;
+    }
+
+    /* Secciones */
     .left-section {
         position: sticky;
         top: 20px;
