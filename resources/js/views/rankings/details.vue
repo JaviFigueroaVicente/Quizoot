@@ -1,7 +1,7 @@
 <template>
     <div class="mt-7 mb-6">
-        <div class="container my-2">
-            <div class="row">
+        <div class="container-fluid px-3 my-2">
+            <div class="row justify-content-center">
                 <!-- Imagen Decorativa -->
                 <div class="col-md-4 d-flex flex-column align-items-center left-section">
                     <img v-if="formulario && formulario.media && formulario.media.length > 0" :src="formulario.media[0].original_url" alt="User image" class="img-fluid form-image">
@@ -16,30 +16,33 @@
                 </div>
 
                 <!-- Ranking Grande a la Derecha -->
-                <div class="col-md-8 ranking-container">
-                    <h3 class="ranking-title">🏆 Top Players</h3>
-                    <!-- Lista de Ranking Desplazable -->
-                    <div class="ranking-list-container">
-                        <ul class="ranking-list">
-                            <li v-for="(rank, index) in ranking" :key="rank.user_id" class="ranking-item">
-                                <div v-if="index%2 === 0" class="ranking-item-impar">
-                                    <span class="ranking-position">{{ index + 1 }}</span>
-                                    <img v-if="rank.user.media && rank.user.media.length > 0" :src="rank.user.media[0].original_url" :alt="rank.user.name" alt="">
-                                    <img v-else src="/images/Nav/PerfilSinFoto.webp" alt="">
-                                    <span class="ranking-name">{{ rank.user.name }} {{ rank.user.surname1 }}</span>
-                                    <span class="ranking-score">{{ rank.score }} pts</span>
-                                </div>
-                                <div v-else>
-                                    <span class="ranking-position">{{ index + 1 }}</span>
-                                    <img v-if="rank.user.media && rank.user.media.length > 0" :src="rank.user.media[0].original_url" :alt="rank.user.name" alt="">
-                                    <img v-else src="/images/Nav/PerfilSinFoto.webp" alt="">
-                                    <span class="ranking-name">{{ rank.user.name }} {{ rank.user.surname1 }}</span>
-                                    <span class="ranking-score">{{ rank.score }} pts</span>
-                                </div>
-                            </li>
-                        </ul>
+                <div class="col-md-8">
+                    <div class="ranking-container">
+                        <!-- Lista Jugadores -->
+                        <h3 class="ranking-title">🏆 Top Players</h3>
+                        <div class="ranking-list-container">
+                            <ul class="ranking-list">
+                                <li v-for="(rank, index) in ranking" :key="rank.user_id" class="ranking-item">
+                                    <div v-if="index%2 === 0" class="ranking-item-impar">
+                                        <span class="ranking-position">{{ index + 1 }}</span>
+                                        <img v-if="rank.user.media && rank.user.media.length > 0" :src="rank.user.media[0].original_url" :alt="rank.user.name" alt="">
+                                        <img v-else src="/images/Nav/PerfilSinFoto.webp" alt="">
+                                        <span class="ranking-name">{{ rank.user.name }} {{ rank.user.surname1 }}</span>
+                                        <span class="ranking-score">{{ rank.score }} pts</span>
+                                    </div>
+                                    <div v-else>
+                                        <span class="ranking-position">{{ index + 1 }}</span>
+                                        <img v-if="rank.user.media && rank.user.media.length > 0" :src="rank.user.media[0].original_url" :alt="rank.user.name" alt="">
+                                        <img v-else src="/images/Nav/PerfilSinFoto.webp" alt="">
+                                        <span class="ranking-name">{{ rank.user.name }} {{ rank.user.surname1 }}</span>
+                                        <span class="ranking-score">{{ rank.score }} pts</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -199,9 +202,33 @@ onMounted(() => {
         margin-top: 20px;
     }
 
-    .ranking-list-container {
-        max-height: 320px;
-        overflow-y: auto;
+    .ranking-title {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .ranking-position {
+        font-size: 18px;
+    }
+
+    .ranking-name {
+        font-size: 16px;
+    }
+
+    .ranking-score {
+        font-size: 16px;
+    }
+
+    .ranking-item {
+        font-size: 16px;
+    }
+
+    .category-decoration {
+        font-size: 12px;
+    }
+
+    .form-image {
+        max-height: 250px;
     }
 }
 
