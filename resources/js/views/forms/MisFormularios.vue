@@ -99,7 +99,7 @@ initFilters();
 <style scoped>
 h1{
     font-weight: bolder;
-    color: blueviolet;
+    color: #874eca;
 }
 .p-datatable {
     width: 100%;

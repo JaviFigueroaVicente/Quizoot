@@ -169,15 +169,9 @@ export default [
                     path: 'edit',
                     component: () => import('../views/profile/Edit.vue'),
                     meta: { breadCrumb: 'Edit profile' }
-                }
-            ],
-        },
-        {
-            name:'form',
-            path:'form',
-            children : [
+                },
                 {
-                    name: 'form.mis-formularios',
+                    name: 'profile.mis-formularios',
                     path: 'mis-formularios',
                     children : [
                         {
@@ -209,17 +203,11 @@ export default [
                             path: 'mis-respondidos',
                             component: () => import('../views/forms/MisRespondidos.vue'),
                             meta: { breadCrumb: 'Mis Formularios Respondidos' },
-                        },
+                        },                        
                     ],
-                },             
-            ],
-        },
-        {
-            name: 'preguntas',
-            path: 'preguntas',
-            children : [
+                },
                 {
-                    name: 'preguntas.mis-preguntas',
+                    name: 'profile.mis-preguntas',
                     path: 'mis-preguntas',
                     children : [
                         {
@@ -243,7 +231,7 @@ export default [
                         }
                     ],
                 }
-            ]
+            ],
         },
     ],
     },
