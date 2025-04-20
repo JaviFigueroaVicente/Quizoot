@@ -130,21 +130,5 @@ const selectCategory = (categoryId = null) => {
     cursor: pointer;
 }
 
-/* Paginator */
-:deep(.p-paginator .p-paginator-page) {
-    border: 2px solid #d3d3d3;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    color: #874ECA;
-    font-weight: bold;
-    margin: 0 4px;
-    background-color: #f9f9f9;
-}
 
-:deep(.p-paginator .p-paginator-page:hover) {
-    background-color: #f3f0fa;
-    border-color: #874ECA;
-    color: #874ECA;
-}
 </style>

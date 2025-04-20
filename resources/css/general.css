@@ -45,15 +45,71 @@ main{
     border: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
-  }
-  .btn-custom:hover {
+}
+.btn-custom:hover {
     background-color: #402462;
-  }
-  
-  .p-checkbox-checked{
-      --p-checkbox-checked-background: #874eca;
-      --p-checkbox-checked-hover-background: #402462;
-      --p-checkbox-checked-border-color: #874eca;
-      --p-checkbox-checked-hover-border-color: 402462;
-      --p-checkbox-checked-focus-border-color: #874eca;
-  }
+}
+
+.p-checkbox-checked{
+    --p-checkbox-checked-background: #874eca;
+    --p-checkbox-checked-hover-background: #402462;
+    --p-checkbox-checked-border-color: #874eca;
+    --p-checkbox-checked-hover-border-color: 402462;
+    --p-checkbox-checked-focus-border-color: #874eca;
+}
+
+.p-breadcrumb-item .text-primary{
+    color: #874eca !important;
+}
+
+.p-toolbar-start .p-button{
+    border: #874eca 1px solid;
+    color: #874eca;
+}
+
+.p-toolbar-start .p-button-outlined:not(:disabled):hover {
+    background: #f8f2ff !important;
+    border-color: #874eca !important;
+    color: #874eca !important;
+}
+
+.p-toolbar-start .p-button-outlined:not(:disabled):active{
+    background-color: #b676ff !important;
+    color: #874eca !important;
+    border-color: #cb9dff;
+}
+
+.p-toolbar-start .p-button:focus-visible{
+    outline: none !important;
+}
+
+.p-toolbar-start .p-inputtext:enabled:focus{
+    border-color: #874eca !important;
+}
+
+.p-paginator-page.p-paginator-page-selected{
+    background-color: #efe0ff !important;
+    color: #874eca !important;
+}
+
+.p-paginator .p-paginator-page {
+    border: 2px solid #d3d3d3;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    color: #874ECA;
+    font-weight: bold;
+    margin: 0 4px;
+    background-color: #f9f9f9;
+}
+
+.p-paginator .p-paginator-page:hover {
+    background-color: #f3f0fa;
+    border-color: #874ECA;
+    color: #874ECA;
+}
+
+.p-paginator-page:not(.p-disabled):not(.p-paginator-page-selected):hover, .p-paginator-first:not(.p-disabled):hover, .p-paginator-prev:not(.p-disabled):hover, .p-paginator-next:not(.p-disabled):hover, .p-paginator-last:not(.p-disabled):hover {
+    background: #f8f2ff !important;
+    color: #874ECA !important;
+}
