@@ -2,19 +2,20 @@
     <div class="main-container">
         <div class="card border-0 left-container">
             <div class="card-header bg-transparent">
-                <h5 class="float-start">Profile Image</h5>
+                <h5 class="float-start titles">PROFILE IMAGE</h5>
             </div>
             <div class="image-container">
                 <img :src="usuario.avatar || '/images/Nav/PerfilSinFoto.webp'" alt="Profile Image" class="profile-image" />
                 <DropZone v-model="imagenFile" />
             </div>
-            <button type="submit" @click="onFormSubmitIMG" class="btn btn-primary w-100 mt-5">
+            <button type="submit" @click="onFormSubmitIMG" class="btn-custom w-100 mt-5">
                 Update Image
             </button> 
         </div>
-        <div class="card border-0 rigth-container">
+        <!-- Corregido el nombre de la clase -->
+        <div class="card border-0 right-container">
             <div class="card-header bg-transparent">
-                <h5 class="float-start">Profile Details</h5>
+                <h5 class="float-start titles">PROFILE DETAILS</h5>
             </div>
             <div class="card-body">
                 <div class="mb-3">
@@ -37,7 +38,7 @@
                     <label for="email" class="form-label">Email</label>
                     <input type="email" v-model="usuario.email" class="form-control" id="email" readonly>
                 </div>
-                <button type="submit" @click="onFormSubmit" class="btn btn-primary w-100 mt-5">
+                <button type="submit" @click="onFormSubmit" class="btn-custom w-100 mt-5">
                     Update Profile
                 </button> 
             </div>
@@ -47,6 +48,11 @@
 </template>
 
 <style scoped>
+    .titles {
+        color: #874eca;
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
     .card {
         width: 50%;
         border: 1px solid #d6d6d6 !important;
@@ -64,6 +70,7 @@
         align-items: center;
         justify-content: center;
         width: 100%;
+        margin-bottom: 64px;
     }
 
     .profile-image {
@@ -71,8 +78,8 @@
         height: 150px;
         object-fit: cover;
         border-radius: 50%;
-        margin-bottom: 10px;
-        border: 2px solid #ccc; /* Borde opcional */
+        margin-bottom: 80px;
+        border: 2px solid #ccc;
     }
 
     .main-container {
@@ -89,8 +96,41 @@
     .right-container {
         flex: 2;
     }
+
+    @media (max-width: 426px) {
+        .main-container {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .left-container,
+        .right-container {
+            flex: none;
+            width: 100%;
+        }
+
+        .right-container {
+            width: 100%;
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 30px;
+        }
+    }
+    
+    @media (max-width: 376px) {
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 40px;
+        }
+    }
             
 </style>
+
+
 <script setup>
 import { onMounted, reactive, watchEffect,ref, inject } from "vue";
 // import { useField, defineRule } from "vee-validate";
