@@ -57,7 +57,7 @@
 
     <Dialog v-model:visible="dialogVisible" modal :draggable="false" :style="{ width: '30rem', padding: '15px', height: 'auto' , backgroundImage: 'url(/images/forms/fondoVentana.jpg)', backgroundPosition: 'center', backgroundSize: 'cover',}" pcCloseButton="">
         <template #header>
-            <h2 class="dialog-title">Respuestas !!</h2>
+            <h2 class="dialog-title">RESPUESTAS</h2>
         </template>
         <div class="respuestas-dialog-body">
             <ul class="list-respuestas">
