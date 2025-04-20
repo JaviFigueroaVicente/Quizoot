@@ -204,6 +204,12 @@ export default [
                             component: () => import('../views/forms/AsignarPreguntas.vue'),
                             meta: { breadCrumb: 'Asignar Preguntas' },
                         },
+                        {
+                            name: 'mis-formularios.mis-respondidos',
+                            path: 'mis-respondidos',
+                            component: () => import('../views/forms/MisRespondidos.vue'),
+                            meta: { breadCrumb: 'Mis Formularios Respondidos' },
+                        },
                     ],
                 },             
             ],

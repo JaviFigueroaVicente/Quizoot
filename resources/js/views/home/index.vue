@@ -673,8 +673,13 @@ export default {
         height: auto;
     }
 
+    .section-principal-top{
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+
     .section-principal-top h1{
-        font-size: 4rem;
+        font-size: 3.25rem;
         list-style: none;
     }
     .section-cards .row{

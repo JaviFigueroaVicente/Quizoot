@@ -2,20 +2,27 @@
     <div class="grid">
         <div class="col-12">
             <div class="card">
-                <DataTable v-model:filters="filters" :value="formularios" paginator :rows="5"
+                <h1>MIS FORMULARIOS</h1>
+                <DataTable :size="'normal'" v-model:filters="filters" :value="formularios" paginator :rows="5"
                             :globalFilterFields="['id','name', 'description','user_id','created_at']" stripedRows dataKey="id" size="small">
                     <template #header>
                         <Toolbar pt:root:class="toolbar-table">
                             <template #start>
-                                <IconField >
-                                    <InputIcon class="pi pi-search"> </InputIcon>
-                                    <InputText v-model="filters['global'].value" placeholder="Buscar" />
-                                </IconField>
-                                <Button type="button" icon="pi pi-filter-slash" label="Clear" class="ml-1" outlined @click="initFilters()" />
-                                <Button type="button" icon="pi pi-refresh" class="h-100 ml-1" outlined @click="getUserForms()" />
-                                <router-link :to="{name: 'mis-formularios.create'}" class="flex align-items-center">
-                                    <button type="button" class="btn btn-primary button button-action">Crear formulario</button>
-                                </router-link>
+                                <div class="search-and-filters-container flex md:flex-row ">
+                                    <div class="icon-field-container flex align-items-center">
+                                        <IconField>
+                                            <InputIcon class="pi pi-search"></InputIcon>
+                                            <InputText v-model="filters['global'].value" placeholder="Buscar" />
+                                        </IconField>
+                                    </div>
+                                    <div class="buttons-container flex gap-2">
+                                        <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="initFilters()" />
+                                        <Button type="button" icon="pi pi-refresh" class="h-100 ml-1" outlined @click="getUserForms()" />
+                                        <router-link :to="{name: 'mis-formularios.create'}" class="flex align-items-center">
+                                            <button type="button" class="btn btn-primary button button-action">Crear formulario</button>
+                                        </router-link>
+                                    </div>
+                                </div>
                             </template>
                         </Toolbar>
                     </template>
@@ -36,7 +43,7 @@
                             {{ slotProps.data.preguntas_count ?? 0 }}
                         </template>
                     </Column>
-                    <Column field="categoria_id" header="Categoria" sortable>
+                    <Column field="categoria_id" header="Categoria">
                         <template #body="slotProps">
                             <!-- Mostrar las categorías asignadas -->
                             <span v-if="slotProps.data.categories && slotProps.data.categories.length > 0">
@@ -47,7 +54,7 @@
                     </Column>
                     <Column field="created_at" header="Creado el" sortable></Column>
                     <Column class="pe-0 me-0 icon-column-3">
-                        <template #body="slotProps">
+                        <template #body="slotProps" class="d-flex">
                             <router-link :to="{ name: 'mis-formularios.asignar-preguntas', params: { id: slotProps.data.id } }">
                                 <Button icon="pi pi-plus" severity="help" size="small" class="mr-1"></Button>
                             </router-link>
@@ -69,6 +76,7 @@ import { useRouter } from 'vue-router';
 import useForms from '@/composables/forms';
 import { useAbility } from '@casl/vue';
 import { FilterMatchMode } from '@primevue/core/api';
+import { size } from 'lodash';
 
 const router = useRouter();
 const { formularios, getUserForms, deleteForm } = useForms();
@@ -89,10 +97,37 @@ initFilters();
 </script>
 
 <style scoped>
-.thumbnail {
-    width: 50px;
-    height: 50px; 
-    object-fit: cover; 
-    border-radius: 4px; 
+h1{
+    font-weight: bolder;
+    color: blueviolet;
 }
+.p-datatable {
+    width: 100%;
+}
+
+.card {
+    gap: 30px;
+    align-items: center;
+}
+
+.p-toolbar{
+    width: 100%;
+}
+.card-header{
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .icon-field-container,
+    .buttons-container {
+        display: flex;
+        width: auto;
+        margin-bottom: 0;
+    }
+    .search-and-filters-container{
+        flex-wrap: wrap;
+    }
+}
+
 </style>

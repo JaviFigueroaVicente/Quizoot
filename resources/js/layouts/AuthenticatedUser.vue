@@ -233,6 +233,7 @@ const isOutsideClicked = (event) => {
 
 .layout-main-container {
     padding: 1rem 1rem 2rem 2rem;
+    min-height: 55vh;
 }
 
 .navbar{
@@ -245,4 +246,11 @@ const isOutsideClicked = (event) => {
     margin-left: 0px;
 }
 
+.button-action{
+    margin-left: 20px;
+}
+
+.toolbar-table{
+    margin-bottom: 25px;
+}
 </style>

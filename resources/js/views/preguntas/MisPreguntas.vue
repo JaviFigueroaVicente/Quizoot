@@ -3,20 +3,26 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-transparent ps-0 pe-0">
-                    <h5 class="float-start mb-0">Buscar Preguntas</h5>
+                    <h1 class="mb-0">BUSCAR PREGUNTAS</h1>
                 </div>
-                    <DataTable v-model:filters="filters" :value="preguntas.data" paginator :rows="5"
+                    <DataTable v-model:filters="filters" :size="'normal'" :value="preguntas.data" paginator :rows="5"
                                :globalFilterFields="['id','pregunta', 'user_id','created_at']" stripedRows dataKey="id" size="small">
                         <template #header>
                             <Toolbar pt:root:class="toolbar-table">
                                 <template #start>
-                                    <IconField >
-                                        <InputIcon class="pi pi-search"> </InputIcon>
-                                        <InputText v-model="filters['global'].value" placeholder="Buscar" />
-                                    </IconField>
-                                    <Button type="button" icon="pi pi-filter-slash" label="Clear" class="ml-1" outlined @click="initFilters()" />
-                                    <Button type="button" icon="pi pi-refresh" class="h-100 ml-1" outlined @click="getPregunta()" />
-                                    <router-link :to="{name: 'mis-preguntas.create'}" class="flex align-items-center"><button type="button" class="btn btn-primary button button-action">Crear pregunta</button></router-link>
+                                    <div class="search-and-filters-container flex md:flex-row ">
+                                        <div class="icon-field-container flex align-items-center">
+                                            <IconField>
+                                                <InputIcon class="pi pi-search"></InputIcon>
+                                                <InputText v-model="filters['global'].value" placeholder="Buscar" />
+                                            </IconField>
+                                        </div>
+                                        <div class="buttons-container flex gap-2">
+                                            <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="initFilters()" />
+                                            <Button type="button" icon="pi pi-refresh" class="h-100 ml-1" outlined @click="getPregunta()" />
+                                            <router-link :to="{name: 'mis-preguntas.create'}" class="flex align-items-center"><button type="button" class="btn btn-primary button button-action">Crear pregunta</button></router-link>
+                                        </div>
+                                    </div>
                                 </template>
                             </Toolbar>
                         </template>
@@ -38,7 +44,6 @@
                                 <router-link :to="{ name: 'mis-preguntas.edit', params: { id: slotProps.data.id } }">
                                     <Button icon="pi pi-pencil" severity="info" size="small" class="mr-1"/>
                                 </router-link>
-
                                 <Button icon="pi pi-trash" severity="danger" @click.prevent="deletePregunta(slotProps.data.id)" size="small"/>
                             </template>
                         </Column>
@@ -48,7 +53,7 @@
     </div>
     <Dialog v-model:visible="dialogVisible" modal :style="{ width: '30rem', padding: '15px', height: 'auto' }" pcCloseButton="">
         <template #header>
-            <h2><strong>Respuestas</strong></h2>
+            <h2><strong>RESPUESTAS</strong></h2>
         </template>
         <div class="flex items-center gap-4 mb-8">
             <ul class="list-group">
@@ -73,6 +78,7 @@ import { useRouter } from 'vue-router';
 import usePreguntas from '@/composables/preguntas';
 import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
 import { Column } from 'primevue';
+import { size } from 'lodash';
 
 const dialogVisible = ref(false);
 const preguntaActual = ref({});
@@ -102,10 +108,18 @@ initFilters();
 </script>
 
 <style scoped>
+h1{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bolder;
+    color: blueviolet;
+}
 .ver-respuestas{
     border: none;
     background-color: transparent;
     color: #874eca;
+    font-family: 'Roboto';
 }
 .ver-respuestas:hover{
     color: #402462;
@@ -125,6 +139,19 @@ initFilters();
 
 .list-group p{
     font-size: 1.75rem;
+}
+
+
+@media (max-width: 768px) {
+    .icon-field-container,
+    .buttons-container {
+        display: flex;
+        width: auto;
+        margin-bottom: 0;
+    }
+    .search-and-filters-container{
+        flex-wrap: wrap;
+    }
 }
 
 </style>

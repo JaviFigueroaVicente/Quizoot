@@ -28,8 +28,19 @@ class FormulariosRespondidosController extends Controller
      //
     }
 
-    public function getFormulariosRespondidosUser(string $user_id){
+    public function getFormulariosRespondidosUserLogged()
+    {
+        $formularios_respondidos = Formularios_Respondidos::where('user_id', auth()->id())->get();
 
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'data' => $formularios_respondidos
+        ]);
+    }
+
+    public function getFormulariosRespondidosUser(string $user_id)
+    {
         $formularios_respondidos = Formularios_Respondidos::where('user_id', $user_id)->get();
 
         return response()->json([

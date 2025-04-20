@@ -23,6 +23,16 @@ export default function useFormulariosRespondidos() {
     }    
 
 
+    const getFormulariosRespondidosUserLogged = async () => {
+        axios.get('/api/formularios-respondidos-user-logged')
+        .then (response => {
+            formulariosRespondidos.value = response.data.data
+            // console.log(response.data.data)
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
     const getFormulariosRespondidosUser = async (id) => {
         axios.get('/api/formularios-respondidos/' + id)
         .then (response => {
@@ -136,6 +146,7 @@ export default function useFormulariosRespondidos() {
         formularioRespondido,
         scoreAnterior,
         getScoreAnterior,
+        getFormulariosRespondidosUserLogged,
         getFormulariosRespondidos,
         getFormulariosRespondidosUser,
         getFormulariosRespondidosFormulario,
