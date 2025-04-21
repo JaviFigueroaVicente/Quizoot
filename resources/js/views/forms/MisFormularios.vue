@@ -118,6 +118,13 @@ h1{
     align-items: center;
 }
 
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
 @media (max-width: 768px) {
     .icon-field-container,
     .buttons-container {
