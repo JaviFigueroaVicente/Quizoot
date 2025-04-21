@@ -100,6 +100,7 @@ Route::delete('pregunta/{pregunta}', [PreguntasController::class, 'destroy']);
 Route::put('pregunta/{id}', [PreguntasController::class, 'update']);
 
 Route::get('formularios-respondidos', [FormulariosRespondidosController::class, 'index']);
+Route::get('formularios-respondidos-user-logged', [FormulariosRespondidosController::class, 'getFormulariosRespondidosUserLogged']);
 Route::get('formularios-respondidos/{user_id}', [FormulariosRespondidosController::class, 'getFormulariosRespondidosUser']);
 Route::get('formularios-respondidos-formulario/{formularioId}', [FormulariosRespondidosController::class, 'getFormulariosRespondidosForm']);
 Route::post('formulario-respondido', [FormulariosRespondidosController::class, 'store']);

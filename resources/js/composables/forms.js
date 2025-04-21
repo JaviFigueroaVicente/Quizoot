@@ -12,6 +12,7 @@ export default function useForms() {
     const ranking = ref([])
     const selectedPreguntas = ref([])
     const swal = inject('$swal')
+    const isLoading = ref(false)
 
     const getForms = async (categoryId = null) => {
         let url = '/api/formulario';
@@ -62,12 +63,15 @@ export default function useForms() {
     }
 
     const getPreguntasSinRespuesta = async (id) => {
+        isLoading.value = true;
         axios.get('/api/preguntas-form/' + id)
             .then(response => {
                 selectedPreguntas.value = response.data.data;
                 // console.log(response.data.data);
             }).catch(error => {
                 console.log(error)
+            }).finally(() => {
+                isLoading.value = false
             })
     }
 
@@ -256,6 +260,7 @@ export default function useForms() {
         formulario,
         selectedPreguntas,
         ranking,
+        isLoading,
         getForms,
         getUserForms,
         getForm,

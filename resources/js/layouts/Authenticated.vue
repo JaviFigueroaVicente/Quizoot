@@ -31,7 +31,7 @@
                     <router-view></router-view>
                 </Suspense>
             </div>
-            
+            hjsdf
         </div>
 
         <div class="layout-mask"></div>
@@ -143,6 +143,7 @@ const isOutsideClicked = (event) => {
 
 .layout-main-container {
     padding: 1rem 1rem 2rem 2rem;
+    min-height: 50vh;
 }
 
 .navbar{

@@ -49,6 +49,7 @@ main{
 }
 .btn-custom:hover {
     background-color: #402462;
+    color: #ffffff;
 }
 
 .p-checkbox-checked{
@@ -112,5 +113,14 @@ main{
 
 .p-paginator-page:not(.p-disabled):not(.p-paginator-page-selected):hover, .p-paginator-first:not(.p-disabled):hover, .p-paginator-prev:not(.p-disabled):hover, .p-paginator-next:not(.p-disabled):hover, .p-paginator-last:not(.p-disabled):hover {
     background: #f8f2ff !important;
+    color: #874ECA !important;
+}
+
+.p-datatable-column-sorted{
+    background: #f8f2ff !important;
+    color: #874ECA !important;
+}
+
+.p-datatable-column-sorted .p-datatable-sort-icon{
     color: #874ECA !important;
 }

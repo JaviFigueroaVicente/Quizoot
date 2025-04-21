@@ -51,7 +51,7 @@
             </div>
             <div class="col">
                 <div>
-                    <router-link :to="{ name: 'mis-formularios.index' }">
+                    <router-link :to="{ name: 'mis-formularios.mis-respondidos'}">
                         <div>
                             <img src="/images/icons/respondidos.png" alt="">
                             <h4>Formularios Respondidos</h4>
@@ -76,6 +76,8 @@
 <script setup>
 import useAuth from "@/composables/auth";
 const { logout } = useAuth();
+
+const store = useAuth();
 
 </script>
 
