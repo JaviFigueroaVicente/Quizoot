@@ -4,13 +4,17 @@
             <h1 class="fw-bold">Rankings</h1>
         </div>
         <div class="container my-2">
-            <div class="dropdown">  
-                <button class="btn btn-light me-2 btn-hover-lila dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> + </button>              
-                <span>Categorías</span>
-            </div>
-            <Skeleton class="mt-3" height="25px"></Skeleton>
-            <div class="mt-4 mb-4" height="200px">
-                <Skeleton height="50px"></Skeleton>
+            <!-- Div categorias -->
+            <Skeleton class="dropdown mb-3" height="30px" width="125px"/>
+
+            <!-- Componentes Formularios -->
+            <Skeleton class="mt-5" height="15rem"/>
+            <Skeleton class="mt-6" height="15rem"/>            
+            <Skeleton class="mt-6" height="15rem"/>
+
+            <!-- Paginación -->
+            <div class="mt-4 mb-4">
+                <Skeleton height="50px"/>
             </div>
         </div>
     </div>
