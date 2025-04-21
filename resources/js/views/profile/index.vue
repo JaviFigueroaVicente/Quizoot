@@ -83,7 +83,7 @@ const store = useAuth();
 
 <style scoped>
 .container{
-    margin-top: 5em;
+    margin-top: 2em;
 }
 .col{
     background-color: #ffffff;
