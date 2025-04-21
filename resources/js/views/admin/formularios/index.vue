@@ -53,6 +53,9 @@
                     </Column>
                     <Column class="pe-0 me-0 icon-column-2">
                         <template #body="slotProps">
+                            <router-link :to="{ name: 'formularios.asignar-preguntas', params: { id: slotProps.data.id } }">
+                                <Button icon="pi pi-plus" severity="help" size="small" class="mr-1"></Button>
+                            </router-link>
                             <router-link v-if="can('user-edit')" :to="{ name: 'formularios.edit', params: { id: slotProps.data.id } }">
                                 <Button icon="pi pi-pencil" severity="info" size="small" class="mr-1"/>
                             </router-link>

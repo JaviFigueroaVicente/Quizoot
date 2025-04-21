@@ -66,6 +66,7 @@ import Message from 'primevue/message';
 import Timeline from 'primevue/timeline';
 import AnimateOnScroll from 'primevue/animateonscroll';
 import Skeleton from 'primevue/skeleton';
+import ProgressSpinner from 'primevue/progressspinner';
 
 
 /*STYLES */
@@ -157,6 +158,8 @@ app.component('InputIcon', InputIcon);
 app.component('MeterGroup', MeterGroup);
 app.component('Message', Message);
 app.component('Timeline', Timeline);
+app.component('Skeleton', Skeleton);
+app.component('ProgressSpinner', ProgressSpinner);
 
 app.directive('tooltip', Tooltip);
 app.directive('ripple', Ripple);

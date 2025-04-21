@@ -7,4 +7,5 @@
 .authenticated-standard{
     height: 100vh;
 }
+
 </style>

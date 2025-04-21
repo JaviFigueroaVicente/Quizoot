@@ -18700,3 +18700,5 @@ Stack trace:
 [2025-04-21 18:42:19] local.ERROR: Error en store(): The pregunta field is required. (and 4 more errors)  
 [2025-04-21 19:19:28] local.ERROR: Error en store(): The pregunta field is required. (and 4 more errors)  
 [2025-04-21 19:19:47] local.ERROR: Error en store(): The pregunta field is required. (and 4 more errors)  
+[2025-04-21 20:24:55] local.ERROR: Error en store(): The pregunta field is required. (and 4 more errors)  
+[2025-04-21 20:49:08] local.ERROR: Error en store(): The pregunta field is required. (and 4 more errors)  

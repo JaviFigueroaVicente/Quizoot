@@ -21,10 +21,12 @@
                 <div class="mb-3">
                     <label for="alias" class="form-label">Alias</label>
                     <input type="text" v-model="usuario.alias" class="form-control" id="alias">
+                    <small class="text-danger" v-if="errors.alias">{{ errors.alias }}></small>
                 </div>
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
                     <input type="text" v-model="usuario.name" class="form-control" id="name">
+                    <small class="text-danger" v-if="errors.name">{{ errors.name }}></small>
                 </div>
                 <div class="mb-3">
                     <label for="surname1" class="form-label">First Surname</label>
@@ -150,11 +152,11 @@ const errors = ref({})
 const swal = inject('$swal')
 
 const schema = yup.object().shape({
-    alias: yup.string().required(),
-    name: yup.string().required().min(3),
+    alias: yup.string().required("Alias es un campo requerido"),
+    name: yup.string().required("Name es un campo requerido").min(3, "Name debe tener al menos 3 caracteres"),
     surname1: yup.string(),
     surname2: yup.string(),
-    email: yup.string().required().email(),
+    email: yup.string().required("Email es un campo requerido").email("Email no valido"),
 });
 
 const usuario = ref({
@@ -251,10 +253,19 @@ const updateImage = async () => {
 };
 
 const onFormSubmit = () => {
-    schema.validate(usuario.value, { abortEarly: false })
-        .then(() => {
-            updateUser();
-        })
+    try {
+        schema.validateSync(usuario.value, { abortEarly: false });
+        await updateUser();
+    } catch (err) {
+        if (err instanceof yup.ValidationError) {
+            errors.value = {};
+            err.inner.forEach(error => {
+                errors.value[error.path] = error.message;
+            });
+        } else {
+            console.error(err);
+        }
+    }
 };
 
 // Validación y envío del formulario de imagen

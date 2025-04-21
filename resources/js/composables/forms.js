@@ -59,12 +59,15 @@ export default function useForms() {
     }
 
     const getFormPreguntas = async (id) => {
+        isLoading.value = true;
         axios.get('/api/asignar-preguntas/' + id)
             .then(response => {
                 selectedPreguntas.value = response.data.data;
                 // console.log(response.data.data);
             }).catch(error => {
                 console.log(error)
+            }).finally(() => {
+                isLoading.value = false
             })
     }
 

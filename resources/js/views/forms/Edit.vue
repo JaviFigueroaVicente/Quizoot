@@ -4,19 +4,22 @@
     <div class="main-container equal-container mb-3">
       <!-- Contenedor izquierdo -->
       <div class="container left-container">
-        <div>
+        <div class="mb-5">
           <label for="name"></label>
-          <input class="fw-bold editable-title align-left mb-5" id="name" placeholder='Introducir Aquí El Nombre Del Formulario' v-model="formulario.name" />
+          <input class="fw-bold editable-title align-left" id="name" placeholder='Introducir Aquí El Nombre Del Formulario' v-model="formulario.name" />
+          <small class="text-danger" v-if="errors.name">{{ errors.name }}</small>
         </div>
 
-        <div>
+        <div class="mb-5">
           <label for="description"></label>
-          <input class="editable-description align-left mb-5" id="description" placeholder='Escribe aquí la descripción del formulario...' v-model="formulario.description" />
+          <input class="editable-description align-left" id="description" placeholder='Escribe aquí la descripción del formulario...' v-model="formulario.description" />
+          <small class="text-danger" v-if="errors.description">{{ errors.description }}</small>
         </div>
 
         <div class="mb-4">
-          <label for="category" class="mb-3">Categorías:</label>
+          <label for="category">Categorías:</label>
           <MultiSelect v-model="formulario.category_id" :options="categoryList" display="chip" optionLabel="name" optionValue="id" placeholder="Seleccione nuevas categorías" :maxSelectedLabels="3" class="w-full md:w-80" />
+          <small class="text-danger" v-if="errors.category_id">{{ errors.category_id }}</small>
         </div>
       </div>
 
@@ -43,13 +46,14 @@ import { es } from "yup-locales";
 import DropZone from "@/components/DropZone.vue";
 import useForms from "@/composables/forms";
 import useCategories from "@/composables/categories";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 
 const { getForm, updateForm, formulario, getFormCategories } = useForms();
 const { categoryList, getCategoryList } = useCategories();
 const router = useRouter();
 const route = useRoute();
 yup.setLocale(es);
+const errors = ref({});
 
 // Inicializar
 formulario.value = {
@@ -83,8 +87,15 @@ const onFormSubmit = async () => {
     await schema.validate(formulario.value, { abortEarly: false });
     await updateForm(formulario.value);
     router.push({ name: "mis-formularios.index" });
-  } catch (validationError) {
-    console.error("Errores de validación:", validationError.errors);
+  } catch (err) {
+    if (err instanceof yup.ValidationError) {
+        errors.value = {};
+        err.inner.forEach(error => {
+            errors.value[error.path] = error.message;
+        });
+    } else {
+        console.error(err);
+    };
   }
 };
 </script>

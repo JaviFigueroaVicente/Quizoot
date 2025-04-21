@@ -6,19 +6,24 @@
     <div class="main-container equal-container mb-3">
       <!-- Contenedor izquierdo datos -->
       <div class="container left-container">
-        <div>
+        <div class="mb-5">
           <label for="name"></label>
-          <input class="fw-bold editable-title align-left mb-5" id="name" placeholder='Introducir Aquí El Nombre Del Formulario' v-model="formulario.name" />
+          <input class="fw-bold editable-title align-left" id="name" placeholder='Introducir Aquí El Nombre Del Formulario' v-model="formulario.name" />
+          <small class="text-danger" v-if="errors.name">{{ errors.name }}</small>
         </div>
 
-        <div>
+        <div class="mb-5">
           <label for="description"></label>
-          <input class="editable-description align-left mb-5" id="description" placeholder='Escribe aquí la descripción del formulario...' v-model="formulario.description" />
+          <input class="editable-description align-left" id="description" placeholder='Escribe aquí la descripción del formulario...' v-model="formulario.description" />
+          <small class="text-danger" v-if="errors.description">{{ errors.description }}></small>
         </div>
 
         <div class="mb-4">
-          <label for="category" class="mb-3">Categorías:</label>
+          <label for="category">Categorías:</label>
           <MultiSelect v-model="formulario.category_id" :options="categoryList" display="chip" optionLabel="name" optionValue="id" placeholder="Seleccione categorías" :maxSelectedLabels="3" class="w-full md:w-80" />
+          <small class="text-danger" v-if="errors.category_id">{{ errors.category_id }}</small>
+
+
         </div>
       </div>
 
@@ -36,7 +41,7 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import * as yup from "yup";
 import { es } from "yup-locales";
@@ -45,6 +50,7 @@ import { authStore } from "@/store/auth";
 import useForms from "@/composables/forms";
 import useCategories from "@/composables/categories";
 
+const errors = ref({});
 const { storeForm, formulario } = useForms();
 const { categoryList, getCategoryList } = useCategories(); 
 
@@ -59,20 +65,26 @@ const router = useRouter();
 const store = authStore();
 
 const schema = yup.object().shape({
-  name: yup.string().required(),
-  description: yup.string().required(),
+  name: yup.string().required("El nombre es requerido"),
+  description: yup.string().required("La descripción es requerida"),
   category_id: yup.array().min(1, "Debe seleccionar al menos una categoría"),
 });
 
 const onFormSubmit = async () => {
   try {
     await schema.validate(formulario.value, { abortEarly: false });
-    console.log("Formulario enviado:", formulario.value);
+    // console.log("Formulario enviado:", formulario.value);
     await storeForm();
-
     router.push({ name: 'mis-formularios.index' });
-  } catch (validationError) {
-    console.error("Errores de validación:", validationError.errors);
+  } catch (err) {
+    if (err instanceof yup.ValidationError) {
+        errors.value = {};
+        err.inner.forEach(error => {
+            errors.value[error.path] = error.message;
+        });
+    } else {
+        console.error(err);
+    }
   }
 };
 

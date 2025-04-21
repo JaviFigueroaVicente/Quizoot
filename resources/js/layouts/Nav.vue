@@ -18,7 +18,7 @@
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><router-link class="dropdown-item" to="/app/profile">Perfil</router-link></li>
                         <li v-if="authStore().user?.roles[0].name === 'admin'"><router-link class="dropdown-item" to="/admin">Admin</router-link></li>
-                        <li><router-link to="/admin/posts" class="dropdown-item">Mis formularios</router-link></li>
+                        <li><router-link to="/profile/mis-formularios" class="dropdown-item">Mis formularios</router-link></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="javascript:void(0)" @click="logout">Logout</a></li>
                     </ul>
@@ -56,7 +56,7 @@
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><router-link class="dropdown-item" to="/profile">Perfil</router-link></li>
                             <li v-if="authStore().user?.roles[0].name === 'admin'"><router-link class="dropdown-item" to="/admin">Admin</router-link></li>
-                            <li><router-link to="/form/mis-formularios" class="dropdown-item">Mis formularios</router-link></li>
+                            <li><router-link to="/profile/mis-formularios" class="dropdown-item">Mis formularios</router-link></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="javascript:void(0)" @click="logout">Logout</a></li>
                         </ul>
@@ -110,6 +110,12 @@ const playRandomForm = () => {
 </script>
 
 <style scoped>
+.dropdown-item.active, .dropdown-item:active {
+    background-color: #874ECA !important;
+}
+.dropdown-item.active, .dropdown-item:active {
+    background-color: #874ECA !important;
+}
 .navbar {
     padding: 0;
     background-color: #ffffff;

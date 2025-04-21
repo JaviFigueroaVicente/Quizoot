@@ -5,9 +5,6 @@ const AuthenticatedLayout = () => import('../layouts/Authenticated.vue')
 const AuthenticatedUserLayout = () => import('../layouts/AuthenticatedUser.vue')
 const AuthenticatedStandardLayout = () => import('../layouts/AuthenticatedStandard.vue')
 const GuestLayout = ()  => import('../layouts/Guest.vue');
-const postsIndex  = ()  => import('../views/admin/posts/Index.vue');
-const postsCreate  = ()  => import('../views/admin/posts/Create.vue');
-const postsEdit  = ()  => import('../views/admin/posts/Edit.vue');
 
 async function requireLogin(to, from, next) {
     const auth = authStore();
@@ -105,22 +102,6 @@ export default [
                 path: '/',
                 name: 'home',
                 component: () => import('../views/home/index.vue'),
-            },
-
-            {
-                path: 'posts',
-                name: 'public-posts.index',
-                component: () => import('../views/posts/index.vue'),
-            },
-            {
-                path: 'posts/:id',
-                name: 'public-posts.details',
-                component: () => import('../views/posts/details.vue'),
-            },
-            {
-                path: 'category/:id',
-                name: 'category-posts.index',
-                component: () => import('../views/category/posts.vue'),
             },
             {
                 path: 'login',
@@ -265,24 +246,6 @@ export default [
                 meta: { breadCrumb: 'Admin' }
             },
             {
-                name: 'posts.index',
-                path: 'posts',
-                component: postsIndex,
-                meta: { breadCrumb: 'posts' }
-            },
-            {
-                name: 'posts.create',
-                path: 'posts/create',
-                component: postsCreate,
-                meta: { breadCrumb: 'Add new post' }
-            },
-            {
-                name: 'posts.edit',
-                path: 'posts/edit/:id',
-                component: postsEdit,
-                meta: { breadCrumb: 'Edit post' }
-            },
-            {
                 name: 'categories',
                 path: 'categories',
                 meta: { breadCrumb: 'Categories'},
@@ -376,31 +339,6 @@ export default [
                 ]
             },
             {
-                name: 'usuarios',
-                path: 'usuarios',
-                meta: { breadCrumb: 'Usuarios'},
-                children: [
-                    {
-                        name: 'usuarios.index',
-                        path: '',
-                        component: () => import('../views/admin/usuarios/Index.vue'),
-                        meta: { breadCrumb: 'Usuarios' }
-                    },
-                    {
-                        name: 'usuarios.edit',
-                        path: 'edit/:id',
-                        component: () => import('../views/admin/usuarios/Edit.vue'),
-                        meta: { breadCrumb: 'Editar' }
-                    },
-                    {
-                        name: 'usuarios.create',
-                        path: 'create',
-                        component: () => import('../views/admin/usuarios/Create.vue'),
-                        meta: { breadCrumb: 'Crear' }
-                    }
-                ]
-            },
-            {
                 name: 'formularios',
                 path: 'formularios',
                 meta: { breadCrumb: 'Formularios'},
@@ -422,6 +360,12 @@ export default [
                         path: 'create',
                         component: () => import('../views/admin/formularios/Create.vue'),
                         meta: { breadCrumb: 'Create Formularios' }
+                    },
+                    {
+                        name: 'formularios.asignar-preguntas',
+                        path: 'asignar-preguntas/:id',
+                        component: () => import('../views/admin/formularios/AsignarPreguntas.vue'),
+                        meta: { breadCrumb: 'Asignar Preguntas' }
                     }
                 ]
             },

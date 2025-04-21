@@ -75,7 +75,7 @@ import * as yup from 'yup';
 const swal = inject('$swal')
 const errors = ref({});
 const router = useRouter();
-const { preguntas, getUserPreguntas } = usePreguntas();
+const { preguntas, getPreguntas } = usePreguntas();
 const { getForm, getFormPreguntas, selectedPreguntas, asignarPreguntas } = useForms();
 const filters = ref();
 
@@ -84,7 +84,7 @@ const schema = yup.object().shape({
 });
 
 onMounted(() => {
-    getUserPreguntas();
+    getPreguntas();
     getForm(router.currentRoute.value.params.id);
     getFormPreguntas(router.currentRoute.value.params.id);
 });
@@ -109,7 +109,7 @@ const onFormSubmit = async () => {
     try {
         await schema.validate({ pregunta_ids: selectedPreguntas.value.map(p => p.id) }, { abortEarly: false });
         await asignarPreguntas();
-        router.push({name: 'mis-formularios.index'});
+        router.push({name: 'formularios.index'});
     } catch (err) {
         if (err instanceof yup.ValidationError) {
             errors.value = {};
