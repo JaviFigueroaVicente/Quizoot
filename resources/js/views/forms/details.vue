@@ -55,7 +55,7 @@
         </div>
     </div>
 
-    <Dialog v-model:visible="dialogVisible" modal :draggable="false" :style="{ width: '30rem', padding: '15px', height: 'auto' , backgroundImage: 'url(/images/forms/fondoVentana.jpg)', backgroundPosition: 'center', backgroundSize: 'cover',}" pcCloseButton="">
+    <Dialog v-model:visible="dialogVisible" modal :draggable="false" :style="{ width: '30rem', padding: '15px', height: 'auto',backgroundImage: 'url(/images/forms/fondoVentana.jpeg)', backgroundPosition: 'center', backgroundSize: 'cover',}" pcCloseButton="">
         <template #header>
             <h2 class="dialog-title">RESPUESTAS</h2>
         </template>
@@ -77,6 +77,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import useForms from '@/composables/forms';
+import { faAlignCenter } from '@fortawesome/free-solid-svg-icons';
 
 const dialogVisible = ref(false);
 const preguntaActual = ref({});
