@@ -1,35 +1,42 @@
 <template>
-  <div class="main-container mb-3">
-    <!-- Sección Izquierda: Título, Descripción y Subir Imagen -->
-    <div class="container left-container">
-      <div>
-        <label for="name"></label>
-        <input class="fw-bold editable-title align-left mb-5" id="name" placeholder='Introducir Aquí El Nombre Del Formulario' v-model="formulario.name"></input>
+  <div class="outer-wrapper">
+    <!-- Título -->
+    <h1>CREAR FORMULARIO</h1>
+    <!-- Contenedor principal-->
+    <div class="main-container equal-container mb-3">
+      <!-- Contenedor izquierdo datos -->
+      <div class="container left-container">
+        <div>
+          <label for="name"></label>
+          <input class="fw-bold editable-title align-left mb-5" id="name" placeholder='Introducir Aquí El Nombre Del Formulario' v-model="formulario.name" />
+        </div>
+
+        <div>
+          <label for="description"></label>
+          <input class="editable-description align-left mb-5" id="description" placeholder='Escribe aquí la descripción del formulario...' v-model="formulario.description" />
+        </div>
+
+        <div class="mb-4">
+          <label for="category" class="mb-3">Categorías:</label>
+          <MultiSelect v-model="formulario.category_id" :options="categoryList" display="chip" optionLabel="name" optionValue="id" placeholder="Seleccione categorías" :maxSelectedLabels="3" class="w-full md:w-80" />
+        </div>
       </div>
 
-      <div>
-        <label for="description"></label>
-        <input class="editable-description align-left mb-5" id="description" placeholder='Escribe aquí la descripción del formulario...' v-model="formulario.description"></input>
+      <!-- Contenedor derecho imagen -->
+      <div class="container right-container">
+        <DropZone v-model="formulario.thumbnail" />
       </div>
+    </div>
 
-      <div class="mb-4">
-        <label for="category">Categorías:</label>
-        <MultiSelect v-model="formulario.category_id" :options="categoryList" display="chip" optionLabel="name" optionValue="id" placeholder="Seleccione categorías" :maxSelectedLabels="3" class="w-full md:w-80" />
-      </div>
-    
-      <DropZone v-model="formulario.thumbnail" />
+    <!-- Botón de crear formulario -->
+    <div class="form-button-wrapper">
+      <button type="submit" class="btn btn-custom" @click.prevent="onFormSubmit">Crear Formulario</button>
     </div>
   </div>
-
-  <router-link :to="{name: 'mis-preguntas.create'}" class="flex align-items-center">
-    <button type="button" class="btn btn-primary button button-action">Crear pregunta</button>
-  </router-link>
-
-  <button type="submit" class="btn btn-custom mt-2" @click.prevent="onFormSubmit">Crear Formulario</button>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 import * as yup from "yup";
 import { es } from "yup-locales";
@@ -38,7 +45,7 @@ import { authStore } from "@/store/auth";
 import useForms from "@/composables/forms";
 import useCategories from "@/composables/categories";
 
-const { storeForm, formulario, asignarCategorias } = useForms();
+const { storeForm, formulario } = useForms();
 const { categoryList, getCategoryList } = useCategories(); 
 
 formulario.value = {
@@ -75,29 +82,46 @@ onMounted(() => {
 </script>
 
 <style scoped>
+h1{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bolder;
+    color: blueviolet;
+}
+
+.outer-wrapper {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
 .main-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
-  justify-content: center;
-  align-items: flex-start;
+  margin-top: 20px;
 }
 
-.left-container {
-  flex: 1;
-  text-align: center;
+@media (max-width: 426px) {
+  .main-container {
+    grid-template-columns: 1fr;
+  }
 }
 
+.left-container,
 .right-container {
-  flex: 2;
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
-  max-width: 600px;
   background: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
+  min-height: 100%;
+  height: 100%;
 }
 
 .editable-title,
@@ -110,6 +134,7 @@ onMounted(() => {
   border-radius: 8px;
   border-color: #d0d0d0;
   background-color: #fff;
+  width: 100%;
 }
 
 .editable-title:focus,
@@ -121,61 +146,22 @@ onMounted(() => {
   text-align: left;
 }
 
-.preview-image {
-  width: 100%;
-  max-height: 200px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-top: 10px;
-}
-
-.question-title {
-  font-weight: bold;
-  font-style: italic;
-  margin-top: 15px;
-}
-
-.answer-container {
+.form-button-wrapper {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-  padding: 5px;
-  border-radius: 5px;
-}
-
-.correct-answer {
-  background-color: #d4edda;
-}
-
-.incorrect-answer {
-  background-color: #f8d7da;
-}
-
-.icon {
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.hidden-radio {
-  display: none;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .btn-custom {
   background-color: #874eca;
   color: white;
   border: none;
-  padding: 10px;
-  width: 100%;
+  padding: 10px 30px;
   border-radius: 5px;
   transition: background-color 0.3s ease;
 }
+
 .btn-custom:hover {
   background-color: #402462;
-}
-
-.btn-light {
-  width: 100%;
-  margin-top: 10px;
 }
 </style>
