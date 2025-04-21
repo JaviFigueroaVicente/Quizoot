@@ -11,6 +11,7 @@ export default function useFormulariosRespondidos() {
 
     const swal = inject('$swal')
     const scoreAnterior = ref(0);
+    const isLoading = ref(false);
 
     const getFormulariosRespondidos = async () => {
         axios.get('/api/formularios-respondidos')
@@ -145,6 +146,7 @@ export default function useFormulariosRespondidos() {
         formulariosRespondidos,
         formularioRespondido,
         scoreAnterior,
+        isLoading,
         getScoreAnterior,
         getFormulariosRespondidosUserLogged,
         getFormulariosRespondidos,
