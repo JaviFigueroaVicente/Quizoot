@@ -139,7 +139,6 @@ nav .container {
     gap: 20px;
 }
 
-/* Mostrar foto de usuario en el centro en pantallas pequeñas */
 .nav-center img {
     width: 40px;
     height: 40px;
@@ -194,8 +193,7 @@ nav .container {
     color: #ffffff;
 }
 
-@media (max-width: 768px) {
-    /* Centrar la foto de usuario y los botones en pantallas pequeñas */
+@media (max-width: 767px) {
     .nav-center {
         flex-direction: column;
         align-items: center;
