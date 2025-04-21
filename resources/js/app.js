@@ -65,6 +65,7 @@ import FloatLabel from 'primevue/floatlabel';
 import Message from 'primevue/message';
 import Timeline from 'primevue/timeline';
 import AnimateOnScroll from 'primevue/animateonscroll';
+import Skeleton from 'primevue/skeleton';
 
 
 /*STYLES */

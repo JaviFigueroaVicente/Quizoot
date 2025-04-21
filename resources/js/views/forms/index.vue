@@ -1,37 +1,53 @@
 <template>
-    <div>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    </div>
-    
-    <div class="text-center py-3 mt-3 mb-1 title ">
-        <h1 class="fw-bold">Formularios</h1>
-    </div>
-
-    <div class="container my-2">
-        <!-- Div categorias -->
-        <div class="dropdown">
-            <button class="btn btn-light me-2 btn-hover-lila dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> + </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <!-- Botón para mostrar todos los formularios -->
-                <li>
-                    <a class="dropdown-item" :class="{ active: selectedCategory === null }" href="#" @click.prevent="selectCategory()">Todos</a>
-                </li>
-                <!-- Lista de categorías con clase activa si está seleccionada -->
-                <li v-for="category in categoryList" :key="category.id">
-                    <a class="dropdown-item" :class="{ active: selectedCategory === category.id }" href="#" @click.prevent="selectCategory(category.id)">
-                        {{ category.name }}
-                    </a>
-                </li>
-            </ul>
-            <span>Categorías</span>
+    <div v-if="isLoading">
+        <div class="text-center py-3 mt-3 mb-1 title ">
+            <h1 class="fw-bold">Formularios</h1>
         </div>
 
-        <!-- Componentes Formularios -->
-        <FormCards :formularios="paginatedFormularios"></FormCards>
+        <div class="container my-2">
+            <!-- Div categorias -->
+            <Skeleton class="dropdown mb-3" height="30px" width="125px"/>
 
-        <!-- Paginación -->
-        <div class="mt-4 mb-4">
-            <Paginator :rows="rowsPerPage" :totalRecords="formularios.length" :pageLinkSize="3" :first="currentPage * rowsPerPage" @page="onPageChange"/>
+            <!-- Componentes Formularios -->
+            <Skeleton class="mt-3" height="25rem"/>
+
+            <!-- Paginación -->
+            <div class="mt-4 mb-4">
+                <Skeleton height="50px"/>
+            </div>
+        </div>
+    </div>
+    <div v-else>        
+        <div class="text-center py-3 mt-3 mb-1 title ">
+            <h1 class="fw-bold">Formularios</h1>
+        </div>
+
+        <div class="container my-2">
+            <!-- Div categorias -->
+            <div class="dropdown">
+                <button class="btn btn-light me-2 btn-hover-lila dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> + </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <!-- Botón para mostrar todos los formularios -->
+                    <li>
+                        <a class="dropdown-item" :class="{ active: selectedCategory === null }" href="#" @click.prevent="selectCategory()">Todos</a>
+                    </li>
+                    <!-- Lista de categorías con clase activa si está seleccionada -->
+                    <li v-for="category in categoryList" :key="category.id">
+                        <a class="dropdown-item" :class="{ active: selectedCategory === category.id }" href="#" @click.prevent="selectCategory(category.id)">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                </ul>
+                <span>Categorías</span>
+            </div>
+
+            <!-- Componentes Formularios -->
+            <FormCards :formularios="paginatedFormularios"></FormCards>
+
+            <!-- Paginación -->
+            <div class="mt-4 mb-4">
+                <Paginator :rows="rowsPerPage" :totalRecords="formularios.length" :pageLinkSize="3" :first="currentPage * rowsPerPage" @page="onPageChange"/>
+            </div>
         </div>
     </div>
 </template>
@@ -42,9 +58,10 @@ import Paginator from 'primevue/paginator';
 import FormCards from '@/components/FormCards.vue';
 import useCategories from "@/composables/categories";
 import useForms from "@/composables/forms";
+import { Skeleton } from "primevue";
 
 const { categoryList, getCategoryList } = useCategories();
-const { formularios, getForms } = useForms();
+const { formularios, getForms, isLoading } = useForms();
 
 const currentPage = ref(0);
 const rowsPerPage = 9;

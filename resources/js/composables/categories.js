@@ -13,6 +13,7 @@ export default function useCategories() {
     const isLoading = ref(false)
     const swal = inject('$swal')
 
+
     const getCategories = async (
         page = 1,
         search_id = '',
@@ -145,10 +146,13 @@ export default function useCategories() {
     }
 
     const getCategoryList = async () => {
+        isLoading.value = true
         axios.get('/api/category-list')
             .then(response => {
                 categoryList.value = response.data.data;
-            })
+            }).finally(() => 
+                isLoading.value = false
+            )
     }
 
     return {

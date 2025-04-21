@@ -12,6 +12,7 @@
             <div>
                 <label for="score"></label>
                 <input class="align-left mb-5" id="score" v-model="formularioRespondido.score" type="number"></input>
+                <small class="text-danger" v-if="errors.score">{{ errors.score }}</small>
             </div>
             
         </div>
@@ -37,17 +38,25 @@ const route = useRoute();
 const schema = yup.object().shape({
     formulario_id: yup.number().required(),
     user_id: yup.number().required(),
-    score: yup.number().required(),
+    score: yup.number().required("Puntaje es un campo requerido"),
 });
 
+const errors = ref({});
 
 const onFormSubmit = async () => {
     try {
-      schema.validate(formularioRespondido.value, { abortEarly: false });
-      updateFormularioRespondido(formularioRespondido.value);
+      await schema.validate(formularioRespondido.value, { abortEarly: false });
+      await updateFormularioRespondido(formularioRespondido.value);
       router.push({name: 'formularios.index'});
-    } catch (validationError) {
-      console.error(validationError);
+    } catch (err) {
+        if (err instanceof yup.ValidationError) {
+            errors.value = {};
+            err.inner.forEach(error => {
+                errors.value[error.path] = error.message;
+            });
+        } else {
+            console.error(err);
+        }
     }
 };
 

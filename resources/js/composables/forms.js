@@ -15,6 +15,7 @@ export default function useForms() {
     const isLoading = ref(false)
 
     const getForms = async (categoryId = null) => {
+        isLoading.value = true
         let url = '/api/formulario';
 
         if (categoryId) {
@@ -32,6 +33,8 @@ export default function useForms() {
         })
         .catch(error => {
             console.log(error);
+        }).finally(() => {
+            isLoading.value = false
         });
     }
     
@@ -43,12 +46,15 @@ export default function useForms() {
         });
     }
     const getForm = async (id) => {
+        isLoading.value = true;
         axios.get('/api/formulario/' + id)
             .then(response => {
                 formulario.value = response.data;
                 // console.log(response.data);
             }).catch(error => {
                 console.log(error)
+            }).finally(() => {
+                isLoading.value = false
             })
     }
 
@@ -76,12 +82,15 @@ export default function useForms() {
     }
 
     const getRankingFormulario = async (id) => {
+        isLoading.value = true;
         axios.get('/api/ranking/' + id)
             .then(response => {
                 ranking.value = response.data.data;
                 // console.log(response.data.data);
             }).catch(error => {
                 console.log(error)
+            }).finally(() => {
+                isLoading.value = false
             })
     }
 

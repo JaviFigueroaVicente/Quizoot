@@ -1,5 +1,26 @@
 <template>
-    <div class="mt-7 mb-6">
+    <div class="mt-7 mb-6" v-if="isLoading">
+        <div class="container-fluid px-3 my-2">
+            <div class="row justify-content-center">
+                <!-- Imagen Decorativa -->
+                <div class="col-md-4 d-flex flex-column align-items-center left-section">
+                    <Skeleton height="300px"></Skeleton>
+                    <Skeleton class="fw-bold mt-3 text-start w-100" height="35px"></Skeleton>
+                    <Skeleton class="text-start w-100 mt-2" height="20px"></Skeleton>
+                    <div class="d-flex flex-wrap gap-2 text-start w-100">
+                        <Skeleton class="category-decoration mt-2" height="30px" width="75px"></Skeleton>
+                    </div>
+                </div>
+
+                <!-- Ranking Grande a la Derecha -->
+                <div class="col-md-8">
+                    <Skeleton class="ranking-container" height="45rem">
+                    </Skeleton>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-7 mb-6" v-else>
         <div class="container-fluid px-3 my-2">
             <div class="row justify-content-center">
                 <!-- Imagen Decorativa -->
@@ -52,10 +73,11 @@
 import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import useForms from '@/composables/forms';
+import { Skeleton } from 'primevue';
 
 const route = useRoute();
 const router = useRouter();
-const { getForm, getRankingFormulario, formulario, ranking } = useForms();
+const { getForm, getRankingFormulario, formulario, ranking, isLoading } = useForms();
 
 onMounted(() => {
     getForm(route.params.id).then(() => {
@@ -142,6 +164,7 @@ onMounted(() => {
 .ranking-list {
     list-style: none;
     padding: 0;
+    margin-left: 10px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 10px;
 }

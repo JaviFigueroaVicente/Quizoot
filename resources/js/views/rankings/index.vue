@@ -1,61 +1,68 @@
 <template>
-    <div>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    </div>
-
-    <div class="text-center py-3 mt-3 mb-1 title">
-        <h1 class="fw-bold">Rankings</h1>
-    </div>
-
-    <div class="container my-2">
-        <!-- Div categorias -->
-        <div class="dropdown">
-            <button class="btn btn-light me-2 btn-hover-lila dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> + </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li>
-                    <!-- Botón para mostrar todos los formularios -->
-                    <a class="dropdown-item" :class="{ 'active-category': selectedCategoryId === null }" href="#" @click.prevent="selectCategory()">
-                        Todos
-                    </a>
-                </li>
-                <li v-for="category in categoryList" :key="category.id">
-                    <!-- Lista de categorías con clase activa si está seleccionada -->
-                    <a class="dropdown-item" :class="{ 'active-category': selectedCategoryId === category.id }" href="#" @click.prevent="selectCategory(category.id)">
-                        {{ category.name }}
-                    </a>
-                </li>
-            </ul>
-            <span>Categorías</span>
+    <div v-if="isLoading">
+        <div class="text-center py-3 mt-3 mb-1 title ">
+            <h1 class="fw-bold">Rankings</h1>
         </div>
-
-        <!-- Div Mostrar formularios -->
-        <div class="row row-cols-1 g-4 mt-3">
-            <div v-if="paginatedFormularios.length === 0" class="col-12 text-center">
-                <p>No hay formularios disponibles.</p>
+        <div class="container my-2">
+            <div class="dropdown">  
+                <button class="btn btn-light me-2 btn-hover-lila dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> + </button>              
+                <span>Categorías</span>
             </div>
-
-            <div class="col" v-for="formulario in paginatedFormularios" :key="formulario.id">
-                <router-link :to="{ name: 'rankings.details', params: { id: formulario.id }}">
-                    <div class="card d-flex flex-row align-items-center p-3 horizontal-card">
-                        <img :src="formulario.original_image ? formulario.original_image : '/images/placeholder.jpg'" alt="Formulario" class="form-image-horizontal me-5">
-                        <div class="d-flex justify-content-between w-100">
-                            <h5 class="mb-0 fw-bold me-3">{{ formulario.name }}</h5>
-                            <div class="d-flex align-items-center">
-                                <span v-if="formulario.categories && formulario.categories.length" class="badge me-3">
-                                    {{ formulario.categories.map(categoria => categoria.nombre).join(', ') }}
-                                </span>
-                                <span v-else class="badge me-3">Sin categoría</span>
-                                <p class="mb-0 text-muted small">Respuestas: {{ formulario.formularios_respondidos_count || 0 }}</p>
+            <Skeleton class="mt-3" height="25px"></Skeleton>
+            <div class="mt-4 mb-4" height="200px">
+                <Skeleton height="50px"></Skeleton>
+            </div>
+        </div>
+    </div>
+    <div v-else>
+        <div class="text-center py-3 mt-3 mb-1 title">
+            <h1 class="fw-bold">Rankings</h1>
+        </div>
+        <div class="container my-2">
+            <!-- Div categorias -->
+            <div class="dropdown">
+                <button class="btn btn-light me-2 btn-hover-lila dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> + </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li>
+                        <!-- Botón para mostrar todos los formularios -->
+                        <a class="dropdown-item" :class="{ 'active-category': selectedCategoryId === null }" href="#" @click.prevent="selectCategory()">
+                            Todos
+                        </a>
+                    </li>
+                    <li v-for="category in categoryList" :key="category.id">
+                        <!-- Lista de categorías con clase activa si está seleccionada -->
+                        <a class="dropdown-item" :class="{ 'active-category': selectedCategoryId === category.id }" href="#" @click.prevent="selectCategory(category.id)">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                </ul>
+                <span>Categorías</span>
+            </div>
+            <!-- Div Mostrar formularios -->
+            <div class="row row-cols-1 g-4 mt-3">
+                <div class="col" v-for="formulario in paginatedFormularios" :key="formulario.id">
+                    <router-link :to="{ name: 'rankings.details', params: { id: formulario.id }}">
+                        <div class="card d-flex flex-row align-items-center p-3 horizontal-card">
+                            <img :src="formulario.original_image ? formulario.original_image : '/images/placeholder.jpg'" alt="Formulario" class="form-image-horizontal me-5">
+                            <div class="d-flex justify-content-between w-100">
+                                <h5 class="mb-0 fw-bold me-3">{{ formulario.name }}</h5>
+                                <div class="d-flex align-items-center">
+                                    <span v-if="formulario.categories && formulario.categories.length" class="badge me-3">
+                                        {{ formulario.categories.map(categoria => categoria.nombre).join(', ') }}
+                                    </span>
+                                    <span v-else class="badge me-3">Sin categoría</span>
+                                    <p class="mb-0 text-muted small">Respuestas: {{ formulario.formularios_respondidos_count || 0 }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </router-link>
+                    </router-link>
+                </div>
             </div>
-        </div>
 
-        <!-- Paginación -->
-        <div class="mt-4 mb-4">
-            <Paginator :rows="rowsPerPage" :totalRecords="formularios.length" :pageLinkSize="2" :first="currentPage * rowsPerPage" @page="onPageChange"/>
+            <!-- Paginación -->
+            <div class="mt-4 mb-4">
+                <Paginator :rows="rowsPerPage" :totalRecords="formularios.length" :pageLinkSize="2" :first="currentPage * rowsPerPage" @page="onPageChange"/>
+            </div>
         </div>
     </div>
 </template>
@@ -66,8 +73,8 @@ import Paginator from 'primevue/paginator';
 import useCategories from "@/composables/categories";
 import useForms from "@/composables/forms";
 
-const { categoryList, getCategoryList } = useCategories();
-const { formularios, getForms } = useForms();
+const { categoryList, getCategoryList} = useCategories();
+const { formularios, getForms, isLoading } = useForms();
 
 const currentPage = ref(0);
 const rowsPerPage = ref(3);

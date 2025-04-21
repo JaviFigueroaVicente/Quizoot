@@ -1,5 +1,29 @@
 <template>
-    <div class="mt-5 mb-5">
+    <div class="mt-5 mb-5" v-if="isLoading">
+        <div class="container my-2">
+            <div class="row" v-if="formulario">
+                <!-- Left Section -->
+                <div class="col-md-4 left-section">
+                    <Skeleton height="335px"></Skeleton>
+                    
+                    <Skeleton class="fw-bold mb-1 mt-3" height="40px"></Skeleton>
+                    <Skeleton class="mt-2" height="18px"></Skeleton>
+                    <Skeleton class="d-flex flex-wrap text-start w-20 mt-2 mb-4" borderRadius="25px" height="30px"></Skeleton>
+                    <Skeleton class="btn mb-3 w-100 text-center mt-10" height="30px"></Skeleton>
+                    <!-- Sección Derecha: Ranking -->
+                    <div class="ranking-container mt-10 mb-2">
+                        <Skeleton class="ranking-title" height="5rem"></Skeleton>
+                    </div>
+                </div>
+                
+                <!-- Right Section -->
+                <div class="col-md-8 right-section">
+                    <Skeleton height="45rem"></Skeleton>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5 mb-5" v-else>
         <div class="container my-2">
             <div class="row" v-if="formulario">
                 <!-- Left Section -->
@@ -49,9 +73,9 @@
                     </ul>
                 </div>
             </div>
-            <div v-else class="col-md-4 left-section">
+            <!-- <div v-else class="col-md-4 left-section">
                 <p>Cargando formulario...</p>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -77,19 +101,19 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import useForms from '@/composables/forms';
-import { faAlignCenter } from '@fortawesome/free-solid-svg-icons';
+import { Skeleton } from 'primevue';
 
 const dialogVisible = ref(false);
 const preguntaActual = ref({});
 
 const route = useRoute();
-const { getForm, formulario, getFormPreguntas, selectedPreguntas, getRankingFormulario, ranking } = useForms();
+const { getForm, formulario, getFormPreguntas, selectedPreguntas, getRankingFormulario, ranking, isLoading } = useForms();
 
 onMounted(() => {
-    // console.log(route.params.id);
-    getForm(route.params.id);
+    // console.log(route.params.id);    
     getFormPreguntas(route.params.id);
     getRankingFormulario(route.params.id);
+    getForm(route.params.id);
 });
 
 const verRespuestas= (pregunta)=>{

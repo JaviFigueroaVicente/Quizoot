@@ -2,15 +2,18 @@
     <div class="main-container mb-3">
       <!-- Sección Izquierda: Título, Descripción y Subir Imagen -->
         <div class="container left-container" v-if="formulario">
-            <div>
+            <div class="mb-5">
                 <label for="name"></label>
-                <input class="fw-bold editable-title align-left mb-5" id="name" placeholder='Introducir Aquí El Nombre  Del Formulario' v-model="formulario.name"></input>
-            </div>
-            <div>
+                <input class="fw-bold editable-title align-left" id="name" placeholder='Introducir Aquí El Nombre  Del Formulario' v-model="formulario.name"></input>
+                <small class="text-danger" v-if="errors.name">{{ errors.name }}</small>
+              </div>
+            <div class="mb-5">
                 <label for="description"></label>
-                <input class="editable-description align-left mb-5" id="description" placeholder='Escribe aquí la descripción del formulario...' v-model="formulario.description"></input>
-            </div>
+                <input class="editable-description align-left " id="description" placeholder='Escribe aquí la descripción del formulario...' v-model="formulario.description"></input>
+                <small class="text-danger" v-if="errors.description">{{ errors.description }}</small>
+              </div>
             <MultiSelect v-model="formulario.category_id" :options="categoryList" display="chip" optionLabel="name" optionValue="id" placeholder="Seleccione nuevas categorías" :maxSelectedLabels="3" class="w-full md:w-80"></MultiSelect>
+            <small class="text-danger" v-if="errors.category_id">{{ errors.category_id }}</small>
             <div>
                 <img v-if="formulario && formulario.media && formulario.media.length > 0" :src="formulario.media[0].original_url" alt="User image" class="form-image">
                 <img v-else src="images/placeholder.png" alt="Placeholder" class="form-image">
@@ -30,11 +33,13 @@ import { es } from "yup-locales";
 import DropZone from "@/components/DropZone.vue";
 import useForms from "@/composables/forms";
 import useCategories from "@/composables/categories";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 
 const { getForm, updateForm, formulario, getFormCategories} = useForms();
 const { categoryList, getCategoryList} = useCategories();
 
+
+const errors = ref({});
 yup.setLocale(es);
 const router = useRouter();
 const route = useRoute();
@@ -69,18 +74,27 @@ onMounted(async () => {
 const onFormSubmit = async () => {
   try {
       await schema.validate(formulario.value, { abortEarly: false });
-
       await updateForm(formulario.value);
-
       router.push({ name: "mis-formularios.index" });
-  } catch (validationError) {
-      console.error("Errores de validación:", validationError.errors);
+  } catch (err) {
+        if (err instanceof yup.ValidationError) {
+            errors.value = {};
+            err.inner.forEach(error => {
+                errors.value[error.path] = error.message;
+            });
+        } else {
+            console.error(err);
+        }
   }
 };
 
 </script>
 
 <style scoped>
+.container div{
+    display: flex;
+    flex-direction: column;
+}
 .main-container {
   display: flex;
   gap: 20px;
