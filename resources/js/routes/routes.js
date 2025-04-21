@@ -182,7 +182,7 @@ export default [
                         },
                         {
                             name: 'mis-formularios.edit',
-                            path: 'edit-form',
+                            path: 'edit/:id',
                             component: () => import('../views/forms/Edit.vue'),
                             meta: { breadCrumb: 'Edit Form' }
                         },
@@ -194,7 +194,7 @@ export default [
                         },
                         {
                             name: 'mis-formularios.asignar-preguntas',
-                            path: 'asignar-preguntas/:id',
+                            path: ':id/asignar-preguntas',
                             component: () => import('../views/forms/AsignarPreguntas.vue'),
                             meta: { breadCrumb: 'Asignar Preguntas' },
                         },
@@ -203,7 +203,7 @@ export default [
                             path: 'mis-respondidos',
                             component: () => import('../views/forms/MisRespondidos.vue'),
                             meta: { breadCrumb: 'Mis Formularios Respondidos' },
-                        },
+                        },                        
                     ],
                 },
                 {
