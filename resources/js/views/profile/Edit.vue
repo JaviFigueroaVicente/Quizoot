@@ -255,8 +255,8 @@ const updateImage = async () => {
 const onFormSubmit = () => {
     try {
         schema.validateSync(usuario.value, { abortEarly: false });
-        await updateUser();
-    } catch (err) {
+        updateUser();
+    } catch (err) {xº
         if (err instanceof yup.ValidationError) {
             errors.value = {};
             err.inner.forEach(error => {

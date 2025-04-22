@@ -14,6 +14,7 @@ export default function useForms() {
     const swal = inject('$swal')
     const isLoading = ref(false)
 
+    // Obtiene todos los formularios
     const getForms = async (categoryId = null) => {
         isLoading.value = true
         let url = '/api/formulario';
@@ -38,6 +39,7 @@ export default function useForms() {
         });
     }
     
+    // Obtiene los formularios del usuario
     const getUserForms = async () => {
         axios.get('/api/formulario-user')
         .then(response => {
@@ -45,6 +47,8 @@ export default function useForms() {
             // console.log(response.data.data);
         });
     }
+
+    // Obtiene un formulario por id
     const getForm = async (id) => {
         isLoading.value = true;
         axios.get('/api/formulario/' + id)
@@ -58,19 +62,18 @@ export default function useForms() {
             })
     }
 
+    // Obtiene las preguntas de un formulario
     const getFormPreguntas = async (id) => {
-        isLoading.value = true;
         axios.get('/api/asignar-preguntas/' + id)
             .then(response => {
                 selectedPreguntas.value = response.data.data;
                 // console.log(response.data.data);
             }).catch(error => {
                 console.log(error)
-            }).finally(() => {
-                isLoading.value = false
             })
     }
 
+    // Obtiene las preguntas sin respuesta
     const getPreguntasSinRespuesta = async (id) => {
         isLoading.value = true;
         axios.get('/api/preguntas-form/' + id)
@@ -84,6 +87,7 @@ export default function useForms() {
             })
     }
 
+    // Obtiene el ranking de un formulario
     const getRankingFormulario = async (id) => {
         isLoading.value = true;
         axios.get('/api/ranking/' + id)
@@ -97,6 +101,7 @@ export default function useForms() {
             })
     }
 
+    // Verifica la respuesta de una pregunta
     const verificarRespuesta = async (pregunta, respuesta) => {
         const preguntaId = pregunta.id;
         const response = await axios.post('/api/verificar-respuesta', {
@@ -111,6 +116,7 @@ export default function useForms() {
         }
     };
 
+    // Crea un formulario
     const storeForm = async () => {
         try {
             const response = await axios.post('/api/formulario', formulario.value, {
@@ -140,6 +146,7 @@ export default function useForms() {
         }
     };
     
+    // Asigna categorias a un formulario
     const asignarCategorias = async (formularioId) => {
         try {
             const response = await axios.post('/api/asignar-categorias/' + formularioId, {
@@ -166,6 +173,7 @@ export default function useForms() {
         }
     };
 
+    // Asigna preguntas a un formulario
     const asignarPreguntas = async () => {
         const formularioId = formulario.value.id;
         const preguntaIds = [];
@@ -189,6 +197,7 @@ export default function useForms() {
         }
     };
 
+    // Elimina un formulario
     const deleteForm = async (id) => {
         swal({
             title: 'Are you sure?',
@@ -228,6 +237,7 @@ export default function useForms() {
         
     }
 
+    // Actualiza un formulario
     const updateForm = async (formulario) => {
         axios.post('/api/formulario/' + formulario.id, formulario, {
             headers: {
@@ -255,6 +265,8 @@ export default function useForms() {
             })
     }
 
+
+// Obtiene las categorias de un formulario
     const getFormCategories = async (id) => {
         try {
             const response = await axios.get(`/api/formularios/${id}/categorias`);

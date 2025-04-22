@@ -18702,3 +18702,4 @@ Stack trace:
 [2025-04-21 19:19:47] local.ERROR: Error en store(): The pregunta field is required. (and 4 more errors)  
 [2025-04-21 20:24:55] local.ERROR: Error en store(): The pregunta field is required. (and 4 more errors)  
 [2025-04-21 20:49:08] local.ERROR: Error en store(): The pregunta field is required. (and 4 more errors)  
+[2025-04-22 14:07:24] testing.ERROR: Error en store(): SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'user_id' cannot be null (Connection: mysql, SQL: insert into `preguntas` (`pregunta`, `user_id`, `updated_at`, `created_at`) values (¿Cuál es la capital de Francia?, ?, 2025-04-22 14:07:23, 2025-04-22 14:07:23))  

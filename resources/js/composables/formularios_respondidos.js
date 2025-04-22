@@ -13,6 +13,7 @@ export default function useFormulariosRespondidos() {
     const scoreAnterior = ref(0);
     const isLoading = ref(false);
 
+    // Obtiene todos los formularios respondidos
     const getFormulariosRespondidos = async () => {
         axios.get('/api/formularios-respondidos')
         .then (response => {
@@ -23,7 +24,7 @@ export default function useFormulariosRespondidos() {
         })
     }    
 
-
+    // Obtiene los formularios respondidos del usuario logueado
     const getFormulariosRespondidosUserLogged = async () => {
         axios.get('/api/formularios-respondidos-user-logged')
         .then (response => {
@@ -34,6 +35,7 @@ export default function useFormulariosRespondidos() {
         })
     }
 
+    // Obitene los formularios respondidos por usuario
     const getFormulariosRespondidosUser = async (id) => {
         axios.get('/api/formularios-respondidos/' + id)
         .then (response => {
@@ -44,6 +46,7 @@ export default function useFormulariosRespondidos() {
         })
     }
 
+    // Obtiene los formularios respondidos por formulario
     const getFormulariosRespondidosFormulario = async (id) => {
         axios.get('/api/formularios-respondidos-formulario/' + id)
         .then (response => {
@@ -54,6 +57,7 @@ export default function useFormulariosRespondidos() {
         })
     }
 
+    // Guarda un formulario respondido
     const storeFormulariosRespondidos = async (formularioId, score) => {
         formularioRespondido.value.formulario_id = formularioId
         formularioRespondido.value.score = score
@@ -67,6 +71,7 @@ export default function useFormulariosRespondidos() {
     }
 
 
+    // Obtiene un formulario respondido
     const getFormularioRespondido = async (userId, idFormulario) => {
         try{
             axios.get('/api/formulario-respondido/' + userId + '/' + idFormulario)
@@ -82,6 +87,7 @@ export default function useFormulariosRespondidos() {
         
     }
 
+    // Obtiene el score anterior
     const getScoreAnterior = (userId, idFormulario) => {
         try{
             axios.get('/api/formulario-respondido/' + userId + '/' + idFormulario)
@@ -96,6 +102,7 @@ export default function useFormulariosRespondidos() {
         }
     }
 
+    // Actualiza un formulario respondido
     const updateFormularioRespondido = async (formulario) => {
         axios.post('/api/formulario-respondido/' + formulario.user_id + '/' + formulario.formulario_id, formulario)
         .then(() => {
@@ -112,6 +119,7 @@ export default function useFormulariosRespondidos() {
         })  
     }
 
+    // Elimina un formulario respondido
     const deleteFormularioRespondido = async (userId, formulario_id) => {
         swal({
             title: 'Are you sure?',
