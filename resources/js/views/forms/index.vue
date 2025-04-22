@@ -1,4 +1,5 @@
 <template>
+    <!-- Espera de los datos -->
     <div v-if="isLoading">
         <div class="text-center py-3 mt-3 mb-1 title ">
             <h1 class="fw-bold">Formularios</h1>
@@ -17,6 +18,7 @@
             </div>
         </div>
     </div>
+    <!-- Despúes de recuperar todos los datos -->
     <div v-else>        
         <div class="text-center py-3 mt-3 mb-1 title ">
             <h1 class="fw-bold">Formularios</h1>

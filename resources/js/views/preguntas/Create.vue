@@ -1,5 +1,6 @@
 <template>
     <h1>CREAR PREGUNTA</h1>
+    <!-- Contenedor del formulario de creación de preguntas con respuestas  -->
     <div class="container flex flex-column align-items-center">
         <div class="row">
             <label for="pregunta">PREGUNTA</label>
@@ -32,6 +33,7 @@ const errors = ref({});
 yup.setLocale(es);
 const router = useRouter();
 
+// Validación de la pregunta y respuestas
 const schema = yup.object().shape({
     pregunta: yup.string().required("Pregunta es un campo requerido"),
     respuestas: yup.array().of(
@@ -46,6 +48,7 @@ const schema = yup.object().shape({
     }),
 });
 
+// Enviar Formulario de pregunta con validación de errores
 const onFormSubmit = async () => {
     try {
         await schema.validate(pregunta.value, { abortEarly: false });

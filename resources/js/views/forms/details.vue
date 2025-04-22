@@ -1,4 +1,5 @@
 <template>
+    <!-- Mostrar antes de tener los datos cargados -->
     <div class="mt-5 mb-5" v-if="isLoading">
         <div class="container my-2">
             <div class="row" v-if="formulario">
@@ -23,6 +24,7 @@
             </div>
         </div>
     </div>
+    <!-- Mostrar después de cargar los datos -->
     <div class="mt-5 mb-5" v-else>
         <div class="container my-2">
             <div class="row" v-if="formulario">
@@ -73,12 +75,10 @@
                     </ul>
                 </div>
             </div>
-            <!-- <div v-else class="col-md-4 left-section">
-                <p>Cargando formulario...</p>
-            </div> -->
         </div>
     </div>
 
+    <!-- Dialog para mostrar las respuestas de la pregunta -->
     <Dialog v-model:visible="dialogVisible" modal :draggable="false" :style="{ width: '30rem', padding: '15px', height: 'auto',backgroundImage: 'url(/images/forms/fondoVentana.jpeg)', backgroundPosition: 'center', backgroundSize: 'cover',}" pcCloseButton="">
         <template #header>
             <h2 class="dialog-title">RESPUESTAS</h2>
@@ -109,6 +109,7 @@ const preguntaActual = ref({});
 const route = useRoute();
 const { getForm, formulario, getFormPreguntas, selectedPreguntas, getRankingFormulario, ranking, isLoading } = useForms();
 
+// Cargar datos del formulario
 onMounted(() => {
     // console.log(route.params.id);    
     getFormPreguntas(route.params.id);
@@ -116,6 +117,7 @@ onMounted(() => {
     getForm(route.params.id);
 });
 
+// Llamar al Dialog
 const verRespuestas= (pregunta)=>{
     preguntaActual.value = pregunta;
     dialogVisible.value = true;

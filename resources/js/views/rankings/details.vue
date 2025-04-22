@@ -114,6 +114,7 @@ onMounted(() => {
     font-weight: 500;
     margin-right: 2px;
 }
+/* Estilos de ranking */
 
 .ranking-container {
     background: #874eca;
@@ -208,6 +209,8 @@ onMounted(() => {
     text-align: right;
 }
 
+
+/* Responsive de móvil */
 @media (max-width: 426px) {
     .row {
         flex-direction: column;

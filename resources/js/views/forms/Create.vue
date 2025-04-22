@@ -46,7 +46,6 @@ import { useRouter } from "vue-router";
 import * as yup from "yup";
 import { es } from "yup-locales";
 import DropZone from "@/components/DropZone.vue";
-import { authStore } from "@/store/auth";
 import useForms from "@/composables/forms";
 import useCategories from "@/composables/categories";
 
@@ -62,14 +61,15 @@ formulario.value = {
 
 yup.setLocale(es);
 const router = useRouter();
-const store = authStore();
 
+// Validador formulario
 const schema = yup.object().shape({
   name: yup.string().required("El nombre es requerido"),
   description: yup.string().required("La descripción es requerida"),
   category_id: yup.array().min(1, "Debe seleccionar al menos una categoría"),
 });
 
+// Enviar datos del formulario con su gestión de errores
 const onFormSubmit = async () => {
   try {
     await schema.validate(formulario.value, { abortEarly: false });
@@ -88,6 +88,7 @@ const onFormSubmit = async () => {
   }
 };
 
+// Recuperar categorías
 onMounted(() => {
   getCategoryList();
 });
@@ -136,6 +137,7 @@ h1{
   height: 100%;
 }
 
+/* Estilos de los inputs */
 .editable-title,
 .editable-description {
   cursor: text;
@@ -164,6 +166,7 @@ h1{
   margin-top: 20px;
 }
 
+/* Botón crear formulario */
 .btn-custom {
   background-color: #874eca;
   color: white;

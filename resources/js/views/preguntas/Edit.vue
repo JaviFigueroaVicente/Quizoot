@@ -1,5 +1,6 @@
 <template>
     <h1>EDITAR PREGUNTA</h1>
+    <!-- Contenedor editar pregunta -->
     <div class="container flex flex-column align-items-center">
         <div class="row">
             <label for="pregunta">PREGUNTA</label>
@@ -31,6 +32,7 @@ const router = useRouter();
 const route = useRoute();
 const { getPregunta, pregunta, updatePregunta} = usePreguntas();
 
+// Validador de datos de la pregunta
 const schema = yup.object().shape({
     pregunta: yup.string().required("Pregunta es un campo requerido"),
     respuestas: yup.array().of(
@@ -45,6 +47,7 @@ const schema = yup.object().shape({
     }),
 });
 
+// enviar datos de la pregunta con la gestión de errores
 const onFormSubmit = async () => {
     try {
         await schema.validate(pregunta.value, { abortEarly: false });
@@ -62,8 +65,9 @@ const onFormSubmit = async () => {
     }
 };
 
+// Recuperar datos de la pregunta
 onMounted(() => {
-    console.log(route.params.id);
+    // console.log(route.params.id);
     getPregunta(route.params.id);
     
 });

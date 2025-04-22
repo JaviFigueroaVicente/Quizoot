@@ -3,6 +3,7 @@
         <div class="col-12">
             <div class="card">
                 <h1>MIS FORMULARIOS</h1>
+                <!-- Tabla con todos los formularios filtrados por el usuario de la sesión -->
                 <DataTable :size="'normal'" v-model:filters="filters" :value="formularios" paginator :rows="5"
                             :globalFilterFields="['id','name', 'description','user_id','created_at']" stripedRows dataKey="id" size="small">
                     <template #header>
@@ -83,6 +84,7 @@ const { formularios, getUserForms, deleteForm } = useForms();
 const { can } = useAbility();
 const filters = ref();
 
+// Cargar formularios del usuario
 onMounted(() => {
     getUserForms();
 });

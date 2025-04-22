@@ -1,4 +1,5 @@
 <template>
+    <!-- Vista mientras cargan los datos -->
     <div v-if="isLoading">
         <div class="text-center py-3 mt-3 mb-1 title ">
             <h1 class="fw-bold">Rankings</h1>
@@ -18,6 +19,7 @@
             </div>
         </div>
     </div>
+    <!-- Vista con los datos cargados -->
     <div v-else>
         <div class="text-center py-3 mt-3 mb-1 title">
             <h1 class="fw-bold">Rankings</h1>
@@ -85,6 +87,7 @@ const rowsPerPage = ref(3);
 
 const selectedCategoryId = ref(null);
 
+// Paginación
 const paginatedFormularios = computed(() => {
     const start = currentPage.value * rowsPerPage.value;
     return formularios.value.slice(start, start + rowsPerPage.value);
@@ -95,11 +98,13 @@ const onPageChange = (event) => {
     rowsPerPage.value = event.rows;
 };
 
+// Cargar categorias y formularios
 onMounted(() => {
     getCategoryList();
     getForms();
 });
 
+// Método para mostrar formularios filtrados por categoria
 const selectCategory = (categoryId = null) => {
     console.log("Categoría seleccionada:", categoryId);
     selectedCategoryId.value = categoryId;
@@ -114,6 +119,7 @@ const selectCategory = (categoryId = null) => {
     font-family: "Atma";
 }
 
+/* Botón Jugar */
 .btn-hover-lila {
     font-size: 12px;
     font-weight: bold;
@@ -150,6 +156,7 @@ const selectCategory = (categoryId = null) => {
     cursor: pointer;
 }   
 
+/* Estilos Paginador */
 .pagination .page-link {
     color: #874ECA;
     border: 1px solid #874ECA;
@@ -178,6 +185,7 @@ const selectCategory = (categoryId = null) => {
     box-shadow: none;
 }
 
+/* Detalles del formulario */
 .form-image-horizontal {
     width: 2000px;
     height: 180px;

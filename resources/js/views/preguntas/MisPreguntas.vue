@@ -5,6 +5,7 @@
                 <div class="card-header bg-transparent ps-0 pe-0">
                     <h1 class="mb-0">BUSCAR PREGUNTAS</h1>
                 </div>
+                <!-- Tabla con las preguntas filtradas por el usuario de la sesión -->
                     <DataTable v-model:filters="filters" :size="'normal'" :value="preguntas.data" paginator :rows="5"
                                :globalFilterFields="['id','pregunta', 'user_id','created_at']" stripedRows dataKey="id" size="small">
                         <template #header>
@@ -51,6 +52,7 @@
             </div>
         </div>
     </div>
+    <!-- Dialog con las respuestas de la pregunta -->
     <Dialog v-model:visible="dialogVisible" modal :style="{ width: '30rem', padding: '15px', height: 'auto' }" pcCloseButton="">
         <template #header>
             <h2><strong>RESPUESTAS</strong></h2>
@@ -88,10 +90,12 @@ const {preguntas, getUserPreguntas, deletePregunta, getPregunta } = usePreguntas
 
 const filters = ref();
 
+// Recuperar preguntas
 onMounted(() => {
     getUserPreguntas();
 });
 
+// Abrir Dialog de respuestas
 const verRespuestas= (pregunta)=>{
     preguntaActual.value = pregunta;
     dialogVisible.value = true;

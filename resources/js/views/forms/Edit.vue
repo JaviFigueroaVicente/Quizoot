@@ -63,12 +63,14 @@ formulario.value = {
   category_id: [],
 };
 
+// Validador de los datos del formulario
 const schema = yup.object().shape({
   name: yup.string().required("El nombre es obligatorio"),
   description: yup.string().required("La descripción es obligatoria"),
   category_id: yup.array().min(1, "Debe seleccionar al menos una categoría"),
 });
 
+// Recuperar categorias y datos del formulario
 onMounted(async () => {
   await getCategoryList();
   const formularioId = route.params.id;
@@ -82,6 +84,7 @@ onMounted(async () => {
   }
 });
 
+// Enviar nuevos datos con la gestión de errores
 const onFormSubmit = async () => {
   try {
     await schema.validate(formulario.value, { abortEarly: false });

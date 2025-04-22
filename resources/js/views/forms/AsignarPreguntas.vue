@@ -6,6 +6,7 @@
                 <div class="card-header bg-transparent ps-0 pe-0">
                     <h5 class="float-start mb-0">BUSCAR PREGUNTAS</h5>
                 </div>
+                <!-- Tabla para crear ver las preguntas creadas por el usuario -->
                 <DataTable v-model:filters="filters" :size="'normal'" v-model:selection="selectedPreguntas" :value="preguntas.data" paginator :rows="5"
                         :globalFilterFields="['id','pregunta','created_at']" stripedRows dataKey="id" size="small">
                     <template #header>
@@ -37,6 +38,7 @@
                 </DataTable>
             </div>
         </div>
+        <!-- Contenedor donde se muestran las preguntas seleccionadas -->
         <div class="col-6">
             <div class="card">
                 <div class="card-header bg-transparent ps-0 pe-0">
@@ -79,10 +81,13 @@ const { preguntas, getUserPreguntas } = usePreguntas();
 const { getForm, getFormPreguntas, selectedPreguntas, asignarPreguntas } = useForms();
 const filters = ref();
 
+
+// Validador de las preguntas seleccionadas
 const schema = yup.object().shape({
     pregunta_ids: yup.array().of(yup.number()).min(1, 'Debe seleccionar al menos una pregunta'),
 });
 
+// Método para recuperar los datos necesarios
 onMounted(() => {
     getUserPreguntas();
     getForm(router.currentRoute.value.params.id);
@@ -97,6 +102,7 @@ const initFilters = () => {
 
 initFilters();
 
+// Métodos para la gestión de las preguntas seleccionadas
 const removePregunta = (pregunta) => {
     selectedPreguntas.value = selectedPreguntas.value.filter(p => p.id !== pregunta.id);
 };
@@ -105,6 +111,7 @@ const clearSelectedPreguntas = () => {
     selectedPreguntas.value = [];
 };
 
+// Enviar datos de las preguntas seleccionadas con la gestión de errores
 const onFormSubmit = async () => {
     try {
         await schema.validate({ pregunta_ids: selectedPreguntas.value.map(p => p.id) }, { abortEarly: false });
@@ -173,6 +180,7 @@ li{
 .grid{
     margin-bottom: 40px;
 }
+/* Boton para asignar preguntas */
 .button-asignar{
     display: flex;
     justify-content: center;

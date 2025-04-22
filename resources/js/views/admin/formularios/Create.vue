@@ -1,6 +1,6 @@
 <template>
     <div class="main-container mb-3">
-        <!-- Sección Izquierda: Título, Descripción y Subir Imagen -->
+        <!-- Sección Izquierda: Título, Descripción, Categorias y Subir Imagen -->
         <div class="container left-container">
             <div class="mb-5">
                 <label for="name"></label>
@@ -27,7 +27,7 @@
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import * as yup from "yup";
-import { es, id } from "yup-locales";
+import { es } from "yup-locales";
 import DropZone from "@/components/DropZone.vue";
 import { authStore } from "@/store/auth";
 import useForms from "@/composables/forms";
@@ -41,7 +41,7 @@ yup.setLocale(es);
 const router = useRouter();
 const store = authStore();
 
-
+// Validador de los datos del formulario
 const schema = yup.object().shape({
     name: yup.string().required("El nombre es requerido"),
     description: yup.string().required("La descripción es requerida"),
@@ -66,6 +66,7 @@ const onFormSubmit = async () => {
     }
 };
   
+// Recuperar datos para mostrarlos y comprarlos
 onMounted(() => {
   getCategoryList();
 });
@@ -73,6 +74,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* Estilos contenedor */
 .main-container {
 display: flex;
 gap: 20px;
@@ -103,6 +105,7 @@ margin-top: 20px;
     flex-direction: column;
 }
 
+/* Estilos de los inputs */
 .editable-title,
 .editable-description {
 cursor: text;
@@ -125,6 +128,7 @@ border-color: #874eca;
 text-align: left;
 }
 
+/* Estilo de la imagen */
 .preview-image {
 width: 100%;
 max-height: 200px;
@@ -165,6 +169,7 @@ cursor: pointer;
 display: none;
 }
 
+/* Botón enviar formulario */
 .btn-custom {
 background-color: #874eca;
 color: white;

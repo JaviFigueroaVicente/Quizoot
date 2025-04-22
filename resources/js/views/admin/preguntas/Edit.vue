@@ -1,5 +1,6 @@
 <template>
     <h2>EDITAR PREGUNTA</h2>
+    <!-- Contenedor con el formulario y los datos de la pregunta con sus respuestas -->
     <div class="container">
         <div class="row">
             <label for="pregunta">Pregunta</label>
@@ -31,6 +32,8 @@ const router = useRouter();
 const route = useRoute();
 const { getPregunta, pregunta, updatePregunta} = usePreguntas();
 
+
+// Validador de la pregunta con sus respuestas
 const schema = yup.object().shape({
     pregunta: yup.string().required("Pregunta es un campo requerido"),
     respuestas: yup.array().of(
@@ -47,11 +50,12 @@ const schema = yup.object().shape({
 
 
 const errors = ref({});
+// Método para enviar los datos nuevos de la pregunta y sus respuestas con la gestión de errores
 const onFormSubmit = async () => {
     try {
         await schema.validate(pregunta.value, { abortEarly: false });
         // console.log(pregunta.value);
-        awaitupdatePregunta(pregunta.value);
+        await updatePregunta(pregunta.value);
         router.push({name: 'questions.index'});
     } catch (err) {
         if (err instanceof yup.ValidationError) {
@@ -65,6 +69,7 @@ const onFormSubmit = async () => {
     }
 };
 
+// Método para devolver los datos filtrados por pregunta
 onMounted(() => {
     console.log(route.params.id);
     getPregunta(route.params.id);

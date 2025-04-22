@@ -412,12 +412,6 @@ export default [
                         meta: { breadCrumb: 'Edit Formularios Respondidos' }
                     },
                     {
-                        name: 'formulariosRespondidos.create',
-                        path: 'create',
-                        component: () => import('../views/admin/formulariosRespondidos/Create.vue'),
-                        
-                    },
-                    {
                         name: 'formulariosRespondidos.indexByForm',
                         path: 'indexByForm/:id',
                         component: () => import('../views/admin/formulariosRespondidos/indexByForm.vue'),

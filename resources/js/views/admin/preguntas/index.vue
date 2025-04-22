@@ -2,6 +2,7 @@
     <div class="grid">
         <div class="col-12">
             <div class="card">
+                <!-- Tabla que muestra un resumen de todas las preguntas -->
                 <DataTable v-model:filters="filters" :value="preguntas.data" paginator :rows="5"
                             :globalFilterFields="['id','pregunta', 'user_id','created_at']" stripedRows dataKey="id" size="small">
                     <template #header>
@@ -45,13 +46,14 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import usePreguntas from '@/composables/preguntas';
 import {useAbility} from '@casl/vue'
-import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
+import { FilterMatchMode } from '@primevue/core/api';
 
 const router = useRouter();
 const {preguntas, getPreguntas, deletePregunta} = usePreguntas();
 const {can} = useAbility()
 const filters = ref();
 
+// Recuperar todas las preguntas
 onMounted(() => {;
     getPreguntas()
 });

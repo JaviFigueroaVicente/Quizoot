@@ -51,12 +51,14 @@ formulario.value = {
   category_id: [],
 };
 
+// Validador del formulario
 const schema = yup.object().shape({
   name: yup.string().required("El nombre es obligatorio"),
   description: yup.string().required("La descripción es obligatoria"),
   category_id: yup.array().min(1, "Debe seleccionar al menos una categoría"),
 });
 
+// Recuperar datos para mostrarlos y comprarlos
 onMounted(async () => {
   await getCategoryList();
   const formularioId = route.params.id;
@@ -91,6 +93,7 @@ const onFormSubmit = async () => {
 </script>
 
 <style scoped>
+/* Estilos contendor principal */
 .container div{
     display: flex;
     flex-direction: column;
@@ -120,6 +123,8 @@ const onFormSubmit = async () => {
   margin-top: 20px;
 }
 
+/* Estilos inputs */
+
 .editable-title,
 .editable-description {
   cursor: text;
@@ -142,6 +147,7 @@ const onFormSubmit = async () => {
   text-align: left;
 }
 
+/* Estilos preview de la imagen del formulario */
 .preview-image {
   width: 100%;
   max-height: 200px;
@@ -181,6 +187,8 @@ const onFormSubmit = async () => {
 .hidden-radio {
   display: none;
 }
+
+/* Estilos del boton de actualizar el formulario */
 
 .btn-custom {
   background-color: #874eca;

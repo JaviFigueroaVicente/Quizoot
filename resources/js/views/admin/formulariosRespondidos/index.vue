@@ -2,6 +2,7 @@
     <div class="grid">
         <div class="col-12">
             <div class="card">
+                <!-- Tabla con los datos de los formularios respondidos por el usuario recuperado -->
                 <DataTable v-model:filters="filters" :value="formulariosRespondidos" paginator :rows="5"
                             :globalFilterFields="['formulario_id', 'score', 'created_at', 'updated_at']" stripedRows size="small" dataKey="formulario_id">
                     <template #header>
@@ -43,7 +44,7 @@ import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import useFormulariosRespondidos from '@/composables/formularios_respondidos';
 import {useAbility} from '@casl/vue'
-import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
+import { FilterMatchMode } from '@primevue/core/api';
 
 const route = useRoute();
 const router = useRouter();
@@ -51,6 +52,7 @@ const {getFormulariosRespondidosUser, deleteFormularioRespondido, formulariosRes
 const {can} = useAbility()
 const filters = ref();
 
+// Recuperado de los datos de los formularios respondidos filtrados por usuario
 onMounted(() => {
     getFormulariosRespondidosUser(route.params.id)
 });

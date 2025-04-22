@@ -1,5 +1,6 @@
 <template>
     <div class="main-container mb-3">
+        <!-- Sección con los datos del formulario respondido seleccionado -->
         <div class="container left-container" v-if="formularioRespondido">
             <div>
                 <label for="formulario_id"></label>
@@ -35,6 +36,7 @@ yup.setLocale(es);
 const router = useRouter();
 const route = useRoute();
 
+// Validador de los datos del formulario respondido 
 const schema = yup.object().shape({
     formulario_id: yup.number().required(),
     user_id: yup.number().required(),
@@ -43,6 +45,7 @@ const schema = yup.object().shape({
 
 const errors = ref({});
 
+// Método para enviar los datos con la validación de errores
 const onFormSubmit = async () => {
     try {
       await schema.validate(formularioRespondido.value, { abortEarly: false });
@@ -60,6 +63,7 @@ const onFormSubmit = async () => {
     }
 };
 
+// Recuperado de datos del formulario repsondido
 onMounted(() => {
     console.log(route.params.formularioId, route.params.id);
     getFormularioRespondido(route.params.id, route.params.formularioId);

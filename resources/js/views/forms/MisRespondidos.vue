@@ -3,6 +3,7 @@
     <div class="grid">
         <div class="col-12">
             <div class="card">
+                <!-- Tabla con todos los datos que el usuario de la sesión ha respondido -->
                 <DataTable v-model:filters="filters" :size="'normal'" :value="formulariosRespondidos" paginator :rows="10"
                             :globalFilterFields="['formulario_id', 'score', 'created_at']" stripedRows size="small" dataKey="formulario_id">
                     <template #header>
@@ -61,6 +62,7 @@ const {getFormulariosRespondidosUserLogged, formulariosRespondidos } = useFormul
 const {can} = useAbility()
 const filters = ref();
 
+// Cargar los datos del usuario filtrados por sesion
 onMounted(() => {
     getFormulariosRespondidosUserLogged()
 });

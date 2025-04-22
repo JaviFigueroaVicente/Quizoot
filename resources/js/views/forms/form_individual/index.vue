@@ -1,4 +1,5 @@
 <template>
+  <!-- Mostrar un loader mientras se cargan las preguntas de los formulario seleccionado -->
     <section class="container-cargando" v-if="isLoading">  
         <div class="cargando">
             <svg xmlns="http://www.w3.org/2000/svg" height="200px" width="200px" viewBox="0 0 200 200" class="pencil">
@@ -34,6 +35,7 @@
             <h3>CARGANDO</h3>
         </div>
     </section>
+    <!-- Motrar la vista interactiva para responder el formulario -->
     <section v-else-if="!mostrarScore" class="container">
         <div class="video-fondo-div">
             <video class="video-fondo" src="/images/Home/fondo3.mp4" autoplay="true" muted="true" loop="true"></video>        
@@ -67,6 +69,7 @@
             <button @click="abandonar" class="exit-button">Abandonar</button>
         </section>        
     </section>
+    <!-- Una vez finalizado el formulario mostrar la puntuación con la validación de si es récord o no -->
     <section v-else class="container">
         <div class="video-fondo-div">
             <video class="video-fondo" src="/images/Home/fondo3.mp4" autoplay="true" muted="true" loop="true"></video>        
@@ -93,7 +96,6 @@
             </div>
         </div>
     </section>
-   
 </template>
 
 <script setup>
@@ -118,6 +120,7 @@ const interval = ref();
 const mostrarScore = ref(false);
 const preguntasTotales = computed(() => selectedPreguntas.value.length);
 
+// Mostrar confetti si es récord de puntuación
 const mostrarConfetti = async () => {
     await nextTick();
     const canvas = document.getElementById('confetti');
@@ -136,6 +139,7 @@ const preguntaActual = computed(() => {
     return selectedPreguntas.value && selectedPreguntas.value.length > 0 ? selectedPreguntas.value[currentQuestionIndex.value] : null;
 });
 
+// Validador de la respuesta seleccionada (si es correcta o no)
 const seleccionRespuesta = async (respuesta) => {
     endProgress();
     if (preguntaActual.value) {
@@ -148,6 +152,7 @@ const seleccionRespuesta = async (respuesta) => {
     }
 };
 
+// Pasar a la siguiente pregunta con la validación para saber si quedan mas preguntas o no
 const siguientePregunta = () => {
     if (currentQuestionIndex.value < selectedPreguntas.value.length - 1) {
         currentQuestionIndex.value++;
@@ -179,6 +184,7 @@ const siguientePregunta = () => {
     }
 };
 
+// Mostrar mensajes de pregunta correcta o incorrecta
 const mostrarMensaje = (result) => {
     tiempo.value = 0;
     tiempoRestante.value = 100; 
@@ -207,6 +213,7 @@ const mostrarMensaje = (result) => {
     }
 };
 
+// Método para iniciar la barra de carga
 const startProgress = () => {
     interval.value = setInterval(() => {
         let newValue = tiempo.value + 1;
@@ -222,11 +229,14 @@ const startProgress = () => {
     }, 300);
 };
 
+// Método para parar la barra de carga
 const endProgress = () => {
     clearInterval(interval.value);
     interval.value = null;
 }
 
+
+// Método para gestionar el abandono del formulario
 const abandonar = () => {
     endProgress();
     swal({
@@ -248,6 +258,7 @@ const abandonar = () => {
     })
 }
 
+// Cargar los datos del formulario
 onMounted(() => {
     // console.log(route.params.id);
     getForm(route.params.id);
@@ -264,13 +275,12 @@ onUnmounted(() => {
 });
 
 
+// Gestionar el loading para que el contador empiece al desaparecer el loading
 watch(isLoading, (newVal) => {
     if (!newVal) {
         startProgress();
     }
 });
-
-
 </script>
 
 <style scoped>
@@ -335,6 +345,7 @@ watch(isLoading, (newVal) => {
     padding-top: 20px
 }
 
+/* Estilos barra de carga */
 .p-progressbar{
     border: 1px solid #874eca;
     --p-progressbar-value-background: #874eca;
@@ -342,6 +353,7 @@ watch(isLoading, (newVal) => {
     background-color: #4f2f77;
 }
 
+/* Estilos de datos de la pregunta */
 .header-container{
     width: 100%;
 }
@@ -387,14 +399,7 @@ h2{
     font-size: 1.3rem;
 }
 
-.buttons-section{
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-}
-
-
+/* Estilos del botón abandonar */
 .exit-div{
     width: 100%;
     display: flex;
@@ -416,6 +421,14 @@ h2{
 
 .exit-button:hover {
     background-color: #aa2608;
+}
+
+/* Estilos de los botones de respuesta */
+.buttons-section{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
 }
 
 .buttons-section{
@@ -476,7 +489,7 @@ h2{
 }
 
 
-
+/* Responsive móvil */
 @media (max-width: 768px) {
     .container{
         padding: 20px;
@@ -571,7 +584,7 @@ h2{
     background-color: #402462;
 }
 
-
+/* Posición del confetti */
 .confetti-canvas {
     position: absolute;
     top: 0;
@@ -582,6 +595,7 @@ h2{
     z-index: 1; 
 }
 
+/* Contenedor isLoading */
 .container-cargando{
     display: flex;
     justify-content: center;
@@ -610,6 +624,8 @@ h2{
     font-family: 'Atma';
 }
 
+
+/* Estilos del lápiz de la pantalla de carga */
 .pencil {
   display: block;
   width: 10em;

@@ -1,5 +1,6 @@
 <template>
     <h2>CREAR PREGUNTA</h2>
+    <!-- Contenedor con el formulario de creacion de pregunta con sus respectivas respuestas -->
     <div class="container">
         <div class="row">
             <label for="pregunta">Pregunta</label>
@@ -30,6 +31,7 @@ const { storePregunta, pregunta } = usepregunta();
 yup.setLocale(es);
 const router = useRouter();
 
+// Validador de la pregunta con sus respectivas respuestas
 const schema = yup.object().shape({
     pregunta: yup.string().required("Pregunta es un campo requerido"),
     respuestas: yup.array().of(
@@ -47,6 +49,8 @@ const schema = yup.object().shape({
 
 
 const errors = ref({});
+
+// Método para enviar los datos a la API con su gestión de errores
 const onFormSubmit = async () => {
     try {
         await schema.validate(pregunta.value, { abortEarly: false });

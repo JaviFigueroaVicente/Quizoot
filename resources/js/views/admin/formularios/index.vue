@@ -2,6 +2,7 @@
     <div class="grid">
         <div class="col-12">
             <div class="card">
+                <!-- Tabla donde se muestran los datos de todos los formularios -->
                 <DataTable v-model:filters="filters" :value="formularios" paginator :rows="5"
                             :globalFilterFields="['id','name', 'description','user_id','created_at']" stripedRows dataKey="id" size="small">
                     <template #header>
@@ -74,13 +75,14 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import useForms from '@/composables/forms';
 import {useAbility} from '@casl/vue'
-import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
+import { FilterMatchMode } from '@primevue/core/api';
 
 const router = useRouter();
 const {formularios, getForms, deleteForm} = useForms();
 const {can} = useAbility()
 const filters = ref();
 
+// Cargar datos de los formularios
 onMounted(() => {
     getForms().then(() => {
     console.log("Datos de formularios:", formularios.value);
