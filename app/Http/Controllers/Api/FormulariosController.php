@@ -18,9 +18,7 @@ use Illuminate\Support\Facades\Validator;
 
 class FormulariosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Mostrar todos los formularios
     public function index(Request $request){
         $query = Formularios::with('categories')->withCount('preguntas', 'formulariosRespondidos');
 
@@ -40,6 +38,7 @@ class FormulariosController extends Controller
     }
 
 
+    // Mostrar todos los formularios del usuario log
     public function userFormularios(){
         $user_id = auth()->id();
         $formularios = Formularios::withCount('preguntas')->where('user_id', $user_id)->get();
@@ -51,6 +50,7 @@ class FormulariosController extends Controller
         ]);
     }
 
+    // Mostrar preguntas de un formulario
     public function getPreguntasFormulario(string $id){
         $formulario = Formularios::with('preguntas.respuestas')->findOrFail($id);
 
@@ -61,6 +61,7 @@ class FormulariosController extends Controller
         ]);
     }
 
+    // Mostrar preguntas sin la respuesta
     public function getPreguntasSinRespuesta(string $id){
         $formulario = Formularios::with('preguntas.respuestas')->findOrFail($id);
 
@@ -79,6 +80,7 @@ class FormulariosController extends Controller
         ]);
     }
 
+    // Mostrar ranking de un formulario
     public function getRankingFormulario(string $formularioId){
         $ranking = Formularios_Respondidos::with('user.media')->where('formulario_id', $formularioId)->orderBy('score', 'desc')->get();
 
@@ -89,6 +91,7 @@ class FormulariosController extends Controller
         ]);
     }
 
+    // Verificar si la respuesta es correcta
     public function verificarRespuesta(Request $request)
     {
         $request->validate([
@@ -114,17 +117,7 @@ class FormulariosController extends Controller
             'es_correcta' => false
         ]);
     }
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    //  Crear formulario
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -159,6 +152,7 @@ class FormulariosController extends Controller
         ], 201);
     }
 
+    // Asignar preguntas a un formulario
     public function asignarPreguntas(Request $request, $formulario_id){
         $request->validate([
             'pregunta_ids' => 'required|array',
@@ -175,6 +169,7 @@ class FormulariosController extends Controller
         ]);
     }
 
+    // Asignar categorías a un formulario
     public function asignarCategorias(Request $request, $formularioId){
         $request->validate([
             'category_ids' => 'required|array',
@@ -191,6 +186,7 @@ class FormulariosController extends Controller
         ]);
     }
 
+    // Mostrar categorias de un formulario
     public function getCategoriasFormulario($id){
         $formulario = Formularios::with('categories')->findOrFail($id);
 
@@ -201,27 +197,13 @@ class FormulariosController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // Mostrar formulario
     public function show(string $id)
     {
         return Formularios::with('user', 'media', 'categories')->findOrFail($id);
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     */
+    // Actualizar formulario
     public function update(Request $request, Formularios $formulario){
         try {
             // Validar los datos recibidos
@@ -281,9 +263,7 @@ class FormulariosController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Eliminar formulario
     public function destroy(Formularios $formulario)
     {
         $formulario->delete();

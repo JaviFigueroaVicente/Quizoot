@@ -107,12 +107,6 @@ export default function useFormulariosRespondidos() {
         axios.post('/api/formulario-respondido/' + formulario.user_id + '/' + formulario.formulario_id, formulario)
         .then(() => {
             // console.log(formulario)
-            swal({
-                icon: 'success',
-                title: 'Formulario Respondido updated successfully',
-                showConfirmButton: false,
-                timer: 1500
-            })
         }).catch(error => {
             console.log(error)
             console.log(formulario)

@@ -1,6 +1,12 @@
 <template>
     <!-- Mostrar antes de tener los datos cargados -->
     <div class="mt-5 mb-5" v-if="isLoading">
+        <div class="container d-flex align-center gap-2">
+            <router-link :to="{name: 'forms.index'}" class="migas">Formularios</router-link>
+            <p>></p>
+            <p>{{ formulario.name }}</p>
+        </div>     
+        <h1 class="container fw-bolder text-left">DETALLES DEL FORMULARIO</h1>
         <div class="container my-2">
             <div class="row" v-if="formulario">
                 <!-- Left Section -->
@@ -26,6 +32,12 @@
     </div>
     <!-- Mostrar después de cargar los datos -->
     <div class="mt-5 mb-5" v-else>
+        <div class="container d-flex align-center gap-2">
+            <router-link :to="{name: 'forms.index'}" class="migas">Formularios</router-link>
+            <p>></p>
+            <p>{{ formulario.name }}</p>
+        </div>
+        <h1 class="container fw-bolder text-left">DETALLES DEL FORMULARIO</h1>
         <div class="container my-2">
             <div class="row" v-if="formulario">
                 <!-- Left Section -->
@@ -126,6 +138,20 @@ const verRespuestas= (pregunta)=>{
 
 </script>
 <style scoped>
+.migas{
+    color: #874ECA;
+}
+
+.migas:hover{
+    color: #402462;
+    text-decoration: 1px solid underline;
+}
+
+h1 {
+    margin-top: 25px;
+    margin-bottom: 20px;
+    color: #874ECA;
+}
     .btn-lila {
         background-color: #874ECA;
         color: white;

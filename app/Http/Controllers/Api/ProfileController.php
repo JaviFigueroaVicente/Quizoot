@@ -11,7 +11,7 @@ use App\Models\User;
 
 class ProfileController extends Controller
 {
-
+    
     public function index(User $user){
         $user = Auth::user();
         return $this->successResponse($user, 'User found');

@@ -2,7 +2,7 @@
     <!-- Espera de los datos -->
     <div v-if="isLoading">
         <div class="text-center py-3 mt-3 mb-1 title ">
-            <h1 class="fw-bold">Formularios</h1>
+            <h1 class="fw-bold">FORMULARIOS</h1>
         </div>
 
         <div class="container my-2">
@@ -19,9 +19,9 @@
         </div>
     </div>
     <!-- Despúes de recuperar todos los datos -->
-    <div v-else>        
+    <div v-else>   
         <div class="text-center py-3 mt-3 mb-1 title ">
-            <h1 class="fw-bold">Formularios</h1>
+            <h1 class="fw-bold">FORMULARIOS</h1>
         </div>
 
         <div class="container my-2">

@@ -1,5 +1,11 @@
 <template>
-    <div class="mt-7 mb-6" v-if="isLoading">
+    <div class="container mt-4 mb-6" v-if="isLoading">
+        <div class="container d-flex align-center gap-2">
+            <router-link :to="{name: 'forms.index'}" class="migas">Rankings</router-link>
+            <p>></p>
+            <p>{{ formulario.name }}</p>
+        </div>
+        <h1 class="container fw-bolder text-left">RANKING DEL FORMULARIO</h1>
         <div class="container-fluid px-3 my-2">
             <div class="row justify-content-center">
                 <!-- Imagen Decorativa -->
@@ -20,7 +26,13 @@
             </div>
         </div>
     </div>
-    <div class="mt-7 mb-6" v-else>
+    <div class="container mt-4 mb-6" v-else>
+        <div class="container d-flex align-center gap-2">
+            <router-link :to="{name: 'forms.index'}" class="migas">Rankings</router-link>
+            <p>></p>
+            <p>{{ formulario.name }}</p>
+        </div>
+        <h1 class="container fw-bolder text-left">RANKING DEL FORMULARIO</h1>
         <div class="container-fluid px-3 my-2">
             <div class="row justify-content-center">
                 <!-- Imagen Decorativa -->
@@ -92,6 +104,20 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.migas{
+    color: #874ECA;
+}
+
+.migas:hover{
+    color: #402462;
+    text-decoration: underline 1px solid;
+}
+
+h1 {
+    margin-top: 25px;
+    margin-bottom: 20px;
+    color: #874ECA;
+}
 .left-section {
     position: sticky;
     top: 20px;
