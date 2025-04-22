@@ -1,22 +1,27 @@
 <template>
     <h1>EDITAR PREGUNTA</h1>
     <!-- Contenedor editar pregunta -->
-    <div class="container flex flex-column align-items-center">
+    <div class="container card flex flex-column align-items-center mb-5">
         <div class="row">
-            <label for="pregunta">PREGUNTA</label>
-            <input type="text" v-model="pregunta.pregunta" placeholder="Escribe tu pregunta" class="w-full md:w-80" />
-            <small class="text-danger" v-if="errors.pregunta">{{ errors.pregunta }}</small>
+            <div class="input-form w-full">                
+                <input type="text" v-model="pregunta.pregunta" placeholder="" class="form-control w-full md:w-80" />
+                <label for="pregunta" class="form-label">Escribe tu pregunta</label>
+                <small class="text-danger" v-if="errors.pregunta">{{ errors.pregunta }}</small>
+            </div>
         </div>
-        <div class="row card justify-center gap-4">
+        <div class="row justify-center gap-4">
+            <span>Respuestas:</span>
             <div class="flex align-items-center gap-2" v-for="(respuesta, index) in pregunta.respuestas" :key="index">
                 <Checkbox v-model="respuesta.correcta" :inputId="'respuesta' + (index + 1)" :name="'pregunta.respuestas.' + index + '.correcta'" :binary="true" :false-value="0" :true-value="1" />
-                <label :for="'respuesta' + (index + 1)"></label>
-                <input :name="'respuesta' + (index + 1)" v-model="respuesta.respuesta" type="text" />
+                <div class="input-form w-full">                    
+                    <input :name="'respuesta' + (index + 1)" v-model="respuesta.respuesta" type="text" class="form-control"/>
+                    <label :for="'respuesta' + (index + 1)" class="form-label">Escribe tu respuesta</label>
+                </div>
                 <small class="text-danger" v-if="errors[`respuestas[${index}].respuesta`]">{{ errors[`respuestas[${index}].respuesta`] }}</small>
             </div>
             <small class="text-danger" v-if="errors.respuestas">{{ errors.respuestas }}</small>
         </div>
-        <button type="submit" class="btn btn-primary button button-action mt-2" @click.prevent="onFormSubmit">ACTUALIZAR PREGUNTA</button>
+        <button type="submit" class="btn btn-primary button button-action mt-5" @click.prevent="onFormSubmit">ACTUALIZAR PREGUNTA</button>
     </div>
 </template>
 <script setup>
@@ -75,8 +80,16 @@ onMounted(() => {
 </script>
 
 <style scoped>
+span {
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 18px;
+}
+
 .container{
     width: 100%;
+    padding: 40px;
+    background-color: #402462d7;;
 }
 h1{
     margin-top: 20px;
@@ -99,7 +112,6 @@ button{
 
 button{
     margin-top: 20px;
-    margin-bottom: 50px;
     width: 100%;
     padding: 10px 30px;
     font-size: 20px;
@@ -116,6 +128,44 @@ button:active, button:focus-visible {
 .flex input{
     width: 100%;
 }
+
+
+.input-form {
+ position: relative;
+}
+
+.form-control {
+ border: solid 1.5px #9e9e9e !important;
+ background: #e8e8e850;
+ padding: 1rem;
+ font-size: 1rem;
+ color: #f5f5f5;
+ transition: border 150ms cubic-bezier(0.4,0,0.2,1);
+}
+
+.form-label {
+ position: absolute;
+ left: 15px;
+ color: #e8e8e8;
+ pointer-events: none;
+ transform: translateY(-2.5rem);
+ transition: 150ms cubic-bezier(0.4,0,0.2,1);
+}
+
+.form-control:focus, .form-control:not(:placeholder-shown) {
+ outline: none;
+ border: 1.5px solid #874eca;
+ box-shadow: none;
+}
+
+.form-control:focus ~ label, .form-control:not(:placeholder-shown) ~ label {
+ transform: translateY(-280%) scale(0.8) !important;
+ background-color: transparent;
+ padding: 0 .2em;
+ color: #ffffff;
+ box-shadow: none;
+}
+
 
 @media (max-width: 768px) {
     button{

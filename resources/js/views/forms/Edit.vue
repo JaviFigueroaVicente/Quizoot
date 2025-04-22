@@ -1,23 +1,23 @@
 <template>
   <div class="outer-wrapper">
     <h1>EDITAR FORMULARIO</h1>
-    <div class="main-container equal-container mb-3">
+    <div class="main-container equal-container mb-3 mt-3">
       <!-- Contenedor izquierdo -->
       <div class="container left-container">
-        <div class="mb-5">
-          <label for="name"></label>
-          <input class="fw-bold editable-title align-left" id="name" placeholder='Introducir Aquí El Nombre Del Formulario' v-model="formulario.name" />
+        <div class="input-form mb-5">
+          <input class="form-control editable-title align-left" id="name" placeholder='' v-model="formulario.name" />
+          <label for="form-label name">Nombre del formulario</label>
           <small class="text-danger" v-if="errors.name">{{ errors.name }}</small>
         </div>
 
-        <div class="mb-5">
-          <label for="description"></label>
-          <input class="editable-description align-left" id="description" placeholder='Escribe aquí la descripción del formulario...' v-model="formulario.description" />
+        <div class="input-form mb-5">          
+          <input class="form-control editable-description align-left" id="description" placeholder='' v-model="formulario.description" />
+          <label for="form-label description">Descripción del formulario</label>          
           <small class="text-danger" v-if="errors.description">{{ errors.description }}</small>
         </div>
 
         <div class="mb-4">
-          <label for="category">Categorías:</label>
+          <label class="label" for="category">Categorías:</label>
           <MultiSelect v-model="formulario.category_id" :options="categoryList" display="chip" optionLabel="name" optionValue="id" placeholder="Seleccione nuevas categorías" :maxSelectedLabels="3" class="w-full md:w-80" />
           <small class="text-danger" v-if="errors.category_id">{{ errors.category_id }}</small>
         </div>
@@ -34,7 +34,7 @@
     </div>
 
     <div class="form-button-wrapper">
-      <button type="submit" class="btn btn-custom" @click.prevent="onFormSubmit">Actualizar Formulario</button>
+      <button type="submit" class="btn btn-custom mt-2 mb-5" @click.prevent="onFormSubmit">ACTUALIZAR FORMULARIO</button>
     </div>
   </div>
 </template>
@@ -104,6 +104,9 @@ const onFormSubmit = async () => {
 </script>
 
 <style scoped>
+label {
+  color: #ffffff;
+}
 h1 {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -138,31 +141,49 @@ h1 {
 }
 
 .container {
-  background: white;
+  background: #402462d7;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   min-height: 100%;
   height: 100%;
 }
-
-.editable-title,
-.editable-description {
-  cursor: text;
-  outline: none;
-  min-height: 40px;
-  padding: 8px;
-  border: 2px solid #402462;
-  border-radius: 8px;
-  border-color: #d0d0d0;
-  background-color: #fff;
-  width: 100%;
+.input-form {
+ position: relative;
 }
 
-.editable-title:focus,
-.editable-description:focus {
-  border-color: #874eca;
+.form-control {
+ border: solid 1.5px #9e9e9e !important;
+ background: #e8e8e850;
+ padding: 1rem;
+ font-size: 1rem;
+ color: #f5f5f5;
+ transition: border 150ms cubic-bezier(0.4,0,0.2,1);
 }
+
+.form-label {
+ position: absolute;
+ left: 15px;
+ color: #e8e8e8;
+ pointer-events: none;
+ transform: translateY(-2.5rem);
+ transition: 150ms cubic-bezier(0.4,0,0.2,1);
+}
+
+.form-control:focus, .form-control:not(:placeholder-shown) {
+ outline: none;
+ border: 1.5px solid #874eca;
+ box-shadow: none;
+}
+
+.form-control:focus ~ label, .form-control:not(:placeholder-shown) ~ label {
+ transform: translateY(-280%) scale(0.8) !important;
+ background-color: transparent;
+ padding: 0 .2em;
+ color: #ffffff;
+ box-shadow: none;
+}
+
 
 .align-left {
   text-align: left;
@@ -176,10 +197,12 @@ h1 {
 
 .btn-custom {
   background-color: #874eca;
+  font-size: 24px;
   color: white;
+  font-weight: bold;
   border: none;
-  padding: 10px 30px;
-  border-radius: 5px;
+  padding: 15px 40px;
+  border-radius: 10px;
   transition: background-color 0.3s ease;
 }
 
