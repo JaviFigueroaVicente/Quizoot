@@ -53,21 +53,17 @@
         </div>
     </div>
     <!-- Dialog con las respuestas de la pregunta -->
-    <Dialog v-model:visible="dialogVisible" modal :style="{ width: '30rem', padding: '15px', height: 'auto' }" pcCloseButton="">
+    <Dialog v-model:visible="dialogVisible" modal :draggable="false" :style="{ width: '30rem', padding: '15px', height: 'auto',backgroundImage: 'url(/images/forms/fondoVentana.jpeg)', backgroundPosition: 'center', backgroundSize: 'cover',}" pcCloseButton="">
         <template #header>
-            <h2><strong>RESPUESTAS</strong></h2>
+            <h2 class="dialog-title">RESPUESTAS</h2>
         </template>
-        <div class="flex items-center gap-4 mb-8">
-            <ul class="list-group">
-                <li v-for="respuesta in preguntaActual.respuestas" :key="respuesta.id">
-                    <div v-if="respuesta.correcta == 1">
-                        <i class="pi pi-check" style="color: green;"></i>
-                        <p>{{respuesta.respuesta}}</p>
+        <div class="respuestas-dialog-body">
+            <ul class="list-respuestas">
+                <li v-for="respuesta in preguntaActual.respuestas" :key="respuesta.id" class="respuesta-item">
+                    <div :class="respuesta.correcta == 1 ? 'respuesta-correcta' : 'respuesta-incorrecta'">
+                        <i :class="respuesta.correcta == 1 ? 'pi pi-check' : 'pi pi-times'"></i>
+                        <p>{{ respuesta.respuesta }}</p>
                     </div>
-                    <div v-else>
-                        <i class="pi pi-times" style="color: red;"></i>
-                        <p>{{respuesta.respuesta}}</p>
-                    </div>                
                 </li>
             </ul>
         </div>
@@ -144,6 +140,54 @@ h1{
 .list-group p{
     font-size: 1.75rem;
 }
+
+/* Pestaña respuestas */
+.dialog-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #ffffff;
+        margin-bottom: 10px;
+    }
+
+    .list-respuestas {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .respuesta-item {
+        padding: 10px 15px;
+        border-radius: 10px;
+        background-color: #f9f6ff;
+        box-shadow: 0 2px 5px rgba(135, 78, 202, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .respuesta-correcta,
+    .respuesta-incorrecta {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-size: 1.2rem;
+    }
+
+    .respuesta-correcta i {
+        color: green;
+        font-size: 1.5rem;
+    }
+
+    .respuesta-incorrecta i {
+        color: red;
+        font-size: 1.5rem;
+    }
+
+    .respuesta-item:hover {
+        transform: scale(1.01);
+        background-color: #efe5ff;
+    }
 
 
 @media (max-width: 768px) {
