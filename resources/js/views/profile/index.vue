@@ -95,6 +95,7 @@ const store = useAuth();
     flex-direction: column;
     justify-content: center;
     transition: all 0.3s ease ;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }   
 .col:hover{
     background-color: #d6d6d6;
