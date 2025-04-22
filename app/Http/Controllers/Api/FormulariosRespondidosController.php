@@ -12,6 +12,7 @@ use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
 
 class FormulariosRespondidosController extends Controller
 {
+    // Mostrar todos los formularios respondidos
     public function index()
     {
         $formularios_respondidos = Formularios_Respondidos::all();
@@ -23,11 +24,7 @@ class FormulariosRespondidosController extends Controller
         ]);
     }
 
-    public function create()
-    {
-     //
-    }
-
+    // Mostrar todos los formularios respondidos por el usuario log
     public function getFormulariosRespondidosUserLogged()
     {
         $formularios_respondidos = Formularios_Respondidos::where('user_id', auth()->id())->get();
@@ -39,6 +36,7 @@ class FormulariosRespondidosController extends Controller
         ]);
     }
 
+    // Mostrar todos los formularios respondidos por usuario
     public function getFormulariosRespondidosUser(string $user_id)
     {
         $formularios_respondidos = Formularios_Respondidos::where('user_id', $user_id)->get();
@@ -50,6 +48,7 @@ class FormulariosRespondidosController extends Controller
         ]);
     }
 
+    // Mostrar todos los formularios respondidos por formulario
     public function getFormulariosRespondidosForm(string $formularioId){
         $formularios_respondidos = Formularios_Respondidos::where('formulario_id', $formularioId)->get();
 
@@ -60,6 +59,7 @@ class FormulariosRespondidosController extends Controller
         ]);
     }
 
+    // Crear formulario respondido
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -81,6 +81,7 @@ class FormulariosRespondidosController extends Controller
     }
 
 
+    // Mostrar formulario respondido
     public function show(string $userId, string $formularioId)
     {
         $formulario_respondido = Formularios_Respondidos::where('user_id', $userId)->where('formulario_id', $formularioId)->first();
@@ -92,13 +93,7 @@ class FormulariosRespondidosController extends Controller
         ]);
     }
 
-
-
-    public function edit(string $id)
-    {
-        //
-    }
-
+    // Actualizar formulario respondido
     public function update(Request $request, string $userId, string $formularioId)
     {
         Formularios_Respondidos::where('user_id', $userId)->where('formulario_id', $formularioId)->delete();
@@ -120,6 +115,7 @@ class FormulariosRespondidosController extends Controller
         ]);
     }
 
+    // Eliminar formulario respondido
     public function destroy(string $userId, string $formularioId)
     {
         Formularios_Respondidos::where('user_id', $userId)

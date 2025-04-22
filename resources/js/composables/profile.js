@@ -16,10 +16,12 @@ export default function useProfile() {
     const isLoading = ref(false)
     const swal = inject('$swal')
 
+    // Obtiene el perfil del usuario
     const getProfile = async () => {
         profile.value = auth.user.value;
     }
 
+    // Actualiza el perfil
     const updateProfile = async (profile) => {
         if (isLoading.value) return;
 

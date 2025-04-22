@@ -180,7 +180,7 @@ const updateUser = async () => {
             timer: 1500
         });
         usuario.value = response.data.data;
-        router.push('/app/profile');
+        router.push('/profile');
     })
     .catch(() => {
         Toast.add({
@@ -256,7 +256,7 @@ const onFormSubmit = () => {
     try {
         schema.validateSync(usuario.value, { abortEarly: false });
         updateUser();
-    } catch (err) {xº
+    } catch (err) {
         if (err instanceof yup.ValidationError) {
             errors.value = {};
             err.inner.forEach(error => {

@@ -11,9 +11,7 @@ use Illuminate\Http\Request;
 
 class PreguntasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Mostrar todas las preguntas
     public function index()
     {
         $preguntas = Preguntas::all();
@@ -24,6 +22,7 @@ class PreguntasController extends Controller
         ]);
     }
 
+    // Mostrar preguntas de un usuario
     public function userPreguntas()
     {
         $user_id = auth()->id();
@@ -36,17 +35,7 @@ class PreguntasController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
-    {
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Crear una pregunta
     public function store(Request $request)
     {
         try {
@@ -84,25 +73,12 @@ class PreguntasController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // Mostrar una pregunta
     public function show(string $id)
     {
         return Preguntas::with('user', 'respuestas')->findOrFail($id);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
+    // Actualizar una pregunta
     public function update(Request $request, Preguntas $pregunta)
     {
         try {
@@ -156,9 +132,7 @@ class PreguntasController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Eliminar una pregunta
     public function destroy(Preguntas $pregunta)
     {
         $pregunta->delete();

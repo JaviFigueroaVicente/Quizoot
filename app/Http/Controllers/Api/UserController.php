@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    // index
     public function index()
     {
         $orderColumn = request('order_column', 'created_at');
@@ -44,7 +45,7 @@ class UserController extends Controller
 
         return UserResource::collection($users);
     }
-
+    // register
     public function register(StoreUserRequest $request)
     {
         $role = 2;
@@ -72,6 +73,7 @@ class UserController extends Controller
         }
     }
 
+    // almacenar usuario nuevo
     public function store(StoreUserRequest $request)
     {
         $role = Role::find($request->role_id);
@@ -92,26 +94,14 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return UserResource
-     */
+//     show
     public function show(User $user)
     {
         $user->load('roles')->get();
         return new UserResource($user);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param UpdateUserRequest $request
-     * @param User $user
-     * @return UserResource
-     */
-
+    // update
     public function updateUser(Request $request, $id)
     {
         try{
@@ -151,6 +141,8 @@ class UserController extends Controller
         }
     }
 
+    // update
+
     public function update(UpdateUserRequest $request, User $user)
     {
         $role = Role::find($request->role_id);
@@ -173,6 +165,7 @@ class UserController extends Controller
         }
     }
 
+    // update foto
 
     public function updateimg(Request $request)
     {
@@ -189,6 +182,7 @@ class UserController extends Controller
     }
 
 
+    // destroy
     public function destroy(User $user)
     {
         $this->authorize('user-delete');

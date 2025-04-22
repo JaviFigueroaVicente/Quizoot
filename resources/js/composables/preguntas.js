@@ -18,6 +18,7 @@ export default function usePreguntas() {
     const isLoading = ref(false)
     const swal = inject('$swal')
 
+    // Obtiene todas las preguntas
     const getPreguntas = async () => {
         axios.get('/api/pregunta')
             .then(response => {
@@ -28,6 +29,7 @@ export default function usePreguntas() {
             }) 
     }
 
+    // Obtiene las preguntas de un usuario
     const getUserPreguntas = async () => {
         axios.get('/api/pregunta-user')
             .then(response => {
@@ -39,6 +41,7 @@ export default function usePreguntas() {
             }) 
     }
 
+    // Obtiene una pregunta
     const getPregunta = async (id) => {
         axios.get('/api/pregunta/' + id)
         .then(response => {
@@ -49,6 +52,7 @@ export default function usePreguntas() {
         }) 
     }
 
+    // Crea una pregunta
     const storePregunta = async () => {
         axios.post('/api/pregunta/', pregunta.value)
         .then(response => {
@@ -65,6 +69,7 @@ export default function usePreguntas() {
         }) 
     }
 
+    // Elimina una pregunta
     const deletePregunta = async (id) => {
         swal({
             title: 'Are you sure?',
@@ -101,6 +106,7 @@ export default function usePreguntas() {
             })
     }
 
+    // Actualiza una pregunta
     const updatePregunta = async (pregunta) => {
         axios.put('/api/pregunta/' + pregunta.id, pregunta)
             .then(() => {
