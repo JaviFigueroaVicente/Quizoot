@@ -18703,3 +18703,67 @@ Stack trace:
 [2025-04-21 20:24:55] local.ERROR: Error en store(): The pregunta field is required. (and 4 more errors)  
 [2025-04-21 20:49:08] local.ERROR: Error en store(): The pregunta field is required. (and 4 more errors)  
 [2025-04-22 14:07:24] testing.ERROR: Error en store(): SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'user_id' cannot be null (Connection: mysql, SQL: insert into `preguntas` (`pregunta`, `user_id`, `updated_at`, `created_at`) values (¿Cuál es la capital de Francia?, ?, 2025-04-22 14:07:23, 2025-04-22 14:07:23))  
+[2025-04-22 21:14:12] local.ERROR: Uncaught ReflectionException: Class "Spatie\Permission\Middlewares\RoleMiddleware" does not exist in Command line code:1
+Stack trace:
+#0 Command line code(1): ReflectionMethod->__construct('Spatie\\Permissi...', 'handle')
+#1 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught ReflectionException: Class \"Spatie\\Permission\\Middlewares\\RoleMiddleware\" does not exist in Command line code:1
+Stack trace:
+#0 Command line code(1): ReflectionMethod->__construct('Spatie\\\\Permissi...', 'handle')
+#1 {main}
+  thrown at Command line code:1)
+[stacktrace]
+#0 {main}
+"} 
+[2025-04-22 21:44:34] local.ERROR: Uncaught ReflectionException: Class "Spatie\Permission\Middlewares\RoleMiddleware" does not exist in Command line code:1
+Stack trace:
+#0 Command line code(1): ReflectionMethod->__construct('Spatie\\Permissi...', 'handle')
+#1 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught ReflectionException: Class \"Spatie\\Permission\\Middlewares\\RoleMiddleware\" does not exist in Command line code:1
+Stack trace:
+#0 Command line code(1): ReflectionMethod->__construct('Spatie\\\\Permissi...', 'handle')
+#1 {main}
+  thrown at Command line code:1)
+[stacktrace]
+#0 {main}
+"} 
+[2025-04-22 21:49:36] local.ERROR: Uncaught ReflectionException: Class "Spatie\Permission\Middlewares\RoleMiddleware" does not exist in Command line code:1
+Stack trace:
+#0 Command line code(1): ReflectionMethod->__construct('Spatie\\Permissi...', 'handle')
+#1 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught ReflectionException: Class \"Spatie\\Permission\\Middlewares\\RoleMiddleware\" does not exist in Command line code:1
+Stack trace:
+#0 Command line code(1): ReflectionMethod->__construct('Spatie\\\\Permissi...', 'handle')
+#1 {main}
+  thrown at Command line code:1)
+[stacktrace]
+#0 {main}
+"} 
+[2025-04-24 14:52:40] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-24 14:52:40] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-24 14:52:40] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-24 14:52:40] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-24 14:52:40] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-24 14:52:45] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-24 14:52:45] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-24 14:52:46] local.ERROR: Uncaught ReflectionException: Class "Spatie\Permission\Middlewares\RoleMiddleware" does not exist in Command line code:1
+Stack trace:
+#0 Command line code(1): ReflectionMethod->__construct('Spatie\\Permissi...', 'handle')
+#1 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught ReflectionException: Class \"Spatie\\Permission\\Middlewares\\RoleMiddleware\" does not exist in Command line code:1
+Stack trace:
+#0 Command line code(1): ReflectionMethod->__construct('Spatie\\\\Permissi...', 'handle')
+#1 {main}
+  thrown at Command line code:1)
+[stacktrace]
+#0 {main}
+"} 
+[2025-04-24 14:52:48] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-24 14:52:48] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-24 14:53:25] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-24 14:53:25] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-24 14:54:25] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-24 14:54:25] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-24 14:54:42] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-24 14:55:25] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-04-24 14:55:25] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
