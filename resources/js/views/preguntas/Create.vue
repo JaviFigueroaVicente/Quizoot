@@ -81,7 +81,8 @@ span {
 .container {
     width: 100%;
     padding: 40px;
-    background-color: #402462d7;;
+    background-color: #402462d7; 
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
 h1 {
     margin-top: 20px;
