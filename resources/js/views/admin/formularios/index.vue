@@ -3,8 +3,7 @@
         <div class="col-12">
             <div class="card">
                 <!-- Tabla donde se muestran los datos de todos los formularios -->
-                <DataTable v-model:filters="filters" :value="formularios" paginator :rows="5"
-                            :globalFilterFields="['id','name', 'description','user_id','created_at']" stripedRows dataKey="id" size="small">
+                <DataTable v-model:filters="filters" :value="formularios" paginator :rows="5" :globalFilterFields="['id','name', 'description','user_id','created_at']" stripedRows dataKey="id" size="small">
                     <template #header>
                         <Toolbar pt:root:class="toolbar-table">
                             <template #start>
@@ -48,7 +47,7 @@
                     <Column>
                         <template #body="slotProps">
                             <router-link :to="{ name: 'formulariosRespondidos.indexByForm', params: { id: slotProps.data.id } }">
-                                Ver Usuarios que han respondido
+                                <p style="color: blueviolet; margin-left: 15px;">Ver Usuarios que han respondido</p>
                             </router-link>
                         </template>
                     </Column>
