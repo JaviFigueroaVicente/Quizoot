@@ -41,10 +41,10 @@
                         <a class="nav-link" href="javascript:void(0)" @click="playRandomForm"><Button variant="text" class="button-jugar">Jugar</Button></a>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/forms" severity="help" class="nav-link"><Button severity="help" variant="text">Formularios</Button></router-link>
+                        <router-link to="/forms" severity="help" class="nav-link"><Button :class="{'active': $route.path === '/forms'}" severity="help" variant="text">Formularios</Button></router-link>
                     </li>            
                     <li class="nav-item">
-                        <router-link to="/rankings" severity="help" class="nav-link"><Button severity="help" variant="text">Rankings</Button></router-link>
+                        <router-link to="/rankings" severity="help" class="nav-link"><Button :class="{'active': $route.path === '/rankings'}" severity="help" variant="text">Rankings</Button></router-link>
                     </li>
                 </ul>
                 <ul class="navbar-nav mt-2 mt-lg-0 ms-auto nav-right">    
@@ -88,8 +88,8 @@ const { processing, logout } = useAuth();
 const router = useRouter();
 const { formularios, getForms } = useForms();
 
-const playRandomForm = () => {
-    getForms()  
+const playRandomForm = async () => {
+    await getForms()  
     if (!formularios.value || formularios.value.length === 0) {
         console.error("No hay formularios disponibles.");
         return;
@@ -105,11 +105,20 @@ const playRandomForm = () => {
     router.push(`/forms/details/${randomForm.id}`);
 };
 
+onMounted(() => {
+    getForms()
+})
+
 
 
 </script>
 
 <style scoped>
+.nav-link button.active {
+    color: #874ECA;
+    border-radius: 0px; 
+    border-bottom: 2px solid #874ECA; 
+}
 .dropdown-item.active, .dropdown-item:active {
     background-color: #874ECA !important;
 }

@@ -194,7 +194,10 @@ const mostrarMensaje = (result) => {
             title: 'Has acertado!',
             showConfirmButton: false,
             timer: 3000,
-            allowOutsideClick: false 
+            allowOutsideClick: false,
+            customClass: {
+                popup: 'swal'
+            }
         }).then(() => {
             siguientePregunta();
         })
@@ -205,7 +208,10 @@ const mostrarMensaje = (result) => {
             title: 'Has fallado...',
             showConfirmButton: false,
             timer: 3000,
-            allowOutsideClick: false 
+            allowOutsideClick: false,
+            customClass: {
+              popup: 'swal'
+          }
         }).then(() => {
             siguientePregunta();
         })

@@ -124,3 +124,9 @@ main{
 .p-datatable-column-sorted .p-datatable-sort-icon{
     color: #874ECA !important;
 }
+
+.swal{
+    background-color: #874eca !important;
+    color: #ffffff !important;
+    font-weight: bold !important;
+}

@@ -124,7 +124,8 @@ export default function useFormulariosRespondidos() {
             confirmButtonColor: '#ef4444',
             timer: 20000,
             timerProgressBar: true, 
-            reverseButtons: true
+            reverseButtons: true,
+            
         })
         .then(result => {
             if (result.isConfirmed) {
@@ -134,7 +135,10 @@ export default function useFormulariosRespondidos() {
                             icon: 'success',
                             title: 'Formulario Respondido deleted successfully',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 1500,
+                            customClass: {
+                                popup: 'swal'
+                            }
                         })
                         getFormulariosRespondidosUser(userId)
                         // console.log(response)
@@ -142,7 +146,10 @@ export default function useFormulariosRespondidos() {
                     .catch(error => {
                         swal({
                             icon: 'error',
-                            title: 'Something went wrong'
+                            title: 'Something went wrong',
+                            customClass: {
+                                popup: 'swal'
+                            }
                         })
                         console.log(error)
                     })

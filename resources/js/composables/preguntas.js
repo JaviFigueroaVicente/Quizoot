@@ -61,7 +61,10 @@ export default function usePreguntas() {
                 icon: 'success',
                 title: 'Pregunta creada correctamente',
                 showConfirmButton: false,
-                timer: 1500
+                timer: 1500,
+                customClass: {
+                    popup: 'swal'
+                }
             })
             console.log(response)
         }).catch(error => {
@@ -91,14 +94,20 @@ export default function usePreguntas() {
                                 icon: 'success',
                                 title: 'Question deleted successfully',
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 1500,
+                                customClass: {
+                                    popup: 'swal'
+                                }
                             })
                             console.log(response)
                         })
                         .catch(error => {
                             swal({
                                 icon: 'error',
-                                title: 'Something went wrong'
+                                title: 'Something went wrong',
+                                customClass: {
+                                    popup: 'swal'
+                                }
                             })
                             console.log(response)
                         })
@@ -114,7 +123,10 @@ export default function usePreguntas() {
                     icon: 'success',
                     title: 'Pregunta updated successfully',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
+                    customClass: {
+                        popup: 'swal'
+                    }
                 })
                 console.log(pregunta)
             })

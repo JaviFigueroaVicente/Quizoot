@@ -40,11 +40,14 @@ export default function useCategories() {
                     category.value = response.data.data;
                     console.log("Categoría cargada:", category.value);
                 } else {
-                    console.warn("⚠️ La categoría no se encontró.");
+                    console.warn("La categoría no se encontró.");
                     swal({
                         icon: 'warning',
                         title: 'Categoría no encontrada',
                         text: 'No se pudo cargar la categoría.',
+                        customClass: {
+                            popup: 'swal'
+                        }
                     });
                 }
             })
@@ -56,12 +59,18 @@ export default function useCategories() {
                         icon: 'error',
                         title: 'Error 404',
                         text: 'La categoría solicitada no existe.',
+                        customClass: {
+                            popup: 'swal'
+                        }
                     });
                 } else {
                     swal({
                         icon: 'error',
                         title: 'Error',
                         text: 'No se pudo obtener la categoría.',
+                        customClass: {
+                            popup: 'swal'
+                        }
                     });
                 }
             });
@@ -78,7 +87,10 @@ export default function useCategories() {
                 router.push({name: 'categories.index'})
                 swal({
                     icon: 'success',
-                    title: 'Category saved successfully'
+                    title: 'Category saved successfully',
+                    customClass: {
+                        popup: 'swal'
+                    }
                 })
             })
             .catch(error => {
@@ -100,7 +112,10 @@ export default function useCategories() {
                 router.push({name: 'categories.index'})
                 swal({
                     icon: 'success',
-                    title: 'Category updated successfully'
+                    title: 'Category updated successfully',
+                    customClass: {
+                        popup: 'swal'
+                    }
                 })
             })
             .catch(error => {
@@ -130,14 +145,20 @@ export default function useCategories() {
                             getCategories()
                             swal({
                                 icon: 'success',
-                                title: 'Category deleted successfully'
+                                title: 'Category deleted successfully',
+                                customClass: {
+                                    popup: 'swal'
+                                }
                             })
                             console.log(response)
                         })
                         .catch(error => {
                             swal({
                                 icon: 'error',
-                                title: 'Something went wrong'
+                                title: 'Something went wrong',
+                                customClass: {
+                                    popup: 'swal'
+                                }
                             })
                             console.log(response)
                         })

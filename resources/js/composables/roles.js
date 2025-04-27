@@ -56,7 +56,10 @@ export default function useRoles() {
                 router.push({name: 'roles.index'})
                 swal({
                     icon: 'success',
-                    title: 'Role saved successfully'
+                    title: 'Role saved successfully',
+                    customClass: {
+                        popup: 'swal'
+                    }
                 })
             })
             .catch(error => {
@@ -78,7 +81,10 @@ export default function useRoles() {
                 router.push({name: 'roles.index'})
                 swal({
                     icon: 'success',
-                    title: 'Role updated successfully'
+                    title: 'Role updated successfully',
+                    customClass: {
+                        popup: 'swal'
+                    }
                 })
             })
             .catch(error => {
@@ -127,13 +133,19 @@ export default function useRoles() {
                             router.push({name: 'roles.index'})
                             swal({
                                 icon: 'success',
-                                title: 'Role deleted successfully'
+                                title: 'Role deleted successfully',
+                                customClass: {
+                                    popup: 'swal'
+                                }
                             })
                         })
                         .catch(error => {
                             swal({
                                 icon: 'error',
-                                title: 'Something went wrong'
+                                title: 'Something went wrong',
+                                customClass: {
+                                    popup: 'swal'
+                                }
                             })
                         })
                 }

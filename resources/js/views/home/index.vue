@@ -235,7 +235,7 @@ video {
     top: 0;
     left: 0;
     -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 25%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
-    mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 0%, rgba(0,0,0,1) 85%, rgba(0,0,0,0));
+    mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 0%, rgba(0,0,0,1) 80%, rgba(0,0,0,0));
 }
 
 .video-derecha{
@@ -243,7 +243,7 @@ video {
     top: 0;
     left: 0;
     -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 25%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
-    mask-image: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 0%, rgba(0,0,0,1) 85%, rgba(0,0,0,0));
+    mask-image: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 0%, rgba(0,0,0,1) 80%, rgba(0,0,0,0));
 }
 
 .section-principal-top{
@@ -252,8 +252,8 @@ video {
         linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
 
     mask-image: 
-        linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 90%, rgba(0,0,0,0)),
-        linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
+        linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 80%, rgba(0,0,0,0)),
+        linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 80%, rgba(0,0,0,0));
     padding-top: 7.5em;
     padding-bottom: 10em;
     margin-left: 0px;
