@@ -113,7 +113,7 @@ h1{
     margin-bottom: 20px;
     text-align: center;
     font-weight: bolder;
-    color: blueviolet;
+    color: #874eca;
 }
 .ver-respuestas{
     border: none;
@@ -143,51 +143,51 @@ h1{
 
 /* Pestaña respuestas */
 .dialog-title {
-        font-size: 1.8rem;
-        font-weight: bold;
-        color: #ffffff;
-        margin-bottom: 10px;
-    }
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
 
-    .list-respuestas {
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        margin: 0;
-        padding: 0;
-    }
+.list-respuestas {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
 
-    .respuesta-item {
-        padding: 10px 15px;
-        border-radius: 10px;
-        background-color: #f9f6ff;
-        box-shadow: 0 2px 5px rgba(135, 78, 202, 0.1);
-        transition: all 0.3s ease;
-    }
+.respuesta-item {
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #f9f6ff;
+    box-shadow: 0 2px 5px rgba(135, 78, 202, 0.1);
+    transition: all 0.3s ease;
+}
 
-    .respuesta-correcta,
-    .respuesta-incorrecta {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        font-size: 1.2rem;
-    }
+.respuesta-correcta,
+.respuesta-incorrecta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.2rem;
+}
 
-    .respuesta-correcta i {
-        color: green;
-        font-size: 1.5rem;
-    }
+.respuesta-correcta i {
+    color: green;
+    font-size: 1.5rem;
+}
 
-    .respuesta-incorrecta i {
-        color: red;
-        font-size: 1.5rem;
-    }
+.respuesta-incorrecta i {
+    color: red;
+    font-size: 1.5rem;
+}
 
-    .respuesta-item:hover {
-        transform: scale(1.01);
-        background-color: #efe5ff;
-    }
+.respuesta-item:hover {
+    transform: scale(1.01);
+    background-color: #efe5ff;
+}
 
 
 @media (max-width: 768px) {

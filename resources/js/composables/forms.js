@@ -133,7 +133,10 @@ export default function useForms() {
                 title: 'Formulario creado correctamente',
                 showConfirmButton: false,
                 timer: 1500,
-                allowOutsideClick: false 
+                allowOutsideClick: false,
+                customClass: {
+                    popup: 'swal'
+                } 
             });
         } catch (error) {
             console.error('Error al crear el formulario:', error);
@@ -141,7 +144,10 @@ export default function useForms() {
                 icon: 'error',
                 title: 'Error al crear el formulario',
                 showConfirmButton: true,
-                allowOutsideClick: false 
+                allowOutsideClick: false,
+                customClass: {
+                    popup: 'swal'
+                }
             });
         }
     };
@@ -158,7 +164,10 @@ export default function useForms() {
                 title: 'Categorías asignadas correctamente',
                 showConfirmButton: false,
                 timer: 1500,
-                allowOutsideClick: false 
+                allowOutsideClick: false,
+                customClass: {
+                    popup: 'swal'
+                } 
             });
     
             console.log(response);
@@ -168,7 +177,10 @@ export default function useForms() {
                 icon: 'error',
                 title: 'Error al asignar categorías',
                 showConfirmButton: true,
-                allowOutsideClick: false 
+                allowOutsideClick: false,
+                customClass: {
+                    popup: 'swal'
+                } 
             });
         }
     };
@@ -189,7 +201,10 @@ export default function useForms() {
                 title: 'Preguntas asignadas correctamente',
                 showConfirmButton: false,
                 timer: 1500,
-                allowOutsideClick: false 
+                allowOutsideClick: false,
+                customClass: {
+                    popup: 'swal'
+                }
             });
             console.log(response);
         } catch (error) {
@@ -221,14 +236,20 @@ export default function useForms() {
                                 title: 'Form deleted successfully',
                                 showConfirmButton: false,
                                 timer: 1500,
-                                allowOutsideClick: false 
+                                allowOutsideClick: false,
+                                customClass: {
+                                    popup: 'swal'
+                                }
                             })
                             // console.log(response)
                         })
                         .catch(error => {
                             swal({
                                 icon: 'error',
-                                title: 'Something went wrong'
+                                title: 'Something went wrong',
+                                customClass: {
+                                    popup: 'swal'
+                                }
                             })
                             // console.log(response)
                         })
@@ -250,7 +271,10 @@ export default function useForms() {
                     title: 'Form updated successfully',
                     showConfirmButton: false,
                     timer: 1500,
-                    allowOutsideClick: false 
+                    allowOutsideClick: false,
+                    customClass: {
+                        popup: 'swal'
+                    } 
                 })
                 // console.log(formulario)
             })
@@ -260,7 +284,10 @@ export default function useForms() {
                     icon: 'error',
                     title: 'Error al actualizar el formulario',
                     showConfirmButton: true,
-                    allowOutsideClick: false                 
+                    allowOutsideClick: false,
+                    customClass: {
+                        popup: 'swal'
+                    }                 
                 });
             })
     }

@@ -79,7 +79,10 @@ export default function useUsers() {
                 router.push({name: 'users.index'})
                 swal({
                     icon: 'success',
-                    title: 'User saved successfully'
+                    title: 'User saved successfully',
+                    customClass: {
+                        popup: 'swal'
+                    }
                 })
             })
             .catch(error => {
@@ -101,7 +104,10 @@ export default function useUsers() {
                 router.push({name: 'users.index'})
                 swal({
                     icon: 'success',
-                    title: 'User updated successfully'
+                    title: 'User updated successfully',
+                    customClass: {
+                        popup: 'swal'
+                    }
                 })
             })
             .catch(error => {
@@ -133,13 +139,19 @@ export default function useUsers() {
                             router.push({name: 'users.index'})
                             swal({
                                 icon: 'success',
-                                title: 'User deleted successfully'
+                                title: 'User deleted successfully',
+                                customClass: {
+                                    popup: 'swal'
+                                }
                             })
                         })
                         .catch(error => {
                             swal({
                                 icon: 'error',
-                                title: 'Something went wrong'
+                                title: 'Something went wrong',
+                                customClass: {
+                                    popup: 'swal'
+                                }
                             })
                         })
                 }

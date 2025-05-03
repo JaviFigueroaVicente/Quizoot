@@ -61,7 +61,10 @@ export default function useAuth() {
                     icon: 'success',
                     title: 'Login correcto',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
+                    customClass: {
+                        popup: 'swal'
+                    }
                 })
                 await router.push({ name: 'home' })
             })
@@ -85,7 +88,10 @@ export default function useAuth() {
                     icon: 'success',
                     title: 'Registration successfully',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
+                    customClass: {
+                        popup: 'swal'
+                    }
                 })
                 await router.push({ name: 'auth.login' })
             })
@@ -109,7 +115,10 @@ export default function useAuth() {
                     icon: 'success',
                     title: 'We have emailed your password reset link! Please check your mail inbox.',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
+                    customClass: {
+                        popup: 'swal'
+                    }
                 })
                 // await router.push({ name: 'admin.index' })
             })
@@ -133,7 +142,10 @@ export default function useAuth() {
                     icon: 'success',
                     title: 'Password successfully changed.',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
+                    customClass: {
+                        popup: 'swal'
+                    }
                 })
                 await router.push({ name: 'auth.login' })
             })

@@ -34,7 +34,10 @@ export default function useProfile() {
                     auth.user.value=data.data
                     swal({
                         icon: 'success',
-                        title: 'Profile updated successfully'
+                        title: 'Profile updated successfully',
+                        customClass: {
+                            popup: 'swal'
+                        }
                     })
                 }
             })
