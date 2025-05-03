@@ -35,7 +35,7 @@
                     </router-link>
                 </div>
                 <div class="col col-lg-3 col-md-6 col-sm-12 mb-4" v-animateonscroll="{ enterClass: 'animate-enter fade-in-10 zoom-in-75 animate-duration-1000' }">
-                    <router-link to="/form/mis-formularios/create">
+                    <router-link :to="{ name: 'mis-formularios.create' }">
                         <div class="card">
                             <img src="/images/Home/pencil.webp" class="card-img-top" alt="...">
                             <div class="card-body">
@@ -94,13 +94,13 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import useForms from '@/composables/forms';
+import { onMounted } from 'vue';
 
 const router = useRouter();
 const { formularios, getForms } = useForms();
 
 // Método para recuperar un formulario aleatorio
-const playRandomForm = () => {
-    getForms()
+const playRandomForm = () => {    
     if (!formularios.value || formularios.value.length === 0) {
         // console.error("No hay formularios disponibles.");
         return;
@@ -115,6 +115,12 @@ const playRandomForm = () => {
     
     router.push(`/forms/details/${randomForm.id}`);
 };
+
+onMounted(() =>{
+    getForms()
+}) 
+
+
 </script>
 <script>
 // Inicializar la animación de entrada al cargar la página
