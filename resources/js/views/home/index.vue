@@ -92,10 +92,14 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import useForms from '@/composables/forms';
-import { onMounted } from 'vue';
+import { onMounted, onBeforeUnmount, ref, watch } from 'vue';
 
+const showVideos = ref(false)
+const componentKey = ref(0)
+
+const route = useRoute();
 const router = useRouter();
 const { formularios, getForms } = useForms();
 
@@ -116,72 +120,81 @@ const playRandomForm = () => {
     router.push(`/forms/details/${randomForm.id}`);
 };
 
+// Reiniciar animación de entrada
+const restartAnimation = () => {
+    showVideos.value = false
+    componentKey.value += 1
+
+    // Esperar a que se renderice el DOM con showVideos = false
+    setTimeout(() => {
+        loadVideosAndStartAnimation()
+    }, 50)
+}
+
+const loadVideosAndStartAnimation = () => {
+    const videos = document.querySelectorAll('video')
+
+    if (videos.length === 0) {
+        showVideos.value = true
+        return
+    }
+
+    let loadedCount = 0
+
+    const handleVideoLoad = () => {
+        loadedCount++
+        if (loadedCount === videos.length) {
+            showVideos.value = true
+        }
+    }
+
+    videos.forEach(video => {
+        if (video.readyState >= 3) {
+            // Video already can play
+            handleVideoLoad()
+        } else {
+            video.addEventListener('canplaythrough', handleVideoLoad)
+        }
+    })
+}
+
 onMounted(() =>{
     getForms()
+    restartAnimation()
 }) 
 
-
-</script>
-<script>
-// Inicializar la animación de entrada al cargar la página
-export default {
-    name: 'SectionPrincipal',
-    data() {
-        return {
-            showVideos: false,
-            componentKey: 0
-        };
-    },
-    mounted() {
-        this.restartAnimation();
-    },
-
-    methods: {
-        restartAnimation() {
-            // console.log('Restarting animation');
-            this.showVideos = false;
-            this.componentKey += 1;
-            // console.log('Component key:', this.componentKey);
-            setTimeout(() => {
-                this.showVideos = true;
-                // console.log('showVideos establecido en true');
-            }, 100);
-        }
-    },
-
-    watch: {
-        $route(to, from) {
-            if (to.path === '') {
-                this.restartAnimation();
-            }
+// Observador de cambios de ruta
+watch(
+    () => route.path,
+    (newPath) => {
+        if (newPath === '/') {
+            restartAnimation()
         }
     }
-}
+)
 </script>
 <style scoped>
-
-/* Animación de entrada de las card */
+/* Animación de entrada de las cards */
 .animate-enter {
-        opacity: 0;
-        transform: scale(0.8);
-    }
+    opacity: 0;
+    transform: scale(0.8);
+}
 
-    .fade-in-10 {
-        animation: fadeIn 1s ease-in-out forwards;
-    }
+.fade-in-10 {
+    animation: fadeIn 1s ease-in-out forwards;
+}
 
-    .fade-in-10.zoom-in-50 {
-        animation: zoomIn 1s ease-in-out forwards;
-    }
+.fade-in-10.zoom-in-50 {
+    animation: zoomIn 1s ease-in-out forwards;
+}
 
-    .fade-in-10.zoom-in-75 {
-        animation: zoomIn75 1s ease-in-out forwards;
-    }
+.fade-in-10.zoom-in-75 {
+    animation: zoomIn75 1s ease-in-out forwards;
+}
 
-    .animate-duration-1000 {
-        animation-duration: 1s;
-    }
-
+.animate-duration-1000 {
+    animation-duration: 1s;
+}
 
 @keyframes zoomIn {
     from {
@@ -205,73 +218,87 @@ export default {
     }
 }
 
-main{
+main {
     overflow-x: hidden;
 }
-section{
+
+section {
     text-align: center;
 }
 
 /* SECTION PRINCIPAL */
-.section-principal{
+.section-principal {
     height: 95vh;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     padding: 0;
     margin: 0;
     position: relative;
     overflow: hidden;
+    z-index: 0;
 }
-/* Estilos de los videos de la seccón principal */
+
+/* Estilos de los videos - posicionados detrás */
 .video-container {
-    width: 30%;
-    position: relative;
-    overflow: hidden;
-}
-
-
-video {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
-
-.video-izquierda{
     position: absolute;
     top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; 
+    pointer-events: none;
+}
+
+.video-izquierda,
+.video-derecha {
+    position: absolute;
+    top: 0;
+    width: 30%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+    transition: transform 0.5s ease;
+}
+
+.video-izquierda {
     left: 0;
     -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 25%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
     mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 0%, rgba(0,0,0,1) 80%, rgba(0,0,0,0));
 }
 
-.video-derecha{
-    position: absolute;
-    top: 0;
-    left: 0;
+.video-derecha {
+    right: 0;
     -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 25%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
     mask-image: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 0%, rgba(0,0,0,1) 80%, rgba(0,0,0,0));
 }
 
-.section-principal-top{
-    -webkit-mask-image: 
-        linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 90%, rgba(0,0,0,0)),
-        linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-    mask-image: 
-        linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 80%, rgba(0,0,0,0)),
-        linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,1) 15%, rgba(0,0,0,1) 80%, rgba(0,0,0,0));
-    padding-top: 7.5em;
-    padding-bottom: 10em;
-    margin-left: 0px;
-    margin-right: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
-    background-color: #ffffff;
-    display: flex; 
+/* Contenido central - siempre encima */
+.section-principal-top {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    background-color: transparent;
+    display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    opacity: 0;
+    transition: opacity 1s ease;
+    padding: 2rem;
 }
+
+.section-principal-top.fade-in {
+    opacity: 1;
+}
+
+/* Animaciones de transición de los videos */
 .video-izquierda-enter-active {
     animation: videoIzquierdaEntrada 2s ease-in-out forwards;
 }
@@ -302,11 +329,7 @@ video {
     }
 }
 
-.fade-in {
-    opacity: 0;
-    animation: fadeIn 1s ease-in-out forwards;
-}
-
+/* Fade general */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -316,24 +339,23 @@ video {
     }
 }
 
-h1{
+h1 {
     font-size: 6rem;
     font-weight: bolder;
     margin-bottom: 0.5em;
     letter-spacing: 5%;
-    line-height: 125x;
+    line-height: 1.2;
     width: 65%;
 }
 
-strong{
-    color: #874ECA;        
+strong {
+    color: #874ECA;
     font-family: Atma;
 }
 
-p{
+p {
     font-size: 1.375rem;
 }
-
 
 /* Boton sección aprende */
 .button-aprende {
@@ -604,6 +626,12 @@ h5 .icon{
     background-color: #402462;
 }
 
+@media (max-width: 1400px) {
+    .video-izquierda,
+    .video-derecha {
+        width: 20%; 
+    }
+}
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
@@ -617,7 +645,6 @@ h5 .icon{
         padding-right: 10%;
         padding-top: 5em;
         padding-bottom: 5em;
-        background-color: rgba(255, 255, 255, 0.8);
         width:100% !important;
     }
 
@@ -679,6 +706,13 @@ h5 .icon{
     .section-comenzar button:hover{
         background-color: #402462;
     }
+
+    .video-izquierda,
+    .video-derecha {
+        width: 7.5%;
+    }
+
+    
 }
 /*Responsive para móviles */
 @media (max-width: 768px) {
@@ -692,7 +726,7 @@ h5 .icon{
     }
 
     .section-principal-top h1{
-        font-size: 3.25rem;
+        font-size: 4.5rem;
         list-style: none;
     }
     .section-cards .row{
@@ -754,6 +788,10 @@ h5 .icon{
     .button-contestar {
         margin-bottom: 10px;
         width: 85%;
+    }
+    .video-izquierda,
+    .video-derecha {
+        width: 5%;
     }
 }
 </style>

@@ -15,7 +15,7 @@
         <div class="input-form mb-5">
           <input class="form-control editable-description align-left" id="description" placeholder='' v-model="formulario.description" />
           <label class="form-label" for="description">Descripción del formulario</label>
-          <small class="text-danger" v-if="errors.description">{{ errors.description }}></small>
+          <small class="text-danger" v-if="errors.description">{{ errors.description }}</small>
         </div>
 
         <div class="mb-4">

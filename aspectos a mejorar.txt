@@ -1,0 +1,1 @@
+cambiar breadcrumb perfil, small gestión de error, cambiar botón jugar a aleatorio, diseño perfil, algunas partes del responsive, archivo readme, texto cuando no hay respuestas en el apartado formulario details
