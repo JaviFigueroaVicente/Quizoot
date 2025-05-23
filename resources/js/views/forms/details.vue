@@ -56,7 +56,7 @@
                     <div class="ranking-container mb-2">
                         <h4 class="ranking-title">🏆 Ranking</h4>
                         <ul class="ranking-list">
-                            <li v-for="rank in ranking.slice(0, 3)" :key="rank.user_id" class="ranking-item">
+                            <li v-if="ranking.length > 0" v-for="rank in ranking.slice(0, 3)" :key="rank.user_id" class="ranking-item">
                                 <img
                                     :src="rank.user.media?.[0]?.original_url || '/images/profile-placeholder.png'"
                                     alt="Foto de perfil"
@@ -65,6 +65,9 @@
                                 <span class="ranking-info">
                                     {{ rank.user.name }} {{ rank.user.surname1 }} - {{ rank.score }} pts
                                 </span>
+                            </li>
+                            <li v-else class="text-center mt-4 border-top pt-4">
+                                <span class="ranking-info">Aún no hay respuestas</span>
                             </li>
                         </ul>
                     </div>

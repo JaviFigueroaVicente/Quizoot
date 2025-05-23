@@ -38,7 +38,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mt-2 mt-lg-0 me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" @click="playRandomForm"><Button variant="text" class="button-jugar">Jugar</Button></a>
+                        <a class="nav-link" href="javascript:void(0)" @click="playRandomForm"><Button variant="text" class="button-jugar">Random</Button></a>
                     </li>
                     <li class="nav-item">
                         <router-link to="/forms" severity="help" class="nav-link"><Button :class="{'active': $route.path === '/forms'}" severity="help" variant="text">Formularios</Button></router-link>

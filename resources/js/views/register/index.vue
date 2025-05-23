@@ -33,7 +33,7 @@
                                     <label for="password" class="form-label">
                                         {{ $t('password') }}
                                     </label>
-                                    <div class="text-danger-600 mt-1">
+                                    <div class="text-danger mt-1">
                                         <div v-for="message in validationErrors?.password">
                                             {{ message }}
                                         </div>
