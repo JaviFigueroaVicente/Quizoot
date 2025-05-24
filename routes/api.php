@@ -27,9 +27,8 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
 
     Route::apiResource('users', UserController::class);
 
-    Route::post('users/updateimg', [UserController::class,'updateimg']); //Listar
+    Route::post('users/updateimg', [UserController::class,'updateimg']);
 
-    Route::apiResource('posts', PostControllerAdvance::class);
     Route::apiResource('roles', RoleController::class);
 
     Route::get('role-list', [RoleController::class, 'getList']);
@@ -58,23 +57,6 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
 
 Route::post('user', [UserController::class, 'register']);
 Route::get('category-list', [CategoryController::class, 'getList']);
-
-Route::get('get-posts', [PostControllerAdvance::class, 'getPosts']);
-Route::get('get-category-posts/{id}', [PostControllerAdvance::class, 'getCategoryByPosts']);
-Route::get('get-post/{id}', [PostControllerAdvance::class, 'getPost']);
-
-Route::get('note',[NoteController::class, 'index'])->name('note.index');
-Route::post('note', [NoteController::class, 'store'])->name('note.store');
-Route::get('note/{id}', [NoteController::class, 'show'])->name('note.show');
-Route::put('note/{id}', [NoteController::class, 'update'])->name('note.update');
-Route::delete('note/{id}', [NoteController::class, 'destroy'])->name('note.destroy');
-
-Route::get('usuarios',[UsuariosController::class, 'index']);
-Route::post('usuarios', [UsuariosController::class, 'store']);
-Route::delete('usuarios/{usuario}', [UsuariosController::class, 'destroy']);
-Route::get('usuarios/{usuario}', [UsuariosController::class, 'show']);
-Route::put('usuarios/{usuario}', [UsuariosController::class, 'update']);
-
 
 Route::get('formulario', [FormulariosController::class, 'index']);
 Route::get('formulario-user', [FormulariosController::class, 'userFormularios']);

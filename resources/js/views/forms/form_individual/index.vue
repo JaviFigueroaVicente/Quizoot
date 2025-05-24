@@ -78,13 +78,13 @@
             <canvas v-if="scoreAnterior !== null && score > scoreAnterior" id="confetti" class="confetti-canvas"></canvas>          
             <div v-if="scoreAnterior !== null && score > scoreAnterior">  
                 <img class="nuevo-record" src="/images/Icons/Corona.webp" alt="">
-                <h2>¡NUEVO RÉCORD!</h2>
+                <h2 class="text-center">¡NUEVO RÉCORD!</h2>
             </div>
             <div v-else>
 
             </div>
             <div> 
-                <p>Tu puntuación es de: {{ score }} pts</p>
+                <p class="text-center">Tu puntuación es de: {{ score }} pts</p>
             </div>
             <div class="puntuacion-buttons">
                 <router-link :to="{ name: 'rankings.details', params: { id: route.params.id }}">
@@ -92,6 +92,9 @@
                 </router-link>
                 <router-link to="/forms">
                     <button>VER FORMULARIOS</button>
+                </router-link>
+                <router-link to="/">
+                    <button>INICIO</button>
                 </router-link>
             </div>
         </div>
@@ -253,7 +256,10 @@ const abandonar = () => {
         confirmButtonText: 'Sí, quiero abandonar!',
         confirmButtonColor: '#ef4444',
         allowOutsideClick: false,
-        reverseButtons: true
+        reverseButtons: true,
+        customClass: {
+            popup: 'swal'
+        }
     })
     .then(result => {
         if(result.isConfirmed){
@@ -532,6 +538,14 @@ h2{
 
     .header-container .header-score{
         padding-top: 20px;
+    }
+
+    .puntuacion-buttons button{
+      width: 250px !important;
+    }
+
+    .container-puntuacion-final p{
+      font-size: 1.5rem !important;
     }
 }
 

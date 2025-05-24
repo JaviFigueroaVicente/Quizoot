@@ -15,6 +15,7 @@
     <title>Quizoot</title>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel=icon href="images/Nav/Logo.webp" type="image/x-icon">
     <!--<link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">-->
     <script>
         window.config = @json($config);

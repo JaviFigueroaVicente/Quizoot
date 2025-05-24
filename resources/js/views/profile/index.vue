@@ -12,7 +12,7 @@
             <div class="col">
                 <router-link :to="{ name: 'mis-formularios.create' }">
                     <div>
-                        <img src="/images/icons/crear_form.svg" alt="">
+                        <img src="/images/icons/add.svg" alt="">
                         <h4>Crear Formulario</h4>                    
                     </div>
                 </router-link>
@@ -21,7 +21,7 @@
                 <div>
                     <router-link :to="{ name: 'mis-preguntas.create' }">
                         <div>
-                            <img src="/images/icons/crear_form.svg" alt="">
+                            <img src="/images/icons/add.svg" alt="">
                             <h4>Crear Pregunta</h4>                    
                         </div>
                     </router-link>
@@ -33,7 +33,7 @@
                 <div>
                     <router-link :to="{ name: 'mis-formularios.index' }">
                         <div>
-                            <img src="/images/icons/form.png" alt="">
+                            <img src="/images/icons/description.svg" alt="">
                             <h4>Mis Formularios</h4>
                         </div>
                     </router-link>
@@ -43,7 +43,7 @@
                 <div>
                     <router-link :to="{ name: 'mis-preguntas.index'}">
                         <div>
-                            <img src="/images/icons/question.png" alt="">
+                            <img src="/images/icons/question.svg" alt="">
                             <h4>Mis Preguntas</h4>
                         </div>
                     </router-link>
@@ -53,7 +53,7 @@
                 <div>
                     <router-link :to="{ name: 'mis-formularios.mis-respondidos'}">
                         <div>
-                            <img src="/images/icons/respondidos.png" alt="">
+                            <img src="/images/icons/respondidos.svg" alt="">
                             <h4>Formularios Respondidos</h4>
                         </div>
                     </router-link>
@@ -85,24 +85,27 @@ const store = useAuth();
 .container{
     margin-top: 2em;
 }
+
+h4{
+    color: #ffffff;
+}
+
 .col{
-    background-color: #ffffff;
+    background-color: #874eca;
     margin: 20px;
-    border: 1px solid #d6d6d6;
     border-radius: 10px;
     height: 10em;
     display: flex;
     flex-direction: column;
     justify-content: center;
     transition: all 0.3s ease ;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
 }   
 .col:hover{
-    background-color: #d6d6d6;
-    border-color: #000000;
+    background-color: #402462;
     cursor: pointer;
-    transform: scale(1.05);
-
+    transform: scale(1.025);
+    border-color: #402462;
 }
 img{
     width: 40px;

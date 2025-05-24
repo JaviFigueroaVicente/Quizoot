@@ -58,7 +58,7 @@
                         <ul class="ranking-list">
                             <li v-if="ranking.length > 0" v-for="rank in ranking.slice(0, 3)" :key="rank.user_id" class="ranking-item">
                                 <img
-                                    :src="rank.user.media?.[0]?.original_url || '/images/profile-placeholder.png'"
+                                    :src="rank.user.media?.[0]?.original_url || '/images/Nav/PerfilSinFoto.webp'"
                                     alt="Foto de perfil"
                                     class="ranking-avatar"
                                 />
@@ -94,7 +94,7 @@
     </div>
 
     <!-- Dialog para mostrar las respuestas de la pregunta -->
-    <Dialog v-model:visible="dialogVisible" modal :draggable="false" :style="{ width: '30rem', padding: '15px', height: 'auto',backgroundImage: 'url(/images/forms/fondoVentana.jpeg)', backgroundPosition: 'center', backgroundSize: 'cover',}" pcCloseButton="">
+    <Dialog v-model:visible="dialogVisible" modal :draggable="false" :style="{ width: '30rem', padding: '15px', height: 'auto',backgroundImage: 'url(/images/forms/fondoVentana.webp)', backgroundPosition: 'center', backgroundSize: 'cover',}" pcCloseButton="">
         <template #header>
             <h2 class="dialog-title">RESPUESTAS</h2>
         </template>
@@ -141,20 +141,20 @@ const verRespuestas= (pregunta)=>{
 
 </script>
 <style scoped>
-.migas{
-    color: #874ECA;
-}
+    .migas{
+        color: #874ECA;
+    }
 
-.migas:hover{
-    color: #402462;
-    text-decoration: 1px solid underline;
-}
+    .migas:hover{
+        color: #402462;
+        text-decoration: 1px solid underline;
+    }
 
-h1 {
-    margin-top: 25px;
-    margin-bottom: 20px;
-    color: #874ECA;
-}
+    h1 {
+        margin-top: 25px;
+        margin-bottom: 20px;
+        color: #874ECA;
+    }
     .btn-lila {
         background-color: #874ECA;
         color: white;

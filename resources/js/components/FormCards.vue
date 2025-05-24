@@ -26,13 +26,17 @@
 .card {
     border: none;
     border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease-in-out;
     height: 100%;
+    background-color: #874eca;
+    color: #ffffff;
+    font-weight: bold;
 }
 
 .card:hover {
     transform: translateY(-5px);
+    background-color: #402462;
 }
 
 .form-image {

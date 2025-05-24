@@ -11,7 +11,7 @@
                             <div>
                                 <span class="title center">LOG IN</span>
                                 <div class="input-form mb-3 mt-5">
-                                    <input v-model="loginForm.email" id="email" type="email" class="form-control" required autofocus placeholder="" autocomplete="username">
+                                    <input v-model="loginForm.email" id="email" type="email" class="form-control" required autofocus placeholder="" autocomplete="off">
                                     <label for="email" class="form-label">{{ $t('email') }}</label>
                                     <div class="text-danger mt-1">
                                         <div v-for="message in validationErrors?.email">
@@ -20,7 +20,7 @@
                                     </div>
                                 </div>
                                 <div class="input-form mb-4">
-                                    <input v-model="loginForm.password" id="password" type="password" class="form-control" requiredm placeholder="" autocomplete="current-password">
+                                    <input v-model="loginForm.password" id="password" type="password" class="form-control" requiredm placeholder="" autocomplete="off">
                                     <label for="password" class="form-label">
                                         {{ $t('password') }}
                                     </label>

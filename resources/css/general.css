@@ -130,3 +130,18 @@ main{
     color: #ffffff !important;
     font-weight: bold !important;
 }
+
+.btn-primary{
+    background-color: #874eca !important;
+    border-color: #874eca !important;
+}
+
+
+.form-check-input:checked{
+    border-color: #874eca !important;
+    background-color: #874eca !important;
+}
+
+.form-check-input:focus{
+    border-color: #874eca !important;
+}

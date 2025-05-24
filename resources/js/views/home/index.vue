@@ -80,7 +80,7 @@
                         <div class="card-body">
                             <h5 class="card-title">¿LISTO PARA COMENZAR?</h5>
                             <p class="card-text">Es tu momento de demostrar lo que sabes, superar desafíos y escalar posiciones hasta convertirte en el número uno del ranking.</p>
-                            <router-link to="/forms">
+                            <router-link @click="playRandomForm" to="#">
                                 <button class="button-contestar">CONTESTAR FORMULARIO</button>
                             </router-link>
                         </div>
