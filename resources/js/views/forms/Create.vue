@@ -20,7 +20,7 @@
 
         <div class="mb-4">
           <label class="label" for="category">Categorias:</label>
-          <MultiSelect v-model="formulario.category_id" :options="categoryList" display="chip" optionLabel="name" optionValue="id" placeholder="Seleccione categorias" :maxSelectedLabels="3" class="white w-full md:w-80" />
+          <MultiSelect v-model="formulario.category_id" :options="categoryList" display="chip" optionLabel="name" optionValue="id" placeholder="Seleccione categorias" :maxSelectedLabels="3" class="white w-full md:w-80 select" />
           <small class="text-danger" v-if="errors.category_id">{{ errors.category_id }}</small>
         </div>
       </div>
@@ -94,11 +94,18 @@ onMounted(() => {
 
 <style scoped>
 h1{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-weight: bolder;
-    color: #874eca;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bolder;
+  color: #874eca;
+}
+
+.select{
+  background-color: #e8e8e850;
+  --p-multiselect-placeholder-color: #ffffff !important;
+  --p-multiselect-dropdown-color: #ffffff !important;
+  --p-multiselect-focus-border-color: #cbd5e1 !important;
 }
 
 .outer-wrapper {
@@ -114,9 +121,10 @@ h1{
   margin-top: 20px;
 }
 
-@media (max-width: 426px) {
+@media (max-width: 768px) {
   .main-container {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -127,7 +135,7 @@ h1{
 }
 
 .container {
-  background-color: #402462d7;
+  background-color: #874eca;
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
@@ -140,39 +148,39 @@ h1{
   color: #ffffff;
 }
 .input-form {
- position: relative;
+  position: relative;
 }
 
 .form-control {
- border: solid 1.5px #9e9e9e !important;
- background: #e8e8e850;
- padding: 1rem;
- font-size: 1rem;
- color: #f5f5f5;
- transition: border 150ms cubic-bezier(0.4,0,0.2,1);
+  border: solid 1.5px #9e9e9e !important;
+  background: #e8e8e850;
+  padding: 1rem;
+  font-size: 1rem;
+  color: #f5f5f5;
+  transition: border 150ms cubic-bezier(0.4,0,0.2,1);
 }
 
 .form-label {
- position: absolute;
- left: 15px;
- color: #e8e8e8;
- pointer-events: none;
- transform: translateY(-2.5rem);
- transition: 150ms cubic-bezier(0.4,0,0.2,1);
+  position: absolute;
+  left: 15px;
+  color: #e8e8e8;
+  pointer-events: none;
+  transform: translateY(-2.5rem);
+  transition: 150ms cubic-bezier(0.4,0,0.2,1);
 }
 
 .form-control:focus, .form-control:not(:placeholder-shown) {
- outline: none;
- border: 1.5px solid #874eca;
- box-shadow: none;
+  outline: none;
+  border: 1.5px solid #874eca;
+  box-shadow: none;
 }
 
 .form-control:focus ~ label, .form-control:not(:placeholder-shown) ~ label {
- transform: translateY(-280%) scale(0.8) !important;
- background-color: transparent;
- padding: 0 .2em;
- color: #ffffff;
- box-shadow: none;
+  transform: translateY(-280%) scale(0.8) !important;
+  background-color: transparent;
+  padding: 0 .2em;
+  color: #ffffff;
+  box-shadow: none;
 }
 
 

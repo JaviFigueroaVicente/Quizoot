@@ -16,7 +16,7 @@
                                             <InputText v-model="filters['global'].value" placeholder="Buscar" />
                                         </IconField>
                                     </div>
-                                    <div class="buttons-container flex gap-2">
+                                    <div class="buttons-container flex gap-2 ml-2">
                                         <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="initFilters()" />
                                         <Button type="button" icon="pi pi-refresh" class="h-100 ml-1" outlined @click="getUserForms()" />
                                         <router-link :to="{name: 'mis-formularios.create'}" class="flex align-items-center">

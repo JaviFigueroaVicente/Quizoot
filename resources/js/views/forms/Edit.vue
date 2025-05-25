@@ -4,7 +4,7 @@
     <div class="main-container equal-container mb-3 mt-3">
       <!-- Contenedor izquierdo -->
       <div class="container left-container">
-        <div class="input-form mb-5">
+        <div class="input-form mb-5 mt-5">
           <input class="form-control editable-title align-left" id="name" placeholder='' v-model="formulario.name" />
           <label for="form-label name">Nombre del formulario</label>
           <small class="text-danger" v-if="errors.name">{{ errors.name }}</small>
@@ -18,16 +18,16 @@
 
         <div class="mb-4">
           <label class="label" for="category">Categorías:</label>
-          <MultiSelect v-model="formulario.category_id" :options="categoryList" display="chip" optionLabel="name" optionValue="id" placeholder="Seleccione nuevas categorías" :maxSelectedLabels="3" class="w-full md:w-80" />
+          <MultiSelect v-model="formulario.category_id" :options="categoryList" display="chip" optionLabel="name" optionValue="id" placeholder="Seleccione nuevas categorías" :maxSelectedLabels="3" class="w-full md:w-80 select" />
           <small class="text-danger" v-if="errors.category_id">{{ errors.category_id }}</small>
         </div>
       </div>
 
       <!-- Contenedor derecho -->
       <div class="container right-container">
-        <div class="mb-3">
+        <div class="mb-3 mt-5">
           <img v-if="formulario && formulario.media && formulario.media.length > 0" :src="formulario.media[0].original_url" alt="Imagen del formulario" class="form-image" />
-          <img v-else src="images/placeholder.png" alt="Placeholder" class="form-image" />
+          <img v-else src="/images/placeholder.jpg" alt="Placeholder" class="form-image" />
         </div>
         <DropZone v-model="formulario.thumbnail" />
       </div>
@@ -141,7 +141,7 @@ h1 {
 }
 
 .container {
-  background: #402462d7;
+  background: #874eca;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
@@ -215,5 +215,12 @@ h1 {
   max-height: 200px;
   object-fit: cover;
   border-radius: 10px;
+}
+
+.select{
+  background-color: #e8e8e850;
+  --p-multiselect-placeholder-color: #ffffff !important;
+  --p-multiselect-dropdown-color: #ffffff !important;
+  --p-multiselect-focus-border-color: #cbd5e1 !important;
 }
 </style>

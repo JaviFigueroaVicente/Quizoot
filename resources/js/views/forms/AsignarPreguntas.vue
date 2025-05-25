@@ -8,7 +8,7 @@
                 </div>
                 <!-- Tabla para crear ver las preguntas creadas por el usuario -->
                 <DataTable v-model:filters="filters" :size="'normal'" v-model:selection="selectedPreguntas" :value="preguntas.data" paginator :rows="5"
-                        :globalFilterFields="['id','pregunta','created_at']" stripedRows dataKey="id" size="small">
+                        :globalFilterFields="['id','pregunta','created_at']" stripedRows dataKey="id" size="small" class="datatable">
                     <template #header>
                         <Toolbar pt:root:class="toolbar-table">
                             <template #start>
@@ -138,7 +138,9 @@ const onFormSubmit = async () => {
 </script>
 
 <style scoped>
-
+.card{
+    background-color: #874eca;
+}
 .p-toolbar{
     width: 100%;
 }
@@ -157,7 +159,7 @@ h1{
 
 h5{
     font-weight: bolder;
-    color: #402462;
+    color: #ffffff;
     font-family: 'Roboto';
 }
 

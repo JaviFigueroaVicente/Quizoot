@@ -52,11 +52,16 @@ main{
     color: #ffffff;
 }
 
+
+.p-checkbox{
+    --p-checkbox-border-radius-sm: #402462;
+}
+
 .p-checkbox-checked{
     --p-checkbox-checked-background: #874eca;
     --p-checkbox-checked-hover-background: #402462;
-    --p-checkbox-checked-border-color: #874eca;
-    --p-checkbox-checked-hover-border-color: 402462;
+    --p-checkbox-checked-border-color: #402462;
+    --p-checkbox-checked-hover-border-color: #402462;
     --p-checkbox-checked-focus-border-color: #874eca;
 }
 
@@ -65,8 +70,8 @@ main{
 }
 
 .p-toolbar-start .p-button{
-    border: #874eca 1px solid;
-    color: #874eca;
+    border: #ffffff 1px solid;
+    color: #ffffff;
 }
 
 .p-toolbar-start .p-button-outlined:not(:disabled):hover {
@@ -89,9 +94,15 @@ main{
     border-color: #874eca !important;
 }
 
+.p-paginator{
+    margin-top: 10px;
+    background-color: transparent !important;
+    border-bottom: none !important;
+}
+
 .p-paginator-page.p-paginator-page-selected{
-    background-color: #efe0ff !important;
-    color: #874eca !important;
+    background-color: #402462 !important;
+    color: #ffffff !important;
 }
 
 .p-paginator .p-paginator-page {
@@ -99,30 +110,45 @@ main{
     border-radius: 50%;
     width: 35px;
     height: 35px;
-    color: #874ECA;
+    color: #ffffff;
     font-weight: bold;
     margin: 0 4px;
-    background-color: #f9f9f9;
+    background-color: #cb9dff;
 }
 
 .p-paginator .p-paginator-page:hover {
-    background-color: #f3f0fa;
-    border-color: #874ECA;
-    color: #874ECA;
+    background-color: #cb9dff;
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.p-paginator-prev:not(.p-disabled), .p-paginator-next:not(.p-disabled), .p-paginator-first:not(.p-disabled), .p-paginator-last:not(.p-disabled) {
+    border: 2px solid #d3d3d3;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    color: #ffffff;
+    font-weight: bold;
+    margin: 0 4px;
+    background-color: #cb9dff;
 }
 
 .p-paginator-page:not(.p-disabled):not(.p-paginator-page-selected):hover, .p-paginator-first:not(.p-disabled):hover, .p-paginator-prev:not(.p-disabled):hover, .p-paginator-next:not(.p-disabled):hover, .p-paginator-last:not(.p-disabled):hover {
-    background: #f8f2ff !important;
-    color: #874ECA !important;
+    background: #7746b4 !important;
+    color: #ffffff !important;
 }
 
 .p-datatable-column-sorted{
-    background: #f8f2ff !important;
-    color: #874ECA !important;
+    background: #402462 !important;
+    color: #ffffff !important;
 }
 
 .p-datatable-column-sorted .p-datatable-sort-icon{
-    color: #874ECA !important;
+    color: #ffffff !important;
+}
+
+.p-datatable-sort-icon{
+    color: #ffffff !important;
 }
 
 .swal{
@@ -144,4 +170,65 @@ main{
 
 .form-check-input:focus{
     border-color: #874eca !important;
+}
+
+
+.p-datatable-table-container{
+    border: 1px solid #ffffff !important;
+    border-radius: 10px !important;
+}
+
+.datatable{
+    --p-datatable-header-background: #874eca;
+    --p-datatable-header-border-color: transparent;
+    --p-datatable-header-color: #874eca;
+    --p-datatable-header-border-width: 0 0 1px 0;
+    --p-datatable-header-padding: 0.75rem 1rem;
+    --p-datatable-header-cell-background: #874eca;
+    --p-datatable-header-cell-hover-background: #402462;
+    --p-datatable-header-cell-selected-background: #402462;
+    --p-datatable-header-cell-border-color: #ffffff;
+    --p-datatable-header-cell-color: #ffffff;
+    --p-datatable-header-cell-hover-color: #ffffff;
+    --p-datatable-header-cell-selected-color: #ffffff;
+    --p-datatable-header-cell-gap: 0.5rem;
+    --p-datatable-header-cell-padding: 0.75rem 1rem;
+    --p-datatable-header-cell-focus-ring-width: #874eca;
+    --p-datatable-header-cell-focus-ring-style: #874eca;
+    --p-datatable-header-cell-focus-ring-color: #874eca;
+    --p-datatable-header-cell-focus-ring-offset: -1px;
+    --p-datatable-header-cell-focus-ring-shadow: #874eca;
+    --p-datatable-column-title-font-weight: 600;
+    --p-datatable-row-background: #e8e8e850;
+    --p-datatable-row-hover-background: #f8f2ff;
+    --p-datatable-row-selected-background: #402462;
+    --p-datatable-row-color: #ffffff;
+    --p-datatable-row-hover-color: #ffffff;
+    --p-datatable-row-selected-color: #ffffff;
+    --p-datatable-row-focus-ring-style: var(--p-focus-ring-style);
+    --p-datatable-row-focus-ring-color: #874eca;
+    --p-datatable-row-focus-ring-offset: -1px;
+    --p-datatable-row-focus-ring-shadow: var(--p-focus-ring-shadow);
+    --p-datatable-body-cell-border-color: #402462;
+    --p-datatable-body-cell-padding: 0.75rem 1rem;
+    --p-datatable-footer-cell-background: var(--p-content-background);
+    --p-datatable-footer-cell-border-color: #402462;
+    --p-datatable-footer-cell-color: #402462;
+    --p-datatable-footer-cell-padding: 0.75rem 1rem;
+    --p-datatable-column-footer-font-weight: 600;
+    --p-datatable-footer-background: var(--p-content-background);
+    --p-datatable-footer-border-color: var(--p-datatable-border-color);
+    --p-datatable-footer-color: var(--p-content-color);
+    --p-datatable-footer-border-width: 0 0 1px 0;
+    --p-datatable-footer-padding: 0.75rem 1rem;
+    --p-datatable-drop-point-color: var(--p-primary-color);
+    --p-datatable-column-resizer-width: 0.5rem;
+    --p-datatable-resize-indicator-width: 1px;
+    --p-datatable-resize-indicator-color: var(--p-primary-color);
+    --p-datatable-sort-icon-color: var(--p-text-muted-color);
+    --p-datatable-sort-icon-hover-color: var(--p-text-hover-muted-color);
+}
+
+.p-datatable.p-datatable-striped .p-datatable-tbody > tr.p-row-odd{
+    background-color: #7746b4 !important;
 }

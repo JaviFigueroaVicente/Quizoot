@@ -3,6 +3,7 @@
     <!-- Contenedor del formulario de creación de preguntas con respuestas  -->
     <div class="container card flex flex-column align-items-center mb-5">
         <div class="row">
+            <span>Pregunta:</span>
             <div class="input-form">
                 <input type="text" v-model="pregunta.pregunta" placeholder="" class="form-control w-full md:w-80" />
                 <label for="pregunta" class="form-label">Escribe tu pregunta</label>
@@ -11,18 +12,20 @@
         </div>
         <div class="row justify-center gap-4">
             <span>Respuestas:</span>
-            <div class="flex align-items-center gap-2" v-for="(respuesta, index) in pregunta.respuestas" :key="index">
-                <Checkbox v-model="respuesta.correcta" :inputId="'respuesta' + (index + 1)" :name="'pregunta.respuestas.' + index + '.correcta'" :binary="true" :false-value="0" :true-value="1" />
-                <div class="input-form w-full">
-                    <input class="form-control" :name="'respuesta' + (index + 1)" v-model="respuesta.respuesta" type="text" placeholder=""/>
-                    <label class="form-label" :for="'respuesta' + (index + 1)">Escribe tu respuesta</label>
+            <div class="flex flex-column gap-2" v-for="(respuesta, index) in pregunta.respuestas" :key="index">
+                <div class="flex align-items-center w-full">
+                    <Checkbox v-model="respuesta.correcta" :inputId="'respuesta' + (index + 1)" :name="'pregunta.respuestas.' + index + '.correcta'" :binary="true" :false-value="0" :true-value="1" />
+                    <div class="input-form w-full ml-2">
+                        <input class="form-control" :name="'respuesta' + (index + 1)" v-model="respuesta.respuesta" type="text" placeholder=""/>
+                        <label class="form-label" :for="'respuesta' + (index + 1)">Escribe tu respuesta</label>
+                    </div>
                 </div>
                 <small class="text-danger" v-if="errors[`respuestas[${index}].respuesta`]">{{ errors[`respuestas[${index}].respuesta`] }}</small>
             </div>
             <small class="text-danger" v-if="errors.respuestas">{{ errors.respuestas }}</small>
         </div>
-        <button type="submit" class="btn btn-primary button button-action mt-5" @click.prevent="onFormSubmit">CREAR PREGUNTA</button>
     </div>
+    <button type="submit" class="btn btn-primary button button-action mt-5 my-5" @click.prevent="onFormSubmit">CREAR PREGUNTA</button>
 </template>
 
 <script setup>
@@ -81,7 +84,7 @@ span {
 .container {
     width: 100%;
     padding: 40px;
-    background-color: #402462d7; 
+    background-color: #874eca; 
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
 h1 {
@@ -101,14 +104,17 @@ h1 {
 button {
     display: flex;
     justify-content: center;
-    width: 100%;
+    margin-top: 20px;
+    width: 80%;
     padding: 10px 30px;
     font-size: 20px;
     font-weight: bold;
     border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-button:active, button:focus-visible {
+button:active, button:focus-visible, button:hover {
     background-color: #402462 !important;
     border: none;
     color: #ffffff;

@@ -1,55 +1,104 @@
 <template>
     <div class="main-container">
-        <div class="card border-0 left-container">
-            <div class="card-header bg-transparent">
-                <h5 class="float-start titles">PROFILE IMAGE</h5>
-            </div>
-            <div class="image-container">
-                <img :src="usuario.avatar || '/images/Nav/PerfilSinFoto.webp'" alt="Profile Image" class="profile-image" />
-                <DropZone v-model="imagenFile" />
+        <div class="left-container card">
+            <div class="border-0 card-body">
+                <div class="card-header bg-transparent mt-3 mb-3">
+                    <h5 class="float-start titles">PROFILE IMAGE</h5>
+                </div>
+                <div class="image-container">
+                    <img :src="usuario.avatar || '/images/Nav/PerfilSinFoto.webp'" alt="Profile Image" class="profile-image" />
+                    <DropZone v-model="imagenFile" />
+                </div>
             </div>
             <button type="submit" @click="onFormSubmitIMG" class="btn-custom w-100 mt-5">
-                Update Image
+                UPDATE IMAGE
             </button> 
         </div>
-        <!-- Corregido el nombre de la clase -->
-        <div class="card border-0 right-container">
-            <div class="card-header bg-transparent">
-                <h5 class="float-start titles">PROFILE DETAILS</h5>
-            </div>
-            <div class="card-body">
-                <div class="mb-3">
-                    <label for="alias" class="form-label">Alias</label>
-                    <input type="text" v-model="usuario.alias" class="form-control" id="alias">
-                    <small class="text-danger" v-if="errors.alias">{{ errors.alias }}></small>
+        <div class="right-container card">
+            <div class="border-0 card-body">
+                <div class="card-header bg-transparent mt-3 mb-3">
+                    <h5 class="float-start titles">PROFILE DETAILS</h5>
                 </div>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" v-model="usuario.name" class="form-control" id="name">
-                    <small class="text-danger" v-if="errors.name">{{ errors.name }}></small>
+                <div class="card-body">
+                    <div class="mb-3 input-form">
+                        <input type="text" v-model="usuario.alias" class="form-control" id="alias">
+                        <label for="alias" class="form-label">Alias</label>
+                        <small class="text-danger" v-if="errors.alias">{{ errors.alias }}></small>
+                    </div>
+                    <div class="mb-3 input-form">
+                        <input type="text" v-model="usuario.name" class="form-control" id="name">
+                        <label for="name" class="form-label">Name</label>
+                        <small class="text-danger" v-if="errors.name">{{ errors.name }}></small>
+                    </div>
+                    <div class="mb-3 input-form">
+                        <input type="text" v-model="usuario.surname1" class="form-control" id="surname1">
+                        <label for="surname1" class="form-label">First Surname</label>
+                    </div>
+                    <div class="mb-3 input-form">
+                        <input type="text" v-model="usuario.surname2" class="form-control" id="surname2">
+                        <label for="surname2" class="form-label">Second Surname</label>
+                    </div>
+                    <div class="mb-3 input-form">
+                        <input type="email" v-model="usuario.email" class="form-control" id="email" readonly>
+                        <label for="email" class="form-label">Email</label>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="surname1" class="form-label">First Surname</label>
-                    <input type="text" v-model="usuario.surname1" class="form-control" id="surname1">
-                </div>
-                <div class="mb-3">
-                    <label for="surname2" class="form-label">Second Surname</label>
-                    <input type="text" v-model="usuario.surname2" class="form-control" id="surname2">
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" v-model="usuario.email" class="form-control" id="email" readonly>
-                </div>
-                <button type="submit" @click="onFormSubmit" class="btn-custom w-100 mt-5">
-                    Update Profile
-                </button> 
-            </div>
-        </div>        
+            </div>      
+            <button type="submit" @click="onFormSubmit" class="btn-custom w-100 mt-5">
+                UPDATE PROFILE
+            </button> 
+        </div>
+        <!-- Corregido el nombre de la clase -->  
     </div> 
     <Toast />
 </template>
 
-<style scoped>
+<style scoped>   
+    .label{
+        color: #ffffff;
+    }
+    .input-form {
+        position: relative;
+    }
+    .form-control {
+        border: solid 1.5px #9e9e9e !important;
+        background: #e8e8e850;
+        padding: 1rem;
+        font-size: 1rem;
+        color: #f5f5f5;
+        transition: border 150ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .form-label {
+        position: absolute;
+        left: 15px;
+        color: #e8e8e8;
+        pointer-events: none;
+        transform: translateY(-2.5rem);
+        transition: 150ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .form-control:focus, .form-control:not(:placeholder-shown) {
+        outline: none;
+        border: 1.5px solid #874eca;
+        box-shadow: none;
+    }
+
+    .form-control:focus ~ label, .form-control:not(:placeholder-shown) ~ label {
+        transform: translateY(-280%) scale(0.8) !important;
+        background-color: transparent;
+        padding: 0 .2em;
+        color: #ffffff;
+        box-shadow: none;
+    }
+
+    button{
+        padding: 10px 30px;
+    }
+
+    h5{
+        color: #ffffff !important;
+    }
     .titles {
         color: #874eca;
         font-weight: bold;
@@ -57,9 +106,16 @@
     }
     .card {
         width: 50%;
-        border: 1px solid #d6d6d6 !important;
         margin-top: 10px;
+        background-color: transparent;
+        border: none;
         justify-content: center;
+    }
+
+    .card-body{        
+        background-color: #874eca;
+        border-radius: 10px;
+        padding: 20px !important;
     }
 
     .image{
@@ -72,7 +128,6 @@
         align-items: center;
         justify-content: center;
         width: 100%;
-        margin-bottom: 64px;
     }
 
     .profile-image {
@@ -93,13 +148,15 @@
 
     .left-container {
         flex: 1;
+        height: 60vh;
     }
 
     .right-container {
         flex: 2;
+        height: 60vh;
     }
 
-    @media (max-width: 426px) {
+    @media (max-width: 768px) {
         .main-container {
             flex-direction: column;
             gap: 10px;

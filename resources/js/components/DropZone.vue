@@ -184,8 +184,9 @@ watch(thumbnail, () => {
 <style scoped>
 .dropzone-container {
     padding: 0rem;
-    background: #f7fafc;
+    background: #e8e8e850;
     border: 1px solid #e2e8f0;
+    border-radius: 10PX;
 }
 
 .hidden-input {
@@ -200,6 +201,7 @@ watch(thumbnail, () => {
     font-size: 20px;
     display: block;
     cursor: pointer;
+    color: #FFFFFF
 }
 
 .preview-container {
@@ -215,9 +217,15 @@ watch(thumbnail, () => {
     object-fit: cover;
 }
 
+.preview-card a{
+    color: #FFFFFF;
+}
+
 .preview-img {
-    height: 100%;
-    width: 100%;
+    height: 300px;
+    width: 300px;
+    max-width: fit-content;
+    max-height: fit-content;
     object-fit: cover;
     border-radius: 5px;
     border: 1px solid #a2a2a2;
