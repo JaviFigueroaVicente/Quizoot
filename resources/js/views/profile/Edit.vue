@@ -1,7 +1,7 @@
 <template>
     <div class="main-container">
         <div class="left-container card">
-            <div class="border-0 card-body">
+            <div class="border-0 card-body card-main">
                 <div class="card-header bg-transparent mt-3 mb-3">
                     <h5 class="float-start titles">PROFILE IMAGE</h5>
                 </div>
@@ -15,7 +15,7 @@
             </button> 
         </div>
         <div class="right-container card">
-            <div class="border-0 card-body">
+            <div class="border-0 card-main card-body">
                 <div class="card-header bg-transparent mt-3 mb-3">
                     <h5 class="float-start titles">PROFILE DETAILS</h5>
                 </div>
@@ -94,6 +94,13 @@
 
     button{
         padding: 10px 30px;
+        box-shadow: 0px 6px 0px 0px rgba(0, 0, 0, 0.3);
+        transition: all 0.2s ease-in-out;
+    }
+
+    button:hover{
+        box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.3);
+        transform: translateY(4px);
     }
 
     h5{
@@ -116,6 +123,10 @@
         background-color: #874eca;
         border-radius: 10px;
         padding: 20px !important;
+    }
+
+    .card-main{
+        box-shadow: 2px 5px 0px 0px rgba(0, 0, 0, 0.4);
     }
 
     .image{

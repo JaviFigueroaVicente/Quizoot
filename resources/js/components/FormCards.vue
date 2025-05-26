@@ -25,18 +25,21 @@
 <style scoped>
 .card {
     border: none;
+    background-color: #b26fff ;
     border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 8px 0px 0px rgba(136, 78, 202, 0.5);
     transition: all 0.3s ease-in-out;
-    height: 100%;
-    background-color: #874eca;
     color: #ffffff;
-    font-weight: bold;
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    background-color: #402462;
+    transform: translateY(5px);
+    box-shadow: 0px 4px 0px 0px rgba(136, 78, 202, 0.5);
+    background-color: #874ECA;
+}
+
+.card p {
+    font-size: 16px;
 }
 
 .form-image {

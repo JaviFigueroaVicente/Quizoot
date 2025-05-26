@@ -4,7 +4,7 @@
         <div class="col-12">
             <div class="card">
                 <!-- Tabla con todos los datos que el usuario de la sesión ha respondido -->
-                <DataTable v-model:filters="filters" :size="'normal'" :value="formulariosRespondidos" paginator :rows="10"
+                <DataTable v-model:filters="filters" :size="'normal'" :value="formulariosRespondidos" paginator :rows="10" class="datatable"
                             :globalFilterFields="['formulario_id', 'score', 'created_at']" stripedRows size="small" dataKey="formulario_id">
                     <template #header>
                         <Toolbar pt:root:class="toolbar-table">
@@ -79,21 +79,27 @@ initFilters();
 </script>
 
 <style scoped>
+.card{
+    background-color: #874eca;
+    box-shadow: 3px 6px 2px 1px rgba(0, 0, 0, 0.25);
+}
+
 h1{
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: center;
     font-weight: bolder;
-    color: blueviolet;
+    color: #ffffff;
 }
 .ver-detalles{
     border: none;
     background-color: transparent;
-    color: #874eca;
+    color: #ffffff;
     font-family: 'Roboto';
 }
 .ver-detalles:hover{
-    color: #402462;
+    text-decoration: underline;
+    font-weight: bold;
 }
 
 </style>

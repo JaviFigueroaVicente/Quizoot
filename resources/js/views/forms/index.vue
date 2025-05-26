@@ -1,30 +1,30 @@
 <template>
     <!-- Espera de los datos -->
     <div v-if="isLoading">
-        <div class="text-center py-3 mt-3 mb-1 title ">
-            <h1 class="fw-bold">FORMULARIOS</h1>
+        <div class="text-center py-3 pt-5 mb-1 title ">
+            <h1 class="fw-bold mt-5">FORMULARIOS</h1>
         </div>
 
-        <div class="container my-2">
+        <div class="container pb-2">
             <!-- Div categorias -->
-            <Skeleton class="dropdown mb-3" height="30px" width="125px"/>
+            <Skeleton class="dropdown mb-3 skeleton" height="30px" width="125px"/>
 
             <!-- Componentes Formularios -->
-            <Skeleton class="mt-3" height="25rem"/>
+            <Skeleton class="mt-3 skeleton" height="25rem"/>
 
             <!-- Paginación -->
-            <div class="mt-4 mb-4">
-                <Skeleton height="50px"/>
+            <div class="mt-4 pb-4">
+                <Skeleton height="50px" class="skeleton"/>
             </div>
         </div>
     </div>
     <!-- Despúes de recuperar todos los datos -->
     <div v-else>   
-        <div class="text-center py-3 mt-3 mb-1 title ">
-            <h1 class="fw-bold">FORMULARIOS</h1>
+        <div class="text-center py-3 pt-5 mb-1 title ">
+            <h1 class="fw-bold mt-5">FORMULARIOS</h1>
         </div>
 
-        <div class="container my-2">
+        <div class="container pb-5">
             <!-- Div categorias -->
             <div class="dropdown">
                 <button class="btn btn-light me-2 btn-hover-lila dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> + </button>
@@ -47,7 +47,7 @@
             <FormCards :formularios="paginatedFormularios"></FormCards>
 
             <!-- Paginación -->
-            <div class="mt-4 mb-4">
+            <div class="mt-4">
                 <Paginator :rows="rowsPerPage" :totalRecords="formularios.length" :pageLinkSize="3" :first="currentPage * rowsPerPage" @page="onPageChange"/>
             </div>
         </div>
@@ -97,8 +97,11 @@ const selectCategory = (categoryId = null) => {
 </script>
 
 <style scoped>
+.skeleton{
+    background-color: #cb9dff !important;
+}
 .title{
-    color: #874ECA;
+    color: #ffffff;
     font-family: "Atma";
 }
 
@@ -117,24 +120,18 @@ const selectCategory = (categoryId = null) => {
 }
 
 .dropdown-menu .dropdown-item:hover {
-    color: #874ECA;
+    color: #ffffff;
+    background-color: #cb9dff;
+}
+
+span{
+    color: #ffffff;
 }
 
 .dropdown-menu .active {
     background-color: #e9d8fd;
     font-weight: bold;
     color: #874ECA;
-}
-
-.card {
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-}
-
-.card:hover {
-    transform: translateY(-5px);
 }
 
 .form-image {
@@ -147,6 +144,26 @@ const selectCategory = (categoryId = null) => {
 .text-center span {
     font-size: 1.2rem;
     cursor: pointer;
+}
+
+.dropdown ul{
+    background-color: #874ECA;
+}
+
+.dropdown a{
+    color: #ffffff;
+}
+
+.dropdown button{
+    color: #ffffff;
+    background-color: #b26fff;
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.dropdown button:hover{
+    background-color: #874ECA;
+    color: #ffffff;
 }
 
 

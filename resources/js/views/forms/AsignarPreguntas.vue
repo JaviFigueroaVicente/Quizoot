@@ -143,8 +143,8 @@ const onFormSubmit = async () => {
 }
 
 .btn-cancelar{
-    border: 2px solid #874eca;
-    color: #874eca;
+    border: 2px solid #ffffff;
+    color: #ffffff;
     transition: all 0.3s ease-in-out;
 }
 
@@ -164,6 +164,7 @@ const onFormSubmit = async () => {
 .card{
     background-color: #874eca;
     height: 50vh;
+    box-shadow: 3px 6px 2px 1px rgba(0, 0, 0, 0.25);
 }
 .p-toolbar{
     width: 100%;
@@ -178,7 +179,7 @@ h1{
     margin-bottom: 20px;
     text-align: center;
     font-weight: bolder;
-    color: blueviolet;
+    color: #ffffff;
 }
 
 h5{

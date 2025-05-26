@@ -234,6 +234,7 @@ const isOutsideClicked = (event) => {
 .layout-main-container {
     padding: 1rem 1rem 2rem 2rem;
     min-height: 55vh;
+    background-color: #402462d7;
 }
 
 .navbar{

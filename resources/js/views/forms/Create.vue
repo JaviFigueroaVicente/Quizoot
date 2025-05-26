@@ -98,7 +98,7 @@ h1{
   margin-bottom: 20px;
   text-align: center;
   font-weight: bolder;
-  color: #874eca;
+  color: #ffffff;
 }
 
 .select{
@@ -203,10 +203,13 @@ h1{
   border: none;
   padding: 15px 40px;
   border-radius: 10px;
-  transition: background-color 0.3s ease;
+  box-shadow: 0px 6px 0px 0px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
 }
 
 .btn-custom:hover {
   background-color: #402462;
+  box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.25);
+  transform: translateY(4px);
 }
 </style>

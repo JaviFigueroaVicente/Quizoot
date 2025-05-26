@@ -91,21 +91,21 @@ h4{
 }
 
 .col{
-    background-color: #874eca;
+    background-color: #b26fff;
     margin: 20px;
     border-radius: 10px;
     height: 10em;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    transition: all 0.3s ease ;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease ;   
+    box-shadow: 0px 8px 0px 0px rgba(136, 78, 202, 0.5);
 }   
 .col:hover{
-    background-color: #402462;
     cursor: pointer;
-    transform: scale(1.025);
-    border-color: #402462;
+    transform: translateY(5px);
+    box-shadow: 0px 4px 0px 0px rgba(136, 78, 202, 0.5);
+    background-color: #874ECA;
 }
 img{
     width: 40px;

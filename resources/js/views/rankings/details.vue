@@ -1,6 +1,6 @@
 <template>
-    <div class="container mt-4 mb-6" v-if="isLoading">
-        <div class="container d-flex align-center gap-2">
+    <div v-if="isLoading">
+        <div class="d-flex align-center gap-2">
             <router-link :to="{name: 'forms.index'}" class="migas">Rankings</router-link>
             <p>></p>
             <p>{{ formulario.name }}</p>
@@ -10,30 +10,30 @@
             <div class="row justify-content-center">
                 <!-- Imagen Decorativa -->
                 <div class="col-md-4 d-flex flex-column align-items-center left-section">
-                    <Skeleton height="300px"></Skeleton>
-                    <Skeleton class="fw-bold mt-3 text-start w-100" height="35px"></Skeleton>
-                    <Skeleton class="text-start w-100 mt-2" height="20px"></Skeleton>
-                    <div class="d-flex flex-wrap gap-2 text-start w-100">
-                        <Skeleton class="category-decoration mt-2" height="30px" width="75px"></Skeleton>
+                    <Skeleton height="300px" class="skeleton"></Skeleton>
+                    <Skeleton class="fw-bold mt-3 text-start w-100 skeleton" height="35px"></Skeleton>
+                    <Skeleton class="text-start w-100 mt-2 skeleton" height="20px"></Skeleton>
+                    <div class="d-flex flex-wrap gap-2 text-start w-10">
+                        <Skeleton class="category-decoration mt-2 skeleton" height="30px" width="75px"></Skeleton>
                     </div>
                 </div>
 
                 <!-- Ranking Grande a la Derecha -->
-                <div class="col-md-8">
-                    <Skeleton class="ranking-container" height="45rem">
+                <div class="col-md-8 right-section">
+                    <Skeleton class="ranking-container skeleton" height="45rem">
                     </Skeleton>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container mt-4 mb-6" v-else>
-        <div class="container d-flex align-center gap-2">
+    <div v-else>
+        <div class="container d-flex align-center gap-2 pt-5">
             <router-link :to="{name: 'forms.index'}" class="migas">Rankings</router-link>
             <p>></p>
             <p>{{ formulario.name }}</p>
         </div>
         <h1 class="container fw-bolder text-left">RANKING DEL FORMULARIO</h1>
-        <div class="container-fluid px-3 my-2">
+        <div class="container-fluid">
             <div class="row justify-content-center">
                 <!-- Imagen Decorativa -->
                 <div class="col-md-4 d-flex flex-column align-items-center left-section">
@@ -49,7 +49,7 @@
                 </div>
 
                 <!-- Ranking Grande a la Derecha -->
-                <div class="col-md-8">
+                <div class="col-md-8 right-section">
                     <div class="ranking-container">
                         <!-- Lista Jugadores -->
                         <h3 class="ranking-title">🏆 Top Players</h3>
@@ -75,7 +75,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -113,15 +112,32 @@ onMounted(() => {
     text-decoration: underline 1px solid;
 }
 
+.skeleton{
+    background-color: #cb9dff !important;
+}
+
 h1 {
     margin-top: 25px;
     margin-bottom: 20px;
-    color: #874ECA;
+    color: #ffffff;
+    margin: 0;
+    margin-left: 10%;
+    margin-bottom: 20px;
 }
 .left-section {
     position: sticky;
     top: 20px;
     height: calc(100vh - 20px);
+    padding-left: 10%;
+}
+
+.left-section h3, .left-section p, .left-section div {
+    padding-left: 3%;
+    color: #ffffff;
+}
+
+.right-section {
+    padding-right: 10%;
 }
 
 .form-image {
@@ -235,9 +251,34 @@ h1 {
     text-align: right;
 }
 
+@media (max-width: 1440px) {
+    .left-section {
+       width: 40%;
+    }
+
+    .right-section {
+        width: 60%;
+    }
+
+    .left-section h3, .left-section p, .left-section div {
+        padding-left: 3%;
+        color: #ffffff;
+    }
+    
+    .left-section,
+    .right-section{
+        padding-right: 3%;
+        padding-left: 3%;
+    }
+
+    h1{
+        margin-left: 2%;
+    }
+}
+
 
 /* Responsive de móvil */
-@media (max-width: 426px) {
+@media (max-width: 786px) {
     .row {
         flex-direction: column;
     }
@@ -248,10 +289,16 @@ h1 {
         margin-bottom: 20px;
     }
 
+    .left-section .left-section p, .left-section div {
+        padding-left: 3%;
+        color: #ffffff;
+    }
+    
     .ranking-container {
         height: auto;
         padding: 15px;
-        margin-top: 20px;
+        margin-top: 50px;
+        margin-bottom: 50px;
     }
 
     .ranking-title {
@@ -281,6 +328,16 @@ h1 {
 
     .form-image {
         max-height: 250px;
+    }
+    .left-section,
+    .right-section{
+        padding-right: 3%;
+        padding-left: 3%;
+        width: 100%;
+    }
+
+    h1{
+        margin-left: 3%;
     }
 }
 

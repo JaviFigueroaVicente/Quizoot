@@ -92,7 +92,7 @@ h1 {
     margin-bottom: 20px;
     text-align: center;
     font-weight: bolder;
-    color: #874eca;
+    color: #ffffff;
 }
 
 .row {
@@ -112,12 +112,18 @@ button {
     border-radius: 10px;
     margin-left: auto;
     margin-right: auto;
+    box-shadow: 0px 7px 0px 0px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
 }
+
+
 
 button:active, button:focus-visible, button:hover {
     background-color: #402462 !important;
     border: none;
     color: #ffffff;
+    box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.3) !important;
+    transform: translateY(5px) ;
 }
 
 .flex input {

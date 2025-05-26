@@ -1,30 +1,30 @@
 <template>
     <!-- Vista mientras cargan los datos -->
     <div v-if="isLoading">
-        <div class="text-center py-3 mt-3 mb-1 title ">
-            <h1 class="fw-bold">RANKINGS</h1>
+        <div class="text-center py-3 pt-5 pb-5 title ">
+            <h1 class="fw-bold mt-5">RANKINGS</h1>
         </div>
-        <div class="container my-2">
+        <div class="container pb-4">
             <!-- Div categorias -->
-            <Skeleton class="dropdown mb-3" height="30px" width="125px"/>
+            <Skeleton class="skeleton dropdown mb-3" height="30px" width="125px"/>
 
             <!-- Componentes Formularios -->
-            <Skeleton class="mt-5" height="15rem"/>
-            <Skeleton class="mt-6" height="15rem"/>            
-            <Skeleton class="mt-6" height="15rem"/>
+            <Skeleton class="mt-5 skeleton" height="15rem"/>
+            <Skeleton class="mt-6 skeleton" height="15rem"/>            
+            <Skeleton class="mt-6 skeleton" height="15rem"/>
 
             <!-- Paginación -->
             <div class="mt-4 mb-4">
-                <Skeleton height="50px"/>
+                <Skeleton height="50px" class="skeleton"/>
             </div>
         </div>
     </div>
     <!-- Vista con los datos cargados -->
     <div v-else>
-        <div class="text-center py-3 mt-3 mb-1 title">
-            <h1 class="fw-bold">RANKINGS</h1>
+        <div class="text-center py-3 pt-5 pb-5 title">
+            <h1 class="fw-bold mt-5">RANKINGS</h1>
         </div>
-        <div class="container my-2">
+        <div class="container pb-4">
             <!-- Div categorias -->
             <div class="dropdown">
                 <button class="btn btn-light me-2 btn-hover-lila dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> + </button>
@@ -66,7 +66,7 @@
             </div>
 
             <!-- Paginación -->
-            <div class="mt-4 mb-4">
+            <div class="mt-4 pb-4">
                 <Paginator :rows="rowsPerPage" :totalRecords="formularios.length" :pageLinkSize="2" :first="currentPage * rowsPerPage" @page="onPageChange"/>
             </div>
         </div>
@@ -114,8 +114,12 @@ const selectCategory = (categoryId = null) => {
 </script>
 
 <style scoped>
+.skeleton{
+    background-color: #cb9dff !important;
+}
+
 .title{
-    color: #874ECA;
+    color: #ffffff;
     font-family: "Atma";
 }
 
@@ -130,18 +134,27 @@ const selectCategory = (categoryId = null) => {
 }
 
 .dropdown-menu .dropdown-item:hover {
-    color: #874ECA;
+    color: #ffffff;
+    background-color: #cb9dff;
 }
 
 .card {
     border: none;
+    background-color: #b26fff ;
     border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
+    box-shadow: 0px 8px 0px 0px rgba(136, 78, 202, 0.5);
+    transition: all 0.3s ease-in-out;
+    color: #ffffff;
 }
 
 .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(5px);
+    box-shadow: 0px 4px 0px 0px rgba(136, 78, 202, 0.5);
+    background-color: #874ECA;
+}
+
+.card p {
+    font-size: 16px;
 }
 
 .form-image {
@@ -198,13 +211,14 @@ const selectCategory = (categoryId = null) => {
     min-height: 160px;
     border: none;
     border-radius: 15px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
+    box-shadow: 0px 8px 0px 0px rgba(136, 78, 202, 0.5);
+    transition: all 0.3s ease-in-out;
     margin-bottom: 30px;
 }
 
 .horizontal-card:hover {
-    transform: translateY(-8px);
+    box-shadow: 0px 4px 0px 0px rgba(136, 78, 202, 0.5);
+    transform: translateY(5px);
 }
 
 .card .d-flex {
@@ -215,17 +229,50 @@ const selectCategory = (categoryId = null) => {
     font-size: 1rem;
     padding: 0.4rem 0.8rem;
     border-radius: 10px;
-    background-color: #874ECA;
+    background-color: #402462;
 }
 
 .card .small {
     font-size: 1rem;
     margin-left: 30px;
+    color: #ffffff !important;
+}
+
+
+.dropdown-menu .active {
+    background-color: #e9d8fd;
+    font-weight: bold;
+    color: #874ECA;
 }
 
 .dropdown-menu .dropdown-item:active {
     background-color: #f1f1f1 !important;
     color: #333 !important;
+}
+
+
+.dropdown ul{
+    background-color: #874ECA;
+}
+
+.dropdown a{
+    color: #ffffff;
+}
+
+.dropdown button{
+    color: #ffffff;
+    background-color: #b26fff;
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.dropdown button:hover{
+    background-color: #874ECA;
+    color: #ffffff;
+}
+
+span{
+    color: #ffffff;
 }
 
 .active-category {

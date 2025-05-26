@@ -1,11 +1,11 @@
 <template>
     <div class="grid">
         <div class="col-12">
+            <h1 class="text-center mt-5 mb-3">MIS FORMULARIOS</h1>
             <div class="card">
-                <h1>MIS FORMULARIOS</h1>
                 <!-- Tabla con todos los formularios filtrados por el usuario de la sesión -->
                 <DataTable :size="'normal'" v-model:filters="filters" :value="formularios" paginator :rows="5"
-                            :globalFilterFields="['id','name', 'description','user_id','created_at']" stripedRows dataKey="id" size="small">
+                            :globalFilterFields="['id','name', 'description','user_id','created_at']" stripedRows dataKey="id" size="small" class="datatable">
                     <template #header>
                         <Toolbar pt:root:class="toolbar-table">
                             <template #start>
@@ -20,7 +20,7 @@
                                         <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="initFilters()" />
                                         <Button type="button" icon="pi pi-refresh" class="h-100 ml-1" outlined @click="getUserForms()" />
                                         <router-link :to="{name: 'mis-formularios.create'}" class="flex align-items-center">
-                                            <button type="button" class="btn btn-primary button button-action">Crear formulario</button>
+                                            <button type="button" class="btn btn-primary button button-action crear-formulario">Crear formulario</button>
                                         </router-link>
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                     <Column class="pe-0 me-0 icon-column-3">
                         <template #body="slotProps" class="d-flex">
                             <router-link :to="{ name: 'mis-formularios.asignar-preguntas', params: { id: slotProps.data.id } }">
-                                <Button icon="pi pi-plus" severity="help" size="small" class="mr-1"></Button>
+                                <Button icon="pi pi-plus" severity="success" size="small" class="mr-1"></Button>
                             </router-link>
                             <router-link :to="{ name: 'mis-formularios.edit', params: { id: slotProps.data.id } }">
                                 <Button icon="pi pi-pencil" severity="info" size="small" class="mr-1"/>
@@ -101,7 +101,7 @@ initFilters();
 <style scoped>
 h1{
     font-weight: bolder;
-    color: #874eca;
+    color: #ffffff;
 }
 .p-datatable {
     width: 100%;
@@ -110,7 +110,18 @@ h1{
 .card {
     gap: 30px;
     align-items: center;
+    background-color: #874eca;
+    box-shadow: 3px 6px 2px 1px rgba(0, 0, 0, 0.25);
 }
+
+.crear-formulario{
+    background-color: #cb9dff !important;
+}
+
+.crear-formulario:hover{
+    background-color: #402462 !important;
+}
+
 
 .p-toolbar{
     width: 100%;

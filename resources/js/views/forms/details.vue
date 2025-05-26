@@ -1,6 +1,6 @@
 <template>
     <!-- Mostrar antes de tener los datos cargados -->
-    <div class="mt-5 mb-5" v-if="isLoading">
+    <div class="main pt-5 pb-5" v-if="isLoading">
         <div class="container d-flex align-center gap-2">
             <router-link :to="{name: 'forms.index'}" class="migas">Formularios</router-link>
             <p>></p>
@@ -11,27 +11,27 @@
             <div class="row" v-if="formulario">
                 <!-- Left Section -->
                 <div class="col-md-4 left-section">
-                    <Skeleton height="335px"></Skeleton>
+                    <Skeleton height="335px" class="skeleton"></Skeleton>
                     
-                    <Skeleton class="fw-bold mb-1 mt-3" height="40px"></Skeleton>
-                    <Skeleton class="mt-2" height="18px"></Skeleton>
-                    <Skeleton class="d-flex flex-wrap text-start w-20 mt-2 mb-4" borderRadius="25px" height="30px"></Skeleton>
-                    <Skeleton class="btn mb-3 w-100 text-center mt-10" height="30px"></Skeleton>
+                    <Skeleton class="fw-bold mb-1 mt-3 skeleton" height="40px"></Skeleton>
+                    <Skeleton class="mt-2 skeleton" height="18px"></Skeleton>
+                    <Skeleton class="d-flex flex-wrap text-start w-20 mt-2 mb-4 skeleton" borderRadius="25px" height="30px"></Skeleton>
+                    <Skeleton class="btn mb-3 w-100 text-center mt-10 skeleton" height="30px"></Skeleton>
                     <!-- Sección Derecha: Ranking -->
                     <div class="ranking-container mt-10 mb-2">
-                        <Skeleton class="ranking-title" height="5rem"></Skeleton>
+                        <Skeleton class="ranking-title skeleton" height="5rem"></Skeleton>
                     </div>
                 </div>
                 
                 <!-- Right Section -->
                 <div class="col-md-8 right-section">
-                    <Skeleton height="45rem"></Skeleton>
+                    <Skeleton height="45rem" class="skeleton"></Skeleton>
                 </div>
             </div>
         </div>
     </div>
     <!-- Mostrar después de cargar los datos -->
-    <div class="mt-5 mb-5" v-else>
+    <div class="main pt-5 pb-5" v-else>
         <div class="container d-flex align-center gap-2">
             <router-link :to="{name: 'forms.index'}" class="migas">Formularios</router-link>
             <p>></p>
@@ -51,9 +51,9 @@
                             {{ category.name }}
                         </span>
                     </div>
-                    <router-link :to="{name:'formIndividual'}"><button class="btn btn-lila mb-3 w-100 text-center">Jugar Solo</button></router-link>
+                    <router-link :to="{name:'formIndividual'}"><button class="btn btn-lila mb-5 w-100 text-center">Jugar Solo</button></router-link>
                     <!-- Sección Derecha: Ranking -->
-                    <div class="ranking-container mb-2">
+                    <div class="ranking-container mb-2 mt-2">
                         <h4 class="ranking-title">🏆 Ranking</h4>
                         <ul class="ranking-list">
                             <li v-if="ranking.length > 0" v-for="rank in ranking.slice(0, 3)" :key="rank.user_id" class="ranking-item">
@@ -140,7 +140,13 @@ const verRespuestas= (pregunta)=>{
 
 
 </script>
-<style scoped>
+<style scoped> 
+    .skeleton{
+        background-color: #cb9dff !important;
+    }
+    .main {
+        background-color: #402462d7;
+    }
     .migas{
         color: #874ECA;
     }
@@ -153,8 +159,13 @@ const verRespuestas= (pregunta)=>{
     h1 {
         margin-top: 25px;
         margin-bottom: 20px;
-        color: #874ECA;
+        color: #ffffff;
     }
+
+    .left-section h3, .left-section p {
+        color: #ffffff;
+    }
+
     .btn-lila {
         background-color: #874ECA;
         color: white;
@@ -163,11 +174,14 @@ const verRespuestas= (pregunta)=>{
         font-weight: bold;
         padding: 10px 20px;
         border-radius: 5px;
-        transition: background-color 0.3s ease;
+        transition: all 0.3s ease;
+        box-shadow: 0px 6px 0px 0px rgba(0, 0, 0, 0.2);
     }
 
     .btn-lila:hover {
         background-color: #402462;
+        box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.35);
+        transform: translateY(4px);
     }
 
     .form-image {
@@ -195,11 +209,16 @@ const verRespuestas= (pregunta)=>{
 
     .list-group {
         border: 2px solid #874ECA;
-        background-color: white;
         margin-bottom: 8px;
         border-radius: 8px;
         transition: background-color 0.3s ease;
         color: #333;
+        box-shadow: 0 6px 0 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .list-group-item {
+        color: #ffffff;
+        background-color: #874ECA;
     }
 
     .question-text {
@@ -214,7 +233,7 @@ const verRespuestas= (pregunta)=>{
     }
 
     .category-decoration {
-        background-color: #5e2ea5;
+        background-color: #9a69e4;
         color: #ffffff;
         padding: 6px 12px;
         border-radius: 20px;
@@ -230,7 +249,8 @@ const verRespuestas= (pregunta)=>{
         background-color: #f8f9fa;
         padding: 10px;
         border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); 
+        box-shadow: 0px 6px 3px 0px rgba(0, 0, 0, 0.35); 
+        background-color: #874ECA;
     }
 
     .ranking-title {
@@ -238,11 +258,13 @@ const verRespuestas= (pregunta)=>{
         margin-bottom: 10px;
         text-align: center;
         font-size: 16px;
+        color: #ffffff;
     }
 
     .ranking-list {
         list-style: none;
         padding: 0;
+        background-color: #874ECA;
     }
 
     .ranking-item {
@@ -252,6 +274,7 @@ const verRespuestas= (pregunta)=>{
         display: flex;
         align-items: center;
         gap: 8px;
+        color: #ffffff;
     }
 
     .ranking-avatar {
@@ -264,6 +287,7 @@ const verRespuestas= (pregunta)=>{
 
     .ranking-info {
         font-size: 14px;
+        color: #ffffff;
     }
 
     /* Secciones */
@@ -293,7 +317,7 @@ const verRespuestas= (pregunta)=>{
 
     /* Ver respuestas boton */
     .btn-ver-respuestas {
-        background-color: #874ECA;
+        background-color: #bc82ff;
         color: white;
         border: none;
         font-size: 13px;
@@ -332,6 +356,7 @@ const verRespuestas= (pregunta)=>{
         background-color: #f9f6ff;
         box-shadow: 0 2px 5px rgba(135, 78, 202, 0.1);
         transition: all 0.3s ease;
+        color: #333 !important;
     }
 
     .respuesta-correcta,

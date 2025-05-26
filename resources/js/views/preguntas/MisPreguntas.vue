@@ -1,13 +1,14 @@
 <template>
     <div class="grid">
+
         <div class="col-12">
-            <div class="card">
-                <div class="card-header bg-transparent ps-0 pe-0">
+            <div class="card-header bg-transparent ps-0 pe-0 mt-5 mb-3">
                     <h1 class="mb-0">BUSCAR PREGUNTAS</h1>
                 </div>
+            <div class="card">                
                 <!-- Tabla con las preguntas filtradas por el usuario de la sesión -->
                     <DataTable v-model:filters="filters" :size="'normal'" :value="preguntas.data" paginator :rows="5"
-                               :globalFilterFields="['id','pregunta', 'user_id','created_at']" stripedRows dataKey="id" size="small">
+                               :globalFilterFields="['id','pregunta', 'user_id','created_at']" stripedRows dataKey="id" size="small" class="datatable">
                         <template #header>
                             <Toolbar pt:root:class="toolbar-table">
                                 <template #start>
@@ -18,10 +19,10 @@
                                                 <InputText v-model="filters['global'].value" placeholder="Buscar" />
                                             </IconField>
                                         </div>
-                                        <div class="buttons-container flex gap-2">
+                                        <div class="buttons-container flex gap-2 ml-2">
                                             <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="initFilters()" />
                                             <Button type="button" icon="pi pi-refresh" class="h-100 ml-1" outlined @click="getPregunta()" />
-                                            <router-link :to="{name: 'mis-preguntas.create'}" class="flex align-items-center"><button type="button" class="btn btn-primary button button-action">Crear pregunta</button></router-link>
+                                            <router-link :to="{name: 'mis-preguntas.create'}" class="flex align-items-center"><button type="button" class="btn btn-primary button button-action crear-pregunta">Crear pregunta</button></router-link>
                                         </div>
                                     </div>
                                 </template>
@@ -53,7 +54,7 @@
         </div>
     </div>
     <!-- Dialog con las respuestas de la pregunta -->
-    <Dialog v-model:visible="dialogVisible" modal :draggable="false" :style="{ width: '30rem', padding: '15px', height: 'auto',backgroundImage: 'url(/images/forms/fondoVentana.jpeg)', backgroundPosition: 'center', backgroundSize: 'cover',}" pcCloseButton="">
+    <Dialog v-model:visible="dialogVisible" modal :draggable="false" :style="{ width: '30rem', padding: '15px', height: 'auto',backgroundImage: 'url(/images/forms/fondoVentana.webp)', backgroundPosition: 'center', backgroundSize: 'cover',}" pcCloseButton="">
         <template #header>
             <h2 class="dialog-title">RESPUESTAS</h2>
         </template>
@@ -108,21 +109,26 @@ initFilters();
 </script>
 
 <style scoped>
+.card{
+    background-color: #874eca;
+    box-shadow: 3px 6px 2px 1px rgba(0, 0, 0, 0.25);
+}
 h1{
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: center;
     font-weight: bolder;
-    color: #874eca;
+    color: #ffffff;
 }
 .ver-respuestas{
     border: none;
     background-color: transparent;
-    color: #874eca;
+    color: #ffffff;
     font-family: 'Roboto';
 }
 .ver-respuestas:hover{
-    color: #402462;
+    text-decoration: underline;
+    font-weight: bold;
 }
 
 .list-group {
@@ -139,6 +145,14 @@ h1{
 
 .list-group p{
     font-size: 1.75rem;
+}
+
+.crear-pregunta{
+    background-color: #cb9dff !important;
+}
+
+.crear-pregunta:hover{
+    background-color: #402462 !important;
 }
 
 /* Pestaña respuestas */
