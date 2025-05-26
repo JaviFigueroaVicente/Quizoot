@@ -19,11 +19,11 @@
                                             <InputText v-model="filters['global'].value" placeholder="Buscar" />
                                         </IconField>
                                     </div>
-                                    <div class="buttons-container flex gap-2">
+                                    <div class="buttons-container flex gap-2 ml-2">
                                         <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="initFilters()" />
                                         <Button type="button" icon="pi pi-refresh" outlined @click="getUserPreguntas()" />
                                         <router-link :to="{name: 'mis-preguntas.create'}" class="flex align-items-center">
-                                            <button type="button" class="btn btn-primary button button-action">Crear pregunta</button>
+                                            <button type="button" class="btn btn-primary button button-action crear-pregunta">Crear pregunta</button>
                                         </router-link>
                                     </div>
                                 </div>
@@ -41,12 +41,11 @@
         <!-- Contenedor donde se muestran las preguntas seleccionadas -->
         <div class="col-6">
             <div class="card">
-                <div class="card-header bg-transparent ps-0 pe-0">
+                <div class="card-header bg-transparent ps-0 pe-0 mb-5">
                     <h5 class="float-start mb-0">PREGUNTAS SELECCIONADAS</h5>
                     <Button type="button" class="p-button-danger limpiar-button" @click="clearSelectedPreguntas">Borrar todas</Button>
                 </div>
-                <hr>
-                <DataTable :size="'normal'" :value="selectedPreguntas" paginator :rows="5">
+                <DataTable :size="'normal'" :value="selectedPreguntas" paginator :rows="5" class="datatable mt-5">
                     <template #loading> Cargando preguntas seleccionadas... </template>
                     <template #empty> No hay preguntas seleccionadas </template>
                     <Column>
@@ -60,8 +59,9 @@
             </div>
         </div>
     </div>
-    <div class="button-asignar">
+    <div class="button-asignar flex flex-column align-items-center">
         <button type="submit" class="btn btn-custom mt-2" @click.prevent="onFormSubmit">ASIGNAR PREGUNTAS</button>
+        <router-link :to="{name: 'mis-formularios.index'}" class="flex align-items-center"><button type="button" class="btn btn-cancelar mt-3">CANCELAR</button></router-link>
     </div>
 </template>
 
@@ -138,8 +138,32 @@ const onFormSubmit = async () => {
 </script>
 
 <style scoped>
+.p-button-danger{
+    border-radius: 50px;
+}
+
+.btn-cancelar{
+    border: 2px solid #874eca;
+    color: #874eca;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-cancelar:hover{
+    background-color: #402462;
+    border-color: #402462;
+    color: white;
+}
+
+.crear-pregunta{
+    background-color: #cb9dff !important;
+}
+
+.crear-pregunta:hover{
+    background-color: #402462 !important;
+}
 .card{
     background-color: #874eca;
+    height: 50vh;
 }
 .p-toolbar{
     width: 100%;
@@ -186,11 +210,11 @@ li{
 .button-asignar{
     display: flex;
     justify-content: center;
+    margin-bottom: 50px;
 }
 
 .button-asignar button{
     margin-top: 0px;
-    margin-bottom: 50px;
     width: 400px;
     padding: 10px 30px;
     font-size: 20px;
@@ -204,10 +228,20 @@ li{
     color: #ffffff;
 }
 
+@media (max-width: 1440px) {
+    .card{
+        height: 70vh;
+    }
+}
+
 @media (max-width: 1024px) {
     .grid{
         display: flex;
         flex-direction: column;
+    }
+
+    .card{
+        height: auto;
     }
     .col-6{
         width: 100%;
@@ -228,6 +262,8 @@ li{
         display: flex;
         width: auto;
         margin-bottom: 0;
+        margin-left: 0px !important;
+        margin-top: 10px;
     }
     .search-and-filters-container{
         flex-wrap: wrap;
