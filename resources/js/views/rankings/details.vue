@@ -1,10 +1,5 @@
 <template>
     <div v-if="isLoading">
-        <div class="d-flex align-center gap-2">
-            <router-link :to="{name: 'forms.index'}" class="migas">Rankings</router-link>
-            <p>></p>
-            <p>{{ formulario.name }}</p>
-        </div>
         <h1 class="container fw-bolder text-left">RANKING DEL FORMULARIO</h1>
         <div class="container-fluid px-3 my-2">
             <div class="row justify-content-center">
@@ -27,11 +22,6 @@
         </div>
     </div>
     <div v-else>
-        <div class="container d-flex align-center gap-2 pt-5">
-            <router-link :to="{name: 'forms.index'}" class="migas">Rankings</router-link>
-            <p>></p>
-            <p>{{ formulario.name }}</p>
-        </div>
         <h1 class="container fw-bolder text-left">RANKING DEL FORMULARIO</h1>
         <div class="container-fluid">
             <div class="row justify-content-center">
@@ -103,14 +93,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.migas{
-    color: #874ECA;
-}
-
-.migas:hover{
-    color: #402462;
-    text-decoration: underline 1px solid;
-}
 
 .skeleton{
     background-color: #cb9dff !important;

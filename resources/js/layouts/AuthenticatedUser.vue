@@ -211,6 +211,7 @@ const isOutsideClicked = (event) => {
 </script>
 
 <style lang="scss">
+
 .menu {
     padding: 0;
     border: 0;
