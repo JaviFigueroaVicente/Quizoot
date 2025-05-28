@@ -1,5 +1,5 @@
 # Quizoot - Plataforma de Formularios Interactivos  
-> Proyecto final del Ciclo Formativo de Grado Superior en Desarrollo de Aplicaciones Web (DAW2)
+> Proyecto del Ciclo Formativo de Grado Superior en Desarrollo de Aplicaciones Web (DAW2)
 
 **Quizoot** es una plataforma web diseñada para crear, gestionar y responder formularios interactivos (quiz). Permite a los usuarios crear sus propios cuestionarios, evaluar conocimientos y competencias, y obtener resultados en tiempo real. La aplicación está desarrollada como parte del módulo de **Desarrollo Web en Entorno Cliente y Servidor**, correspondiente al segundo curso del CFGS **Desarrollo de Aplicaciones Web (DAW)**.
 
