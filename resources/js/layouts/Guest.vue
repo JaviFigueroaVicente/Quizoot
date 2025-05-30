@@ -2,7 +2,7 @@
   <div :class="backgroundClass">
     <Navbar class="navbar" />
     <div class="container card mb-2 mt-3 bread"  v-if="mostrarBreadcrumb">
-        <Breadcrumb :home="home" :model="crumbs">
+        <Breadcrumb :home="home" :model="crumbs" class="breadcrumb-pagina">
             <template #item="{ item, props }">
                 <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
                     <a :href="href" v-bind="props.action" class="btn btn-link"   @click="navigate">

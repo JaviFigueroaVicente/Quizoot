@@ -65,7 +65,7 @@ main{
     --p-checkbox-checked-focus-border-color: #874eca;
 }
 
-.p-breadcrumb-item .text-primary{
+.breadcrumb-pagina .p-breadcrumb-item .text-primary{
     color: #ffffff !important;
 }
 
@@ -74,11 +74,11 @@ main{
     border: none !important;
 }
 
-.pi-home{
+.breadcrumb-pagina .pi-home{
     color: #ffffff !important;
 }
 
-.p-breadcrumb{
+.breadcrumb-pagina.p-breadcrumb{
     background-color: transparent !important;
 }
 
@@ -267,6 +267,6 @@ main{
     --p-datatable-sort-icon-hover-color: var(--p-text-hover-muted-color);
 }
 
-.p-datatable.p-datatable-striped .p-datatable-tbody > tr.p-row-odd{
+.datatable.p-datatable.p-datatable-striped .p-datatable-tbody > tr.p-row-odd{
     background-color: #7746b4 !important;
 }

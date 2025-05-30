@@ -2,7 +2,7 @@
     <!-- Vista mientras cargan los datos -->
     <div v-if="isLoading">
         <div class="text-center py-3 pt-5 pb-5 title ">
-            <h1 class="fw-bold mt-5">RANKINGS</h1>
+            <h1 class="fw-bold">RANKINGS</h1>
         </div>
         <div class="container pb-4">
             <!-- Div categorias -->
@@ -22,7 +22,7 @@
     <!-- Vista con los datos cargados -->
     <div v-else>
         <div class="text-center py-3 pt-5 pb-5 title">
-            <h1 class="fw-bold mt-5">RANKINGS</h1>
+            <h1 class="fw-bold">RANKINGS</h1>
         </div>
         <div class="container pb-4">
             <!-- Div categorias -->

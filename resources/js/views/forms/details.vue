@@ -1,6 +1,6 @@
 <template>
     <!-- Mostrar antes de tener los datos cargados -->
-    <div class="main pt-5 pb-5" v-if="isLoading">   
+    <div class="main pb-5" v-if="isLoading">   
         <h1 class="container fw-bolder text-left">DETALLES DEL FORMULARIO</h1>
         <div class="container my-2">
             <div class="row" v-if="formulario">
@@ -26,7 +26,7 @@
         </div>
     </div>
     <!-- Mostrar después de cargar los datos -->
-    <div class="main pt-5 pb-5" v-else>
+    <div class="main pb-5" v-else>
         <h1 class="container fw-bolder text-left">DETALLES DEL FORMULARIO</h1>
         <div class="container my-2">
             <div class="row" v-if="formulario">

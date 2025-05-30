@@ -1,9 +1,9 @@
 <template>
     <div class="grid">
         <div class="col-12">
-            <div class="card">
+            <div class="card card-admin">
                 <!-- Tabla donde se muestran los datos de todos los formularios -->
-                <DataTable v-model:filters="filters" :value="formularios" paginator :rows="5" :globalFilterFields="['id','name', 'description','user_id','created_at']" stripedRows dataKey="id" size="small">
+                <DataTable class="datatable-admin" v-model:filters="filters" :value="formularios" paginator :rows="5" :globalFilterFields="['id','name', 'description','user_id','created_at']" stripedRows dataKey="id" size="small">
                     <template #header>
                         <Toolbar pt:root:class="toolbar-table">
                             <template #start>
@@ -104,5 +104,19 @@ initFilters();
     height: 50px; 
     object-fit: cover; 
     border-radius: 4px; 
+}
+
+.card-admin{
+    background-color: #874eca !important;
+}
+
+.p-datatable.p-datatable-striped .p-datatable-tbody > tr.p-row-odd {
+    background-color: transparent !important;
+    color: #000000 !important;
+}
+
+.toolbar-table{
+    background-color: #874eca !important;
+    border: none !important;
 }
 </style>
