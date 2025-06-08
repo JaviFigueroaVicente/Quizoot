@@ -61,7 +61,6 @@ const { loginForm, validationErrors, processing, submitLogin } = useAuth();
 </script>
 
 <style scoped>
-
 .video-fondo-div {
     position: absolute;
     top: 0;
@@ -100,7 +99,7 @@ html, body {
 
 .card {
     z-index: 2;
-    margin-top: 12em;
+    margin-top: 20%;
     background-color: #402462d7;
     padding: 40px;
 }

@@ -109,7 +109,7 @@ html, body {
 .card {
     z-index: 2; 
     background-color: #402462d7;
-    margin-top: 12em;
+    margin-top: 10%;
     padding: 40px;
 }
 
