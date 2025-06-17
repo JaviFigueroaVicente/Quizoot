@@ -16,7 +16,7 @@
                         </button>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><router-link class="dropdown-item" to="/app/profile">Perfil</router-link></li>
+                        <li><router-link class="dropdown-item" to="/profile">Perfil</router-link></li>
                         <li v-if="authStore().user?.roles[0].name === 'admin'"><router-link class="dropdown-item" to="/admin">Admin</router-link></li>
                         <li><router-link to="/profile/mis-formularios" class="dropdown-item">Mis formularios</router-link></li>
                         <li><hr class="dropdown-divider"></li>
@@ -208,10 +208,15 @@ nav .container {
     color: #ffffff;
 }
 
+
 @media (max-width: 767px) {
     .nav-center {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
+    }
+
+    .nav-center .nav-link{
+        padding: 5px 15px;
     }
 
     .navbar-nav {

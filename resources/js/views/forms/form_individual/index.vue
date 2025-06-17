@@ -90,11 +90,8 @@
                 <router-link :to="{ name: 'rankings.details', params: { id: route.params.id }}">
                     <button>VER RANKING</button>
                 </router-link>
-                <router-link to="/forms">
-                    <button>VER FORMULARIOS</button>
-                </router-link>
                 <router-link to="/">
-                    <button>INICIO</button>
+                    <button class="mb-5">INICIO</button>
                 </router-link>
             </div>
         </div>

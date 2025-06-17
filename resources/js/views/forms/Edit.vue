@@ -112,7 +112,7 @@ h1 {
   margin-bottom: 20px;
   text-align: center;
   font-weight: bolder;
-  color: blueviolet;
+  color: #ffffff;
 }
 
 .outer-wrapper {
@@ -128,9 +128,12 @@ h1 {
   margin-top: 20px;
 }
 
-@media (max-width: 426px) {
+@media (max-width: 768px) {
   .main-container {
     grid-template-columns: 1fr;
+  }
+  .form-button-wrapper .btn{
+    font-size: 18px;
   }
 }
 

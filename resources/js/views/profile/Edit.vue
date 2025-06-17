@@ -48,7 +48,6 @@
                 UPDATE PROFILE
             </button> 
         </div>
-        <!-- Corregido el nombre de la clase -->  
     </div> 
     <Toast />
 </template>
@@ -159,12 +158,10 @@
 
     .left-container {
         flex: 1;
-        height: 60vh;
     }
 
     .right-container {
         flex: 2;
-        height: 60vh;
     }
 
     @media (max-width: 768px) {
@@ -207,7 +204,6 @@ import { onMounted, reactive, watchEffect,ref, inject } from "vue";
 import { required, min } from "@/validation/rules";
 import { authStore } from '@/store/auth';
 import { useRoute, useRouter } from "vue-router";
-import { useToast } from "primevue/usetoast";
 import * as yup from "yup";
 import { es } from "yup-locales";
 import DropZone from "@/components/DropZone.vue";
@@ -239,7 +235,7 @@ const usuario = ref({
 const imagenFile = ref(null);
 
 const updateUser = async () => {
-    axios.post('/api/user/' + store.user.id, usuario.value)
+    axios.put('/api/user/' + store.user.id, usuario.value)
     .then((response) => {
         swal({
             icon: 'success',
@@ -251,12 +247,12 @@ const updateUser = async () => {
         router.push('/profile');
     })
     .catch(() => {
-        Toast.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Error al actualizar el usuario',
-            life: 3000,
-        });
+        swal({
+            icon: 'error',
+            title: 'Error al actualizar el usuario',
+            showConfirmButton: false,
+            timer: 1500
+        })
     });
 };
 
@@ -343,12 +339,12 @@ const onFormSubmitIMG = () => {
         // window.location.reload();
         router.push({ name: 'profile.index' });
     } else {
-        toast.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Debe seleccionar una imagen',
-            life: 3000,
-        });
+        swal({
+            icon: 'error',
+            title: 'Error al actualizar la imagen',
+            showConfirmButton: false,
+            timer: 1500
+        })
     }
 };
 

@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::get('category-list', [CategoryController::class, 'getList']);
     Route::get('/user', [ProfileController::class, 'user']);
     Route::get('/users/{id}', [UserController::class, 'show']);
-    Route::post('/user/{id}', [UserController::class, 'updateUser']);
+    Route::put('/user/{id}', [UserController::class, 'updateUser']);
     Route::post('/user/updateimg/{id}', [UserController::class, 'updateimg']);
 
 
@@ -53,8 +53,8 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
             ->values()
             ->toArray();
     });
-});
 
+    
 Route::post('user', [UserController::class, 'register']);
 Route::get('category-list', [CategoryController::class, 'getList']);
 
@@ -89,3 +89,5 @@ Route::post('formulario-respondido', [FormulariosRespondidosController::class, '
 Route::get('formulario-respondido/{userId}/{formularioId}', [FormulariosRespondidosController::class, 'show']);
 Route::delete('formulario-respondido/{userId}/{formularioId}', [FormulariosRespondidosController::class, 'destroy']);
 Route::post('formulario-respondido/{userId}/{formularioId}', [FormulariosRespondidosController::class, 'update']);
+});
+

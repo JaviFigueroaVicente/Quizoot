@@ -163,7 +163,7 @@ const onFormSubmit = async () => {
 }
 .card{
     background-color: #874eca;
-    height: 50vh;
+    height: 70vh;
     box-shadow: 3px 6px 2px 1px rgba(0, 0, 0, 0.25);
 }
 .p-toolbar{
@@ -227,12 +227,6 @@ li{
     background-color: #402462 !important;
     border: none;
     color: #ffffff;
-}
-
-@media (max-width: 1440px) {
-    .card{
-        height: 70vh;
-    }
 }
 
 @media (max-width: 1024px) {
