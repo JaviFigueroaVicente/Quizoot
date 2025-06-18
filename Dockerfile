@@ -1,37 +1,44 @@
-# Usamos PHP 8.1 como base (compatible con Laravel 10)
 FROM php:8.1-cli
 
-# Instalamos dependencias básicas
+# Dependencias del sistema
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
+    libpng-dev \
     curl \
     libzip-dev \
     zip \
     libonig-dev \
     libxml2-dev
 
-# Instalamos extensiones PHP necesarias para Laravel
+# Extensiones PHP requeridas
 RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath zip
 
-# Instalamos Composer
+# Instalar Composer
 RUN curl -sS https://getcomposer.org/installer  | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Directorio de trabajo dentro del contenedor
+# Directorio de trabajo
 WORKDIR /app
 
-# Copiamos solo composer.json y composer.lock para aprovechar el cache
+# Argumento para recibir el token
+ARG GITHUB_TOKEN
+
+# Crear auth.json dinámico
+RUN echo '{ \
+    "github-oauth": { \
+        "github.com": "'${GITHUB_TOKEN}'" \
+    } \
+}' > /root/.composer/auth.json
+
+# Copiar solo las dependencias iniciales
 COPY composer.json .
 COPY composer.lock .
 
-# Instalamos dependencias de PHP
+# Instalar dependencias
 RUN composer install --ignore-platform-reqs --prefer-dist --no-dev
 
-# Copiamos el resto del proyecto
+# Copiar resto del proyecto
 COPY . .
 
-# Opcional: Limpiamos la caché de Composer
+# Limpiar caché
 RUN composer clear-cache
-
-# Comando para ejecutar el servidor (esto dependerá de cómo quieras correr Laravel)
-CMD ["php", "-S", "0.0.0.0:8000"]
