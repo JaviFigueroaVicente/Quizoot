@@ -1,0 +1,43 @@
+# Usamos una imagen base con PHP y Node.js
+FROM php:8.2-cli
+
+# Instalamos dependencias básicas
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    unzip \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zlib1g-dev \
+    && docker-php-ext-install pdo pdo_mysql exif pcntl
+
+# Instalamos Composer
+RUN curl -sS https://getcomposer.org/installer  | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Instalamos Node.js v18.x
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x  | bash -
+RUN apt-get install -y nodejs
+
+# Directorio de trabajo
+WORKDIR /var/www/html
+
+# Copiamos todo el proyecto
+COPY . .
+
+# Instalamos dependencias de PHP
+RUN composer install --optimize-autoloader --no-dev
+
+# Configuración del entorno
+RUN cp .env.example .env
+RUN php artisan key:generate
+
+# Instalamos dependencias de Node.js y compilamos frontend
+RUN npm install
+RUN npm run build
+
+# Exponemos el puerto 8000 para Laravel
+EXPOSE 8000
+
+# Comando para iniciar el servidor
+CMD ["php", "artisan", "serve", "--host=0.0.0.0"]
