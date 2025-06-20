@@ -155,3 +155,4 @@
 [2025-06-20 16:30:22] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
 [2025-06-20 16:40:29] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
 [2025-06-20 16:40:32] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
+[2025-06-20 17:07:53] local.INFO: registerUserAccessToGates: Database not found or not yet migrated. Ignoring user permissions while booting app.  
