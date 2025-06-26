@@ -27,7 +27,7 @@ class FormulariosRespondidosController extends Controller
     // Mostrar todos los formularios respondidos por el usuario log
     public function getFormulariosRespondidosUserLogged()
     {
-        $formularios_respondidos = Formularios_Respondidos::where('user_id', auth()->id())->get();
+        $formularios_respondidos = Formularios_Respondidos::where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
 
         return response()->json([
             'status' => 200,
@@ -39,7 +39,7 @@ class FormulariosRespondidosController extends Controller
     // Mostrar todos los formularios respondidos por usuario
     public function getFormulariosRespondidosUser(string $user_id)
     {
-        $formularios_respondidos = Formularios_Respondidos::where('user_id', $user_id)->get();
+        $formularios_respondidos = Formularios_Respondidos::where('user_id', $user_id)->orderBy('created_at', 'desc')->get();
 
         return response()->json([
             'status' => 200,
@@ -50,7 +50,7 @@ class FormulariosRespondidosController extends Controller
 
     // Mostrar todos los formularios respondidos por formulario
     public function getFormulariosRespondidosForm(string $formularioId){
-        $formularios_respondidos = Formularios_Respondidos::where('formulario_id', $formularioId)->get();
+        $formularios_respondidos = Formularios_Respondidos::where('formulario_id', $formularioId)->orderBy('created_at', 'desc')->get();
 
         return response()->json([
             'status' => 200,

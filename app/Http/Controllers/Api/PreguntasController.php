@@ -26,7 +26,7 @@ class PreguntasController extends Controller
     public function userPreguntas()
     {
         $user_id = auth()->id();
-        $preguntas = Preguntas::where('user_id', $user_id)->with('respuestas')->get();
+        $preguntas = Preguntas::where('user_id', $user_id)->with('respuestas')->orderBy('created_at', 'desc')->get();
 
         return response()->json([
             'status' => 405,

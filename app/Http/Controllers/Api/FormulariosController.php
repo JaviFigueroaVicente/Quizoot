@@ -28,7 +28,7 @@ class FormulariosController extends Controller
             });
         }
 
-        $formularios = $query->get();
+        $formularios = $query->orderBy('created_at', 'desc')->get();
 
         return response()->json([
             'status' => 200,
@@ -41,7 +41,7 @@ class FormulariosController extends Controller
     // Mostrar todos los formularios del usuario log
     public function userFormularios(){
         $user_id = auth()->id();
-        $formularios = Formularios::withCount('preguntas')->where('user_id', $user_id)->get();
+        $formularios = Formularios::withCount('preguntas')->where('user_id', $user_id)->orderBy('created_at', 'desc')->get();
 
         return response()->json([
             'status' => 405,
