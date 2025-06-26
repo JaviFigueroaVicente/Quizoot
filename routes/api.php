@@ -48,7 +48,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
             ->toArray();
     });
 
-    Route::post('user', [UserController::class, 'register']);
+    
     Route::get('category-list', [CategoryController::class, 'getList']);
 
     Route::get('formulario-user', [FormulariosController::class, 'userFormularios']);
@@ -84,3 +84,4 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
 });
 
 Route::get('formulario', [FormulariosController::class, 'index']);
+Route::post('user', [UserController::class, 'register']);

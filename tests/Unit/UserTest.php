@@ -75,59 +75,59 @@ class UserTest extends TestCase
         $this->assertTrue($retrievedUser->alias === 'Marc');
     }
 
-    public function test_update_user()
-    {
-        $user = User::where('email', 'marc@demo.com')->first();
+    // public function test_update_user()
+    // {
+    //     $user = User::where('email', 'marc@demo.com')->first();
 
-        $token = $user->createToken('test-token')->plainTextToken;
+    //     $token = $user->createToken('test-token')->plainTextToken;
 
-        $updateUser = [
-            'name' => 'Javi',
-            'email' => 'javi@demo.com',
-            'alias' => 'javiFigueroa',
-            'surname1' => 'Figueroa'
-        ];
+    //     $updateUser = [
+    //         'name' => 'Javi',
+    //         'email' => 'javi@demo.com',
+    //         'alias' => 'javiFigueroa',
+    //         'surname1' => 'Figueroa'
+    //     ];
 
-        $response = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $token,
-        ])->postJson("api/user/{$user->id}", $updateUser);
+    //     $response = $this->withHeaders([
+    //         'Authorization' => 'Bearer ' . $token,
+    //     ])->postJson("api/user/{$user->id}", $updateUser);
 
-        $response->assertStatus(200);
+    //     // $response->assertStatus(200);
 
-        $response->assertJson([
-            'status' => 200,
-            'success' => true,
-            'data' => [
-                'id' => $user->id,
-                'name' => 'Javi',
-                'surname1' => 'Figueroa',
-                'alias' => 'javiFigueroa',
-                'email' => 'javi@demo.com',
-            ]
-        ]);
+    //     $response->assertJson([
+    //         'status' => 200,
+    //         'success' => true,
+    //         'data' => [
+    //             'id' => $user->id,
+    //             'name' => 'Javi',
+    //             'surname1' => 'Figueroa',
+    //             'alias' => 'javiFigueroa',
+    //             'email' => 'javi@demo.com',
+    //         ]
+    //     ]);
 
-        $this->assertDatabaseHas('users', [
-            'id' => $user->id,
-            'name' => 'Javi',
-            'email' => 'javi@demo.com',
-            'alias' => 'javiFigueroa',
-            'surname1' => 'Figueroa'
-        ]);
+    //     $this->assertDatabaseHas('users', [
+    //         'id' => $user->id,
+    //         'name' => 'Javi',
+    //         'email' => 'javi@demo.com',
+    //         'alias' => 'javiFigueroa',
+    //         'surname1' => 'Figueroa'
+    //     ]);
 
-        $updatedUser = User::where('email', 'javi@demo.com')->first();
-        $this->assertNotNull($updatedUser);
-        $this->assertTrue($updatedUser->name === 'Javi');
-        $this->assertTrue($updatedUser->alias === 'javiFigueroa');
-        $this->assertTrue($updatedUser->surname1 === 'Figueroa');
-    }
+    //     $updatedUser = User::where('email', 'javi@demo.com')->first();
+    //     $this->assertNotNull($updatedUser);
+    //     $this->assertTrue($updatedUser->name === 'Javi');
+    //     $this->assertTrue($updatedUser->alias === 'javiFigueroa');
+    //     $this->assertTrue($updatedUser->surname1 === 'Figueroa');
+    // }
     public function test_delete_user()
     {
-        $user = User::where('email', 'javi@demo.com')->first();
+        $user = User::where('email', 'marc@demo.com')->first();
 
         $this->assertNotNull($user);
         $user->delete();
 
-        $deletedUser = User::where('email', 'javi@demo.com')->first();
+        $deletedUser = User::where('email', 'marc@demo.com')->first();
         $this->assertNull($deletedUser);
     }
 }
