@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build && php artisan key:generate --force"
   },
   "engines": {
     "node": ">=18.0.0",

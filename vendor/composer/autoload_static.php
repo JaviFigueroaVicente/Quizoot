@@ -7249,7 +7249,6 @@ class ComposerStaticInit79503e372ff4e0d31b7a6c4ded3bdc3c
         'Tests\\CreatesApplication' => __DIR__ . '/../..' . '/tests/CreatesApplication.php',
         'Tests\\Feature\\ExampleTest' => __DIR__ . '/../..' . '/tests/Feature/ExampleTest.php',
         'Tests\\TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
-        'Tests\\Unit\\ExampleTest' => __DIR__ . '/../..' . '/tests/Unit/ExampleTest.php',
         'Tests\\Unit\\FormulariosTest' => __DIR__ . '/../..' . '/tests/Unit/FormulariosTest.php',
         'Tests\\Unit\\PreguntaTest' => __DIR__ . '/../..' . '/tests/Unit/PreguntaTest.php',
         'Tests\\Unit\\UserTest' => __DIR__ . '/../..' . '/tests/Unit/UserTest.php',

@@ -6638,7 +6638,6 @@ return array(
     'Tests\\CreatesApplication' => $baseDir . '/tests/CreatesApplication.php',
     'Tests\\Feature\\ExampleTest' => $baseDir . '/tests/Feature/ExampleTest.php',
     'Tests\\TestCase' => $baseDir . '/tests/TestCase.php',
-    'Tests\\Unit\\ExampleTest' => $baseDir . '/tests/Unit/ExampleTest.php',
     'Tests\\Unit\\FormulariosTest' => $baseDir . '/tests/Unit/FormulariosTest.php',
     'Tests\\Unit\\PreguntaTest' => $baseDir . '/tests/Unit/PreguntaTest.php',
     'Tests\\Unit\\UserTest' => $baseDir . '/tests/Unit/UserTest.php',
