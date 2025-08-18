@@ -54,8 +54,7 @@
             "@php artisan key:generate --ansi",
             "@php -r \"if (file_exists('database/database.sqlite')) { unlink('database/database.sqlite'); }\"",
             "@php artisan migrate --graceful --ansi"
-        ],
-        "vercel-build": "npm install && npm run build && php artisan config:cache && php artisan route:cache"
+        ]
     },
     "extra": {
         "laravel": {
