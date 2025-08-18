@@ -23,7 +23,6 @@
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "false",
-        "APP_URL": "https://quizoot.com",
         "APP_KEY": "base64:sImcLzA7GEDrzwe3UNkwsMFcJtzrYYMM/SRb2wVZQgM=",
 
         "APP_CONFIG_CACHE": "/tmp/config.php",
