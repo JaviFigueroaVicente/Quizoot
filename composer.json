@@ -45,6 +45,10 @@
             "@php artisan package:discover --ansi"
         ],
         "post-install-cmd": [
+            "echo '--- INICIO DEL DIAGNÓSTICO ---'",
+            "echo 'Contenido de la carpeta bootstrap/cache:'",
+            "ls -la bootstrap/cache || echo 'El directorio bootstrap/cache no existe.'",
+            "echo '--- FIN DEL DIAGNÓSTICO ---'",
             "npm install",
             "npm run build",
             "@php artisan migrate --force"
