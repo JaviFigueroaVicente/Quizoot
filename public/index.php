@@ -48,32 +48,9 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 
 $kernel = $app->make(Kernel::class);
 
-try {
-    // Intenta resolver el servicio 'view' manualmente desde el contenedor
-    $viewFactory = $app->make('view');
 
-    // Si la línea anterior no falla, el servicio SÍ existe.
-    // Devolvemos una respuesta JSON para confirmarlo.
-    header('Content-Type: application/json');
-    echo json_encode(['status' => 'ÉXITO', 'message' => 'El servicio [view] se cargó correctamente.']);
-    exit;
+$response = $kernel->handle(
+    $request = Request::capture()
+)->send();
 
-} catch (\Throwable $e) {
-    // Si la línea $app->make('view') falla, caerá aquí.
-    // Devolvemos el error en formato JSON para poder verlo.
-    header('Content-Type: application/json');
-    http_response_code(500);
-    echo json_encode([
-        'status' => 'ERROR',
-        'message' => 'No se pudo resolver el servicio [view]. El problema es profundo.',
-        'error_class' => get_class($e),
-        'error_message' => $e->getMessage()
-    ]);
-    exit;
-}
-
-// $response = $kernel->handle(
-//     $request = Request::capture()
-// )->send();
-
-// $kernel->terminate($request, $response);
+$kernel->terminate($request, $response);
