@@ -1,8 +1,0 @@
-vendor
-report
-composer.lock
-build
-.idea
-.phpunit.result.cache
-storage
-/.php_cs.cache
