@@ -1,0 +1,1 @@
+import{d as t,q as o,b as a,h as r}from"./app-Cmxi_hcm.js";import{_ as c}from"./_plugin-vue_export-helper-DlAUqK2U.js";const n={},s={class:"authenticated-standard"};function _(d,i){const e=a("router-view");return r(),t("div",s,[o(e)])}const f=c(n,[["render",_],["__scopeId","data-v-e475ae59"]]);export{f as default};

@@ -1,0 +1,19 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Access to an undefined property Spatie\\\\MediaLibrary\\\\HasMedia\\:\\:#"
+
+		-
+			message: "#^Call to an undefined method Spatie\\\\MediaLibrary\\\\Support\\\\UrlGenerator\\\\UrlGenerator\\:\\:getPathRelativeToRoot\\(\\)\\.$#"
+			count: 1
+			path: src/MediaCollections/Models/Media.php
+
+		-
+			message: "#^Call to an undefined method Spatie\\\\Image\\\\Manipulations\\:\\:save\\(\\)\\.$#"
+			count: 1
+			path: src/ResponsiveImages/ResponsiveImageGenerator.php
+
+		-
+			message: "#^Call to an undefined method Spatie\\\\Image\\\\Manipulations\\:\\:save\\(\\)\\.$#"
+			count: 1
+			path: src/ResponsiveImages/TinyPlaceholderGenerator/Blurred.php
