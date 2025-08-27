@@ -1,16 +1,5 @@
 {
     "version": 2,
-    "builds": [
-        {
-            "src": "public/index.php",
-            "use": "vercel-php",
-            "config": {
-                "excludeFiles": [
-                    "node_modules/**"
-                ]
-            }
-        }
-    ],
     "routes": [
         {
             "src": "/(css|js|images|fonts|favicon.ico)(.*)",

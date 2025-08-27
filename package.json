@@ -3,7 +3,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "vercel-build": "npm install && npm run build && php artisan config:clear && php artisan migrate --force"
   },
   "engines": {
     "node": ">=18.0.0",
