@@ -2,14 +2,16 @@
     "version": 2,
     "builds": [
         {
-            "src": "public/index.php",
-            "use": "vercel-php"
+        "src": "build.sh",
+        "use": "@vercel/static-build",
+        "config": {
+            "outputDirectory": "public"
+        }
         }
     ],
     "routes": [
         {
-            "src": "/(css|js|images|fonts|favicon.ico)(.*)",
-            "dest": "/public/$1$2"
+            "handle": "filesystem"
         },
         {
             "src": "/(.*)",
