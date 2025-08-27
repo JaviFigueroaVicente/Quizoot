@@ -2,13 +2,8 @@
     "version": 2,
     "builds": [
         {
-            "src": "public/index.php",
-            "use": "vercel-php",
-            "config": {
-                "excludeFiles": [
-                    "node_modules/**"
-                ]
-            }
+        "src": "build.sh",
+        "use": "@vercel/static-build"
         }
     ],
     "routes": [
