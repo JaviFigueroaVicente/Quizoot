@@ -6,8 +6,9 @@
             "use": "@vercel/static-build"
         },
         {
-            "src": "api/index.php",
-            "use": "vercel-php","config": {
+            "src": "public/index.php",
+            "use": "@vercel/php",
+            "config": {
                 "excludeFiles": [
                     "node_modules/**"
                 ]
@@ -27,7 +28,6 @@
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "false",
-        "APP_KEY": "base64:sImcLzA7GEDrzwe3UNkwsMFcJtzrYYMM/SRb2wVZQgM=",
 
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
