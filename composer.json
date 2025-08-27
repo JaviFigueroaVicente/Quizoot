@@ -54,6 +54,10 @@
             "@php artisan key:generate --ansi",
             "@php -r \"if (file_exists('database/database.sqlite')) { unlink('database/database.sqlite'); }\"",
             "@php artisan migrate --graceful --ansi"
+        ],
+         "post-install-cmd": [
+            "@php artisan config:clear",
+            "@php artisan migrate --force"
         ]
     },
     "extra": {
