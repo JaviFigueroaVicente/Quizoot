@@ -44,7 +44,7 @@
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
         ],
-        "vercel-build": [
+        "post-install-cmd": [
             "npm install",
             "npm run build",
             "@php artisan config:clear",
