@@ -3,9 +3,13 @@
 # Salir si un comando falla
 set -e
 
+echo ">>> Descargando Composer..."
+# Descarga el instalador de Composer y lo ejecuta con PHP para obtener composer.phar
+curl -sS https://getcomposer.org/installer | php
+# Ahora tenemos el archivo 'composer.phar' en nuestro directorio
+
 echo ">>> Creando el archivo .env de producción"
-# Crea un archivo .env a partir de las variables de entorno de Vercel
-# IMPORTANTE: Añade aquí TODAS las variables que tu app necesita
+# IMPORTANTE: Asegúrate de que esta lista contiene TODAS tus variables de entorno
 printf "APP_ENV=production\n" > .env
 printf "APP_DEBUG=false\n" >> .env
 printf "APP_URL=${APP_URL}\n" >> .env
@@ -23,8 +27,10 @@ printf "SESSION_DOMAIN=${SESSION_DOMAIN}\n" >> .env
 
 printf "VITE_API_URL=${VITE_API_URL}\n" >> .env
 
+
 echo ">>> Instalando dependencias de PHP..."
-composer install --no-dev --no-interaction --no-progress
+# Usamos el composer.phar que acabamos de descargar
+php composer.phar install --no-dev --no-interaction --no-progress
 
 echo ">>> Creando caché de configuración..."
 php artisan config:cache
