@@ -28,7 +28,7 @@ const logoUrl = computed(() => {
             <li class="mb-2"><a href="#" class="footer-link">About</a></li>
             <li class="mb-2"><a href="#" class="footer-link">Sobre Nosotros</a></li>
             <li class="mb-2"><a href="#" class="footer-link">Contáctanos</a></li>
-            <li class="mb-2"><a href="#" class="footer-link">Recourses</a></li>
+            <li class="mb-2"><a href="#" class="footer-link">Recursos</a></li>
             <li class="mb-2"><a href="#" class="footer-link">Formularios</a></li>
             <li class="mb-2"><a href="#" class="footer-link">Rankings</a></li>
           </ul>

@@ -60,7 +60,7 @@ const onFormSubmit = async () => {
     try {
         await schema.validate(pregunta.value, { abortEarly: false });
         await updatePregunta(pregunta.value);
-        router.push({name: 'questions.index'});
+        router.push({name: 'mis-preguntas.index'});
     } catch (err) {
         if (err instanceof yup.ValidationError) {
             errors.value = {};

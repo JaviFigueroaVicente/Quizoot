@@ -62,10 +62,10 @@
                         </ul>
                     </li>
                     <template v-if="!authStore().user?.name">
-                        <li class="nav-item">
+                        <li class="nav-item login-register-links">
                             <router-link class="nav-link button-login" to="/login">{{ $t('login') }}</router-link>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item login-register-links">
                             <router-link class="nav-link button-jugar" to="/register">{{ $t('register') }}</router-link>
                         </li>
                     </template>
@@ -226,6 +226,10 @@ nav .container {
 
     .navbar-toggler {
         border: none;
+    }
+
+    .login-register-links {
+        display: none;
     }
 }
 </style>

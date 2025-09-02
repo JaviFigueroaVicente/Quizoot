@@ -23,7 +23,7 @@ export default function usePreguntas() {
         axios.get('/api/pregunta')
             .then(response => {
                 preguntas.value = response.data
-                console.log(preguntas.value)
+                // console.log(preguntas.value)
             }).catch(error => {
                 console.log(error)
             }) 
@@ -34,7 +34,7 @@ export default function usePreguntas() {
         axios.get('/api/pregunta-user')
             .then(response => {
                 preguntas.value = response.data
-                console.log(preguntas.value)
+                // console.log(preguntas.value)
                 return response.data
             }).catch(error => {
                 console.log(error)
@@ -45,16 +45,16 @@ export default function usePreguntas() {
     const getPregunta = async (id) => {
         axios.get('/api/pregunta/' + id)
         .then(response => {
-            pregunta.value = response.data
-            console.log('Pregunta:', pregunta.value);
+            pregunta.value = response.data.data
+            // console.log('Pregunta:', pregunta.value);
         }).catch(error => {
             console.log(error)
         }) 
     }
 
     // Crea una pregunta
-    const storePregunta = async () => {
-        axios.post('/api/pregunta/', pregunta.value)
+    const storePregunta = async () => {        
+        axios.post('/api/pregunta', pregunta.value)
         .then(response => {
             getPreguntas()
             swal({
@@ -66,7 +66,7 @@ export default function usePreguntas() {
                     popup: 'swal'
                 }
             })
-            console.log(response)
+            // console.log(response)
         }).catch(error => {
             console.log(error)
         }) 
@@ -99,7 +99,7 @@ export default function usePreguntas() {
                                     popup: 'swal'
                                 }
                             })
-                            console.log(response)
+                            // console.log(response)
                         })
                         .catch(error => {
                             swal({
@@ -128,7 +128,7 @@ export default function usePreguntas() {
                         popup: 'swal'
                     }
                 })
-                console.log(pregunta)
+                // console.log(pregunta)
             })
             .catch(error => {
                 console.log(pregunta)

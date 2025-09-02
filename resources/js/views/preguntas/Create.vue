@@ -33,9 +33,9 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import * as yup from "yup";
 import { es } from "yup-locales";
-import usepregunta from '@/composables/preguntas';
+import usePreguntas from '@/composables/preguntas';
 
-const { storePregunta, pregunta } = usepregunta();
+const { storePregunta, pregunta } = usePreguntas();
 
 const errors = ref({});
 yup.setLocale(es);
@@ -60,6 +60,7 @@ const schema = yup.object().shape({
 const onFormSubmit = async () => {
     try {
         await schema.validate(pregunta.value, { abortEarly: false });
+        // console.log("Valor" + pregunta.value)
         await storePregunta();
         router.push({name: 'mis-preguntas.index'});
     } catch (err) {

@@ -77,7 +77,7 @@
         <div class="container-puntuacion-final">    
             <canvas v-if="scoreAnterior !== null && score > scoreAnterior" id="confetti" class="confetti-canvas"></canvas>          
             <div v-if="scoreAnterior !== null && score > scoreAnterior">  
-                <img class="nuevo-record" src="/images/Icons/Corona.webp" alt="">
+                <img class="nuevo-record" src="/public/images/icons/corona.webp" alt="">
                 <h2 class="text-center">¡NUEVO RÉCORD!</h2>
             </div>
             <div v-else>

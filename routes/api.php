@@ -5,7 +5,7 @@ use App\Http\Controllers\Api\FormulariosController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\PreguntasController;
 use App\Http\Controllers\Api\ProfileController;
-use App\Http\Controllers\api\FormulariosRespondidosController;
+use App\Http\Controllers\Api\FormulariosRespondidosController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Auth\ForgotPasswordController;

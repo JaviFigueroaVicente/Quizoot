@@ -111,4 +111,15 @@ img{
     width: 40px;
     height: 40px;
 }
+
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+        align-items: center;
+        .col {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+    }
+}
 </style>

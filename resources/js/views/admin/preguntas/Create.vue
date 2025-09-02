@@ -24,9 +24,9 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import * as yup from "yup";
 import { es } from "yup-locales";
-import usepregunta from '@/composables/preguntas';
+import usePreguntas from '@/composables/preguntas';
 
-const { storePregunta, pregunta } = usepregunta();
+const { storePregunta, pregunta } = usePreguntas();
 
 yup.setLocale(es);
 const router = useRouter();
